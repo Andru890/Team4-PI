@@ -1,10 +1,11 @@
 package com.visualstudio.rest.api.services.impl;
 
+import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.models.entities.Product;
+import com.visualstudio.rest.api.repositories.CategoryRepository;
 import com.visualstudio.rest.api.repositories.ProductRepository;
 import com.visualstudio.rest.api.services.IProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class ProductServiceImpl implements IProductService {
 
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public List<Product> getAll() {
@@ -32,6 +34,8 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public Product save(Product product) {
 
+        Category category = categoryRepository.findById(product.getCategory().getId()).get();
+        product.setCategory(category);
         return productRepository.save(product);
     }
 
@@ -42,11 +46,11 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product findById(Long id) {
-        return null;
+        return productRepository.findById(id).get();
     }
 
     @Override
     public void delete(Long id) {
-
+        productRepository.deleteById(id);
     }
 }
