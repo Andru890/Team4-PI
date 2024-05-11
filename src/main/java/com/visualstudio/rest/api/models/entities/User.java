@@ -42,6 +42,6 @@ public class User {
     private Rol rol;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    //@JsonIgnoreProperties({"category"})
-    private List<Product> products;
+    private List<Reservation> reservations;
+
 }

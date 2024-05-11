@@ -20,7 +20,7 @@ public class Order {
     private Long id;
 
     @Column(name = "total_amount")
-    private String totalAmount;
+    private Double totalAmount;
 
     @Column(name = "date_order")
     private Date dateOrder;

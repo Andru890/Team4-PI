@@ -1,5 +1,6 @@
 package com.visualstudio.rest.api.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,11 +30,16 @@ public class Reservation {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "order_id")
-    private Double orderId;
-
-    @OneToMany(mappedBy = "reservation", fetch = FetchType.LAZY)
-    //@JsonIgnoreProperties({"category"})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "reservation_product",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "reservations"})
     private List<Product> products;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_USER_ID"))
+    private User user;
 }
