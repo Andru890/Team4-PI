@@ -1,4 +1,5 @@
 export const routes = {
   home: '/',
-  notFound: '*'
+  notFound: '*',
+  products: '/products',
 };

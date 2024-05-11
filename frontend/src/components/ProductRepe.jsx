@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useState } from 'react';
 
 function ProductRepe() {
   const [productName, setProductName] = useState('');
@@ -24,7 +23,11 @@ function ProductRepe() {
 
   return (
     <div>
-      <input type="text" value={productName} onChange={e => setProductName(e.target.value)} />
+      <input
+        type="text"
+        value={productName}
+        onChange={e => setProductName(e.target.value)}
+      />
       <button onClick={handleAddProduct}>Agregar Producto</button>
       {errorMessage && <p>{errorMessage}</p>}
       <ul>
@@ -38,6 +41,4 @@ function ProductRepe() {
 
 export default ProductRepe;
 
-
-
-// ! SOME:  toma una funcion de callback como argumento , esto hace que se ejecute una por cada elemento si encuentra el igual da true  y asi hasta recorrer todo el array de articulos.  
+// ! SOME:  toma una funcion de callback como argumento , esto hace que se ejecute una por cada elemento si encuentra el igual da true  y asi hasta recorrer todo el array de articulos.

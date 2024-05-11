@@ -1,5 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import { routes } from '../Routes/routes';
+import { routes } from '../routes/routes';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import Home from './Home';
+import NotFound from './NotFound';
 
 const Layout = () => {
   return (
@@ -7,7 +11,7 @@ const Layout = () => {
       <Navbar />
       <Routes>
         <Route path={routes.home} element={<Home />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path={routes.notFound} element={<NotFound />} />
       </Routes>
       <Footer />
     </>
