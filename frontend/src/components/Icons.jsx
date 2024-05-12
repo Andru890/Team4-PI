@@ -225,10 +225,9 @@ export function UsersIcon(props) {
   );
 }
 
-export function CameraIcon(props) {
+export function CameraIcon() {
   return (
     <svg
-      {...props}
       viewBox="0 0 1024 1024"
       class="icon"
       version="1.1"

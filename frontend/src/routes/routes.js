@@ -3,4 +3,6 @@ export const routes = {
   notFound: '*',
   products: '/products',
   administrationPanel: '/admin',
+  itemDetail: '/products/:itemId',
+  category: '/category/:categoryId',
 };

@@ -5,6 +5,8 @@ import Footer from '@/components/Footer';
 import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound';
 import AdministrationPanel from '@/pages/AdministrationPanel';
+import ItemListContainer from '@/components/ItemListContainer/ItemListContainer';
+import ItemDetailContainer from '@/components/ItemDetailContainer/ItemDetailContainer';
 
 const Layout = () => {
   return (
@@ -17,6 +19,26 @@ const Layout = () => {
               <>
                 <Header />
                 <Home />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path={routes.category}
+            element={
+              <>
+                <Header />
+                <ItemListContainer />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path={routes.itemDetail}
+            element={
+              <>
+                <Header />
+                <ItemDetailContainer />
                 <Footer />
               </>
             }

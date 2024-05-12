@@ -27,7 +27,7 @@ const Item = ({ product }) => {
           {product.description}
         </p>
         <div className="mt-4">
-          <Link to={`/item/${product.id}`}>
+          <Link to={`/products/${product.id}`}>
             <Button className="w-full" size="sm">
               Ver detalles
             </Button>
