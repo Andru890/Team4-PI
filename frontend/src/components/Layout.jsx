@@ -1,14 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
-import { routes } from '../routes/routes';
-import Navbar from './Navbar';
-import Footer from './Footer';
-import Home from './Home';
-import NotFound from './NotFound';
+import { routes } from '@/routes/routes';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Home from '@/pages/Home';
+import NotFound from '@/pages/NotFound';
 
 const Layout = () => {
   return (
     <>
-      <Navbar />
+      <Header />
       <Routes>
         <Route path={routes.home} element={<Home />} />
         <Route path={routes.notFound} element={<NotFound />} />
