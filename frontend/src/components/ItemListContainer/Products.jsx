@@ -4,10 +4,10 @@ import { Button } from '@/components/ui/button';
 const Products = () => {
   return (
     <section className="w-full py-12 md:py-24 lg:py-32">
-      <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-6">
+      <div className="container grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:px-6">
         <div className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2">
           <Link className="absolute inset-0 z-10" href="#">
-            <span className="sr-only">Ver</span>
+            <span className="sr-only">View</span>
           </Link>
           <img
             alt="Product 1"
@@ -145,7 +145,7 @@ const Products = () => {
             <span className="sr-only">View</span>
           </Link>
           <img
-            alt="Product 6"
+            alt="Product 5"
             className="object-cover w-full h-64"
             height="300"
             src="/placeholder.svg"
@@ -172,7 +172,7 @@ const Products = () => {
             <span className="sr-only">View</span>
           </Link>
           <img
-            alt="Product 7"
+            alt="Product 5"
             className="object-cover w-full h-64"
             height="300"
             src="/placeholder.svg"
@@ -199,7 +199,7 @@ const Products = () => {
             <span className="sr-only">View</span>
           </Link>
           <img
-            alt="Product 8"
+            alt="Product 5"
             className="object-cover w-full h-64"
             height="300"
             src="/placeholder.svg"
