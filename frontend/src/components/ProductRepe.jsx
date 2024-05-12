@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function ProductRepe() {
+const ProductRepe = () => {
   const [productName, setProductName] = useState('');
   const [products, setProducts] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
@@ -37,7 +37,7 @@ function ProductRepe() {
       </ul>
     </div>
   );
-}
+};
 
 export default ProductRepe;
 

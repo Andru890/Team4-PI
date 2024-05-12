@@ -7,14 +7,16 @@ import NotFound from '@/pages/NotFound';
 
 const Layout = () => {
   return (
-    <>
-      <Header />
-      <Routes>
-        <Route path={routes.home} element={<Home />} />
-        <Route path={routes.notFound} element={<NotFound />} />
-      </Routes>
-      <Footer />
-    </>
+    <html lang="es">
+      <body>
+        <Header />
+        <Routes>
+          <Route path={routes.home} element={<Home />} />
+          <Route path={routes.notFound} element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </body>
+    </html>
   );
 };
 
