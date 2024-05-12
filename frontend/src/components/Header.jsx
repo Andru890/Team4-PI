@@ -3,16 +3,19 @@ import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import HamburgerMenu from '@/components/HamburgerMenu';
 import { CameraIcon, SearchIcon } from '@/components/Icons';
+import { Link } from 'react-router-dom';
 
 export default function Component() {
   return (
     <header className="fixed top-0 left-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 bg-background">
-      <div className="flex items-center gap-2">
-        <CameraIcon className="h-6 w-6" />
-        <span className="text-lg text-primary font-semibold">
-          VisualStudio Service
-        </span>
-      </div>
+      <Link to="/">
+        <div className="flex items-center gap-2">
+          <CameraIcon className="h-6 w-6" />
+          <span className="text-lg text-primary font-semibold">
+            VisualStudio Service
+          </span>
+        </div>
+      </Link>
       <div className="flex-1 mx-auto max-w-md">
         <div className="relative">
           <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
