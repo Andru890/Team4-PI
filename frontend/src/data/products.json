@@ -248,7 +248,7 @@
     "description": "El VideoMicro II combina un sonido impresionante con un funcionamiento increíblemente sencillo. No necesita pilas, ya que se alimenta por su conexión de 3,5 mm, y no hay interruptores ni controles complicados; basta con conectar el micrófono y pulsar el botón de grabación de la cámara o smartphone para capturar audio profesional.",
     "category": "sonido",
     "price": 75,
-    "img": "/placeholder.svg",
+    "img": "/images/rode-videomicro-ii.jpg",
     "characteristic": [
       "Construcción resistente",
       "Sin controles complicados y sin necesidad de pilas",
@@ -265,7 +265,7 @@
     "description": "El micrófono condensador de escopeta BY-BM6060 está diseñado para la producción de video y la adquisición de audio de transmisión (ENG/EFP). Ideal para entrevistas, películas independientes, programas de televisión, documentales, videos promocionales y grabaciones de estudio.",
     "category": "sonido",
     "price": 85,
-    "img": "/placeholder.svg",
+    "img": "/images/xlr-de-escopeta-by-bm6060.jpg",
     "characteristic": [
       "Alimentación Phantom disponible",
       "Micrófono de escopeta supercardioide",
@@ -280,7 +280,7 @@
     "description": "Esta luz LED para escenario es perfecta para decoración de interiores y exteriores, decoración de dormitorio, plaza pública, pista de patinaje, suministros de fiesta de cumpleaños, reunión familiar, discoteca, bar, banquete, boda, baile, hotel, karaoke, conciertos y otros lugares de entretenimiento.",
     "category": "luces",
     "price": 132,
-    "img": "/placeholder.svg",
+    "img": "/images/fresnel-cob-de-200-w.jpg",
     "characteristic": [
       "Alta calidad y larga vida útil",
       "Las puertas de granero pueden ajustar el ángulo",
@@ -294,7 +294,7 @@
     "description": "Con 252 LED blanco cálido, 252 LED blanco frío, 140 LED RGB, esta luz de video LED de 50 W y 644 LED cuenta con una iluminación máxima de 3800 lux/3.3 ft, temperatura de color ajustable de 2300 K ~ 8500 K, modo de 27 colores y brillo ajustable del 0% al 100%.",
     "category": "luces",
     "price": 153,
-    "img": "/placeholder.svg",
+    "img": "/images/kit-de-iluminacion-altson.jpg",
     "characteristic": [
       "Soporte de trípode ajustable y ángulos de rotación de 360",
       "Modo bicolor y colores RGB",
@@ -308,7 +308,7 @@
     "description": "Proporciona 3 temperaturas de color (2800 K, 4800 K y 6500 K) para crear varios ambientes de iluminación; esta luz de estudio mejorada está equipada con 352 cuentas LED para hacer que la luz sea más amplia y evitar sombras innecesarias. Cuenta con un alto CRI de 97+ para una reproducción precisa del color. Ajusta el brillo en un rango de 10 a 100% con botón hacia arriba y hacia abajo en el control remoto para satisfacer diferentes circunstancias de fotografía, ofreciendo iluminación adicional para tus trabajos",
     "category": "luces",
     "price": 50,
-    "img": "/placeholder.svg",
+    "img": "/images/kit-de-iluminacion-niceveedi-studio.jpg",
     "characteristic": [
       "Múltiples temperaturas de color y brillo ajustable",
       "Panel de luz y cable de alimentación",
@@ -322,7 +322,7 @@
     "description": "Nueva tecnología COB luz de escenario: basada en la última tecnología COB (chip on board), las luces de escenario de iglesia emiten alta intensidad, alta uniformidad, haz de luz blanca fría/blanca cálida de mayor calidad con menos consumo de energía en comparación con la antigua tecnología LED, rango efectivo de 19.7 ft, ángulo de haz de 78°.",
     "category": "luces",
     "price": 103,
-    "img": "/placeholder.svg",
+    "img": "/images/betopper-cob-de-200-w.jpg",
     "characteristic": [
       "Luces COB BETOPPER de 200 W",
       "Luz DJ de alto CRI",
@@ -336,7 +336,7 @@
     "description": "2 proyectores de luz de video de tungsteno Fresnel de 1000 W + 1 estudio de luz de tungsteno de 650 W. Estas series Fresnel son ideales para su uso donde se requieren focos Fresnel de tungsteno compactos y ligeros. Es la solución perfecta en pequeños estudios donde la altura de la rejilla es un problema. La construcción de aluminio extruido y fundido a presión resistente a la corrosión maximiza la fuerza del cuerpo mientras mantiene el peso ligero de un accesorio de ubicación ideal, a pesar del tamaño pequeño, lentes de longitud focal corta con ángulos más anchos dan más salida de luz y una mejor distribución de la luz en toda el área de bearn. El atenuador se puede instalar en estos artículos",
     "category": "luces",
     "price": 520,
-    "img": "/placeholder.svg",
+    "img": "/images/came-tv-fresnel-de-tungsteno.jpg",
     "characteristic": [
       "Clase de protección: IP23",
       "Potencia: 1000 W/650 W",
@@ -352,7 +352,7 @@
     "description": "Hecho de aleación de aluminio de alta calidad que hace que la estructura sea más estable, duradera, portátil y ligera",
     "category": "accesorios",
     "price": 30,
-    "img": "/placeholder.svg",
+    "img": "/images/kit-emart.jpg",
     "characteristic": [
       "Resistente",
       "Extensible",
@@ -367,7 +367,7 @@
     "description": "El soporte de luz SmallRig 3736 cuenta con un cojín de aire confiable, que evita eficazmente caídas repentinas y pellizcos de los dedos durante el ajuste de altura. Mejora la seguridad y la estabilidad para la toma de fotos y videos.",
     "category": "accesorios",
     "price": 68,
-    "img": "/placeholder.svg",
+    "img": "/images/smallrig-ra-s280-3736.jp",
     "characteristic": [
       "Diseño fiable del cojín de aire",
       "Construcción firme y excelente capacidad de carga",
@@ -381,7 +381,7 @@
     "description": "Estabilizador de cámara, cardán de mano de 3 ejes para cámaras DSLR y sin espejo, carga útil de hasta 4.4 libras compatible con Sony, Panasonic Lumix, Nikon, Canon. Diseño ligero para la filmación",
     "category": "accesorios",
     "price": 279,
-    "img": "/placeholder.svg",
+    "img": "/images/dji-ronin-sc.jpg",
     "characteristic": [
       "Ligero y compacto",
       "Rastrea la acción",
