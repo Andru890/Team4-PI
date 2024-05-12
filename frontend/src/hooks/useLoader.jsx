@@ -1,5 +1,5 @@
-const Loading = () => {
+const useLoader = () => {
   return <div className="loading">Cargando...</div>;
 };
 
-export default Loading;
+export default useLoader;
