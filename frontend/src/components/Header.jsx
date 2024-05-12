@@ -5,10 +5,12 @@ import HamburgerMenu from '@/components/HamburgerMenu';
 
 export default function Component() {
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
+    <header className="fixed top-0 left-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 bg-[#4C6B8A]">
       <div className="flex items-center gap-2">
         <MountainIcon className="h-6 w-6" />
-        <span className="text-lg font-semibold">VisualStudio Service</span>
+        <span className="text-lg text-primary font-semibold">
+          VisualStudio Service
+        </span>
       </div>
       <div className="flex-1 mx-auto max-w-md">
         <div className="relative">
