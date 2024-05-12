@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const Item = ({ product }) => {
   return (
@@ -27,9 +28,9 @@ const Item = ({ product }) => {
         </p>
         <div className="mt-4">
           <Link to={`/item/${product.id}`}>
-            <button className="w-full" size="sm">
+            <Button className="w-full" size="sm">
               Ver detalles
-            </button>
+            </Button>
           </Link>
         </div>
       </div>
