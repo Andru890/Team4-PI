@@ -8,7 +8,7 @@ const Item = ({ product }) => {
       className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2"
       id="item"
     >
-      <div className="item-list-container__item__image">
+      <div className="bg-white">
         <img
           className="object-cover w-full h-64"
           height="300"
@@ -16,7 +16,7 @@ const Item = ({ product }) => {
           alt={product.name ? product.name : 'Product nuevo'}
           style={{
             aspectRatio: '300/300',
-            objectFit: 'cover',
+            objectFit: 'scale-down',
           }}
           width="300"
         />

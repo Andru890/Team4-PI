@@ -29,7 +29,7 @@ const ItemDetailContainer = () => {
   }, [itemId]);
 
   return (
-    <div className="item-detail-container">
+    <div className="mt-20">
       {isLoading ? <UseLoader /> : <ItemDetail product={product} />}
     </div>
   );
