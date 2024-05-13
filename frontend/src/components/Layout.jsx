@@ -7,6 +7,7 @@ import NotFound from '@/pages/NotFound';
 import AdministrationPanel from '@/pages/AdministrationPanel';
 import ItemListContainer from '@/components/ItemListContainer/ItemListContainer';
 import ItemDetailContainer from '@/components/ItemDetailContainer/ItemDetailContainer';
+import SearchBar from '@/components/SearchBar';
 
 const Layout = () => {
   return (
@@ -17,6 +18,7 @@ const Layout = () => {
             path={routes.home}
             element={
               <>
+                <SearchBar />
                 <Header />
                 <Home />
                 <Footer />

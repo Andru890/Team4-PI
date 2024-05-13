@@ -6,10 +6,7 @@
     "category": "camara",
     "price": 832,
     "stock": 10,
-    "img": [
-      "/images/canon-eos-850d.avif", 
-      "/images/canon-eos-850d-2.avif"
-      ],
+    "img": ["/images/canon-eos-850d.avif"],
     "characteristic": [
       "Cámara con controles manuales",
       "Objetivos intercambiables",

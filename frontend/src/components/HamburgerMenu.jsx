@@ -10,7 +10,7 @@ const HamburgerMenu = () => {
           <span className="sr-only">Toggle navigation menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left">
+      <SheetContent side="right">
         <div className="grid gap-4 py-6">
           <Link
             className="flex items-center gap-2 text-lg font-medium hover:underline"

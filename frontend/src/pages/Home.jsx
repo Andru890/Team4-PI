@@ -1,4 +1,5 @@
 import ItemListContainer from '@/components/ItemListContainer/ItemListContainer';
+
 const Home = () => {
   return (
     <main className="mt-20">
