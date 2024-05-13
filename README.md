@@ -12,9 +12,9 @@ Apuntamos a generar un ambiente cooperativo y seguro como alternativa a la compr
 
 # El proceso
 Creado con:
-Para BDD: 
+1. Para BDD: 
 * SQL
-Para FRONT:
+2. Para FRONT:
 * Node 20.13.0
 * React 18.3.1
 * Vite 5.2.11
