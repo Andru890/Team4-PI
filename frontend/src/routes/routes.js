@@ -2,7 +2,7 @@ export const routes = {
   home: '/',
   notFound: '*',
   products: '/products',
-  administrationPanel: '/admin',
+  administrationPanel: '/administracion',
   itemDetail: '/products/:itemId',
   category: '/category/:categoryId',
 };
