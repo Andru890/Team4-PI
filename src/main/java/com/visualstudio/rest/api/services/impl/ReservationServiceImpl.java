@@ -2,7 +2,6 @@ package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.models.entities.Reservation;
 import com.visualstudio.rest.api.models.entities.User;
-import com.visualstudio.rest.api.repositories.OrderRepository;
 import com.visualstudio.rest.api.repositories.ReservationRepository;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IReservationService;
