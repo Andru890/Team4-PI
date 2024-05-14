@@ -66,7 +66,7 @@
     "category": "camara",
     "price": 1189,
     "stock": 10,
-    "img": "/images/sony-a6600.avif",
+    "img": "/images/sony-a6600.jpg",
     "characteristic": [
       "Estabilizador integrado de 5 ejes",
       "Grabación en 4K a 30 fps",
@@ -86,7 +86,7 @@
     "category": "camara",
     "price": 1799,
     "stock": 10,
-    "img": "/images/sony-a7-iii.avif",
+    "img": "/images/sony-a7-iii.png",
     "characteristic": [
       "Controles manuales",
       "Objetivos intercambiables",
