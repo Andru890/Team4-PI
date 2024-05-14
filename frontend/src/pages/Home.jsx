@@ -1,11 +1,11 @@
-import ItemListContainer from '@/components/ItemListContainer/ItemListContainer';
+import ItemListContainer from '@/components/ItemListContainer/ItemListContainer'
 
 const Home = () => {
   return (
-    <main className="">
+    <main className=''>
       <ItemListContainer />
     </main>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

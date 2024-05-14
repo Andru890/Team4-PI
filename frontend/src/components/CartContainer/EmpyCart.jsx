@@ -1,9 +1,5 @@
-import React from 'react'
-
 const EmpyCart = () => {
-  return (
-    <div>EmpyCart</div>
-  )
+  return <div>EmpyCart</div>
 }
 
 export default EmpyCart

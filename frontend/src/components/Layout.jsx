@@ -1,17 +1,17 @@
-import { Routes, Route } from 'react-router-dom';
-import { routes } from '@/routes/routes';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import Home from '@/pages/Home';
-import NotFound from '@/pages/NotFound';
-import AdministrationPanel from '@/pages/AdministrationPanel';
-import ItemListContainer from '@/components/ItemListContainer/ItemListContainer';
-import ItemDetailContainer from '@/components/ItemDetailContainer/ItemDetailContainer';
-import SearchBar from '@/components/SearchBar';
+import { Routes, Route } from 'react-router-dom'
+import { routes } from '@/routes/routes'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import Home from '@/pages/Home'
+import NotFound from '@/pages/NotFound'
+import AdministrationPanel from '@/pages/AdministrationPanel'
+import ItemListContainer from '@/components/ItemListContainer/ItemListContainer'
+import ItemDetailContainer from '@/components/ItemDetailContainer/ItemDetailContainer'
+import SearchBar from '@/components/SearchBar'
 
 const Layout = () => {
   return (
-    <html lang="es">
+    <html lang='es'>
       <body>
         <Routes>
           <Route
@@ -62,7 +62,7 @@ const Layout = () => {
         </Routes>
       </body>
     </html>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

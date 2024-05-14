@@ -1,32 +1,32 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 const ProductRepe = () => {
-  const [productName, setProductName] = useState('');
-  const [products, setProducts] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [productName, setProductName] = useState('')
+  const [products, setProducts] = useState([])
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleAddProduct = () => {
     if (!productName.trim()) {
-      setErrorMessage('¡El nombre del producto no puede estar vacío!');
-      return;
+      setErrorMessage('¡El nombre del producto no puede estar vacío!')
+      return
     }
 
-    if (products.some(product => product === productName)) {
-      setErrorMessage('¡El nombre del producto ya está en uso!');
-      return;
+    if (products.some((product) => product === productName)) {
+      setErrorMessage('¡El nombre del producto ya está en uso!')
+      return
     }
 
-    setProducts([...products, productName]);
-    setProductName('');
-    setErrorMessage('');
-  };
+    setProducts([...products, productName])
+    setProductName('')
+    setErrorMessage('')
+  }
 
   return (
     <div>
       <input
-        type="text"
+        type='text'
         value={productName}
-        onChange={e => setProductName(e.target.value)}
+        onChange={(e) => setProductName(e.target.value)}
       />
       <button onClick={handleAddProduct}>Agregar Producto</button>
       {errorMessage && <p>{errorMessage}</p>}
@@ -36,9 +36,9 @@ const ProductRepe = () => {
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default ProductRepe;
+export default ProductRepe
 
 // ! SOME:  toma una funcion de callback como argumento , esto hace que se ejecute una por cada elemento si encuentra el igual da true  y asi hasta recorrer todo el array de articulos.

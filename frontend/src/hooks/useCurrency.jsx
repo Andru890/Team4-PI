@@ -3,10 +3,10 @@ const useCurrency = () => {
     style: 'currency',
     currency: 'CLP',
     minimumFractionDigits: 0,
-  });
+  })
   return {
     formatter,
-  };
-};
+  }
+}
 
-export default useCurrency;
+export default useCurrency
