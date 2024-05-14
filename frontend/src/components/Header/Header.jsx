@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
-import Navbar from '@/components/Navbar'
-import HamburgerMenu from '@/components/HamburgerMenu'
+import Navbar from '@/components/Header/Navbar/Navbar'
+import HamburgerMenu from '@/components/Header/Navbar/HamburgerMenu'
 import { CameraIcon } from '@/components/Icons'
 import { Link } from 'react-router-dom'
 
