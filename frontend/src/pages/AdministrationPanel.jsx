@@ -196,7 +196,7 @@ const AdministrationPanel = () => {
                     </div>
                     <div className='grid gap-2'>
                       <Label htmlFor='image'>Imagen</Label>
-                      <Input id='image' type='file' />
+                      <Input id='image' type='file' multiple accept='image/*' />
                     </div>
                     <Button className='w-full' type='submit'>
                       Crear Producto
