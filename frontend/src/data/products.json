@@ -1,6 +1,6 @@
 [
   {
-    "id": "0",
+    "id": "zw67x8967qg34b8",
     "name": "CANON EOS 850D",
     "description": "Esta cámara réflex de Canon está muy equilibrada en cuanto a price y calidad tanto en fotografía como en vídeo. Si no buscas una cámara profesional pero tampoco quieres quedarte corto, la Canon EOS 850D es una opción muy interesante.",
     "category": "camara",
@@ -22,7 +22,7 @@
     "spicifications": []
   },
   {
-    "id": "1",
+    "id": "k7s4cc8q9235r7n",
     "name": "NIKON D7500",
     "description": "Esta cámara réflex puede ser una opción interesante si quieres buenos resultados fotográficos a la vez que consigues unas tomas de vídeo en 4K de muy buena calidad incluso en situaciones de poca luz.",
     "category": "camara",
@@ -40,7 +40,7 @@
     ]
   },
   {
-    "id": "2",
+    "id": "2w696547zte5k7d",
     "name": "OLYMPUS OM-D E-M10 MARK IV",
     "description": "La OM-D E-M10 Mark IV es una cámara sin espejo de Olympus, ideal para viajes, tiene muy buena relación calidad price y puede ser una opción para adentrarte en el mundo del vídeo con resultados más que aceptables.",
     "category": "camara",
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "id": "3",
+    "id": "jz38m446z756b53",
     "name": "SONY A6600",
     "description": "Una cámara sin espejo espectacular tanto para fotografía como para vídeo. Puedes ir haciendo una señal al lado de cada una de las características que te recomendé al empezar esta artículo porque tiene todo lo que puedas imaginar ",
     "category": "camara",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "id": "4",
+    "id": "w5bpg2267862776",
     "name": "SONY A7 III",
     "description": "Esta Sony A7 III no es para ti si recién te inicias en vídeo o en fotografía, ni por prestaciones ni por presupuesto. Es una cámara de vídeo para aficionados avanzados o para los que quieran obtener resultados muy profesionales.",
     "category": "camara",
@@ -101,7 +101,7 @@
     ]
   },
   {
-    "id": "5",
+    "id": "72k8cv48e3754v7",
     "name": "NIKON Z6 II",
     "description": "Con sensor de fotograma completo, excelente visor electrónico, muy buen rango dinámico y autoenfoque con seguimiento de animales y ojo en grabaciones de vídeo, esta Nikon Z6 II tiene mucho que ofrecer a los fotógrafos que también hacen vídeo.",
     "category": "camara",
@@ -124,7 +124,7 @@
     ]
   },
   {
-    "id": "6",
+    "id": "4o6wf4ienq26378",
     "name": "FUJIFILM X-S20",
     "description": "Otra cámara EVIL que vale la pena tener en el radar si lo que te gusta es grabar vídeo pero, además, disfrutas haciendo fotografía, es esta sin espejo de Fujifilm. Está pensada para vlogging pero ofrece mucho más en cuanto a vídeo. Lo más destacable es que graba sin recortes con proporción 3:2 y una resolución de 6,2K.",
     "category": "camara",
@@ -169,7 +169,7 @@
     ]
   },
   {
-    "id": "8",
+    "id": "97c5qj35yk9e86s",
     "name": "NIKON Z50",
     "description": "Tengo que confesar que la Nikon Z50 se ha convertido en mi nueva favorita dentro de las cámaras de fotos para aficionados. Por un price por debajo de los 1000 euros ofrece excelentes prestaciones tanto para fotografía como para vídeo.",
     "category": "camara",
@@ -188,7 +188,7 @@
     ]
   },
   {
-    "id": "9",
+    "id": "72wc4y566y47f6e",
     "name": "CANON EOS M6 MARK II",
     "description": "Esta cámara sin espejo para aficionados avanzados, además de ser bastante compacta y ligera, no solo tiene un price más que atractivo, sino que es perfecta para pequeñas producciones, vloggers y otros creadores de contenido que quieren hacer tanto fotografía como vídeo.",
     "category": "camara",
@@ -206,7 +206,7 @@
     ]
   },
   {
-    "id": "10",
+    "id": "5r2528k6fs4842g",
     "name": "Hollyland Lark M2 Combo",
     "description": "Increíblemente pequeño - Con un peso de sólo 9 g, el micrófono inalambrico solapa LARK M2 permanecerá firmemente sujeto a su ropa. Con su reproducción de sonido sin pérdidas y sus extraordinarias capacidades de grabación, te ofrece un excelente rendimiento de grabación sin igual.",
     "category": "sonido",
@@ -223,7 +223,7 @@
     ]
   },
   {
-    "id": "11",
+    "id": "75hf9fx3ab75225",
     "name": "FULAIM X5",
     "description": "Hay 3 tipos de accesorios de conexión para micrófono Lavalier inalámbrico FULAIM X5: adaptador de iPhone, adaptador tipo C, cable de audio de cámara de 3,5 mm. El sistema de micrófono Lavalier es ampliamente compatible con iPhone, iPad, Samsung, teléfono Android, cámara, laptop, tableta y computadora. Plug and Play, emparejamiento automático una vez que los enciende. Permite un rango de transmisión de hasta 200 m.",
     "category": "sonido",
@@ -240,7 +240,7 @@
     ]
   },
   {
-    "id": "12",
+    "id": "94874745ib2m434",
     "name": "BOYALINK",
     "description": "BOYALINK viene con un estuche de carga, un pequeño estuche portátil que contiene 1 receptor y 2 transmisores, así como 3 adaptadores(Lightning,Type-C y conectores Jack de 3,5MM). Esto asegura su gran flexibilidad y amplia compatibilidad.",
     "category": "sonido",
@@ -257,7 +257,7 @@
     ]
   },
   {
-    "id": "13",
+    "id": "8hk455634887x48",
     "name": "RØDE VideoMicro II",
     "description": "El VideoMicro II combina un sonido impresionante con un funcionamiento increíblemente sencillo. No necesita pilas, ya que se alimenta por su conexión de 3,5 mm, y no hay interruptores ni controles complicados; basta con conectar el micrófono y pulsar el botón de grabación de la cámara o smartphone para capturar audio profesional.",
     "category": "sonido",
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "id": "14",
+    "id": "k339s8ec48w9v25",
     "name": "XLR de Escopeta BY-BM6060",
     "description": "El micrófono condensador de escopeta BY-BM6060 está diseñado para la producción de video y la adquisición de audio de transmisión (ENG/EFP). Ideal para entrevistas, películas independientes, programas de televisión, documentales, videos promocionales y grabaciones de estudio.",
     "category": "sonido",
@@ -291,7 +291,7 @@
     ]
   },
   {
-    "id": "15",
+    "id": "65q2p433fo7c7e2",
     "name": "Fresnel COB de 200 W",
     "description": "Esta luz LED para escenario es perfecta para decoración de interiores y exteriores, decoración de dormitorio, plaza pública, pista de patinaje, suministros de fiesta de cumpleaños, reunión familiar, discoteca, bar, banquete, boda, baile, hotel, karaoke, conciertos y otros lugares de entretenimiento.",
     "category": "luces",
@@ -306,7 +306,7 @@
     ]
   },
   {
-    "id": "16",
+    "id": "4527oqfjte52464",
     "name": "Kit de iluminación ALTSON, 2 luces LED bicolor de 50 W",
     "description": "Con 252 LED blanco cálido, 252 LED blanco frío, 140 LED RGB, esta luz de video LED de 50 W y 644 LED cuenta con una iluminación máxima de 3800 lux/3.3 ft, temperatura de color ajustable de 2300 K ~ 8500 K, modo de 27 colores y brillo ajustable del 0% al 100%.",
     "category": "luces",
@@ -321,7 +321,7 @@
     ]
   },
   {
-    "id": "17",
+    "id": "efu958g27763p99",
     "name": "Kit de iluminación NiceVeedi Studio, 2 luces LED de 2800-6500K",
     "description": "Proporciona 3 temperaturas de color (2800 K, 4800 K y 6500 K) para crear varios ambientes de iluminación; esta luz de estudio mejorada está equipada con 352 cuentas LED para hacer que la luz sea más amplia y evitar sombras innecesarias. Cuenta con un alto CRI de 97+ para una reproducción precisa del color. Ajusta el brillo en un rango de 10 a 100% con botón hacia arriba y hacia abajo en el control remoto para satisfacer diferentes circunstancias de fotografía, ofreciendo iluminación adicional para tus trabajos",
     "category": "luces",
@@ -336,7 +336,7 @@
     ]
   },
   {
-    "id": "18",
+    "id": "568bc494bmggm78",
     "name": "BETOPPER COB de 200 W",
     "description": "Nueva tecnología COB luz de escenario: basada en la última tecnología COB (chip on board), las luces de escenario de iglesia emiten alta intensidad, alta uniformidad, haz de luz blanca fría/blanca cálida de mayor calidad con menos consumo de energía en comparación con la antigua tecnología LED, rango efectivo de 19.7 ft, ángulo de haz de 78°.",
     "category": "luces",
@@ -351,7 +351,7 @@
     ]
   },
   {
-    "id": "19",
+    "id": "a69ktc364z7t35a",
     "name": "Came-TV Fresnel de tungsteno, 2 x 1000 W y 1 x 650 W",
     "description": "2 proyectores de luz de video de tungsteno Fresnel de 1000 W + 1 estudio de luz de tungsteno de 650 W. Estas series Fresnel son ideales para su uso donde se requieren focos Fresnel de tungsteno compactos y ligeros. Es la solución perfecta en pequeños estudios donde la altura de la rejilla es un problema. La construcción de aluminio extruido y fundido a presión resistente a la corrosión maximiza la fuerza del cuerpo mientras mantiene el peso ligero de un accesorio de ubicación ideal, a pesar del tamaño pequeño, lentes de longitud focal corta con ángulos más anchos dan más salida de luz y una mejor distribución de la luz en toda el área de bearn. El atenuador se puede instalar en estos artículos",
     "category": "luces",
@@ -368,7 +368,7 @@
     ]
   },
   {
-    "id": "20",
+    "id": "4343g9g9shcj4e6",
     "name": "Kit EMART, 2 Soporte de luz de 7 pies",
     "description": "Hecho de aleación de aluminio de alta calidad que hace que la estructura sea más estable, duradera, portátil y ligera",
     "category": "accesorios",
@@ -384,7 +384,7 @@
     ]
   },
   {
-    "id": "21",
+    "id": "72u638944s9ky47",
     "name": "SMALLRIG RA-S280-3736 Soporte de luz de 110 pulgadas",
     "description": "El soporte de luz SmallRig 3736 cuenta con un cojín de aire confiable, que evita eficazmente caídas repentinas y pellizcos de los dedos durante el ajuste de altura. Mejora la seguridad y la estabilidad para la toma de fotos y videos.",
     "category": "accesorios",
@@ -399,7 +399,7 @@
     ]
   },
   {
-    "id": "22",
+    "id": "33jp637jps54v8u",
     "name": "DJI Ronin-SC - Estabilizador de cámara",
     "description": "Estabilizador de cámara, cardán de mano de 3 ejes para cámaras DSLR y sin espejo, carga útil de hasta 4.4 libras compatible con Sony, Panasonic Lumix, Nikon, Canon. Diseño ligero para la filmación",
     "category": "accesorios",

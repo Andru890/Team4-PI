@@ -24,7 +24,7 @@ const ItemListContainer = () => {
     const getProducts = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(products)
-      }, 2000)
+      }, 1000)
     })
 
     getProducts
@@ -43,7 +43,6 @@ const ItemListContainer = () => {
       })
   }, [categoryId, offerId])
 
-  // Get current products
   const indexOfLastProduct = currentPage * itemsPerPage
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage
   const currentProducts = productList.slice(
@@ -51,7 +50,6 @@ const ItemListContainer = () => {
     indexOfLastProduct
   )
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   return (
@@ -85,17 +83,14 @@ const ItemListContainer = () => {
               .fill()
               .map((_, index) => (
                 <PaginationItem key={index}>
-                  <PaginationLink href='#' onClick={() => paginate(index + 1)}>
+                  <PaginationLink onClick={() => paginate(index + 1)}>
                     {index + 1}
                   </PaginationLink>
                 </PaginationItem>
               ))}
             {currentPage < Math.ceil(productList.length / itemsPerPage) && (
               <PaginationItem>
-                <PaginationNext
-                  href='#'
-                  onClick={() => paginate(currentPage + 1)}
-                />
+                <PaginationNext onClick={() => paginate(currentPage + 1)} />
               </PaginationItem>
             )}
           </PaginationContent>
