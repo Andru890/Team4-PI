@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  mysql8:
+    container_name: mysql8
+    image: mysql:8
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: sa
+      MYSQL_DATABASE: visual_studio_db
+    volumes:
+      - data-mysql:/var/lib/mysql
+    restart: always
+    networks:
+      - spring
+
+  visual-studio:
+    container_name: visual-service
+    image: visual:latest
+    ports:
+      - "8000:8000"
+    env_file: .env
+    networks:
+      - spring
+    depends_on:
+      - mysql8
+    restart: always
+
+volumes:
+  data-mysql:
+    name: data-mysql
+
+networks:
+  spring:
+    name: spring
