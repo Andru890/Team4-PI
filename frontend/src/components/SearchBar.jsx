@@ -9,7 +9,7 @@ const SearchBar = () => {
           <div className='w-full max-w-md'>
             <SearchIcon className='absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400' />
             <Input
-              className='w-full rounded-md border border-gray-300 px-4 py-2 focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-950 dark:text-gray-50'
+              className='w-full rounded-md border bg-white  border-gray-300 px-4 py-2 focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-950 dark:text-gray-50'
               placeholder='Buscar...'
               type='search'
             />
