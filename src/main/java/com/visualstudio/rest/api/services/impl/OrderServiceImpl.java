@@ -1,25 +1,21 @@
 package com.visualstudio.rest.api.services.impl;
 
-
-import com.visualstudio.rest.api.services.IOrderService;
 import com.visualstudio.rest.api.models.entities.Order;
-import com.visualstudio.rest.api.repositories.OrderRepository;
 import com.visualstudio.rest.api.models.entities.Reservation;
+import com.visualstudio.rest.api.repositories.OrderRepository;
 import com.visualstudio.rest.api.repositories.ReservationRepository;
+import com.visualstudio.rest.api.services.IOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements IOrderService{
-
-    public final IOrderService orderService;
+public class OrderServiceImpl implements IOrderService {
 
     private final OrderRepository orderRepository;
     private final ReservationRepository reservationRepository;
-
-
     @Override
     public List<Order> getAll() {
         return orderRepository.findAll();
@@ -27,25 +23,23 @@ public class OrderServiceImpl implements IOrderService{
 
     @Override
     public Order save(Order order) {
-        Reservation reservation = reservationRepository.findById(Order.getReservation()).get();
+        Reservation reservation = reservationRepository.findById(order.getReservation().getId()).get();
         order.setReservation(reservation);
-        return orderRepository.save(reservation);
+        return orderRepository.save(order);
     }
 
     @Override
-    public Reservation update(Reservation reservation, Long id) {
-        return null;
+    public Order update(Order order) {
+        return orderRepository.save(order);
     }
 
     @Override
-    public Reservation findById(Long id) {
-        return null;
+    public Order findById(Long id) {
+        return orderRepository.findById(id).get();
     }
 
     @Override
     public void delete(Long id) {
-
+        orderRepository.deleteById(id);
     }
-
-
 }
