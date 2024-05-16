@@ -21,7 +21,7 @@ const Category = () => {
             <div className='relative group overflow-hidden rounded-full'>
               <img
                 alt='Cámaras'
-                className='aspect-square object-cover w-full group-hover:scale-105 transition-transform group-hover:brightness-50'
+                className='aspect-square object-cover w-full group-hover:scale-125 transition-transform group-hover:brightness-50'
                 height={200}
                 src='/images/Cameras.jpg'
                 width={200}
@@ -38,7 +38,7 @@ const Category = () => {
             <div className='relative group overflow-hidden rounded-full'>
               <img
                 alt='Sonido'
-                className='aspect-square object-cover w-full group-hover:scale-105 transition-transform group-hover:brightness-50'
+                className='aspect-square object-cover w-full group-hover:scale-125 transition-transform group-hover:brightness-50'
                 height={200}
                 src='/images/Sonidos.jpg'
                 width={200}
@@ -55,7 +55,7 @@ const Category = () => {
             <div className='relative group overflow-hidden rounded-full'>
               <img
                 alt='Luces'
-                className='aspect-square object-cover w-full group-hover:scale-105 transition-transform group-hover:brightness-50'
+                className='aspect-square object-cover w-full group-hover:scale-125 transition-transform group-hover:brightness-50'
                 height={200}
                 src='/images/Lights.jpg'
                 width={200}
@@ -72,7 +72,7 @@ const Category = () => {
             <div className='relative group overflow-hidden rounded-full'>
               <img
                 alt='Accesorios'
-                className='aspect-square object-cover w-full group-hover:scale-105 transition-transform group-hover:brightness-50'
+                className='aspect-square object-cover w-full group-hover:scale-125 transition-transform group-hover:brightness-50'
                 height={200}
                 src='/images/Accessories.jpg'
                 width={200}

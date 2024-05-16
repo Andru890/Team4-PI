@@ -48,5 +48,21 @@
     },
     "editor.formatOnSave": true
   },
-  "cSpell.language": "en,es,es-ES"
+  "cSpell.language": "en,es,es-ES",
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3307,
+      "driver": "MySQL",
+      "name": "Service",
+      "database": "visual_studio_db",
+      "username": "root",
+      "password": "sa"
+    }
+  ]
 }
