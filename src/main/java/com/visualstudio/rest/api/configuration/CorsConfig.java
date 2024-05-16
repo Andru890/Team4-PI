@@ -1,4 +1,4 @@
-package com.visualstudio.rest.api.controllers;
+package com.visualstudio.rest.api.configuration;
 
 
 import org.springframework.context.annotation.Configuration;
