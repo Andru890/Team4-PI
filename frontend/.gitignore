@@ -23,6 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 
-#pnpm
-pnpm-lock.yaml
-npm-lock.json
