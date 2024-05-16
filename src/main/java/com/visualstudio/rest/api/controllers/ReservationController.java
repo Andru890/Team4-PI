@@ -19,7 +19,7 @@ public class ReservationController {
     private final IReservationService reservationService;
 
     @PostMapping
-    public ResponseEntity<Reservation> addCategory(@Valid @RequestBody Reservation reservation) {
+    public ResponseEntity<Reservation> addReservation(@Valid @RequestBody Reservation reservation) {
         return new ResponseEntity<>(reservationService.save(reservation), HttpStatus.CREATED);
     }
 
