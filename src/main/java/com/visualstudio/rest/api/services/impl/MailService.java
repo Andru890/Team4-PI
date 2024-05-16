@@ -80,10 +80,10 @@ public class MailService {
     }
 
     @Async
-    public void sendWelcomeEmail(String user) throws MailSenderException {
+    public void sendWelcomeEmail(String userName) throws MailSenderException {
         try {
-            String body = mailUtil.WelcomeEmail(user.getName());
-            sendMail(user.getEmail(), MailEnum.BIENVENIDA.toString(), body);
+            String body = mailUtil.WelcomeEmail(userName);
+
         } catch (Exception e) {
             throw new MailSenderException("Failed to send welcome email");
         }
