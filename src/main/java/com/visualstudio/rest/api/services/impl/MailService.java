@@ -80,7 +80,7 @@ public class MailService {
     }
 
     @Async
-    public void sendWelcomeEmail (String user) throws MailSenderException {
+    public void sendWelcomeEmail(String user) throws MailSenderException {
         try {
             String body = mailUtil.WelcomeEmail(user.getName());
             sendMail(user.getEmail(), MailEnum.BIENVENIDA.toString(), body);
