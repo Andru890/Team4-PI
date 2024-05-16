@@ -2,7 +2,7 @@
 FROM node:lts-alpine as builder
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /frontend
 
 # Copy the package.json and package-lock.json
 COPY package*.json ./
@@ -20,7 +20,7 @@ RUN npm run build
 FROM node:lts-alpine
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /frontend
 
 # Copy the built files from the previous stage
 COPY --from=builder /app/dist ./dist
