@@ -71,7 +71,7 @@ public void sendWelcomeMail(@PathVariable Long id) throws MailSenderException {
         throw new MailSenderException("No existe usuario");
     }
 
-    mailService.WelcomeEmail(user.get().getName());}
+    mailService.sendWelcomeEmail(user.get().getName());}
 
     @ExceptionHandler(ResourceExistException.class)
     public ResponseEntity<String> handleBadRequestException(ResourceExistException exc) {
