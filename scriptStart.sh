@@ -1,7 +1,4 @@
 #!/bin/bash
 
-docker network create -d bridge visual
+docker start $(docker ps -aq)
 
-docker build -t visual:latest . -f Dockerfile
-
-docker-compose up -d
