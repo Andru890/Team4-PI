@@ -23,7 +23,7 @@ FROM node:lts-alpine
 WORKDIR /app
 
 # Copy the built files from the previous stage
-COPY --from=builder /app/build ./build
+COPY --from=builder /app/dist ./dist
 
 # Expose the port your server runs on
 EXPOSE 3000
