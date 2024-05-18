@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ItemList from '@/components/ItemListContainer/ItemList'
 import UseLoader from '@/hooks/useLoader'
-import products from '@/data/products'
+import { useGlobalContext } from '@/Context/global.context'
 
 import {
   PaginationPrevious,
@@ -14,38 +14,19 @@ import {
 } from '@/components/ui/pagination'
 
 const ItemListContainer = () => {
-  const [productList, setProducts] = useState([])
+  const { state } = useGlobalContext()
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(10)
   const { categoryId, offerId } = useParams()
 
   useEffect(() => {
-    const getProducts = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(products)
-      }, 1000)
-    })
-
-    getProducts
-      .then((response) => {
-        categoryId
-          ? setProducts(
-              response.filter((product) => product.category === categoryId)
-            )
-          : setProducts(response)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
+    setIsLoading(false)
   }, [categoryId, offerId])
 
   const indexOfLastProduct = currentPage * itemsPerPage
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage
-  const currentProducts = productList.slice(
+  const currentProducts = state.data.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   )
@@ -79,7 +60,7 @@ const ItemListContainer = () => {
                 />
               </PaginationItem>
             )}
-            {Array(Math.ceil(productList.length / itemsPerPage))
+            {Array(Math.ceil(state.data.length / itemsPerPage))
               .fill()
               .map((_, index) => (
                 <PaginationItem key={index}>
@@ -88,7 +69,7 @@ const ItemListContainer = () => {
                   </PaginationLink>
                 </PaginationItem>
               ))}
-            {currentPage < Math.ceil(productList.length / itemsPerPage) && (
+            {currentPage < Math.ceil(state.data.length / itemsPerPage) && (
               <PaginationItem>
                 <PaginationNext onClick={() => paginate(currentPage + 1)} />
               </PaginationItem>

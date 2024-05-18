@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/table'
 import { deleteProduct } from '@/components/AdminPanel/Actions'
 
-const ProductTable = ({ products, setProducts }) => {
+const ProductTable = ({ products }) => {
   return (
     <div className='border shadow-sm rounded-lg'>
       <Table>
@@ -67,9 +67,7 @@ const ProductTable = ({ products, setProducts }) => {
                   <Button
                     size='icon'
                     variant='outline'
-                    onClick={() =>
-                      deleteProduct(product, products, setProducts)
-                    }
+                    onClick={() => deleteProduct(product, products)}
                   >
                     <TrashIcon className='h-4 w-4' />
                     <span className='sr-only'>Eliminar</span>
