@@ -1,12 +1,11 @@
 const useCurrency = () => {
-  const formatter = new Intl.NumberFormat('es-CL', {
+  const formatterCL = new Intl.NumberFormat('es-CL', {
     style: 'currency',
     currency: 'CLP',
     minimumFractionDigits: 0,
   })
   return {
-    formatter,
+    formatterCL,
   }
 }
-
 export default useCurrency

@@ -64,5 +64,6 @@
       "username": "root",
       "password": "sa"
     }
-  ]
+  ],
+  "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }
