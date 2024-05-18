@@ -4,6 +4,7 @@ import Header from '@/components/AdminPanel//Header'
 import ProductTable from '@/components/AdminPanel/ProductTable'
 import AddProductDialog from '@/components/AdminPanel/AddProductDialog'
 import AdminMobileFallback from '@/components/AdminPanel/AdminMobileFallback'
+import { Toaster } from 'sonner'
 import productsData from '@/data/products.json'
 
 const AdministrationPanel = () => {
@@ -23,6 +24,7 @@ const AdministrationPanel = () => {
         </main>
       </div>
       <AdminMobileFallback />
+      <Toaster />
     </div>
   )
 }

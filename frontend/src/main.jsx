@@ -3,11 +3,14 @@ import { BrowserRouter } from 'react-router-dom'
 import { ContextProvider } from '@/Context/global.context.jsx'
 import App from '@/App'
 import '@/index.css'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <ContextProvider>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </ContextProvider>
   </BrowserRouter>
 )

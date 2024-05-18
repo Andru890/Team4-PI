@@ -130,6 +130,7 @@ const AddProductDialog = () => {
                   id='category'
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
+                  className='border-input bg-transparent px-3 py-2 outline-none focus:border-primary'
                 >
                   <option value=''>Selecciona una categoría</option>
                   {categories.map((cat) => (
