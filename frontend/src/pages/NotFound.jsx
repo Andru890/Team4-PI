@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const NotFound = () => {
   return (
     <div className='flex flex-col items-center justify-center h-screen bg-gray-100'>
@@ -9,12 +11,12 @@ const NotFound = () => {
         <p className='text-gray-600 mb-12'>
           Lo sentimos, la página que estás buscando no existe.
         </p>
-        <a
-          href='/'
+        <Link
+          to='/'
           className='inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300'
         >
           Volver al inicio
-        </a>
+        </Link>
       </div>
     </div>
   )
