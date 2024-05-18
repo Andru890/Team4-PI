@@ -3,7 +3,14 @@ export const reducer = (state, action) => {
     case 'GET_LIST':
       return { ...state, data: action.payload }
     case 'GET_DETAIL':
-      return { ...state, dentistSelected: action.payload }
+      return { ...state, productSelected: action.payload }
+    case 'ADD_PRODUCT':
+      return { ...state, data: [...state.data, action.payload] }
+    case 'DELETE_PRODUCT':
+      return {
+        ...state,
+        data: state.data.filter((product) => product.id !== action.payload),
+      }
     default:
       return state
   }

@@ -4,7 +4,7 @@ import { getProduct } from '@/services/productsAPI'
 
 export const initialState = {
   data: [],
-  dentistSelected: {},
+  productSelected: {},
 }
 export const ContextGlobal = createContext(undefined)
 export const ContextProvider = ({ children }) => {

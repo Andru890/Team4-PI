@@ -11,7 +11,7 @@ const Item = ({ product }) => {
         <img
           className='object-cover w-full h-64'
           height='300'
-          src={product.img ? product.img : '/placeholder.svg'}
+          src={product.image ? product.image : '/placeholder.svg'}
           alt={product.name ? product.name : 'Product nuevo'}
           style={{
             aspectRatio: '300/300',

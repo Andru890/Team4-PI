@@ -6,7 +6,7 @@
     "category": "camara",
     "price": 832,
     "stock": 10,
-    "img": ["/images/canon-eos-850d.avif"],
+    "image": ["/images/canon-eos-850d.avif"],
     "characteristic": [
       "Cámara con controles manuales",
       "Objetivos intercambiables",
@@ -28,7 +28,7 @@
     "category": "camara",
     "price": 1019,
     "stock": 10,
-    "img": "/images/nikon-d7500.avif",
+    "image": "/images/nikon-d7500.avif",
     "characteristic": [
       "Cámara con controles manuales",
       "Graba en 4k en 60p",
@@ -46,7 +46,7 @@
     "category": "camara",
     "price": 710,
     "stock": 10,
-    "img": "/images/olympus-om-d-e-m10-mark-iv.jpg",
+    "image": "/images/olympus-om-d-e-m10-mark-iv.jpg",
     "characteristic": [
       "Controles manuales",
       "Objetivos intercambiables",
@@ -66,7 +66,7 @@
     "category": "camara",
     "price": 1189,
     "stock": 10,
-    "img": "/images/sony-a6600.jpg",
+    "image": "/images/sony-a6600.jpg",
     "characteristic": [
       "Estabilizador integrado de 5 ejes",
       "Grabación en 4K a 30 fps",
@@ -86,7 +86,7 @@
     "category": "camara",
     "price": 1799,
     "stock": 10,
-    "img": "/images/sony-a7-iii.png",
+    "image": "/images/sony-a7-iii.png",
     "characteristic": [
       "Controles manuales",
       "Objetivos intercambiables",
@@ -107,7 +107,7 @@
     "category": "camara",
     "price": 2170,
     "stock": 10,
-    "img": "/images/nikon-z6-ii.png",
+    "image": "/images/nikon-z6-ii.png",
     "characteristic": [
       "Cámara con controles manuales",
       "Objetivos intercambiables",
@@ -130,7 +130,7 @@
     "category": "camara",
     "price": 1361,
     "stock": 10,
-    "img": "/images/fujifilm-x-s20.jpg",
+    "image": "/images/fujifilm-x-s20.jpg",
     "characteristic": [
       "Doble ranura para tarjetas",
       "Estabilizador 5 ejes que ofrece hasta 7 pasos de estabilización tanto en vídeo como en foto",
@@ -154,7 +154,7 @@
     "category": "camara",
     "price": 1299,
     "stock": 10,
-    "img": "/images/panasonic-lumix-gh5s.jpg",
+    "image": "/images/panasonic-lumix-gh5s.jpg",
     "characteristic": [
       "Sellada frente a polvo y salpicaduras",
       "Buena respuesta a ISOs elevados",
@@ -175,7 +175,7 @@
     "category": "camara",
     "price": 867,
     "stock": 10,
-    "img": "/images/nikon-z50.jpg",
+    "image": "/images/nikon-z50.jpg",
     "characteristic": [
       "Pantalla abatible y táctil",
       "4K a 30fps / Full HD (1080p) a 60fps",
@@ -194,7 +194,7 @@
     "category": "camara",
     "price": 1999,
     "stock": 10,
-    "img": "/images/canon-eos-m6-mark-ii.jpg",
+    "image": "/images/canon-eos-m6-mark-ii.jpg",
     "characteristic": [
       "Vídeo 4K a 30fps (sin recorte) / Full HD (1080p) a 120fps",
       "Pantalla abatible y táctil",
@@ -212,7 +212,7 @@
     "category": "sonido",
     "price": 199,
     "stock": 10,
-    "img": "/images/hollyland-lark-m2-combo.jpeg",
+    "image": "/images/hollyland-lark-m2-combo.jpeg",
     "characteristic": [
       "Calidad de sonido de estudio",
       "Cancelación de ruido Smart Control",
@@ -229,7 +229,7 @@
     "category": "sonido",
     "price": 116,
     "stock": 10,
-    "img": "images/fulaim-x5.jpg",
+    "image": "images/fulaim-x5.jpg",
     "characteristic": [
       "Plug and Play",
       "Grabación de audio de 9 horas",
@@ -246,7 +246,7 @@
     "category": "sonido",
     "price": 109,
     "stock": 10,
-    "img": "/images/boyalink.avif",
+    "image": "/images/boyalink.avif",
     "characteristic": [
       "Caja portátil todo en uno",
       "Batería potente y ligera",
@@ -263,7 +263,7 @@
     "category": "sonido",
     "price": 75,
     "stock": 10,
-    "img": "/images/rode-videomicro-ii.jpg",
+    "image": "/images/rode-videomicro-ii.jpg",
     "characteristic": [
       "Construcción resistente",
       "Sin controles complicados y sin necesidad de pilas",
@@ -281,7 +281,7 @@
     "category": "sonido",
     "price": 85,
     "stock": 10,
-    "img": "/images/xlr-de-escopeta-by-bm6060.jpg",
+    "image": "/images/xlr-de-escopeta-by-bm6060.jpg",
     "characteristic": [
       "Alimentación Phantom disponible",
       "Micrófono de escopeta supercardioide",
@@ -297,7 +297,7 @@
     "category": "luces",
     "price": 132,
     "stock": 10,
-    "img": "/images/fresnel-cob-de-200-w.jpg",
+    "image": "/images/fresnel-cob-de-200-w.jpg",
     "characteristic": [
       "Alta calidad y larga vida útil",
       "Las puertas de granero pueden ajustar el ángulo",
@@ -312,7 +312,7 @@
     "category": "luces",
     "price": 153,
     "stock": 10,
-    "img": "/images/kit-de-iluminacion-altson.jpg",
+    "image": "/images/kit-de-iluminacion-altson.jpg",
     "characteristic": [
       "Soporte de trípode ajustable y ángulos de rotación de 360",
       "Modo bicolor y colores RGB",
@@ -327,7 +327,7 @@
     "category": "luces",
     "price": 50,
     "stock": 10,
-    "img": "/images/kit-de-iluminacion-niceveedi-studio.jpg",
+    "image": "/images/kit-de-iluminacion-niceveedi-studio.jpg",
     "characteristic": [
       "Múltiples temperaturas de color y brillo ajustable",
       "Panel de luz y cable de alimentación",
@@ -342,7 +342,7 @@
     "category": "luces",
     "price": 103,
     "stock": 10,
-    "img": "/images/betopper-cob-de-200-w.jpg",
+    "image": "/images/betopper-cob-de-200-w.jpg",
     "characteristic": [
       "Luces COB BETOPPER de 200 W",
       "Luz DJ de alto CRI",
@@ -357,7 +357,7 @@
     "category": "luces",
     "price": 520,
     "stock": 10,
-    "img": "/images/came-tv-fresnel-de-tungsteno.jpg",
+    "image": "/images/came-tv-fresnel-de-tungsteno.jpg",
     "characteristic": [
       "Clase de protección: IP23",
       "Potencia: 1000 W/650 W",
@@ -374,7 +374,7 @@
     "category": "accesorios",
     "price": 30,
     "stock": 10,
-    "img": "/images/kit-emart.jpg",
+    "image": "/images/kit-emart.jpg",
     "characteristic": [
       "Resistente",
       "Extensible",
@@ -390,7 +390,7 @@
     "category": "accesorios",
     "price": 68,
     "stock": 10,
-    "img": "/images/smallrig-ra-s280-3736.jpg",
+    "image": "/images/smallrig-ra-s280-3736.jpg",
     "characteristic": [
       "Diseño fiable del cojín de aire",
       "Construcción firme y excelente capacidad de carga",
@@ -405,7 +405,7 @@
     "category": "accesorios",
     "price": 279,
     "stock": 10,
-    "img": "/images/dji-ronin-sc.jpg",
+    "image": "/images/dji-ronin-sc.jpg",
     "characteristic": [
       "Ligero y compacto",
       "Rastrea la acción",
