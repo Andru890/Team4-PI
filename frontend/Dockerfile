@@ -23,4 +23,8 @@ EXPOSE 3000
 RUN pnpm run build
 
 # Run your server
-CMD ["npm", "start", "dev"]
+CMD ["npm", "run", "dev"]
+
+
+
+

@@ -4,11 +4,12 @@
   "version": "0.0.2",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx,ts --quiet --fix",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "start": "node server.js"	
   },
   "dependencies": {
     "@cloudinary/react": "^1.13.0",
