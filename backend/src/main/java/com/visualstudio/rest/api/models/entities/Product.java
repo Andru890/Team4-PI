@@ -37,6 +37,9 @@ public class Product {
     @Column(name = "characteristic", length = 1000)
     private String characteristic;
 
+    @Column(name = "stock")
+    private Integer stock;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_CATEGORY_ID"))
     @JsonIgnoreProperties({"hibernateLazyInitializer", "products"})
