@@ -39,8 +39,8 @@ export const ContextProvider = ({ children }) => {
   }, [])
 
   const handleDeleteProduct = useCallback(async (id) => {
-    await apiDeleteProduct(id)
-    dispatch({ type: 'DELETE_PRODUCT', payload: id })
+    const data = await apiDeleteProduct(id)
+    dispatch({ type: 'DELETE_PRODUCT', payload: data })
   }, [])
 
   useEffect(() => {

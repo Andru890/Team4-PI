@@ -10,7 +10,6 @@ import {
   TableCell,
 } from '@/components/ui/table'
 import { toast } from 'sonner'
-
 import Swal from 'sweetalert2'
 
 const ProductTable = ({ products, setProducts }) => {
