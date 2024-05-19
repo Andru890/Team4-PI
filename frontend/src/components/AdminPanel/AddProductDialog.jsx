@@ -28,6 +28,7 @@ const AddProductDialog = () => {
   const [characteristic, setCharacteristic] = useState('')
   const [imageUrls, setImageUrls] = useState([])
   const [category, setCategory] = useState('')
+  const [stock, setStock] = useState('') // Añadir estado para stock
   const [isOpen, setIsOpen] = useState(false)
   const { dispatch } = useGlobalContext()
 
@@ -59,6 +60,7 @@ const AddProductDialog = () => {
         characteristic,
         images: imageUrls,
         category: selectedCategory,
+        stock: parseInt(stock, 10), // Asegúrate de que stock sea un número entero
       }
 
       // Llama a la función addProduct desde productsAPI y obtén la respuesta
@@ -140,6 +142,16 @@ const AddProductDialog = () => {
                   ))}
                 </select>
               </div>
+            </div>
+            <div className='grid gap-2'>
+              <Label htmlFor='stock'>Cantidad</Label>
+              <Input
+                id='stock'
+                value={stock}
+                placeholder='Cantidad disponible'
+                type='number'
+                onChange={(e) => setStock(e.target.value)} // Añadir controlador de cambios para stock
+              />
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='image'>Imágenes</Label>
