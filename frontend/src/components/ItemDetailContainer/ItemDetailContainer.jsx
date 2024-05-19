@@ -2,30 +2,26 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ItemDetail from '@/components/ItemDetailContainer/ItemDetail'
 import UseLoader from '@/hooks/useLoader'
+import { useGlobalContext } from '@/Context/global.context'
 
 const ItemDetailContainer = () => {
-  const [product, setProduct] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const { itemId } = useParams()
+  const { state, handleGetProductById } = useGlobalContext()
+  const { productSelected } = state
 
   useEffect(() => {
-    setIsLoading(true)
-
-    fetch(`http://localhost:8000/product/${itemId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setProduct(data)
-        setIsLoading(false)
-      })
-      .catch((error) => {
-        console.log(error)
-        setIsLoading(false)
-      })
-  }, [itemId])
+    const fetchProduct = async () => {
+      setIsLoading(true)
+      await handleGetProductById(itemId)
+      setIsLoading(false)
+    }
+    fetchProduct()
+  }, [itemId, handleGetProductById])
 
   return (
     <div className='mt-20'>
-      {isLoading ? <UseLoader /> : <ItemDetail product={product} />}
+      {isLoading ? <UseLoader /> : <ItemDetail product={productSelected} />}
     </div>
   )
 }

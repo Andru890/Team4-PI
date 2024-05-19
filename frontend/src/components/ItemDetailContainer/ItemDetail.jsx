@@ -67,7 +67,7 @@ const ItemDetail = ({ product }) => {
             <div className='flex items-center gap-4 mb-8 mt-20'>
               <div className='text-2xl font-bold'>${product.price}</div>
               <div className='text-gray-500 dark:text-gray-400'>
-                {product.stock > 0 ? 'Disponible' : 'Agotado'}
+                {product.stock > 0 ? 'Stock Disponible' : 'Stock Agotado'}
               </div>
             </div>
           </div>

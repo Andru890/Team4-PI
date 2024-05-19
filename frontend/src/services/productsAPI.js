@@ -11,6 +11,15 @@ export const getProduct = async () => {
     console.error(error)
   }
 }
+export const getProductById = async (id) => {
+  try {
+    const res = await axios.get(`${API_URL}/product/${id}`)
+    console.log(res.data)
+    return res.data
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export const addProduct = async (product) => {
   try {
