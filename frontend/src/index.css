@@ -83,3 +83,69 @@
     background-color: #dcd8cf;
   }
 }
+
+.loader {
+  @apply relative w-20 h-20;
+}
+
+.loader-dot {
+  @apply absolute w-4 h-4 rounded-full bg-blue-500;
+}
+
+.loader-dot:nth-child(1) {
+  @apply animate-loader1 top-0 left-1/4;
+}
+
+.loader-dot:nth-child(2) {
+  @apply animate-loader2 top-1/4 left-0;
+}
+
+.loader-dot:nth-child(3) {
+  @apply animate-loader2 top-1/2 right-0;
+}
+
+.loader-dot:nth-child(4) {
+  @apply animate-loader3 bottom-1/4 left-1/2;
+}
+
+@keyframes loader1 {
+  0% {
+    @apply scale-0;
+  }
+  100% {
+    @apply scale-100;
+  }
+}
+
+@keyframes loader3 {
+  0% {
+    @apply scale-100;
+  }
+  100% {
+    @apply scale-0;
+  }
+}
+
+@keyframes loader2 {
+  0% {
+    @apply translate-x-0 translate-y-0;
+  }
+  100% {
+    @apply translate-x-6 translate-y-6;
+  }
+}
+
+@layer utilities {
+  /* Aquí puedes definir tus clases de animación */
+  .animate-loader1 {
+    animation: loader1 0.6s infinite;
+  }
+
+  .animate-loader2 {
+    animation: loader2 0.6s infinite;
+  }
+
+  .animate-loader3 {
+    animation: loader3 0.6s infinite;
+  }
+}
