@@ -14,6 +14,13 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 
+import {
+  PopoverTrigger,
+  PopoverContent,
+  Popover,
+} from '@/components/ui/popover'
+import { CommandItem, Command } from '@/components/ui/command'
+
 const categories = [
   { id: 1, name: 'Camaras' },
   { id: 2, name: 'Audio' },
@@ -126,13 +133,14 @@ const AddProductDialog = () => {
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
+
               <div className='grid gap-2'>
                 <Label htmlFor='category'>Categoría</Label>
                 <select
                   id='category'
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className='border-input bg-transparent px-3 py-2 outline-none focus:border-primary'
+                  className='border-input bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-black focus:border-transparent rounded-md w-full'
                 >
                   <option value=''>Selecciona una categoría</option>
                   {categories.map((cat) => (

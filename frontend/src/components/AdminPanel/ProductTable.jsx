@@ -47,9 +47,10 @@ const ProductTable = ({ products }) => {
               </TableCell>
               <TableCell className='hidden md:table-cell'>
                 <ul className='list-disc pl-4 text-sm'>
-                  {product.characteristic.map((feature, index) => (
-                    <li key={index}>{feature}</li>
-                  ))}
+                  {product.characteristic &&
+                    product.characteristic
+                      .split(',')
+                      .map((char, index) => <li key={index}>{char.trim()}</li>)}
                 </ul>
               </TableCell>
               <TableCell className='hidden md:table-cell'>
