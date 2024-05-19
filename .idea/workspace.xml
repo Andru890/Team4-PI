@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="254b73c3-c8ef-4198-8999-d86031480988" name="Changes" comment="se agrega el stock" />
+    <list default="true" id="254b73c3-c8ef-4198-8999-d86031480988" name="Changes" comment="se agrega el stock">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,6 +26,22 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;wdelcant&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Andru890/Team4-PI.git&quot;,
+    &quot;accountId&quot;: &quot;bd74d62b-8f05-43dd-95ce-53f52587c478&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2gfMuMUl8YCHhy0ONanaPjCFdiV" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="showExcludedFiles" value="false" />
@@ -33,9 +51,26 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "front-end"
+    "git-widget-placeholder": "front-end",
+    "kotlin-language-version-configured": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="visual-studio" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="visual-studio" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="se agrega el stock">
       <option name="closed" value="true" />
@@ -44,6 +79,13 @@
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
       <updated>1716083981474</updated>
+    </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="254b73c3-c8ef-4198-8999-d86031480988" name="Changes" comment="se agrega el stock" />
+      <created>1716084453771</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1716084453771</updated>
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />

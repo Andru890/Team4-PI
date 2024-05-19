@@ -1,0 +1,25 @@
+Index: frontend/src/services/productsAPI.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from 'axios'\r\n\r\nconst API_URL = 'http://localhost:8000'\r\n\r\nexport const getProduct = async () => {\r\n  try {\r\n    const res = await axios.get(`${API_URL}/product`)\r\n    console.log(res.data)\r\n    return res.data\r\n  } catch (error) {\r\n    console.error(error)\r\n  }\r\n}\r\n\r\nexport const addProduct = async (product) => {\r\n  try {\r\n    const res = await axios.post(`${API_URL}/product`, product)\r\n    console.log(res.data)\r\n    return res.data\r\n  } catch (error) {\r\n    console.error(error)\r\n  }\r\n}\r\n\r\nexport const deleteProduct = async (id) => {\r\n  try {\r\n    const res = await axios.delete(`${API_URL}/product/${id}`)\r\n    console.log(res.data)\r\n    return res.data\r\n  } catch (error) {\r\n    console.error(error)\r\n  }\r\n}\r\n\r\nexport const updateProduct = async (product) => {\r\n  try {\r\n    const res = await axios.put(`${API_URL}/product/${product.id}`, product)\r\n    console.log(res.data)\r\n    return res.data\r\n  } catch (error) {\r\n    console.error(error)\r\n  }\r\n}\r\n
+===================================================================
+diff --git a/frontend/src/services/productsAPI.js b/frontend/src/services/productsAPI.js
+--- a/frontend/src/services/productsAPI.js	
++++ b/frontend/src/services/productsAPI.js	
+@@ -12,6 +12,16 @@
+   }
+ }
+ 
++export const getProductById = async (id) => {
++  try {
++    const res = await axios.get(`${API_URL}/product/detail/${id}`)
++    console.log(res.data)
++    return res.data
++  } catch (error) {
++    console.error(error)
++  }
++}
++
+ export const addProduct = async (product) => {
+   try {
+     const res = await axios.post(`${API_URL}/product`, product)
