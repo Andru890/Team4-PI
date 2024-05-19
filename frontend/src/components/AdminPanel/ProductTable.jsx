@@ -1,3 +1,4 @@
+import { useGlobalContext } from '@/Context/global.context'
 import { Button } from '@/components/ui/button'
 import { DeleteIcon, TrashIcon } from '@/components/Icons'
 import {
@@ -8,9 +9,68 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table'
-import { deleteProduct } from '@/components/AdminPanel/Actions'
+import { toast } from 'sonner'
 
-const ProductTable = ({ products }) => {
+import Swal from 'sweetalert2'
+
+const ProductTable = ({ products, setProducts }) => {
+  const { handleDeleteProduct } = useGlobalContext()
+
+  const onDeleteClick = async (product) => {
+    const result = await Swal.fire({
+      title: `¿Estás seguro de que deseas eliminar el producto "${product.name}"?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    })
+
+    if (result.isConfirmed) {
+      const stockResult = await Swal.fire({
+        title: `El producto "${product.name}" tiene un stock de ${product.stock} unidades.`,
+        input: 'number',
+        inputPlaceholder: 'Ingresa la cantidad a eliminar',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar',
+        inputValidator: (value) => {
+          if (!value) {
+            return 'Por favor, ingresa una cantidad'
+          } else if (isNaN(value)) {
+            return 'Por favor, ingresa un número válido'
+          } else if (value > product.stock) {
+            return `La cantidad no puede ser mayor que el stock (${product.stock})`
+          }
+        },
+      })
+
+      if (stockResult.isConfirmed) {
+        const stockToRemove = parseInt(stockResult.value)
+        const updatedStock = product.stock - stockToRemove
+
+        if (updatedStock === 0) {
+          await handleDeleteProduct(product.id)
+          const updatedProducts = products.filter((p) => p.id !== product.id)
+          setProducts(updatedProducts)
+          toast(`El producto "${product.name}" ha sido eliminado.`)
+        } else {
+          const updatedProducts = products.map((p) => {
+            if (p.id === product.id) {
+              return { ...p, stock: updatedStock }
+            }
+            return p
+          })
+          setProducts(updatedProducts)
+          toast(
+            `Se han eliminado ${stockToRemove} unidades del producto "${product.name}". Stock restante: ${updatedStock}.`
+          )
+        }
+      }
+    }
+  }
+
   return (
     <div className='border shadow-sm rounded-lg'>
       <Table>
@@ -68,7 +128,8 @@ const ProductTable = ({ products }) => {
                   <Button
                     size='icon'
                     variant='outline'
-                    onClick={() => deleteProduct(product, products)}
+                    onClick={() => onDeleteClick(product)}
+                    disabled={product.stock === 0}
                   >
                     <TrashIcon className='h-4 w-4' />
                     <span className='sr-only'>Eliminar</span>
