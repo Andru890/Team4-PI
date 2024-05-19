@@ -5,6 +5,7 @@ INSERT INTO products (
 		image,
 		name,
 		price,
+		stock,
 		category_id
 	)
 VALUES (
@@ -13,6 +14,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716069818/visual-service/vyz7wauxancpgyttulgf.jpg',
 		'Canon E0S 850D',
 		832.0,
+		1,
 		1
 	),
 	(
@@ -21,6 +23,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716069990/visual-service/vo5qvbymezheuoaif3id.jpg',
 		'NIKON D7500',
 		1019.0,
+		1,
 		1
 	),
 	(
@@ -29,6 +32,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716070123/visual-service/pjc403lk3jksbnfnhjfx.jpg',
 		'OLYMPUS OM-D E-M10 MARK IV',
 		710.0,
+		1,
 		1
 	),
 	(
@@ -37,6 +41,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716070189/visual-service/bhyxk97soy4y30syunn9.png',
 		'SONY A7 III',
 		1189.0,
+		1,
 		1
 	),
 	(
@@ -45,6 +50,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716070220/visual-service/qop2xzv509imspapoju4.png',
 		'NIKON Z6 II',
 		2170.0,
+		1,
 		1
 	),
 	(
@@ -53,6 +59,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716070265/visual-service/agryn6vy5hrxul3ie9aq.jpg',
 		'FUJIFILM X-S20',
 		1361.0,
+		1,
 		1
 	),
 	(
@@ -61,6 +68,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716070292/visual-service/a4ktavfgc4g0txhnnwl0.jpg',
 		'PANASONIC LUMIX GH5S',
 		1299.0,
+		1,
 		1
 	),
 	(
@@ -69,6 +77,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716070328/visual-service/oalwfp8ucfqtsytepvq8.jpg',
 		'NIKON Z50',
 		867.0,
+		1,
 		1
 	),
 	(
@@ -77,6 +86,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716070356/visual-service/z4uwycrc1cge8bj2z2t5.jpg',
 		'CANON EOS M6 MARK II',
 		1999.0,
+		1,
 		1
 	),
 	(
@@ -85,6 +95,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072431/visual-service/pnjpaqenqdk0lr2d0jwo.jpg',
 		'OLYMPUS OM-D E-M10 MARK V',
 		710.0,
+		1,
 		1
 	),
 	(
@@ -93,6 +104,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072513/visual-service/wfuqfzxztpfkusumkeid.jpg',
 		'SONY A6600',
 		1189,
+		1,
 		1
 	),
 	(
@@ -101,6 +113,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072546/visual-service/ivpgsexz1vykuqdtdh52.jpg',
 		'Hollyland Lark M2 Combo',
 		199.0,
+		1,
 		1
 	),
 	(
@@ -109,6 +122,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072616/visual-service/ywfczur4rdiwhna0fwmw.jpg',
 		'FULAIM X5',
 		116.0,
+		1,
 		1
 	),
 	(
@@ -117,6 +131,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072704/visual-service/kejuiwk8fotjsypq6t7z.jpg',
 		'BOYALINK',
 		109.0,
+		1,
 		1
 	),
 	(
@@ -125,6 +140,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072734/visual-service/q2ghz3gbsuqqzkiri9oa.jpg',
 		'RØDE VideoMicro II',
 		75.0,
+		1,
 		1
 	),
 	(
@@ -133,6 +149,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072763/visual-service/evirzyn006dfs4nhmke3.jpg',
 		'XLR de Escopeta BY-BM6060',
 		85.0,
+		1,
 		1
 	),
 	(
@@ -141,6 +158,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072793/visual-service/np5jriurotfguchiasji.jpg',
 		'Fresnel COB de 200 W',
 		132.0,
+		1,
 		2
 	),
 	(
@@ -149,6 +167,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072826/visual-service/z3qqhvxowud6r46mpc3t.jpg',
 		'Kit de iluminación ALTSON, 2 luces LED bicolor de 50 W',
 		153.0,
+		1,
 		2
 	),
 	(
@@ -157,6 +176,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072847/visual-service/k5zmc708jfwz537ecpid.jpg',
 		'Kit de iluminación NiceVeedi Studio, 2 luces LED de 2800-6500K',
 		50.0,
+		1,
 		2
 	),
 	(
@@ -165,6 +185,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072869/visual-service/bdjyrztlwzrevhnqx8ur.jpg',
 		'BETOPPER COB de 200 W',
 		103.0,
+		1,
 		2
 	),
 	(
@@ -173,6 +194,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072891/visual-service/mzezgszm2zibhylfv4ot.jpg',
 		'Came-TV Fresnel de tungsteno, 2 x 1000 W y 1 x 650 W',
 		520.0,
+		1,
 		2
 	),
 	(
@@ -181,6 +203,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072916/visual-service/lijloktmye1xpefh1qnb.jpg',
 		'Kit EMART, 2 Soporte de luz de 7 pies',
 		30.0,
+		1,
 		3
 	),
 	(
@@ -189,6 +212,7 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072941/visual-service/lf2lp73qbvxh1yqqq334.jpg',
 		'SMALLRIG RA-S280-3736 Soporte de luz de 110 pulgadas',
 		68.0,
+		1,
 		3
 	),
 	(
@@ -197,5 +221,6 @@ VALUES (
 		'https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1716072966/visual-service/x9yqrk4mrhpjvx3hvrqn.jpg',
 		'DJI Ronin-SC - Estabilizador de cámara',
 		279.0,
+		1,
 		3
 	);
