@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="254b73c3-c8ef-4198-8999-d86031480988" name="Changes" comment="se agrega el stock">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="254b73c3-c8ef-4198-8999-d86031480988" name="Changes" comment="se agrega el stock" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,13 +46,13 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "front-end",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;front-end&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="visual-studio" />
@@ -92,6 +90,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="se agrega el stock" />
-    <option name="LAST_COMMIT_MESSAGE" value="se agrega el stock" />
+    <MESSAGE value="se cambia ruta del endpoint para obtener detalle del producto." />
+    <option name="LAST_COMMIT_MESSAGE" value="se cambia ruta del endpoint para obtener detalle del producto." />
   </component>
 </project>

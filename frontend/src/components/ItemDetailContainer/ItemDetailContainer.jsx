@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ItemDetail from '@/components/ItemDetailContainer/ItemDetail'
 import UseLoader from '@/hooks/useLoader'
-import products from '@/data/products'
 
 const ItemDetailContainer = () => {
   const [product, setProduct] = useState({})
@@ -10,20 +9,16 @@ const ItemDetailContainer = () => {
   const { itemId } = useParams()
 
   useEffect(() => {
-    const getProduct = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(products)
-      }, 1000)
-    })
+    setIsLoading(true)
 
-    getProduct
-      .then((response) => {
-        setProduct(response.find((product) => product.id === itemId))
+    fetch(`http://localhost:8000/product/${itemId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProduct(data)
+        setIsLoading(false)
       })
       .catch((error) => {
         console.log(error)
-      })
-      .finally(() => {
         setIsLoading(false)
       })
   }, [itemId])
@@ -34,4 +29,5 @@ const ItemDetailContainer = () => {
     </div>
   )
 }
+
 export default ItemDetailContainer

@@ -1,8 +1,8 @@
 export const routes = {
   home: '/',
   notFound: '*',
-  products: '/products',
+  products: '/product',
   administrationPanel: '/administracion',
-  itemDetail: '/products/:itemId',
+  itemDetail: '/product/:itemId',
   category: '/category/:categoryId',
 }

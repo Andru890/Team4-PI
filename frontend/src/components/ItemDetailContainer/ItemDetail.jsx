@@ -45,9 +45,12 @@ const ItemDetail = ({ product }) => {
                 <h2 className='text-xl font-bold mb-2'>Caracteristicas</h2>
                 <ul className='list-disc pl-4 text-gray-500 dark:text-gray-400'>
                   <li>
-                    {product.characteristic.map((char, index) => (
-                      <li key={index}>{char}</li>
-                    ))}
+                    {product.characteristic &&
+                      product.characteristic
+                        .split(',')
+                        .map((char, index) => (
+                          <li key={index}>{char.trim()}</li>
+                        ))}
                   </li>
                 </ul>
               </div>
@@ -63,7 +66,9 @@ const ItemDetail = ({ product }) => {
             </div>
             <div className='flex items-center gap-4 mb-8 mt-20'>
               <div className='text-2xl font-bold'>${product.price}</div>
-              <div className='text-gray-500 dark:text-gray-400'>En Stock</div>
+              <div className='text-gray-500 dark:text-gray-400'>
+                {product.stock > 0 ? 'Disponible' : 'Agotado'}
+              </div>
             </div>
           </div>
           <div>
