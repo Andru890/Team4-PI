@@ -67,7 +67,7 @@ const AddProductDialog = () => {
         characteristic,
         images: imageUrls,
         category: selectedCategory,
-        stock: parseInt(stock, 10), // Asegúrate de que stock sea un número entero
+        stock: stock, // Asegúrate de que stock sea un número entero
       }
 
       // Llama a la función addProduct desde productsAPI y obtén la respuesta
