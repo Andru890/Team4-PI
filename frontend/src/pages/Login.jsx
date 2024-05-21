@@ -3,13 +3,15 @@ import { Input } from '@/components/ui/input'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { routes } from '@/routes/routes'
+import { MailIcon, LockIcon } from '@/components/Icons'
+import Video from '@/components/Login/Videos'
 
 const Login = () => {
   return (
     <>
-      <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[900px]'>
-        <div className='hidden bg-gray-100 lg:block dark:bg-gray-800'>
-          <span className='h-full w-full object-cover rounded-md bg-muted' />
+      <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-3 xl:min-h-[800px]'>
+        <div className='hidden bg-gray-100 lg:col-span-2 lg:block dark:bg-gray-800'>
+          <Video />
         </div>
         <div className='flex items-center justify-center py-12'>
           <div className='mx-auto w-[350px] space-y-6'>
@@ -23,12 +25,16 @@ const Login = () => {
             <div className='space-y-4'>
               <div className='space-y-2'>
                 <Label htmlFor='email'>Correo electrónico</Label>
-                <Input
-                  id='email'
-                  placeholder='ejemplo@dominio.com'
-                  required
-                  type='email'
-                />
+                <div className='relative'>
+                  <MailIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
+                  <Input
+                    className='pl-10'
+                    id='email'
+                    placeholder='ejemplo@dominio.com'
+                    required
+                    type='email'
+                  />
+                </div>
               </div>
               <div className='space-y-2'>
                 <div className='flex items-center'>
@@ -40,7 +46,15 @@ const Login = () => {
                     ¿Olvidaste tu contraseña?
                   </Link>
                 </div>
-                <Input id='password' required type='password' />
+                <div className='relative'>
+                  <LockIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
+                  <Input
+                    className='pl-10'
+                    id='password'
+                    required
+                    type='password'
+                  />
+                </div>
               </div>
               <Button className='w-full' type='submit'>
                 Iniciar sesión
