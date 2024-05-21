@@ -8,6 +8,8 @@ import AdministrationPanel from '@/pages/AdministrationPanel'
 import ItemListContainer from '@/components/ItemListContainer/ItemListContainer'
 import ItemDetailContainer from '@/components/ItemDetailContainer/ItemDetailContainer'
 import SearchBar from '@/components/SearchBar'
+import Login from '@/pages/Login'
+import Register from '@/pages/Register'
 
 const Layout = () => {
   return (
@@ -57,6 +59,22 @@ const Layout = () => {
         <Route
           path={routes.administrationPanel}
           element={<AdministrationPanel />}
+        />
+        <Route
+          path={routes.login}
+          element={
+            <>
+              <Login />
+            </>
+          }
+        />
+        <Route
+          path={routes.register}
+          element={
+            <>
+              <Register />
+            </>
+          }
         />
       </Routes>
     </>

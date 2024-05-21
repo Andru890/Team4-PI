@@ -80,7 +80,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-color: #dcd8cf;
+    /* background-color: #dcd8cf; */
   }
 }
 

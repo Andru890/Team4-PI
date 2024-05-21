@@ -5,4 +5,6 @@ export const routes = {
   administrationPanel: '/administracion',
   itemDetail: '/product/:itemId',
   category: '/category/:categoryId',
+  login: '/login',
+  register: '/register',
 }
