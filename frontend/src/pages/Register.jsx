@@ -5,14 +5,18 @@ import { Button } from '@/components/ui/button'
 import { routes } from '@/routes/routes'
 import { MailIcon, LockIcon, UserIcon } from '@/components/Icons'
 import Video from '@/components/Login/Videos'
+import Logo from '@/components/Login/Logo'
 
 const Register = () => {
   return (
-    <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-3 xl:min-h-[800px]'>
-      <div className='hidden bg-gray-100 lg:col-span-2 lg:block dark:bg-gray-800'>
+    <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-3 xl:min-h-[800px] relative'>
+      <div className='hidden bg-gray-100 lg:col-span-2 lg:block dark:bg-gray-800 relative'>
+        <div className='absolute top-5 left-5 z-10'>
+          <Logo />
+        </div>
         <Video />
       </div>
-      <div className='flex items-center justify-center py-12'>
+      <div className='flex items-center justify-center py-12 lg:col-span-1'>
         <div className='mx-auto w-[350px] space-y-6'>
           <div className='space-y-2 text-center'>
             <h1 className='text-3xl font-bold'>Registrarse</h1>
@@ -57,6 +61,7 @@ const Register = () => {
                   id='password'
                   required
                   type='password'
+                  placeholder='Ingresa tu contraseña'
                 />
               </div>
             </div>
@@ -65,7 +70,7 @@ const Register = () => {
             </Button>
           </div>
           <div className='mt-4 text-center text-sm'>
-            ¿Ya tienes una cuenta?
+            ¿Ya tienes una cuenta?{' '}
             <Link className='underline' to={routes.login}>
               Iniciar sesión
             </Link>

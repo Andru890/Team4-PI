@@ -3,6 +3,7 @@ import Navbar from '@/components/Header/Navbar/Navbar'
 import HamburgerMenu from '@/components/Header/Navbar/HamburgerMenu'
 import { CameraIcon } from '@/components/Icons'
 import { Link } from 'react-router-dom'
+import { routes } from '@/routes/routes'
 
 const Header = () => {
   return (
@@ -19,8 +20,12 @@ const Header = () => {
       <div className='ml-auto hidden lg:flex items-center gap-4'>
         <Navbar />
         <div className='flex items-center gap-2'>
-          <Button variant='outline'>Iniciar sesión</Button>
-          <Button>Registrarse</Button>
+          <Link to={routes.login}>
+            <Button variant='outline'>Iniciar sesión</Button>
+          </Link>
+          <Link to={routes.register}>
+            <Button>Registrarse</Button>
+          </Link>
         </div>
       </div>
     </header>

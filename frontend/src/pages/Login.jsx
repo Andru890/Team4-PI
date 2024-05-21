@@ -5,12 +5,16 @@ import { Button } from '@/components/ui/button'
 import { routes } from '@/routes/routes'
 import { MailIcon, LockIcon } from '@/components/Icons'
 import Video from '@/components/Login/Videos'
+import Logo from '@/components/Login/Logo'
 
 const Login = () => {
   return (
     <>
       <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-3 xl:min-h-[800px]'>
         <div className='hidden bg-gray-100 lg:col-span-2 lg:block dark:bg-gray-800'>
+          <div className='absolute top-5 left-5 z-10'>
+            <Logo />
+          </div>
           <Video />
         </div>
         <div className='flex items-center justify-center py-12'>
@@ -53,6 +57,7 @@ const Login = () => {
                     id='password'
                     required
                     type='password'
+                    placeholder='Ingresa tu contraseña'
                   />
                 </div>
               </div>
@@ -61,7 +66,7 @@ const Login = () => {
               </Button>
             </div>
             <div className='mt-4 text-center text-sm'>
-              ¿No tienes una cuenta?
+              ¿No tienes una cuenta?{' '}
               <Link className='underline' to={routes.register}>
                 Regístrate
               </Link>
