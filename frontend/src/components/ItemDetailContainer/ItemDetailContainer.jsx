@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ItemDetail from '@/components/ItemDetailContainer/ItemDetail'
 import UseLoader from '@/hooks/useLoader'
-import { useGlobalContext } from '@/Context/global.context'
+import { useGlobalContext } from '@/context/global.context'
 
 const ItemDetailContainer = () => {
   const [isLoading, setIsLoading] = useState(true)

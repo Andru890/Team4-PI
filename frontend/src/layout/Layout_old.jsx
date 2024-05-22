@@ -4,12 +4,12 @@ import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 import Home from '@/pages/Home'
 import NotFound from '@/pages/NotFound'
-import AdministrationPanel from '@/pages/AdministrationPanel'
 import ItemListContainer from '@/components/ItemListContainer/ItemListContainer'
 import ItemDetailContainer from '@/components/ItemDetailContainer/ItemDetailContainer'
 import SearchBar from '@/components/SearchBar'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
+import AdminLayout from '@/components/AdminPanel/AdminLayout'
 
 const Layout = () => {
   return (
@@ -22,16 +22,6 @@ const Layout = () => {
               <SearchBar />
               <Header />
               <Home />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path={routes.category}
-          element={
-            <>
-              <Header />
-              <ItemListContainer />
               <Footer />
             </>
           }
@@ -56,10 +46,7 @@ const Layout = () => {
             </>
           }
         />
-        <Route
-          path={routes.administrationPanel}
-          element={<AdministrationPanel />}
-        />
+        <Route path={routes.administracion} element={<AdminLayout />} />
         <Route
           path={routes.login}
           element={

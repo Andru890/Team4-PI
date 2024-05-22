@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ItemList from '@/components/ItemListContainer/ItemList'
 import UseLoader from '@/hooks/useLoader'
-import { useGlobalContext } from '@/Context/global.context'
+import { useGlobalContext } from '@/context/global.context'
 
 import {
   PaginationPrevious,

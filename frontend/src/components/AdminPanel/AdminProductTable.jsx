@@ -1,4 +1,4 @@
-import { useGlobalContext } from '@/Context/global.context'
+import { useGlobalContext } from '@/context/global.context'
 import { Button } from '@/components/ui/button'
 import { DeleteIcon, TrashIcon } from '@/components/Icons'
 import {

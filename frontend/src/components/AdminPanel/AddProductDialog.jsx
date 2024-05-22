@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useGlobalContext } from '@/Context/global.context'
+import { useGlobalContext } from '@/context/global.context'
 import { addProduct } from '@/services/productsAPI'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -13,13 +13,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-
-import {
-  PopoverTrigger,
-  PopoverContent,
-  Popover,
-} from '@/components/ui/popover'
-import { CommandItem, Command } from '@/components/ui/command'
 
 const categories = [
   { id: 1, name: 'Camaras' },
