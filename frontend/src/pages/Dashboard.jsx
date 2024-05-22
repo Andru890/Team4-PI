@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Toaster } from 'sonner'
 import { useGlobalContext } from '@/context/global.context'
 import AdminSidebar from '@/components/AdminPanel/AdminSidebar'
@@ -16,10 +17,16 @@ const Dashboard = () => {
   const { data: products } = state
   const { pathname } = useLocation()
 
+  const [productCount, setProductCount] = useState(0)
+
+  useEffect(() => {
+    setProductCount(products.length)
+  }, [products])
+
   let content
   switch (pathname) {
     case '/administracion/':
-      content = <AdminDashboard />
+      content = <AdminDashboard productCount={productCount} />
       break
     case '/administracion/products':
       content = (

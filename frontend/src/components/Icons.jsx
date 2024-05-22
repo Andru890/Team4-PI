@@ -1,3 +1,24 @@
+import { ResponsiveBar } from '@nivo/bar'
+import { ResponsiveLine } from '@nivo/line'
+
+export function ActivityIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2' />
+    </svg>
+  )
+}
 export function MountainIcon(props) {
   return (
     <svg
@@ -384,6 +405,65 @@ export function LockIcon(props) {
   )
 }
 
+export function BarChart(props) {
+  return (
+    <div {...props}>
+      <ResponsiveBar
+        data={[
+          { name: 'Ene', count: 0 },
+          { name: 'Feb', count: 0 },
+          { name: 'Mar', count: 0 },
+          { name: 'Abr', count: 0 },
+          { name: 'May', count: 0 },
+          { name: 'Jun', count: 0 },
+          { name: 'Jul', count: 0 },
+          { name: 'Ago', count: 0 },
+          { name: 'Sep', count: 0 },
+          { name: 'Oct', count: 0 },
+          { name: 'Nov', count: 0 },
+          { name: 'Dic', count: 0 },
+        ]}
+        keys={['count']}
+        indexBy='name'
+        margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
+        padding={0.3}
+        colors={['#2563eb']}
+        axisBottom={{
+          tickSize: 0,
+          tickPadding: 16,
+        }}
+        axisLeft={{
+          tickSize: 0,
+          tickValues: 4,
+          tickPadding: 16,
+        }}
+        gridYValues={4}
+        theme={{
+          tooltip: {
+            chip: {
+              borderRadius: '9999px',
+            },
+            container: {
+              fontSize: '12px',
+              textTransform: 'capitalize',
+              borderRadius: '6px',
+            },
+          },
+          grid: {
+            line: {
+              stroke: '#f3f4f6',
+            },
+          },
+        }}
+        tooltipLabel={({ id }) => `${id}`}
+        enableLabel={false}
+        role='application'
+        ariaLabel='A bar chart showing data'
+      />
+    </div>
+  )
+}
+
 export function MailIcon(props) {
   return (
     <svg
@@ -401,6 +481,99 @@ export function MailIcon(props) {
       <rect width='20' height='16' x='2' y='4' rx='2' />
       <path d='m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7' />
     </svg>
+  )
+}
+
+export function DollarSignIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <line x1='12' x2='12' y1='2' y2='22' />
+      <path d='M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' />
+    </svg>
+  )
+}
+
+export function LineChart(props) {
+  return (
+    <div {...props}>
+      <ResponsiveLine
+        data={[
+          {
+            id: 'Desktop',
+            data: [
+              { x: 'Jan', y: 43 },
+              { x: 'Feb', y: 137 },
+              { x: 'Mar', y: 61 },
+              { x: 'Apr', y: 145 },
+              { x: 'May', y: 26 },
+              { x: 'Jun', y: 154 },
+            ],
+          },
+          {
+            id: 'Mobile',
+            data: [
+              { x: 'Jan', y: 60 },
+              { x: 'Feb', y: 48 },
+              { x: 'Mar', y: 177 },
+              { x: 'Apr', y: 78 },
+              { x: 'May', y: 96 },
+              { x: 'Jun', y: 204 },
+            ],
+          },
+        ]}
+        margin={{ top: 10, right: 10, bottom: 40, left: 40 }}
+        xScale={{
+          type: 'point',
+        }}
+        yScale={{
+          type: 'linear',
+        }}
+        axisTop={null}
+        axisRight={null}
+        axisBottom={{
+          tickSize: 0,
+          tickPadding: 16,
+        }}
+        axisLeft={{
+          tickSize: 0,
+          tickValues: 5,
+          tickPadding: 16,
+        }}
+        colors={['#2563eb', '#e11d48']}
+        pointSize={6}
+        useMesh={true}
+        gridYValues={6}
+        theme={{
+          tooltip: {
+            chip: {
+              borderRadius: '9999px',
+            },
+            container: {
+              fontSize: '12px',
+              textTransform: 'capitalize',
+              borderRadius: '6px',
+            },
+          },
+          grid: {
+            line: {
+              stroke: '#f3f4f6',
+            },
+          },
+        }}
+        role='application'
+      />
+    </div>
   )
 }
 
