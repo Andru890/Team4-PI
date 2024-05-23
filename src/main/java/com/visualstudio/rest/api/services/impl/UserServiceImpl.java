@@ -1,8 +1,8 @@
 package com.visualstudio.rest.api.services.impl;
 
-import com.visualstudio.rest.api.models.entities.Rol;
+import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
-import com.visualstudio.rest.api.repositories.RolRepository;
+import com.visualstudio.rest.api.repositories.RoleRepository;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.List;
 public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
-    private final RolRepository rolRepository;
+    private final RoleRepository roleRepository;
 
     @Override
     public List<User> getAll() {
@@ -23,8 +23,11 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User save(User user) {
-        Rol rol = rolRepository.findById(user.getRol().getId()).get();
-        user.setRol(rol);
+        if (user.getRole() == null){
+            user.setRole(getDefaultRol());
+        }
+        Role role = roleRepository.findById(user.getRole().getId()).get();
+        user.setRole(role);
         return userRepository.save(user);
     }
 
@@ -41,5 +44,9 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public Role getDefaultRol() {
+        return new Role(1L, "customer");
     }
 }

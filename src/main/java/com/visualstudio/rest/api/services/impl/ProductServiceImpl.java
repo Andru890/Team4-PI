@@ -34,7 +34,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public Product save(Product product) {
 
-        Category category = categoryRepository.findById(product.getCategory().getId()).get();
+        Category category = categoryRepository.findById(product.getCategory().getId()).get()    ;
         product.setCategory(category);
         return productRepository.save(product);
     }
