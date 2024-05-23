@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "[javascript]": {
     "editor.autoClosingBrackets": "always",
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
@@ -65,15 +64,5 @@
       "username": "root",
       "password": "sa"
     }
-  ],
-  "CodeGPT.apiKey": "CodeGPT Plus Beta",
-  "java.compile.nullAnalysis.mode": "automatic"
+  ]
 }
-=======
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#521C13",
-        "titleBar.activeBackground": "#73271B",
-        "titleBar.activeForeground": "#FDF9F8"
-    }
-}
->>>>>>> back-end
