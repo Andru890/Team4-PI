@@ -18,10 +18,10 @@ services:
 
   visual-studio:
     container_name: visual-service
-    build: ./back  # Construye la imagen desde la carpeta back
+    build: ./backend  # Construye la imagen desde la carpeta back
     ports:
       - "8000:8000"
-    env_file: ./back/.env  # Lee las variables de entorno desde la carpeta back
+    env_file: ./backend/.env  # Lee las variables de entorno desde la carpeta back
     networks:
       - spring
     depends_on:
@@ -32,7 +32,7 @@ services:
   frontend:
     container_name: frontend-service
     image: frontend:latest  # Asume que ya tienes una imagen llamada frontend
-    build: ./front/frontend  # Construye la imagen desde la carpeta front/frontend
+    build: ./frontend  # Construye la imagen desde la carpeta front/frontend
     ports:
       - "3000:3000"
     volumes:
