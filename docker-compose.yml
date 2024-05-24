@@ -1,7 +1,5 @@
 version: "3.9"
-
 services:
-  # Servicios del backend (carpeta back)
   mysql8:
     container_name: mysql8
     image: mysql:8
@@ -11,41 +9,42 @@ services:
       MYSQL_ROOT_PASSWORD: sa
       MYSQL_DATABASE: visual_studio_db
     volumes:
-      - data-mysql:/var/lib/mysql
+      - ./query_categories.sql:/docker-entrypoint-initdb.d/query_categories.sql
+      - ./query_products.sql:/docker-entrypoint-initdb.d/query_products.sql
     restart: always
     networks:
       - spring
 
   visual-studio:
     container_name: visual-service
-    build: ./backend  # Construye la imagen desde la carpeta back
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    env_file: ./backend/.env  # Lee las variables de entorno desde la carpeta back
+    env_file: ./backend/.env
     networks:
       - spring
     depends_on:
-      - mysql8  # Espera a que mysql8 esté listo antes de iniciar
+      - mysql8
     restart: always
 
-  # Servicios del frontend (carpeta front/frontend)
   frontend:
     container_name: frontend-service
-    image: frontend:latest  # Asume que ya tienes una imagen llamada frontend
-    build: ./frontend  # Construye la imagen desde la carpeta front/frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - frontend-data:/app/build  # Monta el volumen para persistir archivos generados
+      - frontend-data:/app/build
     networks:
       - spring
     restart: always
 
 volumes:
-  data-mysql:
-    external: true
-  frontend-data:  # Define el volumen para persistir los archivos generados del frontend
-    # Puedes agregar opciones adicionales aquí si las necesitas
+  frontend-data:
+    name: frontend-data
 
 networks:
   spring:

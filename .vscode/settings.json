@@ -64,5 +64,10 @@
       "username": "root",
       "password": "sa"
     }
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#521C13",
+    "titleBar.activeBackground": "#73271B",
+    "titleBar.activeForeground": "#FDF9F8"
+  }
 }
