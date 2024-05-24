@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,8 +32,9 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "image")
-    private String image;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"product"})
+    private List<String> image = new ArrayList<>();
 
     @Column(name = "characteristic", length = 1000)
     private String characteristic;

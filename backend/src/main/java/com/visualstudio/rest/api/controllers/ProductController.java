@@ -18,6 +18,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
+        //Service de imagen, guarde tambien
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
@@ -32,6 +33,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{productId}")
+    // Service de imagen para borrar
     public ResponseEntity<Void> delete(@PathVariable Long productId) {
         productService.delete(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
