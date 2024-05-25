@@ -12,6 +12,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog'
 
 const categories = [
@@ -85,6 +86,9 @@ const AddProductDialog = () => {
       <DialogContent className='sm:max-w-[600px]'>
         <DialogHeader>
           <DialogTitle>Agregar nuevo producto</DialogTitle>
+          <DialogDescription>
+            Completa el formulario para agregar un nuevo producto a la tienda.
+          </DialogDescription>
         </DialogHeader>
         <CardContent>
           <form className='grid gap-4' onSubmit={handleSubmit}>

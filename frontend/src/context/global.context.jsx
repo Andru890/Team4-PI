@@ -22,6 +22,7 @@ import {
 export const initialState = {
   data: [],
   productSelected: {},
+  categorySelected: {},
 }
 
 export const ContextGlobal = createContext(undefined)

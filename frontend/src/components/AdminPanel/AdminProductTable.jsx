@@ -1,6 +1,6 @@
 import { useGlobalContext } from '@/context/global.context'
 import { Button } from '@/components/ui/button'
-import { DeleteIcon, TrashIcon } from '@/components/Icons'
+import { PenIcon, TrashIcon } from '@/components/Icons'
 import {
   Table,
   TableHeader,
@@ -120,13 +120,14 @@ const ProductTable = ({ products, setProducts }) => {
               </TableCell>
               <TableCell>
                 <div className='flex items-center gap-2'>
-                  <Button size='icon' variant='outline'>
-                    <DeleteIcon className='h-4 w-4' />
+                  <Button size='icon' variant='ghost'>
+                    <PenIcon className='h-4 w-4' />
                     <span className='sr-only'>Editar</span>
                   </Button>
                   <Button
+                    className='text-red-500'
                     size='icon'
-                    variant='outline'
+                    variant='ghost'
                     onClick={() => onDeleteClick(product)}
                     disabled={product.stock === 0}
                   >
