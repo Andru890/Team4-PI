@@ -7,7 +7,7 @@ COPY ./.mvn ./.mvn
 COPY ./mvnw .
 COPY ./pom.xml .
 
-RUN ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r ./target/
+RUN chmod +x mvnw && ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r ./t>
 
 COPY ./src ./src
 
