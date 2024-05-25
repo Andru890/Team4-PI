@@ -1,3 +1,4 @@
+package com.visualstudio.rest.api.controllers;
 
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.services.IProductService;
@@ -9,7 +10,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-@@ -16,21 +21,67 @@ public class ProductController {
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/product")
+@RequiredArgsConstructor
+public class ProductController {
 
     private final IProductService productService;
 
@@ -77,3 +85,8 @@ import org.springframework.http.ResponseEntity;
     @DeleteMapping("/{productId}")
     public ResponseEntity<Void> delete(@PathVariable Long productId) {
         productService.delete(productId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}
+
+
