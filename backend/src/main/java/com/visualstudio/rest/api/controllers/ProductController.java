@@ -70,7 +70,7 @@ public class ProductController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
             @ApiResponse(responseCode = "404", description = "Product not found", content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
-    @GetMapping("/detail/{productId}")
+    @GetMapping("/{productId}")
     public ResponseEntity<Product> detailProduct(@PathVariable Long productId) {
         return new ResponseEntity<>(productService.findById(productId), HttpStatus.OK);
     }
