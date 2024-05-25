@@ -14,14 +14,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductImageService {
     private ProductImageRepository productImageRepository;
 
-    public List<ProductImage> list(){
+    public List<ProductImage> getAll(){
         return productImageRepository.findByOrderById();
+    }
+
+    public Optional<ProductImage> getOne(Long id){
+        return productImageRepository.findById(id);
     }
 
     public void save(ProductImage productImage){
