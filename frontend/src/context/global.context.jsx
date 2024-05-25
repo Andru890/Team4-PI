@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   useContext,
   useEffect,
@@ -12,6 +12,12 @@ import {
   deleteProduct as apiDeleteProduct,
   getProductById,
 } from '@/services/productsAPI'
+import {
+  getCategory,
+  getCategoryById,
+  addCategory,
+  deleteCategory,
+} from '@/services/categoryAPI'
 
 export const initialState = {
   data: [],
@@ -43,6 +49,26 @@ export const ContextProvider = ({ children }) => {
     dispatch({ type: 'DELETE_PRODUCT', payload: data })
   }, [])
 
+  const handleGetCategory = useCallback(async () => {
+    const data = await getCategory()
+    dispatch({ type: 'GET_CATEGORY', payload: data })
+  }, [])
+
+  const handleGetCategoryById = useCallback(async (id) => {
+    const data = await getCategoryById(id)
+    dispatch({ type: 'GET_CATEGORY_DETAIL', payload: data })
+  }, [])
+
+  const handleAddCategory = useCallback(async (category) => {
+    const data = await addCategory(category)
+    dispatch({ type: 'ADD_CATEGORY', payload: data })
+  }, [])
+
+  const handleDeleteCategory = useCallback(async (id) => {
+    const data = await deleteCategory(id)
+    dispatch({ type: 'DELETE_CATEGORY', payload: data })
+  }, [])
+
   useEffect(() => {
     handleGetProduct()
   }, [handleGetProduct])
@@ -55,6 +81,10 @@ export const ContextProvider = ({ children }) => {
         handleGetProductById,
         handleAddProduct,
         handleDeleteProduct,
+        handleGetCategory,
+        handleGetCategoryById,
+        handleAddCategory,
+        handleDeleteCategory,
       }}
     >
       {children}

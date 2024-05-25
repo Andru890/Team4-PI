@@ -6,7 +6,7 @@ export const routes = {
   category: '/category/:categoryId',
   login: '/login',
   register: '/register',
-  dashboard: '/administracion/',
+  dashboard: '/administracion',
   dashboardusers: '/administracion/users',
   dashboardproducts: '/administracion/products',
   dashboardcategories: '/administracion/categories',

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import { useGlobalContext } from '@/context/global.context'
+import { routes } from '@/routes/routes'
 import AdminSidebar from '@/components/AdminPanel/AdminSidebar'
 import AdminHeader from '@/components/AdminPanel/AdminHeader'
 import AdminMobileFallback from '@/components/AdminPanel/AdminMobileFallback'
@@ -8,9 +10,8 @@ import AdminProducts from '@/components/AdminPanel/AdminProducts'
 import AdminUsers from '@/components/AdminPanel/AdminUsers'
 import AdminCategories from '@/components/AdminPanel/AdminCategories'
 import AdminOrders from '@/components/AdminPanel/AdminOrders'
-import { useLocation } from 'react-router-dom'
-import AdminDashboard from '../components/AdminPanel/AdminDashboard'
-import AdminFeatures from '../components/AdminPanel/AdminFeatures'
+import AdminDashboard from '@/components/AdminPanel/AdminDashboard'
+import AdminFeatures from '@/components/AdminPanel/AdminFeatures'
 
 const Dashboard = () => {
   const { state } = useGlobalContext()
@@ -25,10 +26,10 @@ const Dashboard = () => {
 
   let content
   switch (pathname) {
-    case '/administracion/':
+    case routes.dashboard:
       content = <AdminDashboard productCount={productCount} />
       break
-    case '/administracion/products':
+    case routes.dashboardproducts:
       content = (
         <>
           <AdminHeader products={products} />
@@ -36,16 +37,16 @@ const Dashboard = () => {
         </>
       )
       break
-    case '/administracion/users':
+    case routes.dashboardusers:
       content = <AdminUsers />
       break
-    case '/administracion/categories':
+    case routes.dashboardcategories:
       content = <AdminCategories />
       break
-    case '/administracion/orders':
+    case routes.dashboardorders:
       content = <AdminOrders />
       break
-    case '/administracion/features':
+    case routes.dashboardfeatures:
       content = <AdminFeatures />
       break
     default:
