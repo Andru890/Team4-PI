@@ -16,9 +16,7 @@ services:
 
   visual-studio:
     container_name: visual-service
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: visual:latest
     ports:
       - "8000:8000"
     env_file: .env
