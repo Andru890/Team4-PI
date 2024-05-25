@@ -1,23 +1,32 @@
-FROM amazoncorretto:17.0.11-alpine as builder
+# Etapa de compilación
+FROM amazoncorretto:17.0.11-alpine AS builder
 
+# Establecer directorio de trabajo
 WORKDIR /app
 
+# Copiar archivos necesarios para la compilación
 COPY ./pom.xml /app
-COPY ./.mvn ./.mvn
-COPY ./mvnw .
-COPY ./pom.xml .
+COPY ./.mvn /app/.mvn
+COPY ./src /app/src
 
-RUN chmod +x mvnw && ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r ./t>
+# Instalar Maven (si no está presente) y compilar el proyecto
+RUN apk add --no-cache maven && \
+    mvn clean package -DskipTests
 
-COPY ./src ./src
-
-RUN ./mvnw clean package -DskipTests
-
+# Etapa final
 FROM amazoncorretto:17.0.11-alpine
 
+# Establecer directorio de trabajo
 WORKDIR /app
+
+# Crear directorio de logs
 RUN mkdir ./logs
-COPY --from=builder /app/target/visual-studio-1.0.jar .
+
+# Copiar el archivo JAR desde la etapa de compilación a la imagen final
+COPY --from=builder /app/target/*.jar ./app.jar
+
+# Exponer puerto 8000
 EXPOSE 8000
 
-CMD ["java", "-jar", "visual-studio-1.0.jar"]
+# Comando a ejecutar al iniciar el contenedor
+CMD ["java", "-jar", "app.jar"]
