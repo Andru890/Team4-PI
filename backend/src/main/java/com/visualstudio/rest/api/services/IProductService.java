@@ -9,6 +9,7 @@ public interface IProductService {
     Product save(Product product);
     Product update(Product product, Long id);
     Product findById(Long id);
+    Product changeCategory(Long productId, Long categoryId);
     void delete(Long id);
 
 }

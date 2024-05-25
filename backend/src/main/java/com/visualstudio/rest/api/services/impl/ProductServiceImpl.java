@@ -40,12 +40,26 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product update(Product product, Long id) {
-        return null;
+        Product productFound = productRepository.findById(id).get();
+        productFound.setName(product.getName());
+        productFound.setCharacteristic(product.getCharacteristic());
+        productFound.setDescription(product.getDescription());
+        productFound.setPrice(product.getPrice());
+        return productRepository.save(productFound);
     }
 
     @Override
     public Product findById(Long id) {
         return productRepository.findById(id).get();
+    }
+
+    @Override
+    public Product changeCategory(Long productId, Long categoryId) {
+        Product productFound = productRepository.findById(productId).get();
+        Category category = categoryRepository.findById(categoryId).get();
+        productFound.setCategory(category);
+        productRepository.save(productFound);
+        return productFound;
     }
 
     @Override
