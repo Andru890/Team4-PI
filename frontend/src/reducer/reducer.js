@@ -12,15 +12,29 @@ export const reducer = (state, action) => {
         data: state.data.filter((product) => product.id !== action.payload),
       }
     case 'GET_CATEGORY':
-      return { ...state, data: action.payload }
+      return {
+        ...state,
+        dataCategory: action.payload,
+      }
+
     case 'GET_CATEGORY_DETAIL':
-      return { ...state, productSelected: action.payload }
+      return {
+        ...state,
+        categorySelected: action.payload,
+      }
+
     case 'ADD_CATEGORY':
-      return { ...state, data: [...state.data, action.payload] }
+      return {
+        ...state,
+        dataCategory: [...state.dataCategory, action.payload],
+      }
+
     case 'DELETE_CATEGORY':
       return {
         ...state,
-        data: state.data.filter((product) => product.id !== action.payload),
+        dataCategory: state.dataCategory.filter(
+          (category) => category.id !== action.payload
+        ),
       }
     default:
       return state

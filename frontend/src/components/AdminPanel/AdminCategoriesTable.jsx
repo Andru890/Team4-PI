@@ -14,6 +14,23 @@ import { Button } from '@/components/ui/button'
 const AdminCategoriesTable = ({ category, setCategory }) => {
   const { handleDeleteCategory } = useGlobalContext()
 
+  const handleDelete = async (categoryId) => {
+    const result = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, bórralo!',
+    })
+
+    if (result.isConfirmed) {
+      handleDeleteCategory(categoryId)
+      setCategory((prev) => prev.filter((cat) => cat.id !== categoryId))
+    }
+  }
+
   return (
     <div className='border shadow-sm rounded-lg'>
       <Table>
@@ -25,76 +42,27 @@ const AdminCategoriesTable = ({ category, setCategory }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className='font-medium'>Electrónica</TableCell>
-            <TableCell>250</TableCell>
-            <TableCell className='flex items-center gap-2'>
-              <Button size='icon' variant='ghost'>
-                <PenIcon className='h-4 w-4' />
-                <span className='sr-only'>Editar</span>
-              </Button>
-              <Button size='icon' variant='ghost' className='text-red-500'>
-                <TrashIcon className='h-4 w-4' />
-                <span className='sr-only'>Eliminar</span>
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className='font-medium'>Moda</TableCell>
-            <TableCell>180</TableCell>
-            <TableCell className='flex items-center gap-2'>
-              <Button size='icon' variant='ghost'>
-                <PenIcon className='h-4 w-4' />
-                <span className='sr-only'>Editar</span>
-              </Button>
-              <Button size='icon' variant='ghost' className='text-red-500'>
-                <TrashIcon className='h-4 w-4' />
-                <span className='sr-only'>Eliminar</span>
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className='font-medium'>Hogar</TableCell>
-            <TableCell>120</TableCell>
-            <TableCell className='flex items-center gap-2'>
-              <Button size='icon' variant='ghost'>
-                <PenIcon className='h-4 w-4' />
-                <span className='sr-only'>Editar</span>
-              </Button>
-              <Button size='icon' variant='ghost' className='text-red-500'>
-                <TrashIcon className='h-4 w-4' />
-                <span className='sr-only'>Eliminar</span>
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className='font-medium'>Deportes</TableCell>
-            <TableCell>300</TableCell>
-            <TableCell className='flex items-center gap-2'>
-              <Button size='icon' variant='ghost'>
-                <PenIcon className='h-4 w-4' />
-                <span className='sr-only'>Editar</span>
-              </Button>
-              <Button size='icon' variant='ghost' className='text-red-500'>
-                <TrashIcon className='h-4 w-4' />
-                <span className='sr-only'>Eliminar</span>
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className='font-medium'>Jardín</TableCell>
-            <TableCell>150</TableCell>
-            <TableCell className='flex items-center gap-2'>
-              <Button size='icon' variant='ghost'>
-                <PenIcon className='h-4 w-4' />
-                <span className='sr-only'>Editar</span>
-              </Button>
-              <Button size='icon' variant='ghost' className='text-red-500'>
-                <TrashIcon className='h-4 w-4' />
-                <span className='sr-only'>Eliminar</span>
-              </Button>
-            </TableCell>
-          </TableRow>
+          {category.map((category) => (
+            <TableRow key={category.id}>
+              <TableCell className='font-medium'>{category.name}</TableCell>
+              <TableCell>1</TableCell>
+              <TableCell className='flex items-center gap-2'>
+                <Button size='icon' variant='ghost'>
+                  <PenIcon className='h-4 w-4' />
+                  <span className='sr-only'>Editar</span>
+                </Button>
+                <Button
+                  size='icon'
+                  variant='ghost'
+                  className='text-red-500'
+                  onClick={() => handleDelete(category.id)}
+                >
+                  <TrashIcon className='h-4 w-4' />
+                  <span className='sr-only'>Eliminar</span>
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </div>

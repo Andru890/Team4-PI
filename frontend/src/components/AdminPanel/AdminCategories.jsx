@@ -4,15 +4,18 @@ import { useGlobalContext } from '@/context/global.context'
 
 const AdminCategories = () => {
   const { state, handleAddCategory, handleDeleteCategory } = useGlobalContext()
-  const { data: category } = state
+  const { dataCategory: category } = state
 
   return (
     <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6'>
       <div className='flex items-center'>
         <h1 className='font-semibold text-lg md:text-2xl'>Categorías</h1>
-        <AddCategoriesDialog />
+        <AddCategoriesDialog handleAddCategory={handleAddCategory} />
       </div>
-      <AdminCategoriesTable />
+      <AdminCategoriesTable
+        category={category}
+        handleDeleteCategory={handleDeleteCategory}
+      />
     </main>
   )
 }
