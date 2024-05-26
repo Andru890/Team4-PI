@@ -79,6 +79,7 @@ const ProductTable = ({ products, setProducts }) => {
             <TableHead className='w-[80px]'>Imagen</TableHead>
             <TableHead className='max-w-[150px]'>Nombre</TableHead>
             <TableHead className='hidden md:table-cell'>Descripción</TableHead>
+            <TableHead className='hidden md:table-cell'>Categoria</TableHead>
             <TableHead className='hidden md:table-cell'>
               Características
             </TableHead>
@@ -103,6 +104,9 @@ const ProductTable = ({ products, setProducts }) => {
               <TableCell className='font-medium'>{product.name}</TableCell>
               <TableCell className='hidden md:table-cell'>
                 {product.description}
+              </TableCell>
+              <TableCell className='hidden md:table-cell'>
+                {product.category.name}
               </TableCell>
               <TableCell className='hidden md:table-cell'>
                 <ul className='list-disc pl-4 text-sm'>

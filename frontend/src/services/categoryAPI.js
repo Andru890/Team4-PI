@@ -2,7 +2,6 @@ import axios from 'axios'
 
 const API_URL = 'http://localhost:8000'
 
-// GET /category
 export const getCategory = async () => {
   try {
     const res = await axios.get(`${API_URL}/category`)
@@ -13,7 +12,6 @@ export const getCategory = async () => {
   }
 }
 
-// GET /category/detail/:id
 export const getCategoryById = async (categoryId) => {
   try {
     const res = await axios.get(`${API_URL}/category/detail/${categoryId}`)
@@ -24,7 +22,6 @@ export const getCategoryById = async (categoryId) => {
   }
 }
 
-// POST /category
 export const addCategory = async (category) => {
   try {
     const res = await axios.post(`${API_URL}/category`, category)
@@ -35,7 +32,6 @@ export const addCategory = async (category) => {
   }
 }
 
-// DELETE /category/:id
 export const deleteCategory = async (categoryId) => {
   try {
     const res = await axios.delete(`${API_URL}/category/${categoryId}`)

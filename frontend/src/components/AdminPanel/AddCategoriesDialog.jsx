@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { useGlobalContext } from '@/context/global.context'
 import {
   Dialog,
   DialogTrigger,
@@ -11,8 +13,21 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 
 const AddCategoriesDialog = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const { handleAddCategory } = useGlobalContext()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = e.target
+    const formData = new FormData(form)
+    const name = formData.get('name')
+
+    handleAddCategory(name)
+    setIsOpen(false)
+  }
+
   return (
-    <Dialog defaultOpen>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button className='ml-auto' size='sm'>
           Agregar categoría
@@ -25,7 +40,7 @@ const AddCategoriesDialog = () => {
             Ingresa el nombre de la nueva categoría que deseas agregar.
           </DialogDescription>
         </DialogHeader>
-        <form className='space-y-4'>
+        <form className='space-y-4' onSubmit={handleSubmit}>
           <div className='space-y-1'>
             <Label htmlFor='name'>Nombre</Label>
             <Input
@@ -35,9 +50,6 @@ const AddCategoriesDialog = () => {
             />
           </div>
           <div className='flex justify-end gap-2'>
-            <div>
-              <Button variant='outline'>Cancelar</Button>
-            </div>
             <Button type='submit'>Guardar</Button>
           </div>
         </form>

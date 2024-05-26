@@ -12,6 +12,7 @@ import AdminCategories from '@/components/AdminPanel/AdminCategories'
 import AdminOrders from '@/components/AdminPanel/AdminOrders'
 import AdminDashboard from '@/components/AdminPanel/AdminDashboard'
 import AdminFeatures from '@/components/AdminPanel/AdminFeatures'
+import NotFound from './NotFound'
 
 const Dashboard = () => {
   const { state } = useGlobalContext()
@@ -50,7 +51,7 @@ const Dashboard = () => {
       content = <AdminFeatures />
       break
     default:
-      content = <p>Invalid route</p>
+      content = <NotFound />
   }
 
   return (

@@ -11,7 +11,7 @@ import {
 import { TrashIcon, PenIcon } from '@/components/Icons'
 import { Button } from '@/components/ui/button'
 
-const AdminCategoriesTable = ({ category, setCategory }) => {
+const AdminCategoriesTable = ({ products, category, setCategory }) => {
   const { handleDeleteCategory } = useGlobalContext()
 
   const handleDelete = async (categoryId) => {
@@ -36,6 +36,7 @@ const AdminCategoriesTable = ({ category, setCategory }) => {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead>ID</TableHead>
             <TableHead>Nombre</TableHead>
             <TableHead>Productos</TableHead>
             <TableHead>Acciones</TableHead>
@@ -44,13 +45,18 @@ const AdminCategoriesTable = ({ category, setCategory }) => {
         <TableBody>
           {category.map((category) => (
             <TableRow key={category.id}>
+              <TableCell>{category.id}</TableCell>
               <TableCell className='font-medium'>{category.name}</TableCell>
-              <TableCell>1</TableCell>
+              <TableCell>
+                {
+                  products.filter(
+                    (product) =>
+                      product.category.id === category.id &&
+                      product.category.name === category.name
+                  ).length
+                }
+              </TableCell>
               <TableCell className='flex items-center gap-2'>
-                <Button size='icon' variant='ghost'>
-                  <PenIcon className='h-4 w-4' />
-                  <span className='sr-only'>Editar</span>
-                </Button>
                 <Button
                   size='icon'
                   variant='ghost'
