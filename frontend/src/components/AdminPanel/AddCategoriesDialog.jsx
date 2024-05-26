@@ -14,15 +14,13 @@ import { Input } from '@/components/ui/input'
 
 const AddCategoriesDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [name, setName] = useState('')
   const { handleAddCategory } = useGlobalContext()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const form = e.target
-    const formData = new FormData(form)
-    const name = formData.get('name')
-
     handleAddCategory(name)
+    setName('')
     setIsOpen(false)
   }
 
@@ -45,6 +43,8 @@ const AddCategoriesDialog = () => {
             <Label htmlFor='name'>Nombre</Label>
             <Input
               id='name'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder='Ingresa el nombre de la categoría'
               aria-label=''
             />

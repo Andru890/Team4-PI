@@ -1,5 +1,4 @@
 import Swal from 'sweetalert2'
-import { useGlobalContext } from '@/context/global.context'
 import {
   Table,
   TableHeader,
@@ -8,13 +7,29 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table'
-import { TrashIcon, PenIcon } from '@/components/Icons'
+import { TrashIcon } from '@/components/Icons'
 import { Button } from '@/components/ui/button'
 
-const AdminCategoriesTable = ({ products, category, setCategory }) => {
-  const { handleDeleteCategory } = useGlobalContext()
+const AdminCategoriesTable = ({
+  products,
+  category,
 
+  handleDeleteCategory,
+}) => {
   const handleDelete = async (categoryId) => {
+    const hasProducts = products.some(
+      (product) => product.category.id === categoryId
+    )
+
+    if (hasProducts) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No puedes eliminar una categoría con productos asociados',
+      })
+      return
+    }
+
     const result = await Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás revertir esto!',
@@ -27,7 +42,6 @@ const AdminCategoriesTable = ({ products, category, setCategory }) => {
 
     if (result.isConfirmed) {
       handleDeleteCategory(categoryId)
-      setCategory((prev) => prev.filter((cat) => cat.id !== categoryId))
     }
   }
 

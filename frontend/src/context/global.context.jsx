@@ -40,8 +40,7 @@ export const ContextProvider = ({ children }) => {
         throw new Error('Failed to fetch product data')
       }
     } catch (error) {
-      console.error(error)
-      // Handle error here
+      throw new Error('Failed to fetch product data')
     }
   }, [])
 
@@ -73,12 +72,8 @@ export const ContextProvider = ({ children }) => {
     if (!id) {
       throw new Error('Product ID is required')
     }
-    const data = await apiDeleteProduct(id)
-    if (data) {
-      dispatch({ type: 'DELETE_PRODUCT', payload: data })
-    } else {
-      throw new Error('Failed to delete product')
-    }
+    await apiDeleteProduct(id)
+    dispatch({ type: 'DELETE_PRODUCT', payload: id })
   }, [])
 
   const handleGetCategory = useCallback(async () => {
@@ -119,12 +114,8 @@ export const ContextProvider = ({ children }) => {
     if (!id) {
       throw new Error('Category ID is required')
     }
-    const data = await deleteCategory(id)
-    if (data) {
-      dispatch({ type: 'DELETE_CATEGORY', payload: data })
-    } else {
-      throw new Error('Failed to delete category')
-    }
+    await deleteCategory(id)
+    dispatch({ type: 'DELETE_CATEGORY', payload: id })
   }, [])
 
   useEffect(() => {
