@@ -50,3 +50,15 @@ export const updateProduct = async (product) => {
     console.error(error)
   }
 }
+
+export const addProductCategory = async (productId, categoryId) => {
+  try {
+    const res = await axios.post(
+      `${API_URL}/product/${productId}/category/${categoryId}`
+    )
+    console.log(res.data)
+    return res.data
+  } catch (error) {
+    console.error(error)
+  }
+}

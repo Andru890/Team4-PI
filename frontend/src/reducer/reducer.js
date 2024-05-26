@@ -6,6 +6,22 @@ export const reducer = (state, action) => {
       return { ...state, productSelected: action.payload }
     case 'ADD_PRODUCT':
       return { ...state, data: [...state.data, action.payload] }
+    case 'UPDATE_PRODUCT':
+      return {
+        ...state,
+        data: state.data.map((product) =>
+          product.id === action.payload.id ? action.payload : product
+        ),
+      }
+    case 'UPDATE_PRODUCT_STOCK':
+      return {
+        ...state,
+        data: state.data.map((product) =>
+          product.id === action.payload.id
+            ? { ...product, stock: action.payload.stock }
+            : product
+        ),
+      }
     case 'DELETE_PRODUCT':
       return {
         ...state,

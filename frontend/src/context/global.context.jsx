@@ -9,7 +9,8 @@ import { reducer } from '@/reducer/reducer'
 import {
   getProduct,
   addProduct,
-  deleteProduct as apiDeleteProduct,
+  updateProduct,
+  deleteProduct,
   getProductById,
 } from '@/services/productsAPI'
 import {
@@ -68,11 +69,38 @@ export const ContextProvider = ({ children }) => {
     }
   }, [])
 
+  const handleUpdateProduct = useCallback(async (product) => {
+    if (!product) {
+      throw new Error('Product is required')
+    }
+    const data = await updateProduct(product)
+    if (data) {
+      dispatch({ type: 'UPDATE_PRODUCT', payload: data })
+    } else {
+      throw new Error('Failed to update product')
+    }
+  }, [])
+
+  const handleUpdateProductStock = useCallback(async (id, newStock) => {
+    if (!id || newStock === null) {
+      throw new Error('Product ID and new stock are required')
+    }
+    const data = await updateProduct({ id, stock: newStock })
+    if (data) {
+      dispatch({
+        type: 'UPDATE_PRODUCT_STOCK',
+        payload: { id, stock: newStock },
+      })
+    } else {
+      throw new Error('Failed to update product stock')
+    }
+  }, [])
+
   const handleDeleteProduct = useCallback(async (id) => {
     if (!id) {
       throw new Error('Product ID is required')
     }
-    await apiDeleteProduct(id)
+    await deleteProduct(id)
     dispatch({ type: 'DELETE_PRODUCT', payload: id })
   }, [])
 
@@ -133,6 +161,8 @@ export const ContextProvider = ({ children }) => {
         dispatch,
         handleGetProductById,
         handleAddProduct,
+        handleUpdateProduct,
+        handleUpdateProductStock,
         handleDeleteProduct,
         handleGetCategory,
         handleGetCategoryById,

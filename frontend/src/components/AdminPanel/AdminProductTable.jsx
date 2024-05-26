@@ -1,4 +1,3 @@
-import { useGlobalContext } from '@/context/global.context'
 import { Button } from '@/components/ui/button'
 import { PenIcon, TrashIcon } from '@/components/Icons'
 import {
@@ -12,9 +11,7 @@ import {
 import { toast } from 'sonner'
 import Swal from 'sweetalert2'
 
-const ProductTable = ({ products, setProducts }) => {
-  const { handleDeleteProduct } = useGlobalContext()
-
+const ProductTable = ({ products, handleDeleteProduct }) => {
   const onDeleteClick = async (product) => {
     const result = await Swal.fire({
       title: `¿Estás seguro de que deseas eliminar el producto "${product.name}"?`,
@@ -46,26 +43,10 @@ const ProductTable = ({ products, setProducts }) => {
       })
 
       if (stockResult.isConfirmed) {
-        const stockToRemove = parseInt(stockResult.value)
-        const updatedStock = product.stock - stockToRemove
-
-        if (updatedStock === 0) {
-          await handleDeleteProduct(product.id)
-          const updatedProducts = products.filter((p) => p.id !== product.id)
-          setProducts(updatedProducts)
-          toast(`El producto "${product.name}" ha sido eliminado.`)
-        } else {
-          const updatedProducts = products.map((p) => {
-            if (p.id === product.id) {
-              return { ...p, stock: updatedStock }
-            }
-            return p
-          })
-          setProducts(updatedProducts)
-          toast(
-            `Se han eliminado ${stockToRemove} unidades del producto "${product.name}". Stock restante: ${updatedStock}.`
-          )
-        }
+        handleDeleteProduct(product.id, stockResult.value)
+        toast(
+          `Se han eliminado x unidades del producto "${product.name}". Stock restante: x.`
+        )
       }
     }
   }

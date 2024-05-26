@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2'
+import { toast } from 'sonner'
 import {
   Table,
   TableHeader,
@@ -10,12 +11,7 @@ import {
 import { TrashIcon } from '@/components/Icons'
 import { Button } from '@/components/ui/button'
 
-const AdminCategoriesTable = ({
-  products,
-  category,
-
-  handleDeleteCategory,
-}) => {
+const AdminCategoriesTable = ({ products, category, handleDeleteCategory }) => {
   const handleDelete = async (categoryId) => {
     const hasProducts = products.some(
       (product) => product.category.id === categoryId
@@ -42,6 +38,7 @@ const AdminCategoriesTable = ({
 
     if (result.isConfirmed) {
       handleDeleteCategory(categoryId)
+      toast('Categoría eliminada con éxito', 'success')
     }
   }
 
