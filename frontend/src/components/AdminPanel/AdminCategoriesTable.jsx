@@ -27,7 +27,7 @@ const AdminCategoriesTable = ({ products, category, handleDeleteCategory }) => {
     }
 
     const result = await Swal.fire({
-      title: '¿Estás seguro?',
+      title: `¿Estás seguro que deaseas eliminar la categoria?`,
       text: 'No podrás revertir esto!',
       icon: 'warning',
       showCancelButton: true,
@@ -38,7 +38,7 @@ const AdminCategoriesTable = ({ products, category, handleDeleteCategory }) => {
 
     if (result.isConfirmed) {
       handleDeleteCategory(categoryId)
-      toast.success('Categoría eliminada con éxito')
+      toast.success(`Categoría ${category.name} eliminada con éxito`)
     }
   }
 

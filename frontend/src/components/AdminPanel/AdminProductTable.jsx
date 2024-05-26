@@ -44,7 +44,7 @@ const ProductTable = ({ products, handleDeleteProduct }) => {
 
       if (stockResult.isConfirmed) {
         handleDeleteProduct(product.id, stockResult.value)
-        toast(
+        toast.success(
           `Se han eliminado x unidades del producto "${product.name}". Stock restante: ${product.sto}.`
         )
       }
