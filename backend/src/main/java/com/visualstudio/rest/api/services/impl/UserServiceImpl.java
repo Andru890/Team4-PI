@@ -23,11 +23,16 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User save(User user) {
-        if (user.getRole() == null){
-            user.setRole(getDefaultRol());
+        User existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser != null){
+            throw new IllegalArgumentException("El usuario con el correo " + user.getEmail() + " ya existe.");
+        } else {
+            Role customerRole = roleRepository.findByName("customer");
+            user.setRole(customerRole);
+            if (user.getRole() == null){
+                user.setRole(getDefaultRole());
+            }
         }
-        Role role = roleRepository.findById(user.getRole().getId()).get();
-        user.setRole(role);
         return userRepository.save(user);
     }
 
@@ -37,7 +42,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User getOne(Long id) {
         return userRepository.findById(id).get();
     }
 
@@ -46,7 +51,31 @@ public class UserServiceImpl implements IUserService {
         userRepository.deleteById(id);
     }
 
-    public Role getDefaultRol() {
-        return new Role(1L, "customer");
+    public Role getDefaultRole() {
+        return new Role("customer");
     }
+
+    public void createAdminRole(){
+        if(roleRepository.findByName("admin") == null){
+            Role adminRole = new Role("admin");
+            roleRepository.save(adminRole);
+        }
+    }
+
+    public User updateRole(Long userId){
+            User user = userRepository.findById(userId).get();
+            Role newRole = roleRepository.findByName("admin");
+
+            if (newRole == null){
+                updateRole(userId);
+            }
+
+            if (user.getRole().getName() == "customer"){
+                user.setRole(newRole);
+            } else if (user.getRole().getName() == "admin") {
+                user.setRole(roleRepository.findByName("customer"));
+            }
+            return userRepository.save(user);
+    }
+
 }

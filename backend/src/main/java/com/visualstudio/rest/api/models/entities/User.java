@@ -1,5 +1,6 @@
 package com.visualstudio.rest.api.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,8 +38,9 @@ public class User {
     @Column(name = "city")
     private String city;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FK_ROLE_ID"))
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "role_id")
+    @JsonIgnoreProperties({"users"})
     private Role role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
