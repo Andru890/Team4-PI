@@ -32,48 +32,108 @@ export const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const handleGetProduct = useCallback(async () => {
-    const data = await getProduct()
-    dispatch({ type: 'GET_LIST', payload: data })
+    try {
+      const data = await getProduct()
+      if (data) {
+        dispatch({ type: 'GET_LIST', payload: data })
+      } else {
+        throw new Error('Failed to fetch product data')
+      }
+    } catch (error) {
+      console.error(error)
+      // Handle error here
+    }
   }, [])
 
   const handleGetProductById = useCallback(async (id) => {
+    if (!id) {
+      throw new Error('Product ID is required')
+    }
     const data = await getProductById(id)
-    dispatch({ type: 'GET_DETAIL', payload: data })
+    if (data) {
+      dispatch({ type: 'GET_DETAIL', payload: data })
+    } else {
+      throw new Error('Failed to fetch product detail')
+    }
   }, [])
 
   const handleAddProduct = useCallback(async (product) => {
+    if (!product) {
+      throw new Error('Product is required')
+    }
     const data = await addProduct(product)
-    dispatch({ type: 'ADD_PRODUCT', payload: data })
+    if (data) {
+      dispatch({ type: 'ADD_PRODUCT', payload: data })
+    } else {
+      throw new Error('Failed to add product')
+    }
   }, [])
 
   const handleDeleteProduct = useCallback(async (id) => {
+    if (!id) {
+      throw new Error('Product ID is required')
+    }
     const data = await apiDeleteProduct(id)
-    dispatch({ type: 'DELETE_PRODUCT', payload: data })
+    if (data) {
+      dispatch({ type: 'DELETE_PRODUCT', payload: data })
+    } else {
+      throw new Error('Failed to delete product')
+    }
   }, [])
 
   const handleGetCategory = useCallback(async () => {
-    const data = await getCategory()
-    dispatch({ type: 'GET_CATEGORY', payload: data })
+    try {
+      const data = await getCategory()
+      if (data) {
+        dispatch({ type: 'GET_CATEGORY', payload: data })
+      } else {
+        throw new Error('Failed to fetch category data')
+      }
+    } catch (error) {
+      console.error(error)
+      // Handle error here
+    }
   }, [])
 
   const handleGetCategoryById = useCallback(async (id) => {
+    if (!id) {
+      throw new Error('Category ID is required')
+    }
     const data = await getCategoryById(id)
-    dispatch({ type: 'GET_CATEGORY_DETAIL', payload: data })
+    if (data) {
+      dispatch({ type: 'GET_CATEGORY_DETAIL', payload: data })
+    } else {
+      throw new Error('Failed to fetch category detail')
+    }
   }, [])
 
   const handleAddCategory = useCallback(async (category) => {
+    if (!category) {
+      throw new Error('Category is required')
+    }
     const data = await addCategory(category)
     dispatch({ type: 'ADD_CATEGORY', payload: data })
   }, [])
 
   const handleDeleteCategory = useCallback(async (id) => {
+    if (!id) {
+      throw new Error('Category ID is required')
+    }
     const data = await deleteCategory(id)
-    dispatch({ type: 'DELETE_CATEGORY', payload: data })
+    if (data) {
+      dispatch({ type: 'DELETE_CATEGORY', payload: data })
+    } else {
+      throw new Error('Failed to delete category')
+    }
   }, [])
 
   useEffect(() => {
     handleGetProduct()
   }, [handleGetProduct])
+
+  useEffect(() => {
+    handleGetCategory()
+  }, [handleGetCategory])
 
   return (
     <ContextGlobal.Provider
