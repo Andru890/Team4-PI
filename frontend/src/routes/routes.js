@@ -16,4 +16,6 @@ export const routes = {
   dashboardsettings: '/administracion/settings',
   search: '/search',
   cart: '/cart',
+  services: '/services',
+  contact: '/contact',
 }

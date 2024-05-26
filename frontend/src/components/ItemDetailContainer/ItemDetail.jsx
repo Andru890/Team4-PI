@@ -79,7 +79,7 @@ const ItemDetail = ({ product }) => {
               src={product.image ? product.image : '/placeholder.svg'}
               style={{
                 aspectRatio: '600/400',
-                objectFit: 'cover',
+                objectFit: 'contain',
               }}
               width={600}
             />
@@ -98,8 +98,8 @@ const ItemDetail = ({ product }) => {
                   height={600}
                   src={product.image ? product.image : '/placeholder.svg'}
                   style={{
-                    aspectRatio: '800/600',
-                    objectFit: 'cover',
+                    aspectRatio: '800/00',
+                    objectFit: 'contain',
                   }}
                   width={800}
                 />
@@ -117,9 +117,9 @@ const ItemDetail = ({ product }) => {
                   src={product.image ? product.image : '/placeholder.svg'}
                   style={{
                     aspectRatio: '800/600',
-                    objectFit: 'cover',
+                    objectFit: 'contain',
                   }}
-                  width={800}
+                  width={400}
                 />
               </DialogDescription>
             </DialogContent>

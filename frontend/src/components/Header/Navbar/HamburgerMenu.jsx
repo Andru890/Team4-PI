@@ -1,6 +1,7 @@
 import { SheetTrigger, SheetContent, Sheet } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
+import { routes } from '@/routes/routes'
 import { MenuIcon } from '@/components/Icons'
 const HamburgerMenu = () => {
   return (
@@ -15,31 +16,35 @@ const HamburgerMenu = () => {
         <div className='grid gap-4 py-6'>
           <Link
             className='flex items-center gap-2 text-lg font-medium hover:underline'
-            href='#'
+            to={routes.home}
           >
             Inicio
           </Link>
           <Link
             className='flex items-center gap-2 text-lg font-medium hover:underline'
-            href='#'
+            to={routes.categories}
           >
-            Acerca de
+            Categorias
           </Link>
           <Link
             className='flex items-center gap-2 text-lg font-medium hover:underline'
-            href='#'
+            to={routes.services}
           >
             Servicios
           </Link>
           <Link
             className='flex items-center gap-2 text-lg font-medium hover:underline'
-            href='#'
+            to={routes.contact}
           >
             Contacto
           </Link>
           <div className='flex items-center gap-4 mt-4'>
-            <Button variant='outline'>Iniciar sesión</Button>
-            <Button>Registrarse</Button>
+            <Link to={routes.login}>
+              <Button variant='outline'>Iniciar sesión</Button>
+            </Link>
+            <Link to={routes.register}>
+              <Button>Registrarse</Button>
+            </Link>
           </div>
         </div>
       </SheetContent>
