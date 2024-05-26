@@ -1,3 +1,4 @@
+import { initialState } from '@/context/initialState'
 import {
   createContext,
   useContext,
@@ -19,13 +20,6 @@ import {
   addCategory,
   deleteCategory,
 } from '@/services/categoryAPI'
-
-export const initialState = {
-  data: [],
-  productSelected: {},
-  dataCategory: [],
-  categorySelected: {},
-}
 
 export const ContextGlobal = createContext(undefined)
 

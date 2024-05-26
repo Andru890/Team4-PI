@@ -15,13 +15,6 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog'
 
-const categories = [
-  { id: 1, name: 'Camaras' },
-  { id: 2, name: 'Audio' },
-  { id: 3, name: 'Luces' },
-  { id: 4, name: 'Accesorios' },
-]
-
 const AddProductDialog = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -29,9 +22,10 @@ const AddProductDialog = () => {
   const [characteristic, setCharacteristic] = useState('')
   const [imageUrls, setImageUrls] = useState([])
   const [category, setCategory] = useState('')
-  const [stock, setStock] = useState('') // Añadir estado para stock
+  const [stock, setStock] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  const { dispatch } = useGlobalContext()
+  const { state, dispatch } = useGlobalContext()
+  const { dataCategory: categories } = state // Obtener categorías del estado global
 
   const handleImageChange = (e) => {
     const files = e.target.files
@@ -61,7 +55,7 @@ const AddProductDialog = () => {
         characteristic,
         images: imageUrls,
         category: selectedCategory,
-        stock: stock, // Asegúrate de que stock sea un número entero
+        stock: parseInt(stock, 10), // Asegúrate de que stock sea un número entero
       }
 
       // Llama a la función addProduct desde productsAPI y obtén la respuesta
@@ -155,7 +149,7 @@ const AddProductDialog = () => {
                 value={stock}
                 placeholder='Cantidad disponible'
                 type='number'
-                onChange={(e) => setStock(e.target.value)} // Añadir controlador de cambios para stock
+                onChange={(e) => setStock(e.target.value)}
               />
             </div>
             <div className='grid gap-2'>
