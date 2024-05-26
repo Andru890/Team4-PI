@@ -129,7 +129,11 @@ export const ContextProvider = ({ children }) => {
       throw new Error('Category is required')
     }
     const data = await addCategory(category)
-    dispatch({ type: 'ADD_CATEGORY', payload: data })
+    if (data) {
+      dispatch({ type: 'ADD_CATEGORY', payload: data })
+    } else {
+      throw new Error('Failed to add category')
+    }
   }, [])
 
   const handleDeleteCategory = useCallback(async (id) => {

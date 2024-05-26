@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useGlobalContext } from '@/context/global.context'
+import { toast } from 'sonner'
 import { addProduct } from '@/services/productsAPI'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -67,6 +68,7 @@ const AddProductDialog = () => {
       setIsOpen(false)
     } catch (error) {
       console.error('Error al agregar el producto:', error)
+      toast.error('Error al agregar el producto')
     }
   }
 

@@ -38,7 +38,7 @@ const AdminCategoriesTable = ({ products, category, handleDeleteCategory }) => {
 
     if (result.isConfirmed) {
       handleDeleteCategory(categoryId)
-      toast('Categoría eliminada con éxito', 'success')
+      toast.success('Categoría eliminada con éxito')
     }
   }
 

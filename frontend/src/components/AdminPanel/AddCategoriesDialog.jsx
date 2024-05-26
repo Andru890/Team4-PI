@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
+import { toast } from 'sonner'
 
 const AddCategoriesDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -19,9 +20,15 @@ const AddCategoriesDialog = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    handleAddCategory(name)
-    setName('')
-    setIsOpen(false)
+    try {
+      handleAddCategory({ name })
+      toast.success('Categoría agregada con éxito')
+      setName('')
+      setIsOpen(false)
+    } catch (error) {
+      console.error(error)
+      toast.error('Error al agregar la categoría')
+    }
   }
 
   return (

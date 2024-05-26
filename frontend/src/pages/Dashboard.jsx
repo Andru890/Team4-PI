@@ -59,7 +59,7 @@ const Dashboard = () => {
       <AdminSidebar />
       <div className='flex flex-col'>{content}</div>
       <AdminMobileFallback />
-      <Toaster />
+      <Toaster richColors />
     </div>
   )
 }
