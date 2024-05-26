@@ -45,7 +45,7 @@ const ProductTable = ({ products, handleDeleteProduct }) => {
       if (stockResult.isConfirmed) {
         handleDeleteProduct(product.id, stockResult.value)
         toast(
-          `Se han eliminado x unidades del producto "${product.name}". Stock restante: x.`
+          `Se han eliminado x unidades del producto "${product.name}". Stock restante: ${product.sto}.`
         )
       }
     }
@@ -56,11 +56,13 @@ const ProductTable = ({ products, handleDeleteProduct }) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className='w-[80px]'>ID</TableHead>
+            <TableHead className='w-[30px]'>ID</TableHead>
             <TableHead className='w-[80px]'>Imagen</TableHead>
             <TableHead className='max-w-[150px]'>Nombre</TableHead>
             <TableHead className='hidden md:table-cell'>Descripción</TableHead>
-            <TableHead className='hidden md:table-cell'>Categoria</TableHead>
+            <TableHead className='hidden md:table-cell w-[100px]'>
+              Categoria
+            </TableHead>
             <TableHead className='hidden md:table-cell'>
               Características
             </TableHead>
@@ -72,7 +74,7 @@ const ProductTable = ({ products, handleDeleteProduct }) => {
         <TableBody>
           {products.map((product) => (
             <TableRow key={product.id}>
-              <TableCell>{product.id}</TableCell>
+              <TableCell className='w-[30px]'>{product.id}</TableCell>
               <TableCell>
                 <img
                   alt='Product image'
@@ -83,7 +85,7 @@ const ProductTable = ({ products, handleDeleteProduct }) => {
                 />
               </TableCell>
               <TableCell className='font-medium'>{product.name}</TableCell>
-              <TableCell className='hidden md:table-cell'>
+              <TableCell className='hidden md:table-cell w-[400px]'>
                 {product.description}
               </TableCell>
               <TableCell className='hidden md:table-cell'>
@@ -97,7 +99,7 @@ const ProductTable = ({ products, handleDeleteProduct }) => {
                       .map((char, index) => <li key={index}>{char.trim()}</li>)}
                 </ul>
               </TableCell>
-              <TableCell className='hidden md:table-cell'>
+              <TableCell className='hidden md:table-cell w-[120px]'>
                 ${product.price}
               </TableCell>
               <TableCell className='hidden md:table-cell'>

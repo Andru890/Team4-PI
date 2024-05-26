@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useGlobalContext } from '@/context/global.context'
 import { toast } from 'sonner'
-import { addProduct } from '@/services/productsAPI'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -25,8 +24,8 @@ const AddProductDialog = () => {
   const [category, setCategory] = useState('')
   const [stock, setStock] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  const { state, dispatch } = useGlobalContext()
-  const { dataCategory: categories } = state // Obtener categorías del estado global
+  const { state, handleAddProduct } = useGlobalContext()
+  const { dataCategory: categories } = state
 
   const handleImageChange = (e) => {
     const files = e.target.files
@@ -45,26 +44,25 @@ const AddProductDialog = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     try {
       const selectedCategory = categories.find((cat) => cat.name === category)
-
-      const newProduct = {
+      handleAddProduct({
         name,
         description,
         price: parseFloat(price),
         characteristic,
         images: imageUrls,
         category: selectedCategory,
-        stock: parseInt(stock, 10), // Asegúrate de que stock sea un número entero
-      }
-
-      // Llama a la función addProduct desde productsAPI y obtén la respuesta
-      const addedProduct = await addProduct(newProduct)
-
-      // Despacha la acción para agregar el nuevo producto al estado global
-      dispatch({ type: 'ADD_PRODUCT', payload: addedProduct })
-
+        stock: parseInt(stock, 10),
+      })
+      toast.success('Producto agregado con éxito')
+      setName('')
+      setDescription('')
+      setPrice('')
+      setCharacteristic('')
+      setImageUrls([])
+      setCategory('')
+      setStock('')
       setIsOpen(false)
     } catch (error) {
       console.error('Error al agregar el producto:', error)
