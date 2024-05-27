@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useGlobalContext } from '@/context/global.context'
 import { routes } from '@/routes/routes'
 import {
   NavigationMenuTrigger,
@@ -10,6 +11,9 @@ import {
 } from '@/components/ui/navigation-menu'
 
 const Navbar = () => {
+  const { state } = useGlobalContext()
+  const { dataCategory: categories } = state
+
   return (
     <nav className='hidden md:flex items-center gap-6'>
       <Link
@@ -27,58 +31,21 @@ const Navbar = () => {
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <div className='grid w-[400px] p-2'>
-                <NavigationMenuLink asChild>
-                  <Link
-                    className='group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-white p-4 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50'
-                    href='#'
-                  >
-                    <div className='text-sm font-medium leading-none group-hover:underline'>
-                      Camaras
-                    </div>
-                    <div className='line-clamp-2 text-sm leading-snug text-gray-500 dark:text-gray-400'>
-                      Camaras de fotos y video.
-                    </div>
-                  </Link>
-                </NavigationMenuLink>
-                <NavigationMenuLink asChild>
-                  <Link
-                    className='group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-white p-4 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50'
-                    href='#'
-                  >
-                    <div className='text-sm font-medium leading-none group-hover:underline'>
-                      Sonido
-                    </div>
-                    <div className='line-clamp-2 text-sm leading-snug text-gray-500 dark:text-gray-400'>
-                      Equipos de sonido.
-                    </div>
-                  </Link>
-                </NavigationMenuLink>
-                <NavigationMenuLink asChild>
-                  <Link
-                    className='group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-white p-4 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50'
-                    href='#'
-                  >
-                    <div className='text-sm font-medium leading-none group-hover:underline'>
-                      Luces
-                    </div>
-                    <div className='line-clamp-2 text-sm leading-snug text-gray-500 dark:text-gray-400'>
-                      Luces para eventos.
-                    </div>
-                  </Link>
-                </NavigationMenuLink>
-                <NavigationMenuLink asChild>
-                  <Link
-                    className='group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-white p-4 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50'
-                    href='#'
-                  >
-                    <div className='text-sm font-medium leading-none group-hover:underline'>
-                      Accesorios
-                    </div>
-                    <div className='line-clamp-2 text-sm leading-snug text-gray-500 dark:text-gray-400'>
-                      Accesorios para eventos.
-                    </div>
-                  </Link>
-                </NavigationMenuLink>
+                {categories.map((category) => (
+                  <NavigationMenuLink asChild key={category.id}>
+                    <Link
+                      className='group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-white p-4 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50'
+                      href='#'
+                    >
+                      <div className='text-sm font-medium leading-none group-hover:underline'>
+                        {category.name}
+                      </div>
+                      <div className='line-clamp-2 text-sm leading-snug text-gray-500 dark:text-gray-400'>
+                        {category.description}
+                      </div>
+                    </Link>
+                  </NavigationMenuLink>
+                ))}
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
