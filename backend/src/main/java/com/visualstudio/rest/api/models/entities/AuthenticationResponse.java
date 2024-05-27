@@ -5,9 +5,9 @@ import com.visualstudio.rest.api.dto.Entrada.UserEntradaDto;
 public class AuthenticationResponse {
 
     private final String jwt;
-    private final UserEntradaDto userDto;
+    private UserEntradaDto userDto = new UserEntradaDto();
 
-    public AuthenticationResponse(String jwt, UserEntradaDto userDto) {
+    public AuthenticationResponse(String jwt) {
         this.jwt = jwt;
         this.userDto = userDto;
     }
