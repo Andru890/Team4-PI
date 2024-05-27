@@ -1,5 +1,5 @@
 INSERT INTO categories (name) VALUES
-	 ('camaras'),
-	 ('sonido'),
-	 ('luces'),
-	 ('accesorios');
+	 ('Cámaras'),
+	 ('Sonido'),
+	 ('Luces'),
+	 ('Accesorios');
