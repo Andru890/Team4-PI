@@ -1,13 +1,22 @@
+import { useState } from 'react'
 import { SheetTrigger, SheetContent, Sheet } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 import { routes } from '@/routes/routes'
 import { MenuIcon } from '@/components/Icons'
 const HamburgerMenu = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const closeMenu = () => setIsOpen(false)
+
   return (
-    <Sheet>
+    <Sheet isOpen={isOpen} onClose={closeMenu}>
       <SheetTrigger asChild>
-        <Button className='ml-auto lg:hidden' size='icon' variant='outline'>
+        <Button
+          onClick={() => setIsOpen(true)}
+          className='ml-auto lg:hidden'
+          size='icon'
+          variant='outline'
+        >
           <MenuIcon className='h-6 w-6' />
           <span className='sr-only'>Toggle navigation menu</span>
         </Button>
@@ -15,12 +24,14 @@ const HamburgerMenu = () => {
       <SheetContent side='right'>
         <div className='grid gap-4 py-6'>
           <Link
+            onClick={closeMenu}
             className='flex items-center gap-2 text-lg font-medium hover:underline'
             to={routes.home}
           >
             Inicio
           </Link>
           <Link
+            onClick={closeMenu}
             className='flex items-center gap-2 text-lg font-medium hover:underline'
             to={routes.categories}
           >

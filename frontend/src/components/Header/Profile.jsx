@@ -18,10 +18,10 @@ const Profile = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>My Account</DropdownMenuItem>
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem>Cuenta</DropdownMenuItem>
+        <DropdownMenuItem>Preferencias</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem>Salir</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
