@@ -14,6 +14,7 @@ import ItemDetailContainer from '@/components/ItemDetailContainer/ItemDetailCont
 import AdminCategories from '../components/AdminPanel/AdminCategories'
 import AdminOrders from '@/components/AdminPanel/AdminOrders'
 import AdminFeatures from '@/components/AdminPanel/AdminFeatures'
+import Categories from '@/pages/Categories'
 
 const Layout = () => {
   return (
@@ -37,6 +38,7 @@ const Layout = () => {
       <Route path={routes.register} element={<Register />} />
       <Route path={routes.contact} element={<Contact />} />
       <Route path={routes.services} element={<Services />} />
+      <Route path='/categories' element={<Categories />} />
     </Routes>
   )
 }
