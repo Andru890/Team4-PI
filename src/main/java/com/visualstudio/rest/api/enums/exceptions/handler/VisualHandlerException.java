@@ -1,7 +1,7 @@
-package com.visualstudio.rest.api.exceptions.handler;
+package com.visualstudio.rest.api.enums.exceptions.handler;
 
-import com.visualstudio.rest.api.exceptions.ResourceExistException;
-import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
+import com.visualstudio.rest.api.enums.exceptions.ResourceNotFoundException;
+import com.visualstudio.rest.api.enums.exceptions.ResourceExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,4 +1,4 @@
-package com.visualstudio.rest.api.exceptions.handler;
+package com.visualstudio.rest.api.enums.exceptions.handler;
 
 import org.springframework.validation.Errors;
 

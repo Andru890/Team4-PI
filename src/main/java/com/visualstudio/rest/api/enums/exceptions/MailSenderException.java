@@ -1,4 +1,4 @@
-package com.visualstudio.rest.api.exceptions;
+package com.visualstudio.rest.api.enums.exceptions;
 
 public class MailSenderException extends Exception {
 

@@ -1,6 +1,6 @@
 package com.visualstudio.rest.api.controllers;
 
-import com.visualstudio.rest.api.exceptions.ResourceExistException;
+import com.visualstudio.rest.api.enums.exceptions.ResourceExistException;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.services.impl.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
-import com.visualstudio.rest.api.dto.Entrada.UserEntradaDto;
-import com.visualstudio.rest.api.exceptions.MailSenderException;
+
+import com.visualstudio.rest.api.enums.exceptions.MailSenderException;
 import com.visualstudio.rest.api.services.impl.UserServiceImpl;
 @RestController
 @RequestMapping("/mail")

@@ -2,7 +2,6 @@ package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.dto.Entrada.ReservationEntradaDto;
 import com.visualstudio.rest.api.enums.MailEnum;
-import com.visualstudio.rest.api.exceptions.MailSenderException;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.utils.MailUtil;
 import jakarta.mail.internet.InternetAddress;
@@ -14,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
+import com.visualstudio.rest.api.enums.exceptions.MailSenderException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

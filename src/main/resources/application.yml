@@ -4,9 +4,9 @@ spring:
   application:
     name: visual-studio-api
   datasource:
-    url: jdbc:mysql://mysql8:3306/visual_studio_db
+    url: jdbc:mysql://localhost:3306/visual_studio_db
     username: root
-    password: sa
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -14,3 +14,20 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+  mail:
+    host: localhost
+    port: 25
+    username: admin
+    password: admin
+    properties:
+      transport.protocol: smtp
+      mail:
+        smtp:
+          auth: true
+          starttls:
+              enable: true
+        debug: true
+
+
+
