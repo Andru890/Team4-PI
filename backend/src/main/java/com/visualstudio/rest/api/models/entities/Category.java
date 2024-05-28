@@ -24,6 +24,6 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"category"})
+    @JsonIgnoreProperties({"category", "hibernateLazyInitializer"})
     private List<Product> products;
 }
