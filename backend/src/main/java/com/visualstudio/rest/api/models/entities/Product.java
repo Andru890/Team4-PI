@@ -33,7 +33,7 @@ public class Product {
     private Double price;
 
     @Column(name = "image")
-    private List<String> image = new ArrayList<>();
+    private String image;
 
     @Column(name = "characteristic", length = 1000)
     private String characteristic;
