@@ -65,6 +65,14 @@
       "password": "sa"
     }
   ],
-  "CodeGPT.apiKey": "CodeGPT Plus Beta",
-  "java.compile.nullAnalysis.mode": "automatic"
+  "editor.fontLigatures": true,
+  "editor.cursorBlinking": "expand",
+  "editor.linkedEditing": true,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.guides.bracketPairs": true,
+  "editor.smoothScrolling": true,
+  "breadcrumbs.enabled": false,
+  "editor.stickyScroll.enabled": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  
 }
