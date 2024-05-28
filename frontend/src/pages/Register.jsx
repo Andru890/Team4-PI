@@ -3,7 +3,13 @@ import { Input } from '@/components/ui/input'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { routes } from '@/routes/routes'
-import { MailIcon, LockIcon, UserIcon } from '@/components/Icons'
+import {
+  MailIcon,
+  LockIcon,
+  UserIcon,
+  PhoneIcon,
+  GlobeIcon,
+} from '@/components/Icons'
 import Video from '@/components/Login/Videos'
 import Logo from '@/components/Login/Logo'
 
@@ -38,6 +44,18 @@ const Register = () => {
               </div>
             </div>
             <div className='space-y-2'>
+              <Label htmlFor='lastname'>Apellido</Label>
+              <div className='relative'>
+                <UserIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
+                <Input
+                  className='pl-10'
+                  id='lastname'
+                  placeholder='Ingresa tu apellido'
+                  required
+                />
+              </div>
+            </div>
+            <div className='space-y-2'>
               <Label htmlFor='email'>Correo electrónico</Label>
               <div className='relative'>
                 <MailIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
@@ -47,6 +65,30 @@ const Register = () => {
                   placeholder='ejemplo@dominio.com'
                   required
                   type='email'
+                />
+              </div>
+            </div>
+            <div className='space-y-2'>
+              <Label htmlFor='phone'>Telefono</Label>
+              <div className='relative'>
+                <PhoneIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
+                <Input
+                  className='pl-10'
+                  id='phone'
+                  placeholder='Ingresa tu telefono'
+                  required
+                />
+              </div>
+            </div>
+            <div className='space-y-2'>
+              <Label htmlFor='country'>Pais</Label>
+              <div className='relative'>
+                <GlobeIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
+                <Input
+                  className='pl-10'
+                  id='country'
+                  placeholder='Ingresa tu pais'
+                  required
                 />
               </div>
             </div>
@@ -62,6 +104,21 @@ const Register = () => {
                   required
                   type='password'
                   placeholder='Ingresa tu contraseña'
+                />
+              </div>
+            </div>
+            <div className='space-y-2'>
+              <div className='flex items-center'>
+                <Label htmlFor='password'>Repetir contraseña</Label>
+              </div>
+              <div className='relative'>
+                <LockIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
+                <Input
+                  className='pl-10'
+                  id='password'
+                  required
+                  type='password'
+                  placeholder='Repite tu contraseña'
                 />
               </div>
             </div>

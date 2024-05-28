@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { PenIcon, TrashIcon } from '@/components/Icons'
 import {
@@ -10,8 +11,19 @@ import {
 } from '@/components/ui/table'
 import { toast } from 'sonner'
 import Swal from 'sweetalert2'
+import EditProductDialog from '@/components/AdminPanel/EditProductDialog'
 
-const ProductTable = ({ products, handleDeleteProduct }) => {
+const ProductTable = ({
+  products,
+  handleDeleteProduct,
+  handleUpdateProduct,
+}) => {
+  const [editingProduct, setEditingProduct] = useState(null)
+
+  const onEditClick = (product) => {
+    setEditingProduct(product)
+  }
+
   const onDeleteClick = async (product) => {
     const result = await Swal.fire({
       title: `¿Estás seguro de que deseas eliminar el producto "${product.name}"?`,
@@ -107,7 +119,11 @@ const ProductTable = ({ products, handleDeleteProduct }) => {
               </TableCell>
               <TableCell>
                 <div className='flex items-center gap-2'>
-                  <Button size='icon' variant='ghost'>
+                  <Button
+                    size='icon'
+                    variant='ghost'
+                    onClick={() => onEditClick(product)}
+                  >
                     <PenIcon className='h-4 w-4' />
                     <span className='sr-only'>Editar</span>
                   </Button>
@@ -127,6 +143,13 @@ const ProductTable = ({ products, handleDeleteProduct }) => {
           ))}
         </TableBody>
       </Table>
+      {editingProduct && (
+        <EditProductDialog
+          product={editingProduct}
+          onClose={() => setEditingProduct(null)}
+          handleUpdateProduct={handleUpdateProduct}
+        />
+      )}
     </div>
   )
 }
