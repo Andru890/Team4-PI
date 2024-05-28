@@ -19,20 +19,40 @@ import Logo from '@/components/Login/Logo'
 
 const Register = () => {
   const buttonRef = useRef(null)
-  const { handleCreateUser } = useGlobalContext()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { handleCreateUser } = useGlobalContext() // Updated to use handleAddUser from context
+  const [formData, setFormData] = useState({
+    name: '',
+    lastname: '',
+    email: '',
+    phone: '',
+    country: '',
+    password: '',
+    confirmPassword: '',
+  })
 
-  const handleEmailChange = (event) => setEmail(event.target.value)
-  const handlePasswordChange = (event) => setPassword(event.target.value)
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }))
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    console.log('Formulario enviado', formData)
+    if (formData.password !== formData.confirmPassword) {
+      toast.error('Las contraseñas no coinciden')
+      return
+    }
     try {
-      // Intenta crear el usuario
-      const user = await handleCreateUser(email, password)
+      const newUser = {
+        name: formData.name,
+        lastname: formData.lastname,
+        email: formData.email,
+        phone: formData.phone,
+        country: formData.country,
+        password: formData.password,
+      }
+      const user = await handleCreateUser(newUser)
       if (user) {
-        // Lanza confeti en la posición del botón
         const buttonPosition = buttonRef.current.getBoundingClientRect()
         confetti({
           particleCount: 100,
@@ -54,6 +74,7 @@ const Register = () => {
       toast.error('Error al crear el usuario')
     }
   }
+
   return (
     <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-3 xl:min-h-[800px] relative'>
       <div className='hidden bg-gray-100 lg:col-span-2 lg:block dark:bg-gray-800 relative'>
@@ -79,8 +100,11 @@ const Register = () => {
                   <Input
                     className='pl-10'
                     id='name'
+                    name='name'
                     placeholder='Ingresa tu nombre'
                     required
+                    value={formData.name}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -91,8 +115,11 @@ const Register = () => {
                   <Input
                     className='pl-10'
                     id='lastname'
+                    name='lastname'
                     placeholder='Ingresa tu apellido'
                     required
+                    value={formData.lastname}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -103,33 +130,42 @@ const Register = () => {
                   <Input
                     className='pl-10'
                     id='email'
+                    name='email'
                     placeholder='ejemplo@dominio.com'
                     required
                     type='email'
+                    value={formData.email}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
               <div className='space-y-2'>
-                <Label htmlFor='phone'>Telefono</Label>
+                <Label htmlFor='phone'>Teléfono</Label>
                 <div className='relative'>
                   <PhoneIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
                   <Input
                     className='pl-10'
                     id='phone'
-                    placeholder='Ingresa tu telefono'
+                    name='phone'
+                    placeholder='Ingresa tu teléfono'
                     required
+                    value={formData.phone}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
               <div className='space-y-2'>
-                <Label htmlFor='country'>Pais</Label>
+                <Label htmlFor='country'>País</Label>
                 <div className='relative'>
                   <GlobeIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
                   <Input
                     className='pl-10'
                     id='country'
-                    placeholder='Ingresa tu pais'
+                    name='country'
+                    placeholder='Ingresa tu país'
                     required
+                    value={formData.country}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -142,28 +178,34 @@ const Register = () => {
                   <Input
                     className='pl-10'
                     id='password'
+                    name='password'
                     required
                     type='password'
                     placeholder='Ingresa tu contraseña'
+                    value={formData.password}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
               <div className='space-y-2'>
                 <div className='flex items-center'>
-                  <Label htmlFor='password'>Repetir contraseña</Label>
+                  <Label htmlFor='confirmPassword'>Repetir contraseña</Label>
                 </div>
                 <div className='relative'>
                   <LockIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
                   <Input
                     className='pl-10'
-                    id='password'
+                    id='confirmPassword'
+                    name='confirmPassword'
                     required
                     type='password'
                     placeholder='Repite tu contraseña'
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
-              <Button className='w-full' type='submit'>
+              <Button className='w-full' type='submit' ref={buttonRef}>
                 Registrarse
               </Button>
             </div>

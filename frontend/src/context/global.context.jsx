@@ -150,62 +150,36 @@ export const ContextProvider = ({ children }) => {
     await deleteCategory(id)
     dispatch({ type: 'DELETE_CATEGORY', payload: id })
   }, [])
-
-  const handleGetUser = useCallback(async () => {
+  const handleCreateUser = useCallback(async (user) => {
     try {
-      const data = await getUsers()
-      if (data) {
-        dispatch({ type: 'GET_USER', payload: data })
-      } else {
-        throw new Error('Failed to fetch user data')
+      const response = await createUser(user)
+      if (response) {
+        dispatch({
+          type: 'ADD_USER',
+          payload: response,
+        })
+        return response
       }
     } catch (error) {
-      console.error(error)
+      console.error('Failed to create user', error)
+      return null
     }
+  }, [])
+
+  const handleGetUsers = useCallback(async () => {
+    const users = await getUsers()
+    dispatch({
+      type: 'SET_USERS',
+      payload: users,
+    })
   }, [])
 
   const handleGetUserById = useCallback(async (id) => {
-    if (!id) {
-      throw new Error('User ID is required')
-    }
-    const data = await getUserById(id)
-    if (data) {
-      dispatch({ type: 'GET_USER_DETAIL', payload: data })
-    } else {
-      throw new Error('Failed to fetch user detail')
-    }
-  }, [])
-
-  const handleAddUser = useCallback(async (user) => {
-    if (!user) {
-      throw new Error('User is required')
-    }
-    const data = await createUser(user)
-    if (data) {
-      dispatch({ type: 'ADD_USER', payload: data })
-    } else {
-      throw new Error('Failed to add user')
-    }
-  }, [])
-
-  const handleUpdateUser = useCallback(async (user) => {
-    if (!user) {
-      throw new Error('User is required')
-    }
-    const data = await updateUser(user)
-    if (data) {
-      dispatch({ type: 'UPDATE_USER', payload: data })
-    } else {
-      throw new Error('Failed to update user')
-    }
-  }, [])
-
-  const handleDeleteUser = useCallback(async (id) => {
-    if (!id) {
-      throw new Error('User ID is required')
-    }
-    await deleteUser(id)
-    dispatch({ type: 'DELETE_USER', payload: id })
+    const user = await getUserById(id)
+    dispatch({
+      type: 'SET_USER_BY_ID',
+      payload: user,
+    })
   }, [])
 
   useEffect(() => {
@@ -217,33 +191,34 @@ export const ContextProvider = ({ children }) => {
   }, [handleGetCategory])
 
   useEffect(() => {
-    handleGetUser()
-  }, [handleGetUser])
+    handleGetUsers()
+  }, [handleGetUsers])
+
+  const data = {
+    state,
+    dispatch,
+    handleGetProductById,
+    handleAddProduct,
+    handleUpdateProduct,
+    handleUpdateProductStock,
+    handleDeleteProduct,
+    handleGetCategory,
+    handleGetCategoryById,
+    handleAddCategory,
+    handleDeleteCategory,
+    handleCreateUser,
+    handleGetUserById,
+  }
 
   return (
-    <ContextGlobal.Provider
-      value={{
-        state,
-        dispatch,
-        handleGetProductById,
-        handleAddProduct,
-        handleUpdateProduct,
-        handleUpdateProductStock,
-        handleDeleteProduct,
-        handleGetCategory,
-        handleGetCategoryById,
-        handleAddCategory,
-        handleDeleteCategory,
-        handleGetUser,
-        handleGetUserById,
-        handleAddUser,
-        handleUpdateUser,
-        handleDeleteUser,
-      }}
-    >
-      {children}
-    </ContextGlobal.Provider>
+    <ContextGlobal.Provider value={data}>{children}</ContextGlobal.Provider>
   )
 }
 
-export const useGlobalContext = () => useContext(ContextGlobal)
+export const useGlobalContext = () => {
+  const context = useContext(ContextGlobal)
+  if (!context) {
+    throw new Error('useGlobalContext must be used within a ContextProvider')
+  }
+  return context
+}
