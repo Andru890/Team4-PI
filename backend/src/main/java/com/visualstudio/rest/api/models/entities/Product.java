@@ -31,7 +31,7 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "image")
+    @Column(name = "url_image")
     private String image;
 
     @Column(name = "characteristic", length = 1000)
