@@ -52,6 +52,29 @@ export const reducer = (state, action) => {
           (category) => category.id !== action.payload
         ),
       }
+    case 'GET_USER':
+      return {
+        ...state,
+        dataUser: action.payload,
+      }
+
+    case 'GET_USER_DETAIL':
+      return {
+        ...state,
+        dataUser: action.payload,
+      }
+
+    case 'ADD_USER':
+      return {
+        ...state,
+        dataUser: [...state.dataUser, action.payload],
+      }
+
+    case 'DELETE_USER':
+      return {
+        ...state,
+        dataUser: state.dataUser.filter((user) => user.id !== action.payload),
+      }
     default:
       return state
   }

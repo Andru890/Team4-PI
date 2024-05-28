@@ -3,4 +3,6 @@ export const initialState = {
   productSelected: {},
   dataCategory: [],
   categorySelected: {},
+  dataUser: [],
+  userSelected: {},
 }
