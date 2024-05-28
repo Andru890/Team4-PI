@@ -7,7 +7,7 @@ import { routes } from '@/routes/routes'
 
 const Header = () => {
   return (
-    <header className='fixed top-0 left-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 bg-white'>
+    <header className='fixed top-0 left-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-20 bg-white'>
       <Link to='/'>
         <div className='flex items-center gap-2'>
           <CameraIcon className='h-6 w-6' />
@@ -17,11 +17,11 @@ const Header = () => {
         </div>
       </Link>
       <HamburgerMenu />
-      <div className='ml-auto hidden lg:flex items-center gap-4'>
+      <div className='ml-auto hidden lg:flex items-center gap-6'>
         <Navbar />
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-6'>
           <Link to={routes.login}>
-            <Button variant='outline'>Iniciar sesión</Button>
+            <Button variant='secondary'>Iniciar sesión</Button>
           </Link>
           <Link to={routes.register}>
             <Button>Registrarse</Button>

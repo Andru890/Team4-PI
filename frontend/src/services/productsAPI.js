@@ -13,7 +13,7 @@ export const getProduct = async () => {
 }
 export const getProductById = async (id) => {
   try {
-    const res = await axios.get(`${API_URL}/product/${id}`)
+    const res = await axios.get(`${API_URL}/product/detail/${id}`)
     console.log(res.data)
     return res.data
   } catch (error) {
@@ -44,6 +44,18 @@ export const deleteProduct = async (id) => {
 export const updateProduct = async (product) => {
   try {
     const res = await axios.put(`${API_URL}/product/${product.id}`, product)
+    console.log(res.data)
+    return res.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const addProductCategory = async (productId, categoryId) => {
+  try {
+    const res = await axios.post(
+      `${API_URL}/product/${productId}/category/${categoryId}`
+    )
     console.log(res.data)
     return res.data
   } catch (error) {
