@@ -32,9 +32,8 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"product"})
-    private List<String> productImage = new ArrayList<>();
+    @Column(name = "image")
+    private List<String> image = new ArrayList<>();
 
     @Column(name = "characteristic", length = 1000)
     private String characteristic;

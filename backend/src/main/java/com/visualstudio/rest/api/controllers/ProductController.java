@@ -8,12 +8,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import com.visualstudio.rest.api.services.impl.CloudinaryService;
-import com.visualstudio.rest.api.services.impl.ProductImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -24,7 +22,6 @@ public class ProductController {
 
     private final IProductService productService;
     private final CloudinaryService cloudinaryService;
-    private final ProductImageService productImageService;
 
     @Operation(summary = "Create a product")
     @ApiResponses(value = {
