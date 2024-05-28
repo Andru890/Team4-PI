@@ -1,14 +1,8 @@
 package com.visualstudio.rest.api.services.impl;
 
-<<<<<<< HEAD
-import com.visualstudio.rest.api.models.entities.Role;
-import com.visualstudio.rest.api.models.entities.User;
-import com.visualstudio.rest.api.repositories.RolRepository;
-=======
 import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.RoleRepository;
->>>>>>> origin/back-end
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +14,7 @@ import java.util.List;
 public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
-
-    private final RolRepository rolRepository;
-
     private final RoleRepository roleRepository;
-
 
     @Override
     public List<User> getAll() {
@@ -33,10 +23,6 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User save(User user) {
-
-        Role rol = rolRepository.findById(user.getRole().getId()).get();
-        user.setRole(rol);
-
         User existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser != null){
             throw new IllegalArgumentException("El usuario con el correo " + user.getEmail() + " ya existe.");
@@ -47,7 +33,6 @@ public class UserServiceImpl implements IUserService {
                 user.setRole(getDefaultRole());
             }
         }
->>>>>>> origin/back-end
         return userRepository.save(user);
     }
 
@@ -57,11 +42,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-<<<<<<< HEAD
-    public User findById(Long id) {
-=======
     public User getOne(Long id) {
->>>>>>> origin/back-end
         return userRepository.findById(id).get();
     }
 
@@ -69,8 +50,6 @@ public class UserServiceImpl implements IUserService {
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
-<<<<<<< HEAD
-=======
 
     public Role getDefaultRole() {
         return new Role("customer");
@@ -84,20 +63,19 @@ public class UserServiceImpl implements IUserService {
     }
 
     public User updateRole(Long userId){
-            User user = userRepository.findById(userId).get();
-            Role newRole = roleRepository.findByName("admin");
+        User user = userRepository.findById(userId).get();
+        Role newRole = roleRepository.findByName("admin");
 
-            if (newRole == null){
-                updateRole(userId);
-            }
+        if (newRole == null){
+            updateRole(userId);
+        }
 
-            if (user.getRole().getName() == "customer"){
-                user.setRole(newRole);
-            } else if (user.getRole().getName() == "admin") {
-                user.setRole(roleRepository.findByName("customer"));
-            }
-            return userRepository.save(user);
+        if (user.getRole().getName() == "customer"){
+            user.setRole(newRole);
+        } else if (user.getRole().getName() == "admin") {
+            user.setRole(roleRepository.findByName("customer"));
+        }
+        return userRepository.save(user);
     }
 
->>>>>>> origin/back-end
 }
