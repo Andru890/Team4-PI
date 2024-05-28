@@ -1,9 +1,11 @@
 package com.visualstudio.rest.api.services.impl;
 
+import com.visualstudio.rest.api.dto.Entrada.CategoryDTO;
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.repositories.CategoryRepository;
 import com.visualstudio.rest.api.services.ICategoryService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,29 +13,39 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements ICategoryService {
+
     private final CategoryRepository categoryRepository;
+    private final ModelMapper mapper;
 
     @Override
-    public List<Category> getAll() {
-        return categoryRepository.findAll();
+    public List<CategoryDTO> getAll() {
+        return categoryRepository
+                .findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
     }
 
     @Override
-    public Category save(Category category) {
-        return categoryRepository.save(category);
+    public CategoryDTO save(Category category) {
+        return convertToDTO(categoryRepository.save(category));
     }
 
     @Override
-    public Category update(Category category, Long id) {
+    public CategoryDTO update(Category category, Long id) {
         return null;
     }
     @Override
-    public Category findById(Long id) {
-        return null;
+    public CategoryDTO findById(Long id) {
+        return convertToDTO(categoryRepository.findById(id).get());
     }
 
     @Override
     public void delete(Long id) {
+        categoryRepository.deleteById(id);
+    }
 
+    private CategoryDTO convertToDTO(Category category){
+        return mapper.map(category,CategoryDTO.class);
     }
 }
