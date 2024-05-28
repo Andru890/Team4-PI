@@ -43,4 +43,8 @@ public class CloudinaryService {
         fo.close();
         return file;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/back-end

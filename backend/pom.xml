@@ -16,9 +16,13 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+<<<<<<< HEAD
 
 	<dependencies>
 
+=======
+	<dependencies>
+>>>>>>> origin/back-end
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -46,6 +50,7 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 			<version>3.2.5</version>
 		</dependency>
+<<<<<<< HEAD
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -129,11 +134,19 @@
 			<version>2.7.5</version>
 		</dependency>
 
+=======
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+>>>>>>> origin/back-end
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.7.0</version>
 		</dependency>
+<<<<<<< HEAD
 
 		<dependency>
 			<groupId>com.sun.mail</groupId>
@@ -166,6 +179,21 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+=======
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.cloudinary/cloudinary-http44 -->
+		<dependency>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-http44</artifactId>
+			<version>1.38.0</version>
+		</dependency>
+
+
+>>>>>>> origin/back-end
 	</dependencies>
 
 	<build>
@@ -176,6 +204,7 @@
 				<configuration>
 					<excludes>
 						<exclude>
+<<<<<<< HEAD
 							<exclusion>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
@@ -189,6 +218,13 @@
 				</configuration>
 
 
+=======
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+>>>>>>> origin/back-end
 			</plugin>
 		</plugins>
 	</build>

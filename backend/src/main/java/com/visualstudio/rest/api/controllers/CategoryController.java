@@ -1,6 +1,10 @@
 package com.visualstudio.rest.api.controllers;
 
+<<<<<<< HEAD
 import com.visualstudio.rest.api.dto.Entrada.CategoryDTO;
+=======
+import com.visualstudio.rest.api.models.dtos.CategoryDTO;
+>>>>>>> origin/back-end
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.services.ICategoryService;
 import io.swagger.v3.oas.annotations.Operation;

@@ -1,6 +1,10 @@
 package com.visualstudio.rest.api.services.impl;
 
+<<<<<<< HEAD
 import com.visualstudio.rest.api.dto.Entrada.CategoryDTO;
+=======
+import com.visualstudio.rest.api.models.dtos.CategoryDTO;
+>>>>>>> origin/back-end
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.repositories.CategoryRepository;
 import com.visualstudio.rest.api.services.ICategoryService;

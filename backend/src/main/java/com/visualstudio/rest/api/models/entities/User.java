@@ -1,5 +1,6 @@
 package com.visualstudio.rest.api.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,11 +23,11 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "mobile")
-    private String mobile;
+    @Column(name = "lastname")
+    private String lastname;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "phone")
+    private String phone;
 
     @Column(name = "email")
     private String email;
@@ -37,9 +38,10 @@ public class User {
     @Column(name = "city")
     private String city;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rol_id", foreignKey = @ForeignKey(name = "FK_ROL_ID"))
-    private Rol rol;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "role_id")
+    @JsonIgnoreProperties({"users"})
+    private Role role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Reservation> reservations;
