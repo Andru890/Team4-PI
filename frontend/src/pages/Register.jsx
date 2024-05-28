@@ -218,6 +218,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <Toaster richColors />
     </div>
   )
 }
