@@ -20,6 +20,13 @@ import {
   addCategory,
   deleteCategory,
 } from '@/services/categoryAPI'
+import {
+  getUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+} from '@/services/userAPI'
 
 export const ContextGlobal = createContext(undefined)
 
@@ -144,6 +151,63 @@ export const ContextProvider = ({ children }) => {
     dispatch({ type: 'DELETE_CATEGORY', payload: id })
   }, [])
 
+  const handleGetUser = useCallback(async () => {
+    try {
+      const data = await getUsers()
+      if (data) {
+        dispatch({ type: 'GET_USER', payload: data })
+      } else {
+        throw new Error('Failed to fetch user data')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
+
+  const handleGetUserById = useCallback(async (id) => {
+    if (!id) {
+      throw new Error('User ID is required')
+    }
+    const data = await getUserById(id)
+    if (data) {
+      dispatch({ type: 'GET_USER_DETAIL', payload: data })
+    } else {
+      throw new Error('Failed to fetch user detail')
+    }
+  }, [])
+
+  const handleAddUser = useCallback(async (user) => {
+    if (!user) {
+      throw new Error('User is required')
+    }
+    const data = await createUser(user)
+    if (data) {
+      dispatch({ type: 'ADD_USER', payload: data })
+    } else {
+      throw new Error('Failed to add user')
+    }
+  }, [])
+
+  const handleUpdateUser = useCallback(async (user) => {
+    if (!user) {
+      throw new Error('User is required')
+    }
+    const data = await updateUser(user)
+    if (data) {
+      dispatch({ type: 'UPDATE_USER', payload: data })
+    } else {
+      throw new Error('Failed to update user')
+    }
+  }, [])
+
+  const handleDeleteUser = useCallback(async (id) => {
+    if (!id) {
+      throw new Error('User ID is required')
+    }
+    await deleteUser(id)
+    dispatch({ type: 'DELETE_USER', payload: id })
+  }, [])
+
   useEffect(() => {
     handleGetProduct()
   }, [handleGetProduct])
@@ -151,6 +215,10 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     handleGetCategory()
   }, [handleGetCategory])
+
+  useEffect(() => {
+    handleGetUser()
+  }, [handleGetUser])
 
   return (
     <ContextGlobal.Provider
@@ -166,6 +234,11 @@ export const ContextProvider = ({ children }) => {
         handleGetCategoryById,
         handleAddCategory,
         handleDeleteCategory,
+        handleGetUser,
+        handleGetUserById,
+        handleAddUser,
+        handleUpdateUser,
+        handleDeleteUser,
       }}
     >
       {children}
