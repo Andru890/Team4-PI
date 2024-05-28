@@ -1,3 +1,7 @@
+import { useState, useRef } from 'react'
+import { toast, Toaster } from 'sonner'
+import confetti from 'canvas-confetti'
+import { useGlobalContext } from '@/context/global.context'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Link } from 'react-router-dom'
@@ -8,6 +12,43 @@ import Video from '@/components/Login/Videos'
 import Logo from '@/components/Login/Logo'
 
 const Login = () => {
+  const buttonRef = useRef(null)
+  const { handleGetUser } = useGlobalContext()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleEmailChange = (event) => setEmail(event.target.value)
+  const handlePasswordChange = (event) => setPassword(event.target.value)
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      // Intenta iniciar sesión
+      const user = await handleGetUser(email, password)
+      if (user) {
+        // Lanza confeti en la posición del botón
+        const buttonPosition = buttonRef.current.getBoundingClientRect()
+        confetti({
+          particleCount: 100,
+          startVelocity: 30,
+          spread: 70,
+          origin: {
+            x:
+              (buttonPosition.left + buttonPosition.right) /
+              2 /
+              window.innerWidth,
+            y: buttonPosition.top / window.innerHeight,
+          },
+        })
+        toast.success('Inicio de sesión exitoso!')
+      } else {
+        toast.error('El correo electrónico o la contraseña son incorrectos')
+      }
+    } catch (error) {
+      toast.error('Error al iniciar sesión')
+    }
+  }
+
   return (
     <>
       <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-3 xl:min-h-[800px]'>
@@ -37,6 +78,8 @@ const Login = () => {
                     placeholder='ejemplo@dominio.com'
                     required
                     type='email'
+                    value={email}
+                    onChange={handleEmailChange}
                   />
                 </div>
               </div>
@@ -58,10 +101,17 @@ const Login = () => {
                     required
                     type='password'
                     placeholder='Ingresa tu contraseña'
+                    value={password}
+                    onChange={handlePasswordChange}
                   />
                 </div>
               </div>
-              <Button className='w-full' type='submit'>
+              <Button
+                className='w-full'
+                type='submit'
+                onClick={handleSubmit}
+                ref={buttonRef}
+              >
                 Iniciar sesión
               </Button>
             </div>
@@ -74,6 +124,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Toaster richColors />
     </>
   )
 }
