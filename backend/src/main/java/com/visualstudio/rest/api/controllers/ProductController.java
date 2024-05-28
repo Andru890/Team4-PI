@@ -2,16 +2,12 @@ package com.visualstudio.rest.api.controllers;
 
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.services.IProductService;
-<<<<<<< HEAD
-import jakarta.validation.Valid;
-=======
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import com.visualstudio.rest.api.services.impl.CloudinaryService;
->>>>>>> origin/back-end
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +21,7 @@ import java.util.List;
 public class ProductController {
 
     private final IProductService productService;
-<<<<<<< HEAD
 
-    @PostMapping
-    public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
-        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
-    }
-
-=======
     private final CloudinaryService cloudinaryService;
 
     @Operation(summary = "Create a product")
@@ -73,14 +62,11 @@ public class ProductController {
             @ApiResponse(responseCode = "200", description = "Found a product",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
             @ApiResponse(responseCode = "404", description = "Product not found", content = @Content)})
->>>>>>> origin/back-end
+
     @GetMapping
     public ResponseEntity<List<Product>> searchAll() {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
-
-<<<<<<< HEAD
-=======
 
     @Operation(summary = "Found a product")
     @ApiResponses(value = {
@@ -88,15 +74,11 @@ public class ProductController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
             @ApiResponse(responseCode = "404", description = "Product not found", content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
->>>>>>> origin/back-end
+
     @GetMapping("/detail/{productId}")
     public ResponseEntity<Product> detailProduct(@PathVariable Long productId) {
         return new ResponseEntity<>(productService.findById(productId), HttpStatus.OK);
     }
-
-<<<<<<< HEAD
-    @DeleteMapping("/{productId}")
-=======
 
     @Operation(summary = "Delete a product")
     @ApiResponses(value = {
@@ -106,7 +88,7 @@ public class ProductController {
             @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
     @DeleteMapping("/{productId}")
     // Service de imagen para borrar
->>>>>>> origin/back-end
+
     public ResponseEntity<Void> delete(@PathVariable Long productId) {
         productService.delete(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -114,7 +96,3 @@ public class ProductController {
 }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/back-end

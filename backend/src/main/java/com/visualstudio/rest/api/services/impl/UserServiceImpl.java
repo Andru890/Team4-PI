@@ -1,7 +1,7 @@
 package com.visualstudio.rest.api.services.impl;
 
 <<<<<<< HEAD
-import com.visualstudio.rest.api.models.entities.Rol;
+import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.RolRepository;
 =======
@@ -20,11 +20,11 @@ import java.util.List;
 public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
-<<<<<<< HEAD
+
     private final RolRepository rolRepository;
-=======
+
     private final RoleRepository roleRepository;
->>>>>>> origin/back-end
+
 
     @Override
     public List<User> getAll() {
@@ -33,10 +33,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User save(User user) {
-<<<<<<< HEAD
-        Rol rol = rolRepository.findById(user.getRol().getId()).get();
-        user.setRol(rol);
-=======
+
+        Role rol = rolRepository.findById(user.getRole().getId()).get();
+        user.setRole(rol);
+
         User existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser != null){
             throw new IllegalArgumentException("El usuario con el correo " + user.getEmail() + " ya existe.");
