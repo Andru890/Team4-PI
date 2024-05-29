@@ -16,6 +16,7 @@ import AdminOrders from '@/components/AdminPanel/AdminOrders'
 import AdminFeatures from '@/components/AdminPanel/AdminFeatures'
 import Categories from '@/pages/Categories'
 import AuthGuard from '@/routes/AuthGuard'
+import NoAuthGuard from '@/routes/NoAuthGuard'
 
 const Layout = () => {
   return (
@@ -23,7 +24,14 @@ const Layout = () => {
       <Route path={routes.home} element={<Home />}>
         <Route path={routes.itemDetail} element={<ItemDetailContainer />} />
       </Route>
-      <Route path={routes.dashboard} element={<Dashboard />}>
+      <Route
+        path={routes.dashboard}
+        element={
+          <AuthGuard>
+            <Dashboard />
+          </AuthGuard>
+        }
+      >
         <Route index element={<AdminDashboard />} />
         <Route path={routes.dashboardorders} element={<AdminOrders />} />
         <Route path={routes.dashboardfeatures} element={<AdminFeatures />} />
@@ -39,17 +47,17 @@ const Layout = () => {
       <Route
         path={routes.login}
         element={
-          <AuthGuard>
+          <NoAuthGuard>
             <Login />
-          </AuthGuard>
+          </NoAuthGuard>
         }
       />
       <Route
         path={routes.register}
         element={
-          <AuthGuard>
+          <NoAuthGuard>
             <Register />
-          </AuthGuard>
+          </NoAuthGuard>
         }
       />
 

@@ -25,7 +25,7 @@ import {
   UsersIcon,
 } from '@/components/Icons'
 
-const AdminDashboard = ({ productCount }) => {
+const AdminDashboard = ({ productCount, userCount }) => {
   return (
     <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6'>
       <div className='flex items-center'>
@@ -71,7 +71,7 @@ const AdminDashboard = ({ productCount }) => {
               </div>
               <div className='flex items-center justify-between'>
                 <div>
-                  <h3 className='text-2xl font-bold'>0</h3>
+                  <h3 className='text-2xl font-bold'>{userCount}</h3>
                   <p className='text-gray-500 dark:text-gray-400'>
                     Clientes Activos
                   </p>

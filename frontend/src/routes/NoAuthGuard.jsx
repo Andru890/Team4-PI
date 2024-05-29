@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '@/context/auth.context'
 import { routes } from '@/routes/routes'
 
-// AuthGuard para usuarios autenticados
-const AuthGuard = ({ children }) => {
+// AuthGuard para usuarios no autenticados
+const NoAuthGuard = ({ children }) => {
   const { isAuthenticated } = useAuthContext()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate(routes.login) // redirige a la página de inicio de sesión si el usuario no está autenticado
+    if (isAuthenticated) {
+      navigate(routes.home) // redirige a la página de inicio si el usuario está autenticado
     }
   }, [isAuthenticated, navigate])
 
   return children
 }
 
-export default AuthGuard
+export default NoAuthGuard
