@@ -124,6 +124,15 @@ export const reducer = (state, action) => {
         isAuthenticated: false,
         user: null,
       }
+    case 'CHANGE_USER_ROLE':
+      return {
+        ...state,
+        dataUser: state.dataUser.map((user) =>
+          user.id === action.payload.userId
+            ? { ...user, role: action.payload.newRole }
+            : user
+        ),
+      }
     default:
       return state
   }

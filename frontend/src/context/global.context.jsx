@@ -28,6 +28,8 @@ import {
   updateUser,
   deleteUser,
 } from '@/services/userAPI'
+import { updateRole } from '@/services/roleAPI'
+import { toast } from 'sonner'
 
 export const ContextGlobal = createContext(undefined)
 
@@ -254,6 +256,21 @@ export const ContextProvider = ({ children }) => {
     localStorage.removeItem('user')
   }, [])
 
+  const handleRoleChange = useCallback(async (userId, newRole) => {
+    try {
+      // Realiza la solicitud al servidor para actualizar el rol
+      const updatedUser = await updateRole(userId, { name: newRole })
+      // Actualiza el estado con el nuevo usuario actualizado
+      dispatch({ type: 'UPDATE_USER', payload: updatedUser })
+      toast.success(
+        `Rol actualizado con éxito para el usuario ${updatedUser.name}`
+      )
+    } catch (error) {
+      console.error('Failed to update user role', error)
+      toast.error('Error al actualizar el rol del usuario')
+    }
+  }, [])
+
   useEffect(() => {
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
     const user = JSON.parse(localStorage.getItem('user'))
@@ -293,6 +310,7 @@ export const ContextProvider = ({ children }) => {
     handleDeleteUser,
     login,
     logout,
+    handleRoleChange,
   }
 
   return (

@@ -11,8 +11,7 @@ import {
 import { TrashIcon } from '@/components/Icons'
 import { Button } from '@/components/ui/button'
 
-const AdminUsersTable = ({ users, handleDeleteUser }) => {
-  console.log(users)
+const AdminUsersTable = ({ users, handleDeleteUser, handleRoleChange }) => {
   const handleDelete = async (userId) => {
     const result = await Swal.fire({
       title: `¿Estás seguro que deaseas eliminar el usuario?`,
@@ -30,9 +29,9 @@ const AdminUsersTable = ({ users, handleDeleteUser }) => {
     }
   }
 
-  const handleRoleChange = (userId, newRole) => {
-    // Aquí debes actualizar el rol del usuario en tu estado o base de datos.
-    // La implementación exacta depende de cómo estés manejando el estado y los datos de los usuarios.
+  const handleUpdateChangeRole = async (userId, newRole) => {
+    // Llama a la función handleRoleChange del contexto global
+    await handleRoleChange(userId, newRole)
   }
 
   return (
@@ -62,7 +61,9 @@ const AdminUsersTable = ({ users, handleDeleteUser }) => {
               <TableCell>
                 <select
                   value={user.role.name}
-                  onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                  onChange={(e) =>
+                    handleUpdateChangeRole(user.id, e.target.value)
+                  }
                 >
                   <option value='admin'>Admin</option>
                   <option value='customer'>Customer</option>

@@ -1,12 +1,15 @@
 import { useAuthContext } from '@/context/auth.context'
 
 const Services = () => {
-  const { isAuthenticated } = useAuthContext()
+  const { login } = useAuthContext()
   return (
     <div>
-      {isAuthenticated
-        ? 'El usuario está autenticado'
-        : 'El usuario no está autenticado'}
+      <h1>Services</h1>
+      <p>
+        {login
+          ? 'Estás autenticado y puedes ver esta página.'
+          : 'Por favor inicia sesión para ver esta página.'}
+      </p>
     </div>
   )
 }
