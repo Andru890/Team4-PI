@@ -9,7 +9,13 @@ public interface IUserService {
     List<User> getAll();
     User save(User user);
     User update(User user);
+
+    User update(User user, Long id);
+
     User getOne(Long id);
+
+    User findByEmail(String email);
+
     void delete(Long id);
     User updateRole(Long userId);
 }

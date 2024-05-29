@@ -1,3 +1,4 @@
+/*
 package com.visualstudio.rest.api.controllers;
 
 
@@ -57,3 +58,4 @@ public class AutenticationController {
 
 }
 
+*/

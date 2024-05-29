@@ -1,3 +1,5 @@
+/*
+
 package com.visualstudio.rest.api.utils;
 
 import com.visualstudio.rest.api.dto.Entrada.ReservationEntradaDto;
@@ -74,3 +76,4 @@ public String ValidationEmail(String url, String name) throws IOException {
         return doc.toString();
     }
 }
+/**/

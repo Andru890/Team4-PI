@@ -1,3 +1,4 @@
+/*
 package com.visualstudio.rest.api.repositories;
 
 import com.visualstudio.rest.api.security.JwtAuthenticationManager;
@@ -29,4 +30,4 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
         return jwtAuthenticationManager.authenticate(new UsernamePasswordAuthenticationToken(token, token))
                 .map(SecurityContextImpl::new);
     }
-}
+}*/

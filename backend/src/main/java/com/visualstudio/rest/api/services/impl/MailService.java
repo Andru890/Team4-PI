@@ -1,3 +1,4 @@
+/*
 package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.dto.Entrada.ReservationEntradaDto;
@@ -99,3 +100,4 @@ public class MailService {
         }
     }
 }
+*/

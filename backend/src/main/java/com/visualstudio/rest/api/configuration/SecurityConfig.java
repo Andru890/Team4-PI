@@ -1,3 +1,4 @@
+/*
 package com.visualstudio.rest.api.configuration;
 
 import com.visualstudio.rest.api.repositories.SecurityContextRepository;
@@ -38,4 +39,4 @@ public class SecurityConfig {
                 .logout(ServerHttpSecurity.LogoutSpec::disable)
                 .build();
     }
-}
+}*/

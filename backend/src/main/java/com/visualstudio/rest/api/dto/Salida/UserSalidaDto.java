@@ -1,7 +1,8 @@
 package com.visualstudio.rest.api.dto.Salida;
 
 import com.visualstudio.rest.api.models.entities.Reservation;
-import com.visualstudio.rest.api.models.entities.Rol;
+
+import com.visualstudio.rest.api.models.entities.Role;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,13 +16,13 @@ public class UserSalidaDto {
     private String email;
     private String password;
     private String city;
-    private Rol rol;
+    private Role rol;
     private List<Reservation> reservations;
 
     public UserSalidaDto() {
     }
 
-    public UserSalidaDto(Long id, String name, String mobile, String address, String email, String password, String city, Rol rol, List<Reservation> reservations) {
+    public UserSalidaDto(Long id, String name, String mobile, String address, String email, String password, String city, Role rol, List<Reservation> reservations) {
         this.id = id;
         this.name = name;
         this.mobile = mobile;
@@ -89,11 +90,11 @@ public class UserSalidaDto {
         this.city = city;
     }
 
-    public Rol getRol() {
+    public Role getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRole(Role rol) {
         this.rol = rol;
     }
 
