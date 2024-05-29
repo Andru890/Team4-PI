@@ -15,6 +15,7 @@ import AdminCategories from '../components/AdminPanel/AdminCategories'
 import AdminOrders from '@/components/AdminPanel/AdminOrders'
 import AdminFeatures from '@/components/AdminPanel/AdminFeatures'
 import Categories from '@/pages/Categories'
+import Products from '../pages/Products'
 
 const Layout = () => {
   return (
@@ -33,6 +34,7 @@ const Layout = () => {
           element={<AdminCategories />}
         />
       </Route>
+      <Route path={routes.products} element={<Products />} />
       <Route path={routes.notFound} element={<NotFound />} />
       <Route path={routes.login} element={<Login />} />
       <Route path={routes.register} element={<Register />} />
