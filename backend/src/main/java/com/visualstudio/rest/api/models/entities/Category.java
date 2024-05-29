@@ -23,6 +23,12 @@ public class Category {
     @Column(name = "name")
     private String name;
 
+    @Column(name="image")
+    private String image;
+
+    @Column(name="description")
+    private String description;
+
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"category", "hibernateLazyInitializer"})
     private List<Product> products;
