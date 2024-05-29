@@ -65,9 +65,13 @@
       "password": "sa"
     }
   ],
-  "workbench.colorCustomizations": {
-    "activityBar.background": "#521C13",
-    "titleBar.activeBackground": "#73271B",
-    "titleBar.activeForeground": "#FDF9F8"
-  }
+  "editor.fontLigatures": true,
+  "editor.cursorBlinking": "expand",
+  "editor.linkedEditing": true,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.guides.bracketPairs": true,
+  "editor.smoothScrolling": true,
+  "breadcrumbs.enabled": false,
+  "editor.stickyScroll.enabled": true,
+  "editor.cursorSmoothCaretAnimation": "on"
 }

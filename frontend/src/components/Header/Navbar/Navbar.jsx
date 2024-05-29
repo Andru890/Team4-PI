@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useGlobalContext } from '@/context/global.context'
 import { routes } from '@/routes/routes'
+import './Navbar.css'
 import {
   NavigationMenuTrigger,
   NavigationMenuLink,
@@ -17,13 +18,16 @@ const Navbar = () => {
   return (
     <nav className='hidden md:flex items-center gap-6'>
       <Link
-        className='text-primary hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full'
+        className='text-primary px-4 py-2 hover:text-accent-foreground dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full rounded-md hover:bg-accent focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50'
         to={routes.home}
       >
         Inicio
       </Link>
 
-      <NavigationMenu className='text-primary hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full'>
+      <NavigationMenu
+        className='text-primary dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full
+      '
+      >
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger className='bg-white'>
@@ -53,13 +57,13 @@ const Navbar = () => {
       </NavigationMenu>
 
       <Link
-        className='text-primary hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full'
+        className='text-primary px-4 py-2 hover:text-accent-foreground dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full rounded-md hover:bg-accent focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50'
         to={routes.services}
       >
         Servicios
       </Link>
       <Link
-        className='text-primary hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full'
+        className='text-primary px-4 py-2 hover:text-accent-foreground dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full rounded-md hover:bg-accent focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50'
         to={routes.contact}
       >
         Contacto
