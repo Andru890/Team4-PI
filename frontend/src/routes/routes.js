@@ -8,6 +8,8 @@ export const routes = {
   categoryDetail: '/category/:categoryId',
   login: '/login',
   register: '/register',
+  profile: '/profile',
+  profileID: '/profile/:userId',
   dashboard: '/administracion',
   dashboardusers: '/administracion/users',
   dashboardproducts: '/administracion/products',

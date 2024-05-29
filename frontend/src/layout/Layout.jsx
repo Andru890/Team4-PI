@@ -15,6 +15,7 @@ import AdminCategories from '@/components/AdminPanel/AdminCategories'
 import AdminOrders from '@/components/AdminPanel/AdminOrders'
 import AdminFeatures from '@/components/AdminPanel/AdminFeatures'
 import Categories from '@/pages/Categories'
+import Profile from '@/pages/Profile'
 import { PrivateRoute, AdminGuard } from '@/routes/AuthGuard'
 
 const Layout = () => {
@@ -30,6 +31,7 @@ const Layout = () => {
       <Route path={routes.register} element={<Register />} />
 
       <Route element={<PrivateRoute />}>
+        <Route path={routes.profile} element={<Profile />} />
         <Route
           path={routes.dashboard}
           element={

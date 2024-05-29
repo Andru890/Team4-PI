@@ -42,13 +42,14 @@ const Profile = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>Cuenta</DropdownMenuItem>
-        <DropdownMenuItem>Preferencias</DropdownMenuItem>
+        <Link to='/profile'>
+          <DropdownMenuItem>Mi Perfil</DropdownMenuItem>
+        </Link>
         {isAdmin && (
           <>
             <DropdownMenuSeparator />
             <Link to={routes.dashboard}>
-              <DropdownMenuItem>Dashboard</DropdownMenuItem>
+              <DropdownMenuItem>Panel Administración</DropdownMenuItem>
             </Link>
           </>
         )}
