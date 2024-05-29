@@ -6,7 +6,7 @@ const Category = () => {
   const { dataCategory: categories } = state
 
   return (
-    <section className='w-full py-12 md:py-24 lg:py-32 bg-gray-100 py-8 dark:bg-gray-800'>
+    <section className='w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800'>
       <div className='container grid max-w-5xl items-center justify-center gap-4 px-4 md:gap-8 md:px-6 lg:grid-cols-2 lg:text-left xl:max-w-6xl xl:gap-10'>
         <div className='space-y-4 md:space-y-6'>
           <div className='space-y-3'>
@@ -18,7 +18,7 @@ const Category = () => {
             </p>
           </div>
         </div>
-        <div className='grid grid-cols-2 gap-4 md:gap-8'>
+        <div className='grid grid-cols-2 gap-4 md:gap-8 lg:grid-cols-3'>
           {categories.map((category) => (
             <div
               key={category.id}
