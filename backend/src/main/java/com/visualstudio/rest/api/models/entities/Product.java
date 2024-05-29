@@ -32,6 +32,9 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
+    /*@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties
+    private List<Images> images;*/
     @Column(name = "image")
     private String image;
 
