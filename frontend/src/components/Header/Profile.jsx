@@ -17,7 +17,7 @@ const Profile = () => {
   const navigate = useNavigate()
 
   const getInitials = (name, lastname) => {
-    if (!name || !lastname) return 'NA' // Default initials
+    if (!name || !lastname) return 'NA'
     return `${name.charAt(0)}${lastname.charAt(0)}`.toUpperCase()
   }
 
@@ -28,6 +28,7 @@ const Profile = () => {
   }
 
   const isAdmin = user?.role.name === 'admin'
+  console.log('isAdmin', isAdmin)
 
   return (
     <DropdownMenu>
@@ -43,7 +44,7 @@ const Profile = () => {
       <DropdownMenuContent>
         <DropdownMenuItem>Cuenta</DropdownMenuItem>
         <DropdownMenuItem>Preferencias</DropdownMenuItem>
-        {isAdmin && ( // Agrega el enlace al dashboard solo si el usuario es administrador
+        {isAdmin && (
           <>
             <DropdownMenuSeparator />
             <Link to={routes.dashboard}>
