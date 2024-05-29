@@ -20,7 +20,6 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> userAdd(@Valid @RequestBody User user) {
-
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 
@@ -34,15 +33,15 @@ public class UserController {
         return new ResponseEntity<>(userService.getOne(userId), HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<User> userUpdate(@Valid @RequestBody User user){
-        return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
+    @GetMapping("/email/{userEmail}")
+    public ResponseEntity<User> getByEmail(@PathVariable String userEmail) {
+        return new ResponseEntity<>(userService.findByEmail(userEmail), HttpStatus.OK);
+    }
+    @PutMapping("/{userId}")
+    public ResponseEntity<User> userUpdate(@Valid @RequestBody User user, @PathVariable Long userId){
+        return new ResponseEntity<>(userService.update(user, userId), HttpStatus.OK);
     }
 
-    @PutMapping("/role/{userId}")
-    public ResponseEntity<User> changeRole(@PathVariable Long userId){
-        return new ResponseEntity<>(userService.updateRole(userId), HttpStatus.OK);
-    }
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> userDelete(@PathVariable Long userId){

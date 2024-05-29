@@ -37,13 +37,27 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User update(User user) {
-        return userRepository.save(user);
+    public User update(User user, Long id) {
+        User wantedUser = userRepository.findById(id).get();
+        wantedUser.setName(user.getName());
+        wantedUser.setLastname(user.getLastname());
+        wantedUser.setEmail(user.getEmail());
+        wantedUser.setPhone(user.getPhone());
+        wantedUser.setCity(user.getCity());
+        return userRepository.save(wantedUser);
     }
 
     @Override
     public User getOne(Long id) {
         return userRepository.findById(id).get();
+    }
+    @Override
+    public User findByEmail(String email){
+        User user = userRepository.findByEmail(email);
+        if (user == null){
+            throw new IllegalArgumentException("El usuario con mail " + email + " no está registrado.");
+        }
+        return user;
     }
 
     @Override
@@ -55,27 +69,5 @@ public class UserServiceImpl implements IUserService {
         return new Role("customer");
     }
 
-    public void createAdminRole(){
-        if(roleRepository.findByName("admin") == null){
-            Role adminRole = new Role("admin");
-            roleRepository.save(adminRole);
-        }
-    }
-
-    public User updateRole(Long userId){
-            User user = userRepository.findById(userId).get();
-            Role newRole = roleRepository.findByName("admin");
-
-            if (newRole == null){
-                updateRole(userId);
-            }
-
-            if (user.getRole().getName() == "customer"){
-                user.setRole(newRole);
-            } else if (user.getRole().getName() == "admin") {
-                user.setRole(roleRepository.findByName("customer"));
-            }
-            return userRepository.save(user);
-    }
 
 }

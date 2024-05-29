@@ -2,6 +2,7 @@ package com.visualstudio.rest.api.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class User {
     private String phone;
 
     @Column(name = "email")
+    @Email
     private String email;
 
     @Column(name = "password")
@@ -45,5 +47,4 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Reservation> reservations;
-
 }
