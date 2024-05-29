@@ -228,6 +228,40 @@ export const ContextProvider = ({ children }) => {
     })
   }, [])
 
+  const login = useCallback(async (email, password) => {
+    try {
+      const users = await getUsers()
+      const user = users.find(
+        (u) => u.email === email && u.password === password
+      )
+      if (user) {
+        dispatch({ type: 'LOGIN_SUCCESS', payload: user })
+        localStorage.setItem('isAuthenticated', 'true')
+        localStorage.setItem('user', JSON.stringify(user))
+        return user
+      } else {
+        throw new Error('Invalid credentials')
+      }
+    } catch (error) {
+      console.error('Login failed', error)
+      throw error
+    }
+  }, [])
+
+  const logout = useCallback(() => {
+    dispatch({ type: 'LOGOUT' })
+    localStorage.removeItem('isAuthenticated')
+    localStorage.removeItem('user')
+  }, [])
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (isAuthenticated && user) {
+      dispatch({ type: 'LOGIN_SUCCESS', payload: user })
+    }
+  }, [])
+
   useEffect(() => {
     handleGetProduct()
   }, [handleGetProduct])
@@ -257,6 +291,8 @@ export const ContextProvider = ({ children }) => {
     handleGetUserById,
     handleUpdateUser,
     handleDeleteUser,
+    login,
+    logout,
   }
 
   return (

@@ -110,6 +110,20 @@ export const reducer = (state, action) => {
         ...state,
         dataUser: state.dataUser.filter((user) => user.id !== action.payload),
       }
+
+    case 'LOGIN_SUCCESS':
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action.payload,
+      }
+
+    case 'LOGOUT':
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+      }
     default:
       return state
   }

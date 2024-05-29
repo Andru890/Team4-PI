@@ -124,7 +124,9 @@ const ProductTable = ({
                   }
                   value={
                     selectedCategories[product.id] ||
-                    product.categories[0]?.id ||
+                    (product.categories && product.categories.length > 0
+                      ? product.categories[0].id
+                      : '') ||
                     ''
                   }
                 >

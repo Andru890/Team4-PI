@@ -13,7 +13,7 @@ import Logo from '@/components/Login/Logo'
 
 const Login = () => {
   const buttonRef = useRef(null)
-  const { handleGetUser } = useGlobalContext()
+  const { login } = useGlobalContext()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -24,7 +24,7 @@ const Login = () => {
     event.preventDefault()
     try {
       // Intenta iniciar sesión
-      const user = await handleGetUser(email, password)
+      const user = await login(email, password)
       if (user) {
         // Lanza confeti en la posición del botón
         const buttonPosition = buttonRef.current.getBoundingClientRect()
