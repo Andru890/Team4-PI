@@ -1,16 +1,36 @@
 export const reducer = (state, action) => {
   switch (action.type) {
     case 'GET_LIST':
-      return { ...state, data: action.payload }
+      return {
+        ...state,
+        data: action.payload.map((product) => ({
+          ...product,
+          categories: product.categories || [],
+        })),
+      }
     case 'GET_DETAIL':
-      return { ...state, productSelected: action.payload }
+      return {
+        ...state,
+        productSelected: {
+          ...action.payload,
+          categories: action.payload.categories || [],
+        },
+      }
     case 'ADD_PRODUCT':
-      return { ...state, data: [...state.data, action.payload] }
+      return {
+        ...state,
+        data: [
+          ...state.data,
+          { ...action.payload, categories: action.payload.categories || [] },
+        ],
+      }
     case 'UPDATE_PRODUCT':
       return {
         ...state,
         data: state.data.map((product) =>
-          product.id === action.payload.id ? action.payload : product
+          product.id === action.payload.id
+            ? { ...action.payload, categories: action.payload.categories || [] }
+            : product
         ),
       }
     case 'UPDATE_PRODUCT_STOCK':
@@ -19,6 +39,21 @@ export const reducer = (state, action) => {
         data: state.data.map((product) =>
           product.id === action.payload.id
             ? { ...product, stock: action.payload.stock }
+            : product
+        ),
+      }
+    case 'UPDATE_PRODUCT_CATEGORY':
+      return {
+        ...state,
+        data: state.data.map((product) =>
+          product.id === action.payload.productId
+            ? {
+                ...product,
+                categories: [
+                  ...product.categories,
+                  { id: action.payload.categoryId },
+                ],
+              }
             : product
         ),
       }

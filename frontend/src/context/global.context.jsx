@@ -13,6 +13,7 @@ import {
   updateProduct,
   deleteProduct,
   getProductById,
+  addProductCategory,
 } from '@/services/productsAPI'
 import {
   getCategory,
@@ -96,6 +97,24 @@ export const ContextProvider = ({ children }) => {
       throw new Error('Failed to update product stock')
     }
   }, [])
+
+  const handleUpdateProductCategory = useCallback(
+    async (productId, categoryId) => {
+      if (!productId || !categoryId) {
+        throw new Error('Product ID and category ID are required')
+      }
+      const data = await addProductCategory(productId, categoryId)
+      if (data) {
+        dispatch({
+          type: 'UPDATE_PRODUCT_CATEGORY',
+          payload: { productId, categoryId },
+        })
+      } else {
+        throw new Error('Failed to update product category')
+      }
+    },
+    []
+  )
 
   const handleDeleteProduct = useCallback(async (id) => {
     if (!id) {
@@ -228,6 +247,7 @@ export const ContextProvider = ({ children }) => {
     handleAddProduct,
     handleUpdateProduct,
     handleUpdateProductStock,
+    handleUpdateProductCategory,
     handleDeleteProduct,
     handleGetCategory,
     handleGetCategoryById,

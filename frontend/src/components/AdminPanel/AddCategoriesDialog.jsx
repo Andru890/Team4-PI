@@ -16,14 +16,18 @@ import { toast } from 'sonner'
 const AddCategoriesDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [image, setImage] = useState('')
   const { handleAddCategory } = useGlobalContext()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     try {
-      handleAddCategory({ name })
+      handleAddCategory({ name, description, image })
       toast.success('Categoría agregada con éxito')
       setName('')
+      setDescription('')
+      setImage('')
       setIsOpen(false)
     } catch (error) {
       console.error(error)
@@ -59,10 +63,20 @@ const AddCategoriesDialog = () => {
           <div className='space-y-1'>
             <Label htmlFor='name'>Descripción</Label>
             <Input
-              id='name'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              id='description'
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               placeholder='Ingresa la descripción de la categoría '
+              aria-label=''
+            />
+          </div>
+          <div className='space-y-1'>
+            <Label htmlFor='name'>Imagen</Label>
+            <Input
+              id='image'
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              placeholder='Ingresa la url de la imagen'
               aria-label=''
             />
           </div>

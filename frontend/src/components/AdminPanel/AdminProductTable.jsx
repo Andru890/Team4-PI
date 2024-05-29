@@ -15,13 +15,30 @@ import EditProductDialog from '@/components/AdminPanel/EditProductDialog'
 
 const ProductTable = ({
   products,
+  categories,
   handleDeleteProduct,
   handleUpdateProduct,
+  handleUpdateProductCategory,
 }) => {
   const [editingProduct, setEditingProduct] = useState(null)
+  const [selectedCategories, setSelectedCategories] = useState(
+    products.reduce((acc, product) => {
+      acc[product.id] = product.categories[0]?.id || ''
+      return acc
+    }, {})
+  )
 
   const onEditClick = (product) => {
     setEditingProduct(product)
+  }
+
+  const handleCategoryChange = async (productId, newCategoryId) => {
+    await handleUpdateProductCategory(productId, newCategoryId)
+    setSelectedCategories((prev) => ({
+      ...prev,
+      [productId]: newCategoryId,
+    }))
+    toast.success('Se ha actualizado la categoría del producto.')
   }
 
   const onDeleteClick = async (product) => {
@@ -57,7 +74,7 @@ const ProductTable = ({
       if (stockResult.isConfirmed) {
         handleDeleteProduct(product.id, stockResult.value)
         toast.success(
-          `Se han eliminado x unidades del producto "${product.name}". Stock restante: ${product.sto}.`
+          `Se han eliminado ${stockResult.value} unidades del producto "${product.name}". Stock restante: ${product.stock - stockResult.value}.`
         )
       }
     }
@@ -101,7 +118,25 @@ const ProductTable = ({
                 {product.description}
               </TableCell>
               <TableCell className='hidden md:table-cell'>
-                {product.category.name}
+                <select
+                  onChange={(e) =>
+                    handleCategoryChange(product.id, e.target.value)
+                  }
+                  value={
+                    selectedCategories[product.id] ||
+                    product.categories[0]?.id ||
+                    ''
+                  }
+                >
+                  <option value='' disabled>
+                    Seleccionar categoría
+                  </option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
               </TableCell>
               <TableCell className='hidden md:table-cell'>
                 <ul className='list-disc pl-4 text-sm'>
