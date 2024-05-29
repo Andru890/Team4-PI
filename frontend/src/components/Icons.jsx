@@ -1,4 +1,3 @@
-import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveLine } from '@nivo/line'
 
 export function ActivityIcon(props) {
@@ -402,65 +401,6 @@ export function LockIcon(props) {
       <rect width='18' height='11' x='3' y='11' rx='2' ry='2' />
       <path d='M7 11V7a5 5 0 0 1 10 0v4' />
     </svg>
-  )
-}
-
-export function BarChart(props) {
-  return (
-    <div {...props}>
-      <ResponsiveBar
-        data={[
-          { name: 'Ene', count: 20 },
-          { name: 'Feb', count: 30 },
-          { name: 'Mar', count: 50 },
-          { name: 'Abr', count: 100 },
-          { name: 'May', count: 56 },
-          { name: 'Jun', count: 24 },
-          { name: 'Jul', count: 10 },
-          { name: 'Ago', count: 20 },
-          { name: 'Sep', count: 89 },
-          { name: 'Oct', count: 20 },
-          { name: 'Nov', count: 12 },
-          { name: 'Dic', count: 56 },
-        ]}
-        keys={['count']}
-        indexBy='name'
-        margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
-        padding={0.3}
-        colors={['#2563eb']}
-        axisBottom={{
-          tickSize: 0,
-          tickPadding: 16,
-        }}
-        axisLeft={{
-          tickSize: 0,
-          tickValues: 4,
-          tickPadding: 16,
-        }}
-        gridYValues={4}
-        theme={{
-          tooltip: {
-            chip: {
-              borderRadius: '9999px',
-            },
-            container: {
-              fontSize: '12px',
-              textTransform: 'capitalize',
-              borderRadius: '6px',
-            },
-          },
-          grid: {
-            line: {
-              stroke: '#f3f4f6',
-            },
-          },
-        }}
-        tooltipLabel={({ id }) => `${id}`}
-        enableLabel={false}
-        role='application'
-        ariaLabel='A bar chart showing data'
-      />
-    </div>
   )
 }
 
