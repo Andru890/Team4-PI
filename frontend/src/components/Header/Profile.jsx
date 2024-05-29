@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { AvatarImage, AvatarFallback, Avatar } from '@/components/ui/avatar'
 import {
   DropdownMenuTrigger,
@@ -26,6 +27,8 @@ const Profile = () => {
     navigate(routes.home)
   }
 
+  const isAdmin = user?.role.name === 'admin'
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -40,6 +43,14 @@ const Profile = () => {
       <DropdownMenuContent>
         <DropdownMenuItem>Cuenta</DropdownMenuItem>
         <DropdownMenuItem>Preferencias</DropdownMenuItem>
+        {isAdmin && ( // Agrega el enlace al dashboard solo si el usuario es administrador
+          <>
+            <DropdownMenuSeparator />
+            <Link to={routes.dashboard}>
+              <DropdownMenuItem>Dashboard</DropdownMenuItem>
+            </Link>
+          </>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>Salir</DropdownMenuItem>
       </DropdownMenuContent>
