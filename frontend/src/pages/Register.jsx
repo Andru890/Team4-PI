@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast, Toaster } from 'sonner'
 import confetti from 'canvas-confetti'
 import { useGlobalContext } from '@/context/global.context'
@@ -19,7 +19,8 @@ import Logo from '@/components/Login/Logo'
 
 const Register = () => {
   const buttonRef = useRef(null)
-  const { handleCreateUser } = useGlobalContext() // Updated to use handleAddUser from context
+  const { handleCreateUser } = useGlobalContext()
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',
     lastname: '',
@@ -67,6 +68,9 @@ const Register = () => {
           },
         })
         toast.success('Usuario creado exitosamente!')
+        setTimeout(() => {
+          navigate(routes.login)
+        }, 1000)
       } else {
         toast.error(
           `No se pudo crear el usuario con el mail ${formData.email} ya exsite`
