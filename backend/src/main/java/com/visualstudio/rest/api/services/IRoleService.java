@@ -5,11 +5,12 @@ import com.visualstudio.rest.api.models.entities.User;
 
 import java.util.List;
 
-public interface IUserService {
-    List<User> getAll();
-    User save(User user);
-    User update(User user, Long id);
-    User getOne(Long id);
-    User findByEmail(String email);
+public interface IRoleService {
+
+    List<Role> getAll();
+    Role save(Role role);
+    Role update(Role role, Long id);
+    User changeRole(Role role, Long id);
+    Role getOne(Long id);
     void delete(Long id);
 }
