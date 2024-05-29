@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { toast, Toaster } from 'sonner'
 import confetti from 'canvas-confetti'
 import { useGlobalContext } from '@/context/global.context'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
-import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { routes } from '@/routes/routes'
 import {
@@ -25,7 +25,7 @@ const Register = () => {
     lastname: '',
     email: '',
     phone: '',
-    country: '',
+    city: '',
     password: '',
     confirmPassword: '',
   })
@@ -48,7 +48,7 @@ const Register = () => {
         lastname: formData.lastname,
         email: formData.email,
         phone: formData.phone,
-        country: formData.country,
+        city: formData.city,
         password: formData.password,
       }
       const user = await handleCreateUser(newUser)
@@ -68,7 +68,9 @@ const Register = () => {
         })
         toast.success('Usuario creado exitosamente!')
       } else {
-        toast.error('No se pudo crear el usuario')
+        toast.error(
+          `No se pudo crear el usuario con el mail ${formData.email} ya exsite`
+        )
       }
     } catch (error) {
       toast.error('Error al crear el usuario')
@@ -155,16 +157,16 @@ const Register = () => {
                 </div>
               </div>
               <div className='space-y-2'>
-                <Label htmlFor='country'>País</Label>
+                <Label htmlFor='city'>País</Label>
                 <div className='relative'>
                   <GlobeIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
                   <Input
                     className='pl-10'
-                    id='country'
-                    name='country'
+                    id='city'
+                    name='city'
                     placeholder='Ingresa tu país'
                     required
-                    value={formData.country}
+                    value={formData.city}
                     onChange={handleChange}
                   />
                 </div>

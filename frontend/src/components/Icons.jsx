@@ -410,18 +410,18 @@ export function BarChart(props) {
     <div {...props}>
       <ResponsiveBar
         data={[
-          { name: 'Ene', count: 0 },
-          { name: 'Feb', count: 0 },
-          { name: 'Mar', count: 0 },
-          { name: 'Abr', count: 0 },
-          { name: 'May', count: 0 },
-          { name: 'Jun', count: 0 },
-          { name: 'Jul', count: 0 },
-          { name: 'Ago', count: 0 },
-          { name: 'Sep', count: 0 },
-          { name: 'Oct', count: 0 },
-          { name: 'Nov', count: 0 },
-          { name: 'Dic', count: 0 },
+          { name: 'Ene', count: 20 },
+          { name: 'Feb', count: 30 },
+          { name: 'Mar', count: 50 },
+          { name: 'Abr', count: 100 },
+          { name: 'May', count: 56 },
+          { name: 'Jun', count: 24 },
+          { name: 'Jul', count: 10 },
+          { name: 'Ago', count: 20 },
+          { name: 'Sep', count: 89 },
+          { name: 'Oct', count: 20 },
+          { name: 'Nov', count: 12 },
+          { name: 'Dic', count: 56 },
         ]}
         keys={['count']}
         indexBy='name'

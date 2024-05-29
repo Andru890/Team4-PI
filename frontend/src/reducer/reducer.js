@@ -61,7 +61,7 @@ export const reducer = (state, action) => {
     case 'GET_USER_DETAIL':
       return {
         ...state,
-        dataUser: action.payload,
+        dataUserSelected: action.payload,
       }
 
     case 'ADD_USER':

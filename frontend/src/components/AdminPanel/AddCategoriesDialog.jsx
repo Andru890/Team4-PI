@@ -56,6 +56,16 @@ const AddCategoriesDialog = () => {
               aria-label=''
             />
           </div>
+          <div className='space-y-1'>
+            <Label htmlFor='name'>Descripción</Label>
+            <Input
+              id='name'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder='Ingresa la descripción de la categoría '
+              aria-label=''
+            />
+          </div>
           <div className='flex justify-end gap-2'>
             <Button type='submit'>Guardar</Button>
           </div>
