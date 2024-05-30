@@ -16,6 +16,8 @@ public interface IUserService {
 
     User findByEmail(String email);
 
+    User confirmRegistration(String email);
+
     void delete(Long id);
     User updateRole(Long userId);
 }

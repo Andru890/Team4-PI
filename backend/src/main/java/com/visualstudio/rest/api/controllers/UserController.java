@@ -34,6 +34,14 @@ public class UserController {
         return new ResponseEntity<>(userService.getOne(userId), HttpStatus.OK);
     }
 
+    @GetMapping("/email/{confirmation}")
+    public ResponseEntity<User> userDetail(@PathVariable String email) {
+        User user = userService.confirmRegistration(email);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(userService.confirmRegistration(email), HttpStatus.OK);
+    }
     @PutMapping
     public ResponseEntity<User> userUpdate(@Valid @RequestBody User user){
         return new ResponseEntity<>(userService.update(user), HttpStatus.OK);

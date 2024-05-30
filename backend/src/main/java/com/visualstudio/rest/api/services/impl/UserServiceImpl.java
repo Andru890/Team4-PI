@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
@@ -64,7 +65,16 @@ public class UserServiceImpl implements IUserService {
         }
         return user;
     }
+    public User confirmRegistration(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            userRepository.save(user);}
+        else {
+            throw new IllegalArgumentException("El usuario con mail " + email + " no está registrado.");
+        }
+    return user;
 
+    }
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
