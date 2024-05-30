@@ -34,7 +34,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getOne(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/email/{confirmation}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<User> userDetail(@PathVariable String email) {
         User user = userService.confirmRegistration(email);
         if (user == null) {
