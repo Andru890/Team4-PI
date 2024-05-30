@@ -17,15 +17,33 @@ import {
 
 import {
   ActivityIcon,
-  BarChart,
   DollarSignIcon,
   PackageIcon,
-  LineChart,
   ShoppingCartIcon,
   UsersIcon,
 } from '@/components/Icons'
 
-const AdminDashboard = ({ productCount }) => {
+import { BarChart } from '@/components/AdminPanel/AdminBarChart'
+
+const AdminDashboard = ({ productCount, userCount, products }) => {
+  const categoryData = []
+
+  if (products.length > 0) {
+    const categories = products.map((product) => product.category)
+    const categoryCount = categories.reduce((acc, category) => {
+      if (!acc[category.id]) {
+        acc[category.id] = { name: category.name, count: 1 }
+      } else {
+        acc[category.id].count += 1
+      }
+      return acc
+    }, {})
+
+    for (const value of Object.values(categoryCount)) {
+      categoryData.push(value)
+    }
+  }
+
   return (
     <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6'>
       <div className='flex items-center'>
@@ -71,7 +89,7 @@ const AdminDashboard = ({ productCount }) => {
               </div>
               <div className='flex items-center justify-between'>
                 <div>
-                  <h3 className='text-2xl font-bold'>0</h3>
+                  <h3 className='text-2xl font-bold'>{userCount}</h3>
                   <p className='text-gray-500 dark:text-gray-400'>
                     Clientes Activos
                   </p>
@@ -92,16 +110,15 @@ const AdminDashboard = ({ productCount }) => {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Equipos más Alquilados</CardTitle>
+            <CardTitle>Categorías de Equipos Populares</CardTitle>
             <CardDescription>
-              Un desglose de los alquileres de equipos más populares.
+              Una vista general de las categorías de equipos más populares.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <BarChart className='aspect-[3/2]' />
+            <BarChart className='aspect-[3/2]' data={categoryData} />
           </CardContent>
         </Card>
-
         <Card>
           <CardHeader>
             <CardTitle>Próximos Alquileres</CardTitle>

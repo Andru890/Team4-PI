@@ -3,8 +3,14 @@ import AddProductDialog from '@/components/AdminPanel/AddProductDialog'
 import { useGlobalContext } from '@/context/global.context'
 
 const AdminProducts = () => {
-  const { state, handleAddProduct, handleDeleteProduct } = useGlobalContext()
-  const { data: products } = state
+  const {
+    state,
+    handleAddProduct,
+    handleDeleteProduct,
+    handleUpdateProductStock,
+    handleUpdateProductCategory,
+  } = useGlobalContext()
+  const { data: products, dataCategory: category } = state
 
   return (
     <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6'>
@@ -14,7 +20,10 @@ const AdminProducts = () => {
       </div>
       <ProductTable
         products={products}
+        categories={category}
         handleDeleteProduct={handleDeleteProduct}
+        handleUpdateProductStock={handleUpdateProductStock}
+        handleUpdateProductCategory={handleUpdateProductCategory}
       />
     </main>
   )

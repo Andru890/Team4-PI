@@ -1,6 +1,6 @@
-import { useGlobalContext } from '@/context/global.context'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { DeleteIcon, TrashIcon } from '@/components/Icons'
+import { PenIcon, TrashIcon } from '@/components/Icons'
 import {
   Table,
   TableHeader,
@@ -11,9 +11,35 @@ import {
 } from '@/components/ui/table'
 import { toast } from 'sonner'
 import Swal from 'sweetalert2'
+import EditProductDialog from '@/components/AdminPanel/EditProductDialog'
 
-const ProductTable = ({ products, setProducts }) => {
-  const { handleDeleteProduct } = useGlobalContext()
+const ProductTable = ({
+  products,
+  categories,
+  handleDeleteProduct,
+  handleUpdateProduct,
+  handleUpdateProductCategory,
+}) => {
+  const [editingProduct, setEditingProduct] = useState(null)
+  const [selectedCategories, setSelectedCategories] = useState(
+    products.reduce((acc, product) => {
+      acc[product.id] = product.categories[0]?.id || ''
+      return acc
+    }, {})
+  )
+
+  const onEditClick = (product) => {
+    setEditingProduct(product)
+  }
+
+  const handleCategoryChange = async (productId, newCategoryId) => {
+    await handleUpdateProductCategory(productId, newCategoryId)
+    setSelectedCategories((prev) => ({
+      ...prev,
+      [productId]: newCategoryId,
+    }))
+    toast.success('Se ha actualizado la categoría del producto.')
+  }
 
   const onDeleteClick = async (product) => {
     const result = await Swal.fire({
@@ -46,26 +72,10 @@ const ProductTable = ({ products, setProducts }) => {
       })
 
       if (stockResult.isConfirmed) {
-        const stockToRemove = parseInt(stockResult.value)
-        const updatedStock = product.stock - stockToRemove
-
-        if (updatedStock === 0) {
-          await handleDeleteProduct(product.id)
-          const updatedProducts = products.filter((p) => p.id !== product.id)
-          setProducts(updatedProducts)
-          toast(`El producto "${product.name}" ha sido eliminado.`)
-        } else {
-          const updatedProducts = products.map((p) => {
-            if (p.id === product.id) {
-              return { ...p, stock: updatedStock }
-            }
-            return p
-          })
-          setProducts(updatedProducts)
-          toast(
-            `Se han eliminado ${stockToRemove} unidades del producto "${product.name}". Stock restante: ${updatedStock}.`
-          )
-        }
+        handleDeleteProduct(product.id, stockResult.value)
+        toast.success(
+          `Se han eliminado ${stockResult.value} unidades del producto "${product.name}". Stock restante: ${product.stock - stockResult.value}.`
+        )
       }
     }
   }
@@ -75,10 +85,13 @@ const ProductTable = ({ products, setProducts }) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className='w-[80px]'>ID</TableHead>
+            <TableHead className='w-[30px]'>ID</TableHead>
             <TableHead className='w-[80px]'>Imagen</TableHead>
             <TableHead className='max-w-[150px]'>Nombre</TableHead>
             <TableHead className='hidden md:table-cell'>Descripción</TableHead>
+            <TableHead className='hidden md:table-cell w-[100px]'>
+              Categoria
+            </TableHead>
             <TableHead className='hidden md:table-cell'>
               Características
             </TableHead>
@@ -90,7 +103,7 @@ const ProductTable = ({ products, setProducts }) => {
         <TableBody>
           {products.map((product) => (
             <TableRow key={product.id}>
-              <TableCell>{product.id}</TableCell>
+              <TableCell className='w-[30px]'>{product.id}</TableCell>
               <TableCell>
                 <img
                   alt='Product image'
@@ -101,8 +114,31 @@ const ProductTable = ({ products, setProducts }) => {
                 />
               </TableCell>
               <TableCell className='font-medium'>{product.name}</TableCell>
-              <TableCell className='hidden md:table-cell'>
+              <TableCell className='hidden md:table-cell w-[400px]'>
                 {product.description}
+              </TableCell>
+              <TableCell className='hidden md:table-cell'>
+                <select
+                  onChange={(e) =>
+                    handleCategoryChange(product.id, e.target.value)
+                  }
+                  value={
+                    selectedCategories[product.id] ||
+                    (product.categories && product.categories.length > 0
+                      ? product.categories[0].id
+                      : '') ||
+                    ''
+                  }
+                >
+                  <option value='' disabled>
+                    Seleccionar categoría
+                  </option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
               </TableCell>
               <TableCell className='hidden md:table-cell'>
                 <ul className='list-disc pl-4 text-sm'>
@@ -112,7 +148,7 @@ const ProductTable = ({ products, setProducts }) => {
                       .map((char, index) => <li key={index}>{char.trim()}</li>)}
                 </ul>
               </TableCell>
-              <TableCell className='hidden md:table-cell'>
+              <TableCell className='hidden md:table-cell w-[120px]'>
                 ${product.price}
               </TableCell>
               <TableCell className='hidden md:table-cell'>
@@ -120,13 +156,18 @@ const ProductTable = ({ products, setProducts }) => {
               </TableCell>
               <TableCell>
                 <div className='flex items-center gap-2'>
-                  <Button size='icon' variant='outline'>
-                    <DeleteIcon className='h-4 w-4' />
+                  <Button
+                    size='icon'
+                    variant='ghost'
+                    onClick={() => onEditClick(product)}
+                  >
+                    <PenIcon className='h-4 w-4' />
                     <span className='sr-only'>Editar</span>
                   </Button>
                   <Button
+                    className='text-red-500'
                     size='icon'
-                    variant='outline'
+                    variant='ghost'
                     onClick={() => onDeleteClick(product)}
                     disabled={product.stock === 0}
                   >
@@ -139,6 +180,13 @@ const ProductTable = ({ products, setProducts }) => {
           ))}
         </TableBody>
       </Table>
+      {editingProduct && (
+        <EditProductDialog
+          product={editingProduct}
+          onClose={() => setEditingProduct(null)}
+          handleUpdateProduct={handleUpdateProduct}
+        />
+      )}
     </div>
   )
 }

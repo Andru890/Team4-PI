@@ -33,6 +33,8 @@
     "antfu.vite",
     "pflannery.vscode-versionlens",
     "SimonSiefke.svg-preview",
-    "mtxr.sqltools"
+    "mtxr.sqltools",
+    "miguelsolorio.fluent-icons",
+    "PKief.material-icon-theme"
   ]
 }

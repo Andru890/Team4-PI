@@ -1,4 +1,3 @@
-import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveLine } from '@nivo/line'
 
 export function ActivityIcon(props) {
@@ -405,65 +404,6 @@ export function LockIcon(props) {
   )
 }
 
-export function BarChart(props) {
-  return (
-    <div {...props}>
-      <ResponsiveBar
-        data={[
-          { name: 'Ene', count: 0 },
-          { name: 'Feb', count: 0 },
-          { name: 'Mar', count: 0 },
-          { name: 'Abr', count: 0 },
-          { name: 'May', count: 0 },
-          { name: 'Jun', count: 0 },
-          { name: 'Jul', count: 0 },
-          { name: 'Ago', count: 0 },
-          { name: 'Sep', count: 0 },
-          { name: 'Oct', count: 0 },
-          { name: 'Nov', count: 0 },
-          { name: 'Dic', count: 0 },
-        ]}
-        keys={['count']}
-        indexBy='name'
-        margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
-        padding={0.3}
-        colors={['#2563eb']}
-        axisBottom={{
-          tickSize: 0,
-          tickPadding: 16,
-        }}
-        axisLeft={{
-          tickSize: 0,
-          tickValues: 4,
-          tickPadding: 16,
-        }}
-        gridYValues={4}
-        theme={{
-          tooltip: {
-            chip: {
-              borderRadius: '9999px',
-            },
-            container: {
-              fontSize: '12px',
-              textTransform: 'capitalize',
-              borderRadius: '6px',
-            },
-          },
-          grid: {
-            line: {
-              stroke: '#f3f4f6',
-            },
-          },
-        }}
-        tooltipLabel={({ id }) => `${id}`}
-        enableLabel={false}
-        role='application'
-        ariaLabel='A bar chart showing data'
-      />
-    </div>
-  )
-}
-
 export function MailIcon(props) {
   return (
     <svg
@@ -593,6 +533,131 @@ export function UserIcon(props) {
     >
       <path d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2' />
       <circle cx='12' cy='7' r='4' />
+    </svg>
+  )
+}
+
+export function FolderIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z' />
+    </svg>
+  )
+}
+
+export function SlidersVerticalIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <line x1='4' x2='4' y1='21' y2='14' />
+      <line x1='4' x2='4' y1='10' y2='3' />
+      <line x1='12' x2='12' y1='21' y2='12' />
+      <line x1='12' x2='12' y1='8' y2='3' />
+      <line x1='20' x2='20' y1='21' y2='16' />
+      <line x1='20' x2='20' y1='12' y2='3' />
+      <line x1='2' x2='6' y1='14' y2='14' />
+      <line x1='10' x2='14' y1='8' y2='8' />
+      <line x1='18' x2='22' y1='16' y2='16' />
+    </svg>
+  )
+}
+
+export function PenIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z' />
+    </svg>
+  )
+}
+
+export function PhoneIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z' />
+    </svg>
+  )
+}
+
+export function GlobeIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <circle cx='12' cy='12' r='10' />
+      <path d='M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20' />
+      <path d='M2 12h20' />
+    </svg>
+  )
+}
+
+export function PencilIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z' />
+      <path d='m15 5 4 4' />
     </svg>
   )
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useGlobalContext } from '@/context/global.context'
-import { addProduct } from '@/services/productsAPI'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -12,14 +12,8 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog'
-
-const categories = [
-  { id: 1, name: 'Camaras' },
-  { id: 2, name: 'Audio' },
-  { id: 3, name: 'Luces' },
-  { id: 4, name: 'Accesorios' },
-]
 
 const AddProductDialog = () => {
   const [name, setName] = useState('')
@@ -28,9 +22,10 @@ const AddProductDialog = () => {
   const [characteristic, setCharacteristic] = useState('')
   const [imageUrls, setImageUrls] = useState([])
   const [category, setCategory] = useState('')
-  const [stock, setStock] = useState('') // Añadir estado para stock
+  const [stock, setStock] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  const { dispatch } = useGlobalContext()
+  const { state, handleAddProduct } = useGlobalContext()
+  const { dataCategory: categories } = state
 
   const handleImageChange = (e) => {
     const files = e.target.files
@@ -49,29 +44,29 @@ const AddProductDialog = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     try {
       const selectedCategory = categories.find((cat) => cat.name === category)
-
-      const newProduct = {
+      handleAddProduct({
         name,
         description,
         price: parseFloat(price),
         characteristic,
         images: imageUrls,
         category: selectedCategory,
-        stock: stock, // Asegúrate de que stock sea un número entero
-      }
-
-      // Llama a la función addProduct desde productsAPI y obtén la respuesta
-      const addedProduct = await addProduct(newProduct)
-
-      // Despacha la acción para agregar el nuevo producto al estado global
-      dispatch({ type: 'ADD_PRODUCT', payload: addedProduct })
-
+        stock: parseInt(stock, 10),
+      })
+      toast.success('Producto agregado con éxito')
+      setName('')
+      setDescription('')
+      setPrice('')
+      setCharacteristic('')
+      setImageUrls([])
+      setCategory('')
+      setStock('')
       setIsOpen(false)
     } catch (error) {
       console.error('Error al agregar el producto:', error)
+      toast.error('Error al agregar el producto')
     }
   }
 
@@ -85,6 +80,9 @@ const AddProductDialog = () => {
       <DialogContent className='sm:max-w-[600px]'>
         <DialogHeader>
           <DialogTitle>Agregar nuevo producto</DialogTitle>
+          <DialogDescription>
+            Completa el formulario para agregar un nuevo producto a la tienda.
+          </DialogDescription>
         </DialogHeader>
         <CardContent>
           <form className='grid gap-4' onSubmit={handleSubmit}>
@@ -151,7 +149,7 @@ const AddProductDialog = () => {
                 value={stock}
                 placeholder='Cantidad disponible'
                 type='number'
-                onChange={(e) => setStock(e.target.value)} // Añadir controlador de cambios para stock
+                onChange={(e) => setStock(e.target.value)}
               />
             </div>
             <div className='grid gap-2'>
