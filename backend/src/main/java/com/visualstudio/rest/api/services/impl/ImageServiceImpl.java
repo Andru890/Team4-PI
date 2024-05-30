@@ -15,7 +15,6 @@ public class ImageServiceImpl implements IImageService {
     private final ImageRepository imageRepository;
     @Override
     public List<Image> list() {
-
         return imageRepository.findByOrderById();
     }
 
