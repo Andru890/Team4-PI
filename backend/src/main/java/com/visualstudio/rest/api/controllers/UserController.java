@@ -40,7 +40,7 @@ public class UserController {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(userService.confirmRegistration(email), HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
     @PutMapping
     public ResponseEntity<User> userUpdate(@Valid @RequestBody User user){
