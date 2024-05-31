@@ -38,7 +38,7 @@ const ProductTable = ({
       ...prev,
       [productId]: newCategoryId,
     }))
-    toast.success('Se ha actualizado la categoría del producto.')
+    toast.success(`Se ha actualizado la categoría del producto con éxito`)
   }
 
   const onDeleteClick = async (product) => {
