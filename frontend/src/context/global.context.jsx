@@ -6,7 +6,7 @@ import {
   useReducer,
   useCallback,
 } from 'react'
-import { reducer } from '@/reducer/reducer'
+import { reducer } from '@/context/reducer/reducer'
 import {
   getProduct,
   addProduct,
