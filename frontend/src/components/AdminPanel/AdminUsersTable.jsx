@@ -60,11 +60,15 @@ const AdminUsersTable = ({ users, handleDeleteUser, handleRoleChange }) => {
               <TableCell>{user.city}</TableCell>
               <TableCell>
                 <select
-                  value={user.role.name}
+                  className='border rounded-md p-1'
                   onChange={(e) =>
                     handleUpdateChangeRole(user.id, e.target.value)
                   }
+                  value={user.role.name}
                 >
+                  <option value='' disabled>
+                    Selecciona un rol
+                  </option>
                   <option value='admin'>Admin</option>
                   <option value='customer'>Customer</option>
                 </select>

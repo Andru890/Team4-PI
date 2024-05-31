@@ -43,18 +43,24 @@ const Profile = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <Link to='/profile'>
-          <DropdownMenuItem>Mi Perfil</DropdownMenuItem>
+          <DropdownMenuItem className='cursor-pointer'>
+            Mi Perfil
+          </DropdownMenuItem>
         </Link>
         {isAdmin && (
           <>
             <DropdownMenuSeparator />
             <Link to={routes.dashboard}>
-              <DropdownMenuItem>Panel Administración</DropdownMenuItem>
+              <DropdownMenuItem className='cursor-pointer'>
+                Panel Administración
+              </DropdownMenuItem>
             </Link>
           </>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout}>Salir</DropdownMenuItem>
+        <DropdownMenuItem className='cursor-pointer' onClick={handleLogout}>
+          Salir
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

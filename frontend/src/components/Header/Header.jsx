@@ -24,7 +24,7 @@ const Header = () => {
       <HamburgerMenu />
       <div className='ml-auto hidden lg:flex items-center gap-4'>
         <Navbar />
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-2 cursor-pointer'>
           {isAuthenticated ? (
             <Profile />
           ) : (

@@ -234,7 +234,7 @@ VALUES (
 
 -- Agrega el rol admin
 
-INSERT INTO roles (id, name) VALUES (1, 'admin'), (2, 'customer');
+INSERT INTO roles (id, name, description) VALUES (1, 'admin', 'Cuentas de administración'), (2, 'customer', 'Cuentas de usuario');
 
 -- Agrega el usuario admin
 

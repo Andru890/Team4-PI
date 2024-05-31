@@ -119,6 +119,7 @@ const ProductTable = ({
               </TableCell>
               <TableCell className='hidden md:table-cell'>
                 <select
+                  className='border rounded-md p-1'
                   onChange={(e) =>
                     handleCategoryChange(product.id, e.target.value)
                   }
@@ -131,7 +132,7 @@ const ProductTable = ({
                   }
                 >
                   <option value='' disabled>
-                    Seleccionar categoría
+                    {product.category.name}
                   </option>
                   {categories.map((category) => (
                     <option key={category.id} value={category.id}>
