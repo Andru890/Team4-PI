@@ -116,7 +116,7 @@ const AdminDashboard = ({ productCount, userCount, products }) => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <BarChart className='aspect-[3/2]' data={categoryData} />
+            <BarChart className='aspect-[2/2]' data={categoryData} />
           </CardContent>
         </Card>
         <Card>

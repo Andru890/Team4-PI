@@ -69,8 +69,8 @@ const AdminUsersTable = ({ users, handleDeleteUser, handleRoleChange }) => {
                   <option value='' disabled>
                     Selecciona un rol
                   </option>
-                  <option value='admin'>Admin</option>
-                  <option value='customer'>Customer</option>
+                  <option value='admin'>Adminsitrador</option>
+                  <option value='customer'>Usuario</option>
                 </select>
               </TableCell>
               <TableCell className='flex items-center gap-2'>
