@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -28,8 +30,18 @@ public class CategoryController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Category.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid category id", content = @Content)})
     @PostMapping
-    public ResponseEntity<CategoryDTO> addCategory(@RequestBody Category category) {
-        return new ResponseEntity<>(categoryService.save(category), HttpStatus.CREATED);
+    public ResponseEntity<CategoryDTO> addCategory(@RequestBody MultipartFile imageFile, Category category) throws IOException {
+        return new ResponseEntity<>(categoryService.save(imageFile, category), HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Update a category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Update a category",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Category.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid category id", content = @Content)})
+    @PutMapping("/{categoryId}")
+    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody MultipartFile imageFile, Category category, @PathVariable Long categoryId) throws IOException {
+        return new ResponseEntity<>(categoryService.update(imageFile, category, categoryId), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Found list category")
@@ -61,7 +73,7 @@ public class CategoryController {
             @ApiResponse(responseCode = "404", description = "Category not found", content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid category id", content = @Content)})
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity<Void> delete(@PathVariable Long categoryId) {
+    public ResponseEntity<Void> delete(@PathVariable Long categoryId) throws IOException {
         categoryService.delete(categoryId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

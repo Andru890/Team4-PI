@@ -1,6 +1,7 @@
 package com.visualstudio.rest.api.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.visualstudio.rest.api.models.entities.Images.ImageCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +24,9 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @Column(name="image")
-    private String image;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_category")
+    private ImageCategory imageCategory;
 
     @Column(name="description")
     private String description;

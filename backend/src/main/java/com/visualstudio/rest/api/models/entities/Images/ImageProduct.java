@@ -1,21 +1,24 @@
-package com.visualstudio.rest.api.models.entities;
+package com.visualstudio.rest.api.models.entities.Images;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.visualstudio.rest.api.models.entities.Product;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(toBuilder = true)
+@Entity(name = "image_product")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Image {
+public class ImageProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "names")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "url")
@@ -24,12 +27,11 @@ public class Image {
     @Column(name = "image_id")
     private String imageId;
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    @JsonIgnoreProperties
-    private Product product;*/
+    private Product product;
 
-    public Image(String name, String url, String imageId) {
+    public ImageProduct(String name, String url, String imageId) {
         this.name = name;
         this.url = url;
         this.imageId = imageId;

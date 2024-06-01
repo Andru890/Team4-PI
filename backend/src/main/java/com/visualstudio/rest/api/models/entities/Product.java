@@ -2,6 +2,7 @@ package com.visualstudio.rest.api.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.visualstudio.rest.api.models.entities.Images.ImageProduct;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,11 +33,9 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    /*@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnoreProperties
-    private List<Images> images;*/
-    @Column(name = "image")
-    private String image;
+    private List<ImageProduct> images;
 
     @Column(name = "characteristic", length = 1000)
     private String characteristic;
