@@ -2,4 +2,4 @@
 frontend/node_modules/
 
 # Ignorar target en el proyecto backend
-backend/target/
+target/
