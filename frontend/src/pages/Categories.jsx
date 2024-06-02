@@ -23,7 +23,7 @@ const Categories = () => {
 
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState({ key: 'id', order: 'asc' })
-  const [filters, setFilters] = useState({
+  const [filters, setFilteredProducts] = useState({
     status: [],
     customer: [],
   })
@@ -36,7 +36,7 @@ const Categories = () => {
         const searchValue = search.toLowerCase()
 
         return (
-          String(product.id).toLowerCase().includes(searchValue) || // Change is here
+          String(product.id).toLowerCase().includes(searchValue) ||
           product.name.toLowerCase().includes(searchValue) ||
           product.description.toLowerCase().includes(searchValue) ||
           product.price.toString().toLowerCase().includes(searchValue) ||
@@ -82,22 +82,22 @@ const Categories = () => {
     }
   }
 
-  const handleFilterChange = (type, value) => {
-    if (type === 'status') {
-      setFilters({
-        ...filters,
-        status: filters.status.includes(value)
-          ? filters.status.filter((item) => item !== value)
-          : [...filters.status, value],
-      })
-    } else if (type === 'customer') {
-      setFilters({
-        ...filters,
-        customer: filters.customer.includes(value)
-          ? filters.customer.filter((item) => item !== value)
-          : [...filters.customer, value],
-      })
-    }
+  function handleFilterChange(filterType, filterValue) {
+    setFilteredProducts((prevFilters) => {
+      if (prevFilters[filterType].includes(filterValue)) {
+        return {
+          ...prevFilters,
+          [filterType]: prevFilters[filterType].filter(
+            (value) => value !== filterValue
+          ),
+        }
+      } else {
+        return {
+          ...prevFilters,
+          [filterType]: [...prevFilters[filterType], filterValue],
+        }
+      }
+    })
   }
 
   const handlePageChange = (page) => {
@@ -116,9 +116,9 @@ const Categories = () => {
               <div className='grid gap-2'>
                 <div className='flex gap-2 items-center'>
                   <Checkbox
-                    checked={filters.status.includes('In Stock')}
+                    checked={filters.status.includes('En Stock')}
                     onCheckedChange={() =>
-                      handleFilterChange('status', 'In Stock')
+                      handleFilterChange('status', 'En Stock')
                     }
                   />
                   <Label htmlFor='status-in-stock' className='font-normal'>
@@ -127,9 +127,9 @@ const Categories = () => {
                 </div>
                 <div className='flex gap-2 items-center'>
                   <Checkbox
-                    checked={filters.status.includes('Out of Stock')}
+                    checked={filters.status.includes('Sin Stock')}
                     onCheckedChange={() =>
-                      handleFilterChange('status', 'Out of Stock')
+                      handleFilterChange('status', 'Sin Stock')
                     }
                   />
                   <Label htmlFor='status-out-of-stock' className='font-normal'>
@@ -140,26 +140,24 @@ const Categories = () => {
             </fieldset>
             <fieldset>
               <legend className='font-semibold mb-2 text-sm'>Categoría</legend>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant='outline'>Seleccionar Categorías</Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className='w-[200px]' align='end'>
-                  {categories.map((category) => (
-                    <DropdownMenuRadioGroup
-                      key={category}
-                      value={filters.customer.includes(category)}
-                      onValueChange={() =>
-                        handleFilterChange('customer', category)
+              <div className='grid gap-2'>
+                {categories.map((category) => (
+                  <div key={category.id} className='flex gap-2 items-center'>
+                    <Checkbox
+                      checked={filters.customer.includes(category.name)}
+                      onCheckedChange={() =>
+                        handleFilterChange('customer', category.name)
                       }
+                    />
+                    <Label
+                      htmlFor={`category-${category.id}`}
+                      className='font-normal'
                     >
-                      <DropdownMenuRadioItem value={category}>
-                        {category}
-                      </DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                      {category.name}
+                    </Label>
+                  </div>
+                ))}
+              </div>
             </fieldset>
           </div>
         </div>
