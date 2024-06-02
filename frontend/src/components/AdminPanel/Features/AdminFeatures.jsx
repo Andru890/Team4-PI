@@ -1,4 +1,4 @@
-import AdminFeaturesTable from '@/components/AdminPanel/AdminFeaturesTable'
+import AdminFeaturesTable from '@/components/AdminPanel/Features/AdminFeaturesTable'
 
 const AdminFeatures = () => {
   return (

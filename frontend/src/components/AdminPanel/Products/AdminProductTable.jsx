@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/table'
 import { toast } from 'sonner'
 import Swal from 'sweetalert2'
-import EditProductDialog from '@/components/AdminPanel/EditProductDialog'
+import EditProductDialog from '@/components/AdminPanel/Products/EditProductDialog'
 
 const ProductTable = ({
   products,

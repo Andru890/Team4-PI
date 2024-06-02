@@ -1,5 +1,5 @@
-import AdminCategoriesTable from '@/components/AdminPanel/AdminCategoriesTable'
-import AddCategoriesDialog from '@/components/AdminPanel/AddCategoriesDialog'
+import AdminCategoriesTable from '@/components/AdminPanel/Category/AdminCategoriesTable'
+import AddCategoriesDialog from '@/components/AdminPanel/Category/AddCategoriesDialog'
 import { useGlobalContext } from '@/context/global.context'
 
 const AdminCategories = () => {

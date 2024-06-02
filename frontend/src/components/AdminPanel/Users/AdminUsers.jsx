@@ -1,4 +1,4 @@
-import AdminUsersTable from '@/components/AdminPanel/AdminUsersTable'
+import AdminUsersTable from '@/components/AdminPanel/Users/AdminUsersTable'
 import { useGlobalContext } from '@/context/global.context'
 
 const AdminUsers = () => {

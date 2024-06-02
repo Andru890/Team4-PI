@@ -1,4 +1,4 @@
-import AdminOrdersTable from '@/components/AdminPanel/AdminOrdersTable'
+import AdminOrdersTable from '@/components/AdminPanel/Orders/AdminOrdersTable'
 
 const AdminOrders = () => {
   return (

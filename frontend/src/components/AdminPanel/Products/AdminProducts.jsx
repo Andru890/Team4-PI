@@ -1,5 +1,5 @@
-import ProductTable from '@/components/AdminPanel/AdminProductTable'
-import AddProductDialog from '@/components/AdminPanel/AddProductDialog'
+import ProductTable from '@/components/AdminPanel/Products/AdminProductTable'
+import AddProductDialog from '@/components/AdminPanel/Products/AddProductDialog'
 import { useGlobalContext } from '@/context/global.context'
 
 const AdminProducts = () => {
