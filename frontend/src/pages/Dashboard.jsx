@@ -35,6 +35,7 @@ const Dashboard = () => {
           productCount={productCount}
           userCount={userCount}
           products={products}
+          users={users}
         />
       )
       break

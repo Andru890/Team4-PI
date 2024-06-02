@@ -25,16 +25,16 @@ import {
 
 import { BarChart } from '@/components/AdminPanel/AdminBarChart'
 
-const AdminDashboard = ({ productCount, userCount, products }) => {
+const AdminDashboard = ({ productCount, userCount, products, users }) => {
   const categoryData = []
 
   if (products.length > 0) {
     const categories = products.map((product) => product.category)
     const categoryCount = categories.reduce((acc, category) => {
       if (!acc[category.id]) {
-        acc[category.id] = { name: category.name, count: 1 }
+        acc[category.id] = { name: category.name, cantidad: 1 }
       } else {
-        acc[category.id].count += 1
+        acc[category.id].cantidad += 1
       }
       return acc
     }, {})
@@ -43,6 +43,8 @@ const AdminDashboard = ({ productCount, userCount, products }) => {
       categoryData.push(value)
     }
   }
+
+  const rentalsData = [] //! luego se va a cambiar por la data de los alquileres
 
   return (
     <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6'>
@@ -116,7 +118,7 @@ const AdminDashboard = ({ productCount, userCount, products }) => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <BarChart className='aspect-[2/2]' data={categoryData} />
+            <BarChart className='aspect-[1/1]' data={categoryData} />
           </CardContent>
         </Card>
         <Card>
@@ -127,36 +129,60 @@ const AdminDashboard = ({ productCount, userCount, products }) => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Cliente</TableHead>
-                  <TableHead>Equipo</TableHead>
-                  <TableHead>Fecha de Inicio</TableHead>
-                  <TableHead>Fecha de Fin</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>John Doe</TableCell>
-                  <TableCell>Canon EOS R6</TableCell>
-                  <TableCell>15 de Mayo, 2023</TableCell>
-                  <TableCell>20 de Mayo, 2023</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Jane Smith</TableCell>
-                  <TableCell>Nikon D850</TableCell>
-                  <TableCell>1 de Junio, 2023</TableCell>
-                  <TableCell>7 de Junio, 2023</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Michael Johnson</TableCell>
-                  <TableCell>Sony a7 III</TableCell>
-                  <TableCell>10 de Julio, 2023</TableCell>
-                  <TableCell>15 de Julio, 2023</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+            {rentalsData && rentalsData.length > 0 ? (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Cliente</TableHead>
+                    <TableHead>Equipo</TableHead>
+                    <TableHead>Fecha de Inicio</TableHead>
+                    <TableHead>Fecha de Fin</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {rentalsData.map((rental) => (
+                    <TableRow key={rental.id}>
+                      <TableCell>{rental.client}</TableCell>
+                      <TableCell>{rental.equipment}</TableCell>
+                      <TableCell>{rental.startDate}</TableCell>
+                      <TableCell>{rental.endDate}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            ) : (
+              <p>Sin alquileres aún</p>
+            )}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Últimos Usuarios Registrados</CardTitle>
+            <CardDescription>
+              Una lista de los últimos usuarios registrados.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {users && users.length > 0 ? (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nombre</TableHead>
+                    <TableHead>Email</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {users.slice(-10).map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell>{user.name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            ) : (
+              <p>Sin usuarios registrados aún</p>
+            )}
           </CardContent>
         </Card>
       </div>

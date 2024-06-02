@@ -5,9 +5,9 @@ export function BarChart({ data, ...props }) {
     <div {...props}>
       <ResponsiveBar
         data={data}
-        keys={['count']}
+        keys={['cantidad']}
         indexBy='name'
-        margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
+        margin={{ top: 20, right: 0, bottom: 40, left: 40 }}
         padding={0.3}
         colors={['#2563eb']}
         axisBottom={{
@@ -40,7 +40,7 @@ export function BarChart({ data, ...props }) {
         tooltipLabel={({ id }) => `${id}`}
         enableLabel={false}
         role='application'
-        ariaLabel='A bar chart showing data'
+        ariaLabel='Cantidad de productos por categoría'
       />
     </div>
   )
