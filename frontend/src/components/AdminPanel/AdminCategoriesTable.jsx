@@ -125,7 +125,7 @@ const AdminCategoriesTable = ({
       <div className='flex items-center gap-4'>
         <div className='relative w-full'>
           <Input
-            placeholder='Buscar ordenes...'
+            placeholder='Buscar categorías...'
             className='bg-white dark:bg-gray-950 pl-8'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -134,7 +134,7 @@ const AdminCategoriesTable = ({
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant='outline' className='ml-2'>
+            <Button variant='outline' className='shrink-0'>
               <ArrowUpDownIcon className='w-4 h-4 mr-2' />
               Ordenar por
             </Button>
@@ -174,77 +174,81 @@ const AdminCategoriesTable = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead
-              className='cursor-pointer'
-              onClick={() => handleSort('id')}
-            >
-              ID
-              {sort.key === 'id' && (
-                <span>{sort.order === 'asc' ? '\u2191' : '\u2193'}</span>
-              )}
-            </TableHead>
-            <TableHead>Imagen</TableHead>
-            <TableHead
-              className='cursor-pointer'
-              onClick={() => handleSort('name')}
-            >
-              Nombre
-              {sort.key === 'name' && (
-                <span>{sort.order === 'asc' ? '\u2191' : '\u2193'}</span>
-              )}
-            </TableHead>
+      <div className='overflow-hidden rounded-lg border'>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead
+                className='cursor-pointer'
+                onClick={() => handleSort('id')}
+              >
+                ID
+                {sort.key === 'id' && (
+                  <span>{sort.order === 'asc' ? '\u2191' : '\u2193'}</span>
+                )}
+              </TableHead>
+              <TableHead>Imagen</TableHead>
+              <TableHead
+                className='cursor-pointer'
+                onClick={() => handleSort('name')}
+              >
+                Nombre
+                {sort.key === 'name' && (
+                  <span>{sort.order === 'asc' ? '\u2191' : '\u2193'}</span>
+                )}
+              </TableHead>
 
-            <TableHead>Productos</TableHead>
-            <TableHead
-              className='cursor-pointer'
-              onClick={() => handleSort('description')}
-            >
-              Descripción
-              {sort.key === 'description' && (
-                <span>{sort.order === 'asc' ? '\u2191' : '\u2193'}</span>
-              )}
-            </TableHead>
-            <TableHead>Acciones</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredCategories.map((category) => (
-            <TableRow key={category.id}>
-              <TableCell>{category.id}</TableCell>
-              <TableCell>
-                <img
-                  src={category.image}
-                  alt={category.description}
-                  className='h-8 w-8 rounded-full'
-                />
-              </TableCell>
-              <TableCell className='font-medium'>{category.name}</TableCell>
-              <TableCell>
-                {
-                  products.filter(
-                    (product) => product.category.id === category.id
-                  ).length
-                }
-              </TableCell>
-              <TableCell>{category.description || 'Sin descripción'}</TableCell>
-              <TableCell className='flex items-center gap-2'>
-                <Button
-                  size='icon'
-                  variant='ghost'
-                  className='text-red-500'
-                  onClick={() => handleDelete(category.id)}
-                >
-                  <TrashIcon className='h-4 w-4' />
-                  <span className='sr-only'>Eliminar</span>
-                </Button>
-              </TableCell>
+              <TableHead>Productos</TableHead>
+              <TableHead
+                className='cursor-pointer'
+                onClick={() => handleSort('description')}
+              >
+                Descripción
+                {sort.key === 'description' && (
+                  <span>{sort.order === 'asc' ? '\u2191' : '\u2193'}</span>
+                )}
+              </TableHead>
+              <TableHead>Acciones</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {filteredCategories.map((category) => (
+              <TableRow key={category.id}>
+                <TableCell>{category.id}</TableCell>
+                <TableCell>
+                  <img
+                    src={category.image}
+                    alt={category.description}
+                    className='h-8 w-8 rounded-full'
+                  />
+                </TableCell>
+                <TableCell className='font-medium'>{category.name}</TableCell>
+                <TableCell>
+                  {
+                    products.filter(
+                      (product) => product.category.id === category.id
+                    ).length
+                  }
+                </TableCell>
+                <TableCell>
+                  {category.description || 'Sin descripción'}
+                </TableCell>
+                <TableCell className='flex items-center gap-2'>
+                  <Button
+                    size='icon'
+                    variant='ghost'
+                    className='text-red-500'
+                    onClick={() => handleDelete(category.id)}
+                  >
+                    <TrashIcon className='h-4 w-4' />
+                    <span className='sr-only'>Eliminar</span>
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </main>
   )
 }
