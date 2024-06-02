@@ -40,8 +40,8 @@ public class CategoryController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Category.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid category id", content = @Content)})
     @PutMapping("/{categoryId}")
-    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody MultipartFile imageFile, Category category, @PathVariable Long categoryId) throws IOException {
-        return new ResponseEntity<>(categoryService.update(imageFile, category, categoryId), HttpStatus.CREATED);
+    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody Category category, @PathVariable Long categoryId) throws IOException {
+        return new ResponseEntity<>(categoryService.update(category, categoryId), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Found list category")

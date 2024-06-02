@@ -55,23 +55,12 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public CategoryDTO update(MultipartFile imageFile, Category category, Long id) throws IOException {
+    public CategoryDTO update( Category category, Long id) throws IOException {
         Optional<Category> optionalCategory = categoryRepository.findById(id);
         if (!optionalCategory.isPresent()){
             throw new IllegalArgumentException("Categoria no encontrada");
         }
         Category existCategory = optionalCategory.get();
-        if (!imageFile.isEmpty() || imageFile != null){
-            Optional<Map<String, String>> uploadResult = Optional.ofNullable(cloudinaryService.upload(imageFile));
-            Map<String, String> result = uploadResult.get();
-            ImageCategory image = new ImageCategory(
-                    (String) result.get("original_filename"),
-                    (String) result.get("url"),
-                    (String) result.get("public_id")
-            );
-            image = imageCategoryRepository.save(image);
-            existCategory.setImageCategory(image);
-        }
         existCategory.setName(category.getName());
         existCategory.setDescription(category.getDescription());
         category = categoryRepository.save(existCategory);
@@ -93,12 +82,12 @@ public class CategoryServiceImpl implements ICategoryService {
         if (!optionalImage.isEmpty()){
             ImageCategory imagen = optionalImage.get();
             cloudinaryService.delete(imagen.getImageId());
-            imageCategoryRepository.deleteById(id);
         }
         categoryRepository.deleteById(id);
     }
 
     private CategoryDTO convertToDTO(Category category){
+
         return mapper.map(category,CategoryDTO.class);
     }
 }

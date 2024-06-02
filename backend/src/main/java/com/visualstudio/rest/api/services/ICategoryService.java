@@ -10,7 +10,7 @@ import java.util.List;
 public interface ICategoryService {
     List<CategoryDTO> getAll();
     CategoryDTO save(MultipartFile imageFile, Category category) throws IOException;
-    CategoryDTO update(MultipartFile imageFile, Category category, Long id) throws IOException;
+    CategoryDTO update(Category category, Long id) throws IOException;
     CategoryDTO findById(Long id);
     void delete(Long id) throws IOException;
 }
