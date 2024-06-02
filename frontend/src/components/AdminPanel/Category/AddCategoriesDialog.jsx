@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
+import { PlusIcon } from '@/components/Icons'
 import { toast } from 'sonner'
 
 const AddCategoriesDialog = () => {
@@ -38,8 +39,9 @@ const AddCategoriesDialog = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className='ml-auto' size='sm'>
-          Agregar categoría
+        <Button variant='outline'>
+          <PlusIcon className='w-4 h-4 mr-2' />
+          Agregar Categoría
         </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-md'>

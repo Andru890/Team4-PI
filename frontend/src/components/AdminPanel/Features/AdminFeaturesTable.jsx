@@ -18,36 +18,22 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from '@/components/ui/dialog'
-import { Textarea } from '@/components/ui/textarea'
+
 import {
   SearchIcon,
   ArrowUpDownIcon,
   FilterIcon,
-  PlusIcon,
   ComponentIcon,
   DeleteIcon,
   Trash2Icon,
 } from '@/components/Icons'
+import AdminFeatureDialog from '@/components/AdminPanel/Features/AddFeaturesDialog'
 
 const AdminFeaturesTable = () => {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState({ key: 'id', order: 'asc' })
   const [filters, setFilters] = useState({
     customer: [],
-  })
-  const [showModal, setShowModal] = useState(false)
-  const [newFeature, setNewFeature] = useState({
-    name: '',
-    description: '',
   })
   const features = useMemo(
     () =>
@@ -221,13 +207,6 @@ const AdminFeaturesTable = () => {
       })
     }
   }
-  const handleAddFeature = () => {
-    setShowModal(true)
-  }
-  const handleSaveFeature = () => {
-    setShowModal(false)
-    setNewFeature({ name: '', description: '' })
-  }
   const handleEditFeature = (feature) => {}
   const handleDeleteFeature = (feature) => {}
   return (
@@ -300,10 +279,7 @@ const AdminFeaturesTable = () => {
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button variant='outline' onClick={handleAddFeature}>
-          <PlusIcon className='w-4 h-4 mr-2' />
-          Agregar Característica
-        </Button>
+        <AdminFeatureDialog />
       </div>
       <div className='overflow-hidden rounded-lg border'>
         <Table>
@@ -380,57 +356,6 @@ const AdminFeaturesTable = () => {
           </TableBody>
         </Table>
       </div>
-      {showModal && (
-        <Dialog>
-          <DialogContent className='sm:max-w-[425px]'>
-            <DialogHeader>
-              <DialogTitle>Agregar Característica</DialogTitle>
-              <DialogDescription>
-                Completa el formulario para agregar una nueva característica.
-              </DialogDescription>
-            </DialogHeader>
-            <div className='grid gap-4 py-4'>
-              <div className='grid items-center grid-cols-4 gap-4'>
-                <Label htmlFor='name' className='text-right'>
-                  Nombre
-                </Label>
-                <Input
-                  id='name'
-                  value={newFeature.name}
-                  onChange={(e) =>
-                    setNewFeature({ ...newFeature, name: e.target.value })
-                  }
-                  className='col-span-3'
-                />
-              </div>
-              <div className='grid items-center grid-cols-4 gap-4'>
-                <Label htmlFor='description' className='text-right'>
-                  Descripción
-                </Label>
-                <Textarea
-                  id='description'
-                  value={newFeature.description}
-                  onChange={(e) =>
-                    setNewFeature({
-                      ...newFeature,
-                      description: e.target.value,
-                    })
-                  }
-                  className='col-span-3'
-                />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button type='submit' onClick={handleSaveFeature}>
-                Guardar
-              </Button>
-              <div>
-                <Button variant='outline'>Cancelar</Button>
-              </div>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      )}
     </div>
   )
 }

@@ -26,6 +26,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
+import AdminCategoriesDialog from '@/components/AdminPanel/Category/AddCategoriesDialog'
 
 const AdminCategoriesTable = ({
   products,
@@ -173,6 +174,7 @@ const AdminCategoriesTable = ({
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
+        <AdminCategoriesDialog />
       </div>
       <div className='overflow-hidden rounded-lg border'>
         <Table>
