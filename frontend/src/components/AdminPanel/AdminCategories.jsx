@@ -13,7 +13,7 @@ const AdminCategories = () => {
       </div>
       <AdminCategoriesTable
         products={products}
-        category={category}
+        categories={category}
         handleDeleteCategory={handleDeleteCategory}
       />
     </main>

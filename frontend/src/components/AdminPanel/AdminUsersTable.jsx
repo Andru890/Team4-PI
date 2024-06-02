@@ -106,7 +106,7 @@ const AdminUsersTable = ({ users, handleDeleteUser, handleRoleChange }) => {
       <div className='flex items-center gap-4'>
         <div className='relative w-full'>
           <Input
-            placeholder='Buscar ordenes...'
+            placeholder='Buscar usuarios...'
             className='bg-white dark:bg-gray-950 pl-8'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
