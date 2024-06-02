@@ -36,7 +36,7 @@ const Categories = () => {
         const searchValue = search.toLowerCase()
 
         return (
-          String(product.id).toLowerCase().includes(searchValue) ||
+          String(product.id).toLowerCase().includes(searchValue) || // Change is here
           product.name.toLowerCase().includes(searchValue) ||
           product.description.toLowerCase().includes(searchValue) ||
           product.price.toString().toLowerCase().includes(searchValue) ||

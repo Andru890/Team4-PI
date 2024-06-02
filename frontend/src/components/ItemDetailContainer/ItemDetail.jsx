@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { routes } from '@/routes/routes'
 import {
   DialogTrigger,
   DialogTitle,
@@ -11,6 +10,9 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from '@/components/Icons'
 
 const ItemDetail = ({ product }) => {
+  const goBack = () => {
+    window.history.back()
+  }
   return (
     <>
       <header className='w-full bg-gray-100 dark:bg-gray-800 py-4 px-4 md:px-6'>
@@ -25,7 +27,7 @@ const ItemDetail = ({ product }) => {
           </div>
           <Link
             className='text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50'
-            to={routes.home}
+            onClick={goBack}
           >
             <ChevronLeftIcon className='w-5 h-5' />
           </Link>
