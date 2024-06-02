@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
-import { Package2Icon, SearchIcon } from '@/components/Icons'
+import { SearchIcon } from '@/components/Icons'
 
 const AdminHeader = ({ products }) => {
   const [searchTerm, setSearchTerm] = useState('')

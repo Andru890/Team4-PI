@@ -4,7 +4,6 @@ import { Toaster } from 'sonner'
 import { useGlobalContext } from '@/context/global.context'
 import { routes } from '@/routes/routes'
 import AdminSidebar from '@/components/AdminPanel/AdminSidebar'
-import AdminHeader from '@/components/AdminPanel/AdminHeader'
 import AdminMobileFallback from '@/components/AdminPanel/AdminMobileFallback'
 import AdminProducts from '@/components/AdminPanel/Products/AdminProducts'
 import AdminUsers from '@/components/AdminPanel/Users/AdminUsers'
@@ -40,12 +39,7 @@ const Dashboard = () => {
       )
       break
     case routes.dashboardproducts:
-      content = (
-        <>
-          <AdminHeader products={products} />
-          <AdminProducts products={products} />
-        </>
-      )
+      content = <AdminProducts products={products} />
       break
     case routes.dashboardusers:
       content = <AdminUsers />

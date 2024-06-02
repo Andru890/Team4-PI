@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { CardContent } from '@/components/ui/card'
+import { PlusIcon } from '@/components/Icons'
 import {
   Dialog,
   DialogTrigger,
@@ -73,8 +74,9 @@ const AddProductDialog = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className='ml-auto' size='sm'>
-          Agregar producto
+        <Button variant='outline'>
+          <PlusIcon className='w-4 h-4 mr-2' />
+          Agregar
         </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[600px]'>

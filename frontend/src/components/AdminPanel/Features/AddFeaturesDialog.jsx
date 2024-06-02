@@ -30,7 +30,7 @@ const AddFeaturesDialog = () => {
       <DialogTrigger asChild>
         <Button variant='outline'>
           <PlusIcon className='w-4 h-4 mr-2' />
-          Agregar Característica
+          Agregar
         </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
