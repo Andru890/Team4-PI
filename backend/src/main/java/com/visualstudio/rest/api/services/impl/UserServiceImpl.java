@@ -74,19 +74,19 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User update(User user, Long id) {
         User wantedUser = userRepository.findById(id).get();
-            wantedUser.setName(user.getName());
-            wantedUser.setLastname(user.getLastname());
-            wantedUser.setEmail(user.getEmail());
-            wantedUser.setPhone(user.getPhone());
-            wantedUser.setCity(user.getCity());
-            wantedUser.setPassword(passwordEncoder.encode(user.getPassword()));
-            String email = wantedUser.getEmail();
-            Role userRole = wantedUser.getRole();
-            String roleName = (userRole != null) ? userRole.getName() : null;
-            String token = jwtUtilities.generateToken(email, Collections.singletonList(roleName));
+        wantedUser.setName(user.getName());
+        wantedUser.setLastname(user.getLastname());
+        wantedUser.setEmail(user.getEmail());
+        wantedUser.setPhone(user.getPhone());
+        wantedUser.setCity(user.getCity());
+        wantedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        String email = wantedUser.getEmail();
+        Role userRole = wantedUser.getRole();
+        String roleName = (userRole != null) ? userRole.getName() : null;
+        String token = jwtUtilities.generateToken(email, Collections.singletonList(roleName));
 
-            return userRepository.save(wantedUser);
-        }
+        return userRepository.save(wantedUser);
+    }
 
     @Override
     public String authenticate(LoginDto loginDto) {
@@ -102,7 +102,7 @@ public class UserServiceImpl implements IUserService {
         User user = userOptional.orElseThrow(() -> new UsernameNotFoundException("usuario no encontrado"));
         String roleName = user.getRole().getName();
         return jwtUtilities.generateToken(email, Collections.singletonList(roleName));
-         }
+    }
 
     @Override
     public User getOne(Long id) {
