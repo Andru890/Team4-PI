@@ -16,6 +16,7 @@ spring:
     show-sql: true
 
 
+
   mail:
     host: localhost
     port: 25

@@ -74,11 +74,5 @@ public class SecurityConfig {
 
         return http.build();
     }
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception
-    { return authenticationConfiguration.getAuthenticationManager();}
 
-    @Bean
-    public PasswordEncoder passwordEncoder()
-    { return new BCryptPasswordEncoder(); }
-}
+    }
