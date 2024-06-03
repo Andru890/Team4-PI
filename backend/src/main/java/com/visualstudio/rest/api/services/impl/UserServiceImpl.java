@@ -71,7 +71,6 @@ public class UserServiceImpl implements IUserService {
         return null;
     }
 
-    @Override
     public User update(User user, Long id) {
         User wantedUser = userRepository.findById(id).get();
         wantedUser.setName(user.getName());
@@ -108,7 +107,7 @@ public class UserServiceImpl implements IUserService {
     public User getOne(Long id) {
         return userRepository.findById(id).get();
     }
-    @Override
+
     public User findByEmail(String email){
         User user = userRepository.findByEmail(email);
         if (user == null){
@@ -139,6 +138,5 @@ public class UserServiceImpl implements IUserService {
     public Role getDefaultRole() {
         return new Role("customer");
     }
-
 
 }
