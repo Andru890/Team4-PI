@@ -1,5 +1,7 @@
 package com.visualstudio.rest.api.controllers;
 
+import com.visualstudio.rest.api.dto.LoginDto;
+import com.visualstudio.rest.api.dto.RegistroDto;
 import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.UserRepository;
@@ -20,13 +22,21 @@ public class UserController {
     private final IUserService userService;
     private final UserRepository userRepository;
 
-    @PostMapping
-    public ResponseEntity<User> userAdd(@Valid @RequestBody User user) {
-        User userAdd = userService.save(user);
-        if (userAdd == null || userAdd == userRepository.getReferenceById(user.getId())) {
+    @PostMapping("/register")
+    public ResponseEntity<User> userSave(@Valid @RequestBody User user) {
+        RegistroDto registroDto = new RegistroDto();
+        registroDto.setName(user.getName());
+        registroDto.setLastname(user.getLastname());
+        registroDto.setEmail(user.getEmail());
+        registroDto.setPhone(user.getPhone());
+        registroDto.setCity(user.getCity());
+        registroDto.setPassword(user.getPassword());
+        User userSave = userService.save(registroDto);
+
+        if (userSave == null || userSave == userRepository.getReferenceById(user.getId())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userSave, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -62,5 +72,10 @@ public class UserController {
     public ResponseEntity<Void> userDelete(@PathVariable Long userId){
         userService.delete(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/authenticate")
+    public String authenticate(@RequestBody LoginDto loginDto) {
+        return userService.authenticate(loginDto);
     }
 }

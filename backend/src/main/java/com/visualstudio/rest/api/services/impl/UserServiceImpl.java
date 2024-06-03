@@ -1,21 +1,37 @@
 package com.visualstudio.rest.api.services.impl;
 
+import com.visualstudio.rest.api.dto.Entrada.UserEntradaDto;
+import com.visualstudio.rest.api.dto.LoginDto;
+import com.visualstudio.rest.api.dto.RegistroDto;
 import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.RoleRepository;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import com.visualstudio.rest.api.security.JwtUtilities;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtilities jwtUtilities;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public List<User> getAll() {
@@ -23,18 +39,31 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User save(User user) {
-        User existingUser = userRepository.findByEmail(user.getEmail());
+    public User save(RegistroDto registroDto) {
+        User existingUser = userRepository.findByEmail(registroDto.getEmail());
         if (existingUser != null){
-            throw new IllegalArgumentException("El usuario con el correo " + user.getEmail() + " ya existe.");
+            throw new IllegalArgumentException("El usuario con el correo " + registroDto.getEmail() + " ya existe.");
         } else {
             Role customerRole = roleRepository.findByName("customer");
-            user.setRole(customerRole);
-            if (user.getRole() == null){
-                user.setRole(getDefaultRole());
+            registroDto.setRole(customerRole);
+            if (registroDto.getRole() == null){
+                registroDto.setRole(getDefaultRole());
             }
+            registroDto.setPassword(passwordEncoder.encode(registroDto.getPassword()));
+            String token = jwtUtilities.generateToken(registroDto.getEmail(), Collections.singletonList(registroDto.getRole().getName()));
+
         }
-        return userRepository.save(user);
+
+        User newUser = new User();
+        newUser.setName(registroDto.getName());
+        newUser.setLastname(registroDto.getLastname());
+        newUser.setEmail(registroDto.getEmail());
+        newUser.setPhone(registroDto.getPhone());
+        newUser.setCity(registroDto.getCity());
+        newUser.setPassword(registroDto.getPassword());
+        newUser.setRole(registroDto.getRole());
+
+        return userRepository.save(newUser);
     }
 
     @Override
@@ -45,13 +74,35 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User update(User user, Long id) {
         User wantedUser = userRepository.findById(id).get();
-        wantedUser.setName(user.getName());
-        wantedUser.setLastname(user.getLastname());
-        wantedUser.setEmail(user.getEmail());
-        wantedUser.setPhone(user.getPhone());
-        wantedUser.setCity(user.getCity());
-        return userRepository.save(wantedUser);
-    }
+            wantedUser.setName(user.getName());
+            wantedUser.setLastname(user.getLastname());
+            wantedUser.setEmail(user.getEmail());
+            wantedUser.setPhone(user.getPhone());
+            wantedUser.setCity(user.getCity());
+            wantedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            String email = wantedUser.getEmail();
+            Role userRole = wantedUser.getRole();
+            String roleName = (userRole != null) ? userRole.getName() : null;
+            String token = jwtUtilities.generateToken(email, Collections.singletonList(roleName));
+
+            return userRepository.save(wantedUser);
+        }
+
+    @Override
+    public String authenticate(LoginDto loginDto) {
+        Authentication authentication= authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginDto.getEmail(),
+                        loginDto.getPassword()
+                )
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String email = authentication.getName();
+        Optional <User> userOptional = Optional.ofNullable(userRepository.findByEmail(email));
+        User user = userOptional.orElseThrow(() -> new UsernameNotFoundException("usuario no encontrado"));
+        String roleName = user.getRole().getName();
+        return jwtUtilities.generateToken(email, Collections.singletonList(roleName));
+         }
 
     @Override
     public User getOne(Long id) {
