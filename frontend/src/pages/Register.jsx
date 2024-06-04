@@ -3,22 +3,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast, Toaster } from 'sonner'
 import confetti from 'canvas-confetti'
 import { useGlobalContext } from '@/context/global.context'
-import { useState, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { toast, Toaster } from 'sonner'
-import confetti from 'canvas-confetti'
-import { useGlobalContext } from '@/context/global.context'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { routes } from '@/routes/routes'
-import {
-  MailIcon,
-  LockIcon,
-  UserIcon,
-  PhoneIcon,
-  GlobeIcon,
-} from '@/components/Icons'
 import {
   MailIcon,
   LockIcon,
