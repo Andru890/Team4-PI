@@ -8,7 +8,6 @@ import Banner from '@/components/Banner'
 const ProductRoutes = () => {
   return (
     <>
-      <SearchBar />
       <Banner />
       <Routes>
         <Route path={routes.home} element={<ItemListContainer />} />
