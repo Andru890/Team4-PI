@@ -16,9 +16,10 @@ const CalendarMain = () => {
   const [isStartDatePickerOpen, setIsStartDatePickerOpen] = useState(false)
   const [isEndDatePickerOpen, setIsEndDatePickerOpen] = useState(false)
   return (
-    <div className='max-w-4xl mx-auto p-8 bg-white rounded-lg shadow'>
+    <div className='max-w-4xl mx-auto p-8 bg-white rounded-full shadow'>
       <div className='grid grid-cols-4 gap-4'>
         <Input
+          className='rounded-full'
           type='search'
           placeholder='Buscar producto...'
           value={searchTerm}
@@ -27,7 +28,7 @@ const CalendarMain = () => {
         <Popover open={isStartDatePickerOpen}>
           <PopoverTrigger asChild>
             <Input
-              className='text-left text-gray-500'
+              className='text-left text-gray-500 rounded-full'
               placeholder='Fecha de alquiler'
               value={
                 startDate
@@ -52,7 +53,7 @@ const CalendarMain = () => {
         <Popover open={isEndDatePickerOpen}>
           <PopoverTrigger asChild>
             <Input
-              className='text-left text-gray-500'
+              className='text-left text-gray-500 rounded-full'
               value={
                 endDate
                   ? endDate.toLocaleDateString()
@@ -74,7 +75,7 @@ const CalendarMain = () => {
             />
           </PopoverContent>
         </Popover>
-        <Button className=' text-white'>Buscar</Button>
+        <Button className=' text-white rounded-full'>Buscar</Button>
       </div>
     </div>
   )
