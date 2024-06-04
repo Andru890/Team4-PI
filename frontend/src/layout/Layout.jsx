@@ -17,7 +17,6 @@ import AdminFeatures from '@/components/AdminPanel/AdminFeatures'
 import Categories from '@/pages/Categories'
 import Profile from '@/pages/Profile'
 import { PrivateRoute, AdminGuard } from '@/routes/AuthGuard'
-import Products from '../pages/Products'
 
 const Layout = () => {
   return (
