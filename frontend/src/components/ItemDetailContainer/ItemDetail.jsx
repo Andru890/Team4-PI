@@ -35,6 +35,19 @@ const ItemDetail = ({ product }) => {
       <div className='container mx-auto py-12 md:py-16 lg:py-20 bg-white'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
           <div>
+            <img
+              alt='Product Image'
+              className='w-full h-full object-cover rounded-lg'
+              height={400}
+              src={product.image ? product.image : '/placeholder.svg'}
+              style={{
+                aspectRatio: '600/400',
+                objectFit: 'contain',
+              }}
+              width={600}
+            />
+          </div>
+          <div>
             <h1 className='text-3xl font-bold mb-4'>{product.name}</h1>
             <p className='text-gray-500 dark:text-gray-400 mb-8'>
               {product.description}
@@ -70,19 +83,6 @@ const ItemDetail = ({ product }) => {
                 {product.stock > 0 ? 'Stock Disponible' : 'Stock Agotado'}
               </div>
             </div>
-          </div>
-          <div>
-            <img
-              alt='Product Image'
-              className='w-full h-full object-cover rounded-lg'
-              height={400}
-              src={product.image ? product.image : '/placeholder.svg'}
-              style={{
-                aspectRatio: '600/400',
-                objectFit: 'contain',
-              }}
-              width={600}
-            />
           </div>
         </div>
       </div>

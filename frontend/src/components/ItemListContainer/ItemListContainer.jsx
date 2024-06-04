@@ -12,6 +12,7 @@ import {
   PaginationContent,
   Pagination,
 } from '@/components/ui/pagination'
+import { Button } from '../ui/button'
 
 const ItemListContainer = () => {
   const { state } = useGlobalContext()
@@ -38,17 +39,18 @@ const ItemListContainer = () => {
       <div className='container grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:px-6'>
         <div className='grid gap-4'>
           <h2 className='text-3xl font-bold tracking-tighter'>
-            Productos destacados
+            Los preferidos
           </h2>
-          <p className='text-gray-500 dark:text-gray-400 '>
-            Descubre nuestros productos más populares.
-          </p>
         </div>
         <div />
       </div>
-      <div className='container grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:px-6 mt-5'>
+      <div className='container grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-6 mt-5'>
         {isLoading ? <UseLoader /> : <ItemList productList={currentProducts} />}
       </div>
+      {/* <div className='flex justify-center pt-8'>
+        <Button>Ver más</Button>
+      </div> */}
+
       <div className='container flex justify-center mt-8'>
         <Pagination>
           <PaginationContent>

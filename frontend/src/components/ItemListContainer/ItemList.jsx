@@ -3,11 +3,11 @@ import Item from '@/components/ItemListContainer/Item'
 const ItemList = ({ productList }) => {
   let shuffledProducts = [...productList]
   shuffledProducts.sort(() => Math.random() - 0.5)
-  let randomTenProducts = shuffledProducts.slice(0, 10)
+  let randomSixProducts = shuffledProducts.slice(0, 6)
 
   return (
     <>
-      {randomTenProducts.map((product) => (
+      {randomSixProducts.map((product) => (
         <Item key={product.id} product={product} />
       ))}
     </>

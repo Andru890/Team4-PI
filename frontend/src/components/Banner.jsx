@@ -1,4 +1,5 @@
 import Videos from '@/components/Login/Videos'
+import { Button } from './ui/button'
 
 const Banner = () => {
   return (
@@ -11,6 +12,7 @@ const Banner = () => {
         <p className='text-lg sm:text-xl lg:text-2xl text-gray-300 mb-8 select-none'>
           Encuentra el equipo perfecto para tus eventos y proyectos.
         </p>
+        <Button>Explora aquí</Button>
       </div>
     </section>
   )
