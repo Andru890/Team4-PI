@@ -1,4 +1,3 @@
-import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveLine } from '@nivo/line'
 
 export function ActivityIcon(props) {
@@ -405,65 +404,6 @@ export function LockIcon(props) {
   )
 }
 
-export function BarChart(props) {
-  return (
-    <div {...props}>
-      <ResponsiveBar
-        data={[
-          { name: 'Ene', count: 0 },
-          { name: 'Feb', count: 0 },
-          { name: 'Mar', count: 0 },
-          { name: 'Abr', count: 0 },
-          { name: 'May', count: 0 },
-          { name: 'Jun', count: 0 },
-          { name: 'Jul', count: 0 },
-          { name: 'Ago', count: 0 },
-          { name: 'Sep', count: 0 },
-          { name: 'Oct', count: 0 },
-          { name: 'Nov', count: 0 },
-          { name: 'Dic', count: 0 },
-        ]}
-        keys={['count']}
-        indexBy='name'
-        margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
-        padding={0.3}
-        colors={['#2563eb']}
-        axisBottom={{
-          tickSize: 0,
-          tickPadding: 16,
-        }}
-        axisLeft={{
-          tickSize: 0,
-          tickValues: 4,
-          tickPadding: 16,
-        }}
-        gridYValues={4}
-        theme={{
-          tooltip: {
-            chip: {
-              borderRadius: '9999px',
-            },
-            container: {
-              fontSize: '12px',
-              textTransform: 'capitalize',
-              borderRadius: '6px',
-            },
-          },
-          grid: {
-            line: {
-              stroke: '#f3f4f6',
-            },
-          },
-        }}
-        tooltipLabel={({ id }) => `${id}`}
-        enableLabel={false}
-        role='application'
-        ariaLabel='A bar chart showing data'
-      />
-    </div>
-  )
-}
-
 export function MailIcon(props) {
   return (
     <svg
@@ -698,6 +638,26 @@ export function GlobeIcon(props) {
       <circle cx='12' cy='12' r='10' />
       <path d='M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20' />
       <path d='M2 12h20' />
+    </svg>
+  )
+}
+
+export function PencilIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z' />
+      <path d='m15 5 4 4' />
     </svg>
   )
 }

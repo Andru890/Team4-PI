@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import { useGlobalContext } from '@/context/global.context'
@@ -16,19 +16,27 @@ import NotFound from './NotFound'
 
 const Dashboard = () => {
   const { state } = useGlobalContext()
-  const { data: products } = state
+  const { data: products, dataUser: users } = state
   const { pathname } = useLocation()
 
   const [productCount, setProductCount] = useState(0)
+  const [userCount, setUserCount] = useState(0)
 
   useEffect(() => {
     setProductCount(products.length)
-  }, [products])
+    setUserCount(users.length)
+  }, [products, users])
 
   let content
   switch (pathname) {
     case routes.dashboard:
-      content = <AdminDashboard productCount={productCount} />
+      content = (
+        <AdminDashboard
+          productCount={productCount}
+          userCount={userCount}
+          products={products}
+        />
+      )
       break
     case routes.dashboardproducts:
       content = (

@@ -53,7 +53,7 @@ export const updateProduct = async (product) => {
 
 export const addProductCategory = async (productId, categoryId) => {
   try {
-    const res = await axios.post(
+    const res = await axios.put(
       `${API_URL}/product/${productId}/category/${categoryId}`
     )
     console.log(res.data)

@@ -48,7 +48,9 @@ const AdminCategoriesTable = ({ products, category, handleDeleteCategory }) => {
         <TableHeader>
           <TableRow>
             <TableHead>ID</TableHead>
+            <TableHead>Imagen</TableHead>
             <TableHead>Nombre</TableHead>
+            <TableHead>Descripción</TableHead>
             <TableHead>Productos</TableHead>
             <TableHead>Acciones</TableHead>
           </TableRow>
@@ -57,6 +59,13 @@ const AdminCategoriesTable = ({ products, category, handleDeleteCategory }) => {
           {category.map((category) => (
             <TableRow key={category.id}>
               <TableCell>{category.id}</TableCell>
+              <TableCell>
+                <img
+                  src={category.image}
+                  alt={category.description}
+                  className='h-8 w-8 rounded-full'
+                />
+              </TableCell>
               <TableCell className='font-medium'>{category.name}</TableCell>
               <TableCell>
                 {
@@ -67,6 +76,7 @@ const AdminCategoriesTable = ({ products, category, handleDeleteCategory }) => {
                   ).length
                 }
               </TableCell>
+              <TableCell>{category.description || 'Sin descripción'}</TableCell>
               <TableCell className='flex items-center gap-2'>
                 <Button
                   size='icon'

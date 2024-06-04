@@ -18,15 +18,14 @@ const Item = ({ product }) => {
             style={{
               aspectRatio: '300/300',
               objectFit: 'scale-down',
-              /*width: '350px',*/
             }}
             width='300'
           />
         </div>
         <div className='bg-white p-4 dark:bg-gray-950'>
-          <h3 className='py-1 font-medium'>{product.name}</h3>
+          <h3 className='py-1 font-bold'>{product.name}</h3>
           <p
-            className={classNames('py-1', {
+            className={classNames('py-1 font-medium', {
               'text-[#65D83D]': product.stock > 0,
               'text-inherit': product.stock <= 0,
             })}
@@ -34,13 +33,11 @@ const Item = ({ product }) => {
             {product.stock > 0 ? 'Stock Disponible' : 'Stock Agotado'}
           </p>
           <p className='py-1 font-medium'>${product.price}</p>
-          {/* <div className='mt-4'>
-          <Link to={`/product/${product.id}`}>
+          {/* <div className='mt-4 w-'>
             <Button className='w-full' size='sm'>
               Ver detalles
             </Button>
-          </Link>
-        </div> */}
+          </div> */}
         </div>
       </Link>
     </div>

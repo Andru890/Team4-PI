@@ -11,10 +11,12 @@ import NotFound from '@/pages/NotFound'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import ItemDetailContainer from '@/components/ItemDetailContainer/ItemDetailContainer'
-import AdminCategories from '../components/AdminPanel/AdminCategories'
+import AdminCategories from '@/components/AdminPanel/AdminCategories'
 import AdminOrders from '@/components/AdminPanel/AdminOrders'
 import AdminFeatures from '@/components/AdminPanel/AdminFeatures'
 import Categories from '@/pages/Categories'
+import Profile from '@/pages/Profile'
+import { PrivateRoute, AdminGuard } from '@/routes/AuthGuard'
 import Products from '../pages/Products'
 
 const Layout = () => {
@@ -23,24 +25,35 @@ const Layout = () => {
       <Route path={routes.home} element={<Home />}>
         <Route path={routes.itemDetail} element={<ItemDetailContainer />} />
       </Route>
-      <Route path={routes.dashboard} element={<Dashboard />}>
-        <Route index element={<AdminDashboard />} />
-        <Route path={routes.dashboardorders} element={<AdminOrders />} />
-        <Route path={routes.dashboardfeatures} element={<AdminFeatures />} />
-        <Route path={routes.dashboardusers} element={<AdminUsers />} />
-        <Route path={routes.dashboardproducts} element={<AdminProducts />} />
-        <Route
-          path={routes.dashboardcategories}
-          element={<AdminCategories />}
-        />
-      </Route>
-      <Route path={routes.products} element={<Products />} />
-      <Route path={routes.notFound} element={<NotFound />} />
-      <Route path={routes.login} element={<Login />} />
-      <Route path={routes.register} element={<Register />} />
       <Route path={routes.contact} element={<Contact />} />
       <Route path={routes.services} element={<Services />} />
-      <Route path='/categories' element={<Categories />} />
+      <Route path={routes.categories} element={<Categories />} />
+      <Route path={routes.login} element={<Login />} />
+      <Route path={routes.register} element={<Register />} />
+
+      <Route element={<PrivateRoute />}>
+        <Route path={routes.profile} element={<Profile />} />
+        <Route
+          path={routes.dashboard}
+          element={
+            <AdminGuard>
+              <Dashboard />
+            </AdminGuard>
+          }
+        >
+          <Route index element={<AdminDashboard />} />
+          <Route path={routes.dashboardorders} element={<AdminOrders />} />
+          <Route path={routes.dashboardfeatures} element={<AdminFeatures />} />
+          <Route path={routes.dashboardusers} element={<AdminUsers />} />
+          <Route path={routes.dashboardproducts} element={<AdminProducts />} />
+          <Route
+            path={routes.dashboardcategories}
+            element={<AdminCategories />}
+          />
+        </Route>
+      </Route>
+
+      <Route path={routes.notFound} element={<NotFound />} />
     </Routes>
   )
 }

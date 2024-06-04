@@ -13,6 +13,7 @@ import {
   updateProduct,
   deleteProduct,
   getProductById,
+  addProductCategory,
 } from '@/services/productsAPI'
 import {
   getCategory,
@@ -27,6 +28,8 @@ import {
   updateUser,
   deleteUser,
 } from '@/services/userAPI'
+import { updateRole } from '@/services/roleAPI'
+import { toast } from 'sonner'
 
 export const ContextGlobal = createContext(undefined)
 
@@ -96,6 +99,24 @@ export const ContextProvider = ({ children }) => {
       throw new Error('Failed to update product stock')
     }
   }, [])
+
+  const handleUpdateProductCategory = useCallback(
+    async (productId, categoryId) => {
+      if (!productId || !categoryId) {
+        throw new Error('Product ID and category ID are required')
+      }
+      const data = await addProductCategory(productId, categoryId)
+      if (data) {
+        dispatch({
+          type: 'UPDATE_PRODUCT_CATEGORY',
+          payload: { productId, categoryId },
+        })
+      } else {
+        throw new Error('Failed to update product category')
+      }
+    },
+    []
+  )
 
   const handleDeleteProduct = useCallback(async (id) => {
     if (!id) {
@@ -167,19 +188,95 @@ export const ContextProvider = ({ children }) => {
   }, [])
 
   const handleGetUsers = useCallback(async () => {
-    const users = await getUsers()
-    dispatch({
-      type: 'SET_USERS',
-      payload: users,
-    })
+    try {
+      const data = await getUsers()
+      if (data) {
+        dispatch({
+          type: 'GET_USER',
+          payload: data,
+        })
+      } else {
+        throw new Error('Failed to fetch user data')
+      }
+    } catch (error) {
+      console.error('Failed to fetch user data', error)
+    }
   }, [])
 
   const handleGetUserById = useCallback(async (id) => {
     const user = await getUserById(id)
     dispatch({
-      type: 'SET_USER_BY_ID',
+      type: 'GET_USER_DETAIL',
       payload: user,
     })
+  }, [])
+
+  const handleUpdateUser = useCallback(async (user) => {
+    const updatedUser = await updateUser(user)
+    dispatch({
+      type: 'UPDATE_USER',
+      payload: updatedUser,
+    })
+  }, [])
+
+  const handleDeleteUser = useCallback(async (id) => {
+    if (!id) {
+      throw new Error('User ID is required')
+    }
+    await deleteUser(id)
+    dispatch({
+      type: 'DELETE_USER',
+      payload: id,
+    })
+  }, [])
+
+  const login = useCallback(async (email, password) => {
+    try {
+      const users = await getUsers()
+      const user = users.find(
+        (u) => u.email === email && u.password === password
+      )
+      if (user) {
+        dispatch({ type: 'LOGIN_SUCCESS', payload: user })
+        localStorage.setItem('isAuthenticated', 'true')
+        localStorage.setItem('user', JSON.stringify(user))
+        return user
+      } else {
+        throw new Error('Invalid credentials')
+      }
+    } catch (error) {
+      console.error('Login failed', error)
+      throw error
+    }
+  }, [])
+
+  const logout = useCallback(() => {
+    dispatch({ type: 'LOGOUT' })
+    localStorage.removeItem('isAuthenticated')
+    localStorage.removeItem('user')
+  }, [])
+
+  const handleRoleChange = useCallback(async (userId, newRole) => {
+    try {
+      // Realiza la solicitud al servidor para actualizar el rol
+      const updatedUser = await updateRole(userId, { name: newRole })
+      // Actualiza el estado con el nuevo usuario actualizado
+      dispatch({ type: 'UPDATE_USER', payload: updatedUser })
+      toast.success(
+        `Rol actualizado con éxito para el usuario ${updatedUser.name}`
+      )
+    } catch (error) {
+      console.error('Failed to update user role', error)
+      toast.error('Error al actualizar el rol del usuario')
+    }
+  }, [])
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (isAuthenticated && user) {
+      dispatch({ type: 'LOGIN_SUCCESS', payload: user })
+    }
   }, [])
 
   useEffect(() => {
@@ -201,6 +298,7 @@ export const ContextProvider = ({ children }) => {
     handleAddProduct,
     handleUpdateProduct,
     handleUpdateProductStock,
+    handleUpdateProductCategory,
     handleDeleteProduct,
     handleGetCategory,
     handleGetCategoryById,
@@ -208,6 +306,11 @@ export const ContextProvider = ({ children }) => {
     handleDeleteCategory,
     handleCreateUser,
     handleGetUserById,
+    handleUpdateUser,
+    handleDeleteUser,
+    login,
+    logout,
+    handleRoleChange,
   }
 
   return (

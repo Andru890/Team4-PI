@@ -41,3 +41,12 @@ export const deleteCategory = async (categoryId) => {
     console.error(error)
   }
 }
+export const getProductsByCategory = async (categoryId) => {
+  try {
+    const res = await axios.get(`${API_URL}/products/category/${categoryId}`)
+    console.log(res.data)
+    return res.data
+  } catch (error) {
+    console.error(error)
+  }
+}

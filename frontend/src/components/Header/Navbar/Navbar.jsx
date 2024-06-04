@@ -45,7 +45,7 @@ const Navbar = () => {
                         {category.name}
                       </div>
                       <div className='line-clamp-2 text-sm leading-snug text-gray-500 dark:text-gray-400'>
-                        {category.description}
+                        {category.description || 'Sin descripción'}
                       </div>
                     </Link>
                   </NavigationMenuLink>

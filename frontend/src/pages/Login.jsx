@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { toast, Toaster } from 'sonner'
 import confetti from 'canvas-confetti'
+import { useNavigate } from 'react-router-dom'
 import { useGlobalContext } from '@/context/global.context'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -13,10 +14,10 @@ import Logo from '@/components/Login/Logo'
 
 const Login = () => {
   const buttonRef = useRef(null)
-  const { handleGetUser } = useGlobalContext()
+  const { login } = useGlobalContext()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
+  const navigate = useNavigate()
   const handleEmailChange = (event) => setEmail(event.target.value)
   const handlePasswordChange = (event) => setPassword(event.target.value)
 
@@ -24,7 +25,7 @@ const Login = () => {
     event.preventDefault()
     try {
       // Intenta iniciar sesión
-      const user = await handleGetUser(email, password)
+      const user = await login(email, password)
       if (user) {
         // Lanza confeti en la posición del botón
         const buttonPosition = buttonRef.current.getBoundingClientRect()
@@ -41,6 +42,9 @@ const Login = () => {
           },
         })
         toast.success('Inicio de sesión exitoso!')
+        setTimeout(() => {
+          navigate(routes.home)
+        }, 2000)
       } else {
         toast.error('El correo electrónico o la contraseña son incorrectos')
       }
