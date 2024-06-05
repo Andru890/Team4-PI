@@ -55,6 +55,16 @@ public class ProductDetailController {
         return new ResponseEntity<>(productDetailService.getAll(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Found list productDetail")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found a productDetail",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ProductDetail.class))}),
+            @ApiResponse(responseCode = "404", description = "ProductDetail not found", content = @Content)})
+    @GetMapping("/product-characteristic/{productId}")
+    public ResponseEntity<List<ProductDetailDTO>> searchAllByProduct(@PathVariable Long productId) {
+        return new ResponseEntity<>(productDetailService.findAllCharacteristicByProduct(productId), HttpStatus.OK);
+    }
+
 
     @Operation(summary = "Found a productDetail")
     @ApiResponses(value = {

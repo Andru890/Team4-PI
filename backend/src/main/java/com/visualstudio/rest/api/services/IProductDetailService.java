@@ -11,4 +11,5 @@ public interface IProductDetailService {
     ProductDetailDTO update(ProductDetail productDetail, Long id);
     ProductDetailDTO findById(Long Id);
     void delete(Long id);
+    List<ProductDetailDTO> findAllCharacteristicByProduct(Long productId);
 }
