@@ -2,13 +2,11 @@ package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
 import com.visualstudio.rest.api.models.dtos.ProductDetailDTO;
-import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.models.entities.ProductDetail;
 import com.visualstudio.rest.api.repositories.ProductDetailRepository;
 import com.visualstudio.rest.api.repositories.ProductRepository;
 import com.visualstudio.rest.api.services.IProductDetailService;
-import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -59,6 +57,14 @@ public class ProductDetailServiceImpl implements IProductDetailService {
     @Override
     public void delete(Long id) {
         productDetailRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProductDetailDTO> findAllCharacteristicByProduct(Long productId) {
+        return productDetailRepository.findByProductId(productId)
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
     }
 
     private ProductDetailDTO convertToDTO(ProductDetail productDetail){
