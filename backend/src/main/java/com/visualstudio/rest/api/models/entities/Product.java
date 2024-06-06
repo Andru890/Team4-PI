@@ -33,7 +33,7 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties
     private List<ImageProduct> images;
 

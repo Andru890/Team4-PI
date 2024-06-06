@@ -10,10 +10,10 @@ import java.util.Optional;
 
 public interface IProductService {
     List<ProductDTO> getAll();
-    ProductDTO save(Product product, List<MultipartFile> imageFiles) throws IOException;
-    ProductDTO update(Product product, Long id, List<MultipartFile> imageFiles) throws IOException;
+    ProductDTO save(Product product, Optional<List<MultipartFile>> imageFiles) throws IOException;
+    ProductDTO update(Product product, Long id, Optional<List<MultipartFile>> imageFiles) throws IOException;
     ProductDTO findById(Long id);
     ProductDTO changeCategory(Long productId, Long categoryId);
-    void delete(Long id);
+    void delete(Long id) throws IOException;
 
 }

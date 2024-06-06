@@ -27,7 +27,7 @@ public class ImageProduct {
     @Column(name = "image_id")
     private String imageId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 

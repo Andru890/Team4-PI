@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import com.visualstudio.rest.api.services.impl.CloudinaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +27,12 @@ public class ProductController {
     private final IProductService productService;
 
     @Operation(summary = "Create a product")
-    @ApiResponses(value = {
+    /*@ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create a product",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
+            @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})*/
     @PostMapping
-    public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product, @RequestParam(value = "image", required = false)List<MultipartFile> imageFiles) throws IOException {
+    public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product, Optional<List<MultipartFile>> imageFiles) throws IOException {
         return new ResponseEntity<>(productService.save(product, imageFiles), HttpStatus.CREATED);
     }
 
@@ -44,7 +43,7 @@ public class ProductController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
     @PutMapping("/{productId}")
-    public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product, @PathVariable Long productId,  @RequestParam(value = "image", required = false)List<MultipartFile> imageFiles) throws IOException {
+    public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product, @PathVariable Long productId,  @RequestParam(value = "image", required = false)Optional<List<MultipartFile>> imageFiles) throws IOException {
         return new ResponseEntity<>(productService.update(product,productId, imageFiles), HttpStatus.OK);
     }
 
@@ -90,7 +89,7 @@ public class ProductController {
             @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
     @DeleteMapping("/{productId}")
     // Service de imagen para borrar
-    public ResponseEntity<Void> delete(@PathVariable Long productId) {
+    public ResponseEntity<Void> delete(@PathVariable Long productId) throws IOException {
         productService.delete(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

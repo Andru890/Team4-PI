@@ -3,7 +3,6 @@ package com.visualstudio.rest.api.services.impl;
 import com.visualstudio.rest.api.exceptions.ResourceExistException;
 import com.visualstudio.rest.api.models.dtos.ProductDTO;
 import com.visualstudio.rest.api.models.entities.Category;
-import com.visualstudio.rest.api.models.entities.Images.ImageCategory;
 import com.visualstudio.rest.api.models.entities.Images.ImageProduct;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.repositories.CategoryRepository;
@@ -41,7 +40,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ProductDTO save(Product product, List<MultipartFile> imageFiles) throws IOException {
+    public ProductDTO save(Product product, Optional<List<MultipartFile>> imageFiles) throws IOException {
 
         List<Product> products = productRepository.findAll();
         for(Product foundProduct: products){
@@ -50,8 +49,9 @@ public class ProductServiceImpl implements IProductService {
             }
         }
         if (!imageFiles.isEmpty()) {
+            List<MultipartFile> newImage = imageFiles.get();
             List<ImageProduct> images = new ArrayList<>();
-            for (MultipartFile imageFile : imageFiles) {
+            for (MultipartFile imageFile : newImage) {
                 Map<String, String> uploadResult = cloudinaryService.upload(imageFile);
                 ImageProduct image = new ImageProduct(
                         uploadResult.get("original_filename"),
@@ -71,11 +71,12 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ProductDTO update(Product product, Long id, List<MultipartFile> imageFiles) throws IOException {
+    public ProductDTO update(Product product, Long id, Optional<List<MultipartFile>> imageFiles) throws IOException {
         Product productFound = productRepository.findById(id).get();
         if (!imageFiles.isEmpty()) {
+            List<MultipartFile> newImage = imageFiles.get();
             List<ImageProduct> images = new ArrayList<>();
-            for (MultipartFile imageFile : imageFiles) {
+            for (MultipartFile imageFile : newImage) {
                 Map<String, String> uploadResult = cloudinaryService.upload(imageFile);
                 ImageProduct image = new ImageProduct(
                         uploadResult.get("original_filename"),
@@ -112,13 +113,28 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id) throws IOException {
+        List<ImageProduct> foundImages = imageProductRepository.findByProductId(id);
+        if (!foundImages.isEmpty()){
+            for(ImageProduct image: foundImages){
+                cloudinaryService.delete(image.getImageId());
+            }
+        }
         productRepository.deleteById(id);
     }
 
     private ProductDTO convertToDTO(Product product){
-
-        return mapper.map(product,ProductDTO.class);
+        return mapper.map(product, ProductDTO.class);
+        /*ProductDTO productDTO = mapper.map(product,ProductDTO.class);
+        mapper.forSourceMember(Product::getImages)
+                .mapOntoTarget(ProductDTO::setImageProductUrl, list -> {
+                    List<String> imageUrls = new ArrayList<>();
+                    for (ImageProduct image : list){
+                        imageUrls.add(image.getUrl());
+                    }
+                    return imageUrls;
+                });
+                return productDTO;*/
     }
 
 }
