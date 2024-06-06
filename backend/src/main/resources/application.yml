@@ -15,21 +15,9 @@ spring:
       ddl-auto: update
     show-sql: true
 
+jwt.secret: "4sRGsHtzZbQjNVTJkG9z5f3Q6vTnZ2s7cKxG6ZfRf2RqKrXQYvJpCxJ9X54WcTJ"
+jtw.expiration: 86400000
 
-
-  mail:
-    host: localhost
-    port: 25
-    username: admin
-    password: admin
-    properties:
-      transport.protocol: smtp
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-        debug: true
 
 
 

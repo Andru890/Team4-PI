@@ -23,23 +23,23 @@ public class UserController {
     private final UserRepository userRepository;
 
     @PostMapping("/registry")
-    public ResponseEntity<User> userSave(@Valid @RequestBody User user) {
-        User userSave = userService.save(new RegistroDto());
-                RegistroDto registroDto = new RegistroDto();
-                registroDto.setName(user.getName());
-                registroDto.setLastname(user.getLastname());
-                registroDto.setEmail(user.getEmail());
-                registroDto.setPhone(user.getPhone());
-                registroDto.setCity(user.getCity());
-                registroDto.setPassword(user.getPassword());
-                User userSaveDto = userService.save(registroDto);
+    public ResponseEntity<User> save(@Valid @RequestBody User user) {
+        RegistroDto registroDto = new RegistroDto();
+        registroDto.setName(user.getName());
+        registroDto.setLastname(user.getLastname());
+        registroDto.setEmail(user.getEmail());
+        registroDto.setPhone(user.getPhone());
+        registroDto.setCity(user.getCity());
+        registroDto.setPassword(user.getPassword());
 
-                if (userSaveDto == null || userSaveDto == userRepository.getReferenceById(user.getId())) {
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                }
+        User savedUser = userService.save(registroDto);
 
-                return new ResponseEntity<>(userSave, HttpStatus.CREATED);
-            }
+        if (savedUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    }
 
     @GetMapping
     public ResponseEntity<List<User>> serchAllUser() {

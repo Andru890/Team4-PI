@@ -41,18 +41,16 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User save(RegistroDto registroDto) {
         User existingUser = userRepository.findByEmail(registroDto.getEmail());
-        if (existingUser != null){
+        if (existingUser != null) {
             throw new IllegalArgumentException("El usuario con el correo " + registroDto.getEmail() + " ya existe.");
-        } else {
-            Role customerRole = roleRepository.findByName("customer");
-            registroDto.setRole(customerRole);
-            if (registroDto.getRole() == null){
-                registroDto.setRole(getDefaultRole());
-            }
-            registroDto.setPassword(passwordEncoder.encode(registroDto.getPassword()));
-            String token = jwtUtilities.generateToken(registroDto.getEmail(), Collections.singletonList(registroDto.getRole().getName()));
-
         }
+
+        Role customerRole = roleRepository.findByName("customer");
+        registroDto.setRole(customerRole != null ? customerRole : getDefaultRole());
+
+        registroDto.setPassword(passwordEncoder.encode(registroDto.getPassword()));
+
+        String token = jwtUtilities.generateToken(registroDto.getEmail(), Collections.singletonList(registroDto.getRole().getName()));
 
         User newUser = new User();
         newUser.setName(registroDto.getName());
@@ -108,13 +106,6 @@ public class UserServiceImpl implements IUserService {
         return userRepository.findById(id).get();
     }
 
-    public User findByEmail(String email){
-        User user = userRepository.findByEmail(email);
-        if (user == null){
-            throw new IllegalArgumentException("El usuario con mail " + email + " no está registrado.");
-        }
-        return user;
-    }
     public User confirmRegistration(String email) {
         User user = userRepository.findByEmail(email);
         if (user != null) {
