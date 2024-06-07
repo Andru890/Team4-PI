@@ -1,0 +1,5 @@
+# Ignorar node_modules en el proyecto frontend
+frontend/node_modules/
+
+# Ignorar target en el proyecto backend
+target/

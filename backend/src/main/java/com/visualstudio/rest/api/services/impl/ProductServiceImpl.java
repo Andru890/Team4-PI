@@ -1,6 +1,7 @@
 package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.exceptions.ResourceExistException;
+import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.repositories.CategoryRepository;
@@ -33,16 +34,17 @@ public class ProductServiceImpl implements IProductService {
                 throw new ResourceExistException("El nombre ya esta en uso");
             }
         }
-        Category category = categoryRepository.findById(product.getCategory().getId()).get();
+        Category category = categoryRepository.findById(product.getCategory().getId())
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", product.getCategory().getId())));
         product.setCategory(category);
         return productRepository.save(product);
     }
 
     @Override
     public Product update(Product product, Long id) {
-        Product productFound = productRepository.findById(id).get();
+        Product productFound = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", id)));
         productFound.setName(product.getName());
-        productFound.setCharacteristic(product.getCharacteristic());
         productFound.setDescription(product.getDescription());
         productFound.setPrice(product.getPrice());
         return productRepository.save(productFound);
@@ -50,13 +52,16 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product findById(Long id) {
-        return productRepository.findById(id).get();
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", id)));
     }
 
     @Override
     public Product changeCategory(Long productId, Long categoryId) {
-        Product productFound = productRepository.findById(productId).get();
-        Category category = categoryRepository.findById(categoryId).get();
+        Product productFound = productRepository.findById(productId)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", productId)));
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", categoryId)));
         productFound.setCategory(category);
         productRepository.save(productFound);
         return productFound;
