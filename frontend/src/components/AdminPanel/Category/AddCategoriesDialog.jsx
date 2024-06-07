@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios'
 import { useGlobalContext } from '@/context/global.context'
 import {
   Dialog,
@@ -15,25 +16,50 @@ import { PlusIcon } from '@/components/Icons'
 import { toast } from 'sonner'
 
 const AddCategoriesDialog = () => {
+  const [urlImg, setUrlImg] = useState('')
+  const [isUploading, setIsUploading] = useState(false)
+  const [imageURL, setImageURL] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [image, setImage] = useState('')
   const { handleAddCategory } = useGlobalContext()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     try {
-      handleAddCategory({ name, description, image })
+      handleAddCategory({ name, description, image: urlImg })
       toast.success('Categoría agregada con éxito')
       setName('')
       setDescription('')
-      setImage('')
       setIsOpen(false)
     } catch (error) {
       console.error(error)
       toast.error('Error al agregar la categoría')
     }
+  }
+
+  const handleImage = async (e) => {
+    setIsUploading(true)
+    const file = e.target.files[0]
+    setImageURL(URL.createObjectURL(file))
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', 'presents_visualstudioservice')
+    const res = await axios.post(
+      'https://api.cloudinary.com/v1_1/wilsondelcanto-dev/image/upload',
+      formData
+    )
+    const data = res.data
+    setUrlImg(data.secure_url)
+    console.log(data.secure_url)
+    console.log(data.publicId)
+    setIsUploading(false)
+  }
+
+  const handleDeleteImage = async () => {
+    // Aquí asumimos que tienes el publicId de la imagen almacenado en el estado
+    setImageURL(null)
+    setUrlImg('')
   }
 
   return (
@@ -76,14 +102,23 @@ const AddCategoriesDialog = () => {
             <Label htmlFor='name'>Imagen</Label>
             <Input
               id='image'
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              placeholder='Ingresa la url de la imagen'
+              type='file'
+              accept='image/*'
+              onChange={handleImage}
+              placeholder='Selecciona una imagen para la categoría'
               aria-label=''
             />
+            {imageURL && (
+              <div>
+                <image src={imageURL} alt='Vista previa de la imagen' />
+                <button onClick={handleDeleteImage}>Eliminar imagen</button>
+              </div>
+            )}
           </div>
           <div className='flex justify-end gap-2'>
-            <Button type='submit'>Guardar</Button>
+            <Button type='submit' disabled={isUploading}>
+              Guardar
+            </Button>
           </div>
         </form>
       </DialogContent>
