@@ -37,9 +37,6 @@ public class Product {
     @JsonIgnoreProperties
     private List<ImageProduct> images;
 
-    @Column(name = "characteristic", length = 1000)
-    private String characteristic;
-
     @Column(name = "stock")
     private Integer stock;
 
@@ -51,4 +48,8 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "products"})
     private List<Reservation> reservations;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"product", "hibernateLazyInitializer"})
+    private List<ProductDetail> productsDetail;
 }
