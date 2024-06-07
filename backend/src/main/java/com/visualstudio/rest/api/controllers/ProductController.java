@@ -27,10 +27,10 @@ public class ProductController {
     private final IProductService productService;
 
     @Operation(summary = "Create a product")
-    /*@ApiResponses(value = {
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create a product",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})*/
+            @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
     @PostMapping
     public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product, Optional<List<MultipartFile>> imageFiles) throws IOException {
         return new ResponseEntity<>(productService.save(product, imageFiles), HttpStatus.CREATED);
