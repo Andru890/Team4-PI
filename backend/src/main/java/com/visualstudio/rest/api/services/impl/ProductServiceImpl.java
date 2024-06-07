@@ -89,7 +89,6 @@ public class ProductServiceImpl implements IProductService {
             product.setImages(images);
         }
         productFound.setName(product.getName());
-        productFound.setCharacteristic(product.getCharacteristic());
         productFound.setDescription(product.getDescription());
         productFound.setPrice(product.getPrice());
         productFound.setStock(product.getStock());
