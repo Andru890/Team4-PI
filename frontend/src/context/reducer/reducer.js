@@ -162,6 +162,11 @@ export const reducer = (state, action) => {
           feature.id === action.payload.id ? action.payload : feature
         ),
       }
+    case 'GET_FEATURES_BY_PRODUCT':
+      return {
+        ...state,
+        dataFeature: action.payload,
+      }
 
     default:
       return state

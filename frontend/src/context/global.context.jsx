@@ -7,6 +7,8 @@ import {
   useCallback,
 } from 'react'
 import { reducer } from '@/context/reducer/reducer'
+import { updateRole } from '@/services/roleAPI'
+import { toast } from 'sonner'
 import {
   getProduct,
   addProduct,
@@ -28,8 +30,14 @@ import {
   updateUser,
   deleteUser,
 } from '@/services/userAPI'
-import { updateRole } from '@/services/roleAPI'
-import { toast } from 'sonner'
+import {
+  getFeatures,
+  getFeatureById,
+  createFeature,
+  updateFeature,
+  deleteFeature,
+  getFeaturesByProduct,
+} from '@/services/featuresAPI'
 
 export const ContextGlobal = createContext(undefined)
 
@@ -271,6 +279,79 @@ export const ContextProvider = ({ children }) => {
     }
   }, [])
 
+  const handleGetFeatures = useCallback(async () => {
+    try {
+      const data = await getFeatures()
+      if (data) {
+        dispatch({ type: 'GET_FEATURES', payload: data })
+      } else {
+        throw new Error('Failed to fetch features data')
+      }
+    } catch (error) {
+      console.error('Failed to fetch features data', error)
+    }
+  }, [])
+
+  const handleGetFeatureById = useCallback(async (id) => {
+    if (!id) {
+      throw new Error('Feature ID is required')
+    }
+    const data = await getFeatureById(id)
+    if (data) {
+      dispatch({ type: 'GET_FEATURE_DETAIL', payload: data })
+    } else {
+      throw new Error('Failed to fetch feature detail')
+    }
+  }, [])
+
+  const handleCreateFeature = useCallback(async (feature) => {
+    if (!feature) {
+      throw new Error('Feature is required')
+    }
+    const data = await createFeature(feature)
+    if (data) {
+      dispatch({ type: 'ADD_FEATURE', payload: data })
+    } else {
+      throw new Error('Failed to add feature')
+    }
+  }, [])
+
+  const handleUpdateFeature = useCallback(async (feature) => {
+    if (!feature) {
+      throw new Error('Feature is required')
+    }
+    const data = await updateFeature(feature)
+    if (data) {
+      dispatch({ type: 'UPDATE_FEATURE', payload: data })
+    } else {
+      throw new Error('Failed to update feature')
+    }
+  }, [])
+
+  const handleDeleteFeature = useCallback(async (id) => {
+    if (!id) {
+      throw new Error('Feature ID is required')
+    }
+    await deleteFeature(id)
+    dispatch({ type: 'DELETE_FEATURE', payload: id })
+  }, [])
+
+  const handleGetFeaturesByProduct = useCallback(async (productId) => {
+    if (!productId) {
+      throw new Error('Product ID is required')
+    }
+    const data = await getFeaturesByProduct(productId)
+    if (data) {
+      dispatch({ type: 'GET_FEATURES_BY_PRODUCT', payload: data })
+    } else {
+      throw new Error('Failed to fetch features by product')
+    }
+  }, [])
+
+  useEffect(() => {
+    handleGetFeatures()
+  }, [handleGetFeatures])
+
   useEffect(() => {
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
     const user = JSON.parse(localStorage.getItem('user'))
@@ -311,6 +392,12 @@ export const ContextProvider = ({ children }) => {
     login,
     logout,
     handleRoleChange,
+    handleGetFeatures,
+    handleGetFeatureById,
+    handleCreateFeature,
+    handleUpdateFeature,
+    handleDeleteFeature,
+    handleGetFeaturesByProduct,
   }
 
   return (
