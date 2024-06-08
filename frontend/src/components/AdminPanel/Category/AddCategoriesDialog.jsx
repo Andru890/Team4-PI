@@ -51,8 +51,8 @@ const AddCategoriesDialog = () => {
     )
     const data = res.data
     setUrlImg(data.secure_url)
-    console.log(data.secure_url)
-    console.log(data.publicId)
+    console.log(data.secure_url) // URL de la imagen subida
+    console.log(data.publicId) // ID de la imagen subida
     setIsUploading(false)
   }
 

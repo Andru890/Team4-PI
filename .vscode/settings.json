@@ -73,6 +73,5 @@
   "editor.smoothScrolling": true,
   "breadcrumbs.enabled": false,
   "editor.stickyScroll.enabled": true,
-  "editor.cursorSmoothCaretAnimation": "on",
-  
+  "editor.cursorSmoothCaretAnimation": "on"
 }
