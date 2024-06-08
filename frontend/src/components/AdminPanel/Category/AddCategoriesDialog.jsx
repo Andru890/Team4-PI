@@ -16,7 +16,7 @@ import { PlusIcon } from '@/components/Icons'
 import { toast } from 'sonner'
 
 const AddCategoriesDialog = () => {
-  const [urlImg, setUrlImg] = useState('')
+  const [imageFile, setImageFile] = useState(null)
   const [isUploading, setIsUploading] = useState(false)
   const [imageURL, setImageURL] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
@@ -27,42 +27,45 @@ const AddCategoriesDialog = () => {
   const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
   const UPLOAD_PRESET = import.meta.env.VITE_CLOUD_PRESET
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsUploading(true)
     try {
-      handleAddCategory({ name, description, image: urlImg })
+      let imageUrl = ''
+      if (imageFile) {
+        const formData = new FormData()
+        formData.append('file', imageFile)
+        formData.append('upload_preset', UPLOAD_PRESET)
+        const res = await axios.post(
+          `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+          formData
+        )
+        imageUrl = res.data.secure_url
+      }
+      handleAddCategory({ name, description, image: imageUrl })
       toast.success('Categoría agregada con éxito')
       setName('')
       setDescription('')
+      setImageFile(null)
+      setImageURL(null)
       setIsOpen(false)
     } catch (error) {
       console.error(error)
       toast.error('Error al agregar la categoría')
+    } finally {
+      setIsUploading(false)
     }
   }
 
-  const handleImage = async (e) => {
-    setIsUploading(true)
+  const handleImageChange = (e) => {
     const file = e.target.files[0]
+    setImageFile(file)
     setImageURL(URL.createObjectURL(file))
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('upload_preset', UPLOAD_PRESET)
-    const res = await axios.post(
-      `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-      formData
-    )
-    const data = res.data
-    setUrlImg(data.secure_url)
-    console.log(data.secure_url) // URL de la imagen subida
-    console.log(data.publicId) // ID de la imagen subida
-    setIsUploading(false)
   }
 
-  const handleDeleteImage = async () => {
-    // Aquí asumimos que tienes el publicId de la imagen almacenado en el estado
+  const handleDeleteImage = () => {
     setImageURL(null)
-    setUrlImg('')
+    setImageFile(null)
   }
 
   return (
@@ -107,20 +110,26 @@ const AddCategoriesDialog = () => {
               id='image'
               type='file'
               accept='image/*'
-              onChange={handleImage}
+              onChange={handleImageChange}
               placeholder='Selecciona una imagen para la categoría'
               aria-label=''
             />
             {imageURL && (
               <div>
-                <image src={imageURL} alt='Vista previa de la imagen' />
-                <button onClick={handleDeleteImage}>Eliminar imagen</button>
+                <img
+                  src={imageURL}
+                  alt='Vista previa de la imagen'
+                  className='w-32 h-32 object-cover mt-2'
+                />
+                <button type='button' onClick={handleDeleteImage}>
+                  Eliminar imagen
+                </button>
               </div>
             )}
           </div>
           <div className='flex justify-end gap-2'>
             <Button type='submit' disabled={isUploading}>
-              Guardar
+              {isUploading ? 'Guardando...' : 'Guardar'}
             </Button>
           </div>
         </form>

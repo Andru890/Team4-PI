@@ -67,7 +67,7 @@ const AdminCategoriesTable = ({
         ).length
         if (
           filters.productCount.length > 0 &&
-          !filters.productCount.includes(productCount)
+          !filters.productCount.some((count) => productCount >= count)
         ) {
           return false
         }
@@ -90,12 +90,18 @@ const AdminCategoriesTable = ({
     }
   }
 
-  const handleFilterChange = (value) => {
-    setFilters({
-      ...filters,
-      productCount: filters.productCount.includes(value)
-        ? filters.productCount.filter((item) => item !== value)
-        : [...filters.productCount, value],
+  const handleFilterChange = (count) => {
+    setFilters((prevFilters) => {
+      if (prevFilters.productCount.includes(count)) {
+        return {
+          ...prevFilters,
+          productCount: prevFilters.productCount.filter((c) => c !== count),
+        }
+      }
+      return {
+        ...prevFilters,
+        productCount: [...prevFilters.productCount, count],
+      }
     })
   }
 
@@ -167,7 +173,7 @@ const AdminCategoriesTable = ({
           </DropdownMenuTrigger>
           <DropdownMenuContent className='w-[200px]' align='end'>
             <div className='grid gap-2'>
-              {[0, 1, 2, 3].map((count) => (
+              {[5, 10, 15, 30].map((count) => (
                 <Label
                   key={count}
                   className='flex items-center gap-2 font-normal'
@@ -176,7 +182,7 @@ const AdminCategoriesTable = ({
                     checked={filters.productCount.includes(count)}
                     onCheckedChange={() => handleFilterChange(count)}
                   />
-                  {count} Productos
+                  {count} Productos o más
                 </Label>
               ))}
             </div>
