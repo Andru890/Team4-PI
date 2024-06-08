@@ -2,12 +2,15 @@ package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.exceptions.ResourceExistException;
 import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
+import com.visualstudio.rest.api.models.dtos.CategoryDTO;
+import com.visualstudio.rest.api.models.dtos.ProductDTO;
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.repositories.CategoryRepository;
 import com.visualstudio.rest.api.repositories.ProductRepository;
 import com.visualstudio.rest.api.services.IProductService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,18 +22,23 @@ public class ProductServiceImpl implements IProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ModelMapper mapper;
 
     @Override
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public List<ProductDTO> getAll() {
+        return productRepository
+                .findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
     }
 
     @Override
     public Product save(Product product) {
 
         List<Product> products = productRepository.findAll();
-        for(Product foundProduct: products){
-            if(foundProduct.getName().equalsIgnoreCase(product.getName())){
+        for (Product foundProduct : products) {
+            if (foundProduct.getName().equalsIgnoreCase(product.getName())) {
                 throw new ResourceExistException("El nombre ya esta en uso");
             }
         }
@@ -70,5 +78,9 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void delete(Long id) {
         productRepository.deleteById(id);
+    }
+
+    private ProductDTO convertToDTO(Product product) {
+        return mapper.map(product, ProductDTO.class);
     }
 }

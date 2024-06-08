@@ -1,5 +1,6 @@
 package com.visualstudio.rest.api.controllers;
 
+import com.visualstudio.rest.api.models.dtos.ProductDTO;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.services.IProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -62,7 +63,7 @@ public class ProductController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
             @ApiResponse(responseCode = "404", description = "Product not found", content = @Content)})
     @GetMapping
-    public ResponseEntity<List<Product>> searchAll() {
+    public ResponseEntity<List<ProductDTO>> searchAll() {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 
