@@ -1,4 +1,3 @@
-// src/components/AddCategoriesDialog.js
 import { useState } from 'react'
 import { useGlobalContext } from '@/context/global.context'
 import {
