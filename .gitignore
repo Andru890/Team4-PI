@@ -3,3 +3,14 @@ frontend/node_modules/
 
 # Ignorar target en el proyecto backend
 target/
+
+# Ignorar .idea en el proyecto backend
+
+.idea/
+
+# Ignorar environment
+
+src/.env
+src/.env.local
+src/.env.development
+src/.env.production
