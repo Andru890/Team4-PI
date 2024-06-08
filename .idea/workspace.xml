@@ -4,32 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/ProductDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/ProductDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/CategoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/CategoryDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/ProductDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/ProductDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/ProductDetailDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Images/ImageCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Images/ImageCategory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Images/ImageCharacteristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Images/ImageCharacteristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Images/ImageProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Images/ImageProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/ProductDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/ProductDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/repositories/ImageCategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/repositories/ImageCategoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/repositories/ImageCharacteristicRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/repositories/ImageCharacteristicRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/repositories/ImageProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/repositories/ImageProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/ICategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/ICategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IProductDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IProductDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/CategoryServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/CloudinaryService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/ProductDetailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/ProductDetailServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/ProductServiceImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
