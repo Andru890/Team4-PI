@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 @RequiredArgsConstructor
 public class ProductDetailServiceImpl implements IProductDetailService {
@@ -20,7 +21,6 @@ public class ProductDetailServiceImpl implements IProductDetailService {
     private final ProductDetailRepository productDetailRepository;
     private final ProductRepository productRepository;
     private final ModelMapper mapper;
-
     @Override
     public List<ProductDetailDTO> getAll() {
         return productDetailRepository
@@ -31,12 +31,13 @@ public class ProductDetailServiceImpl implements IProductDetailService {
     }
 
     @Override
-    public ProductDetailDTO save(ProductDetail productDetail, Long productId) {
+    public ProductDetailDTO save(ProductDetail productDetail, Long productId){
 
         Product productFound = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto Detalle con id %s", productId)));
         productDetail.setProduct(productFound);
-        return convertToDTO(productDetailRepository.save(productDetail));
+        productDetail = productDetailRepository.save(productDetail);
+        return convertToDTO(productDetail);
     }
 
     @Override
@@ -44,7 +45,6 @@ public class ProductDetailServiceImpl implements IProductDetailService {
         ProductDetail productDetailFound = productDetailRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto Detalle con id %s", id)));
         productDetailFound.setCharacteristic(productDetail.getCharacteristic());
-        productDetailFound.setImage(productDetail.getImage());
         return convertToDTO(productDetailRepository.save(productDetailFound));
     }
 

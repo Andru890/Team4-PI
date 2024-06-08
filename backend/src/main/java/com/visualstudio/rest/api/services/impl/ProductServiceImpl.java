@@ -1,12 +1,11 @@
 package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.exceptions.ResourceExistException;
+import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
 import com.visualstudio.rest.api.models.dtos.ProductDTO;
 import com.visualstudio.rest.api.models.entities.Category;
-import com.visualstudio.rest.api.models.entities.Images.ImageProduct;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.repositories.CategoryRepository;
-import com.visualstudio.rest.api.repositories.ImageProductRepository;
 import com.visualstudio.rest.api.repositories.ProductRepository;
 import com.visualstudio.rest.api.services.IProductService;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +25,6 @@ public class ProductServiceImpl implements IProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final ModelMapper mapper;
-    private final CloudinaryService cloudinaryService;
-    private final ImageProductRepository imageProductRepository;
-
 
     @Override
     public List<ProductDTO> getAll() {
@@ -40,9 +36,29 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ProductDTO save(Product product, Optional<List<MultipartFile>> imageFiles) throws IOException {
-
+    public ProductDTO save(Product product /*Optional<List<MultipartFile>> imageFiles*/)  {
         List<Product> products = productRepository.findAll();
+        for(Product foundProduct: products){
+            if(foundProduct.getName().equalsIgnoreCase(product.getName())){
+                throw new ResourceExistException("El nombre ya esta en uso");
+            }
+        }
+        List<String> urlImages = product.getImages();
+        List<String> newImages = new ArrayList<>();
+        for (String url : urlImages){
+            newImages.add(url);
+        }
+        product.setImages(newImages);
+
+        Product finalProduct = product;
+        Category category = categoryRepository.findById(product.getCategory().getId())
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", finalProduct.getCategory().getId())));
+        product.setCategory(category);
+        product = productRepository.save(product);
+        return convertToDTO(product);
+
+        //----------- Metodo para guardar productos con imagen en cloudinary --------------------------------
+        /*List<Product> products = productRepository.findAll();
         for(Product foundProduct: products){
             if(foundProduct.getName().equalsIgnoreCase(product.getName())){
                 throw new ResourceExistException("El nombre ya esta en uso");
@@ -66,13 +82,28 @@ public class ProductServiceImpl implements IProductService {
         Category category = categoryRepository.findById(product.getCategory().getId()).get();
         product.setCategory(category);
         Product newProduct = productRepository.save(product);
-
-        return convertToDTO(newProduct);
+        return convertToDTO(newProduct);*/
     }
 
     @Override
-    public ProductDTO update(Product product, Long id, Optional<List<MultipartFile>> imageFiles) throws IOException {
-        Product productFound = productRepository.findById(id).get();
+    public ProductDTO update(Product product, Long id /*Optional<List<MultipartFile>> imageFiles*/) {
+        List<String> urlImages = product.getImages();
+        List<String> newImages = new ArrayList<>();
+        for (String url : urlImages){
+            newImages.add(url);
+        }
+        Product productFound = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", id)));
+        productFound.setName(product.getName());
+        productFound.setDescription(product.getDescription());
+        productFound.setPrice(product.getPrice());
+        productFound.setStock(product.getStock());
+        productFound.setImages(newImages);
+        productFound = productRepository.save(productFound);
+
+        return convertToDTO(productFound);
+
+        /*Product productFound = productRepository.findById(id).get();
         if (!imageFiles.isEmpty()) {
             List<MultipartFile> newImage = imageFiles.get();
             List<ImageProduct> images = new ArrayList<>();
@@ -93,7 +124,7 @@ public class ProductServiceImpl implements IProductService {
         productFound.setPrice(product.getPrice());
         productFound.setStock(product.getStock());
         Product updatedProduct = productRepository.save(productFound);
-        return convertToDTO(updatedProduct);
+        return convertToDTO(updatedProduct);*/
     }
 
     @Override
@@ -112,14 +143,17 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public void delete(Long id) throws IOException {
+    public void delete(Long id) {
+        productRepository.deleteById(id);
+        // ----------------------- Metodo para borrar imagen de cloudinary --------------------
+        /*
         List<ImageProduct> foundImages = imageProductRepository.findByProductId(id);
         if (!foundImages.isEmpty()){
             for(ImageProduct image: foundImages){
                 cloudinaryService.delete(image.getImageId());
             }
         }
-        productRepository.deleteById(id);
+        productRepository.deleteById(id);*/
     }
 
     private ProductDTO convertToDTO(Product product){

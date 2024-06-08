@@ -1,4 +1,4 @@
-package com.visualstudio.rest.api.models.entities.Images;
+/*package com.visualstudio.rest.api.models.entities.Images;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.visualstudio.rest.api.models.entities.Category;
@@ -36,4 +36,4 @@ public class ImageCategory  {
         this.url = url;
         this.imageId = imageId;
     }
-}
+}*/

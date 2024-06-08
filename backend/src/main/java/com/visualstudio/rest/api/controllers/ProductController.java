@@ -32,8 +32,8 @@ public class ProductController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
     @PostMapping
-    public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product, Optional<List<MultipartFile>> imageFiles) throws IOException {
-        return new ResponseEntity<>(productService.save(product, imageFiles), HttpStatus.CREATED);
+    public ResponseEntity<ProductDTO> addProduct(@RequestBody Product product /*Optional<List<MultipartFile>> imageFiles*/) {
+        return new ResponseEntity<>(productService.save(product /*imageFiles*/), HttpStatus.CREATED);
     }
 
 
@@ -43,8 +43,8 @@ public class ProductController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
     @PutMapping("/{productId}")
-    public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product, @PathVariable Long productId,  @RequestParam(value = "image", required = false)Optional<List<MultipartFile>> imageFiles) throws IOException {
-        return new ResponseEntity<>(productService.update(product,productId, imageFiles), HttpStatus.OK);
+    public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product, @PathVariable Long productId  /*@RequestParam(value = "image", required = false)Optional<List<MultipartFile>> imageFiles*/) {
+        return new ResponseEntity<>(productService.update(product,productId /*imageFiles*/), HttpStatus.OK);
     }
 
 

@@ -1,4 +1,4 @@
-package com.visualstudio.rest.api.models.entities.Images;
+/*package com.visualstudio.rest.api.models.entities.Images;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.visualstudio.rest.api.models.entities.Product;
@@ -27,9 +27,6 @@ public class ImageProduct {
     @Column(name = "image_id")
     private String imageId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
 
     public ImageProduct(String name, String url, String imageId) {
         this.name = name;
@@ -37,3 +34,4 @@ public class ImageProduct {
         this.imageId = imageId;
     }
 }
+*/

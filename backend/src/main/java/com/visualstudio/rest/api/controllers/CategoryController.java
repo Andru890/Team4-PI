@@ -30,8 +30,8 @@ public class CategoryController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Category.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid category id", content = @Content)})
     @PostMapping
-    public ResponseEntity<CategoryDTO> addCategory(@RequestBody MultipartFile imageFile, Category category) throws IOException {
-        return new ResponseEntity<>(categoryService.save(imageFile, category), HttpStatus.CREATED);
+    public ResponseEntity<CategoryDTO> addCategory(@RequestBody  Category category)  {
+        return new ResponseEntity<>(categoryService.save( category), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Update a category")
@@ -73,7 +73,7 @@ public class CategoryController {
             @ApiResponse(responseCode = "404", description = "Category not found", content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid category id", content = @Content)})
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity<Void> delete(@PathVariable Long categoryId) throws IOException {
+    public ResponseEntity<Void> delete(@PathVariable Long categoryId) {
         categoryService.delete(categoryId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

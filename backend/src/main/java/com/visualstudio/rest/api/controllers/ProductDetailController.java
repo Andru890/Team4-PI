@@ -3,7 +3,6 @@ package com.visualstudio.rest.api.controllers;
 import com.visualstudio.rest.api.models.dtos.ProductDetailDTO;
 import com.visualstudio.rest.api.models.entities.ProductDetail;
 import com.visualstudio.rest.api.services.IProductDetailService;
-import com.visualstudio.rest.api.services.impl.CloudinaryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,6 @@ import java.util.List;
 public class ProductDetailController {
 
     private final IProductDetailService productDetailService;
-    private final CloudinaryService cloudinaryService;
 
     @Operation(summary = "Create a productDetail")
     @ApiResponses(value = {
@@ -30,7 +30,7 @@ public class ProductDetailController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ProductDetail.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid productDetail id", content = @Content)})
     @PostMapping("/product/{productId}")
-    public ResponseEntity<ProductDetailDTO> addProductDetail(@RequestBody ProductDetail productDetail, @PathVariable Long productId) {
+    public ResponseEntity<ProductDetailDTO> addProductDetail(@RequestBody ProductDetail productDetail, @PathVariable Long productId)  {
         return new ResponseEntity<>(productDetailService.save(productDetail, productId), HttpStatus.CREATED);
     }
 
@@ -86,7 +86,7 @@ public class ProductDetailController {
             @ApiResponse(responseCode = "400", description = "Invalid productDetail id", content = @Content)})
     @DeleteMapping("/{productDetailId}")
     // Service de imagen para borrar
-    public ResponseEntity<Void> delete(@PathVariable Long productDetailId) {
+    public ResponseEntity<Void> delete(@PathVariable Long productDetailId)  {
         productDetailService.delete(productDetailId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
