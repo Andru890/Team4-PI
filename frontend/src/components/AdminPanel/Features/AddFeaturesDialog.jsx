@@ -10,7 +10,6 @@ import {
   DialogDescription,
   DialogFooter,
   DialogTrigger,
-  DialogClose,
 } from '@/components/ui/dialog'
 import { PlusIcon } from '@/components/Icons'
 import { Textarea } from '@/components/ui/textarea'

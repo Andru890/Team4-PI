@@ -1,5 +1,5 @@
+// src/components/AddCategoriesDialog.js
 import { useState } from 'react'
-import axios from 'axios'
 import { useGlobalContext } from '@/context/global.context'
 import {
   Dialog,
@@ -14,34 +14,21 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { PlusIcon } from '@/components/Icons'
 import { toast } from 'sonner'
+import useCloudinary from '@/hooks/useCloudinary'
 
 const AddCategoriesDialog = () => {
   const [imageFile, setImageFile] = useState(null)
-  const [isUploading, setIsUploading] = useState(false)
   const [imageURL, setImageURL] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const { handleAddCategory } = useGlobalContext()
-
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
-  const UPLOAD_PRESET = import.meta.env.VITE_CLOUD_PRESET
+  const { uploadImage, isUploading } = useCloudinary()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsUploading(true)
     try {
-      let imageUrl = ''
-      if (imageFile) {
-        const formData = new FormData()
-        formData.append('file', imageFile)
-        formData.append('upload_preset', UPLOAD_PRESET)
-        const res = await axios.post(
-          `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-          formData
-        )
-        imageUrl = res.data.secure_url
-      }
+      const imageUrl = await uploadImage(imageFile)
       handleAddCategory({ name, description, image: imageUrl })
       toast.success('Categoría agregada con éxito')
       setName('')
@@ -52,8 +39,6 @@ const AddCategoriesDialog = () => {
     } catch (error) {
       console.error(error)
       toast.error('Error al agregar la categoría')
-    } finally {
-      setIsUploading(false)
     }
   }
 
@@ -95,7 +80,7 @@ const AddCategoriesDialog = () => {
             />
           </div>
           <div className='space-y-1'>
-            <Label htmlFor='name'>Descripción</Label>
+            <Label htmlFor='description'>Descripción</Label>
             <Input
               id='description'
               value={description}
@@ -105,7 +90,7 @@ const AddCategoriesDialog = () => {
             />
           </div>
           <div className='space-y-1'>
-            <Label htmlFor='name'>Imagen</Label>
+            <Label htmlFor='image'>Imagen</Label>
             <Input
               id='image'
               type='file'
