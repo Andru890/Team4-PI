@@ -23,6 +23,14 @@ import {
   ArrowUpDownIcon,
   FilterIcon,
 } from '@/components/Icons'
+import {
+  DialogTrigger,
+  DialogTitle,
+  DialogHeader,
+  DialogDescription,
+  DialogContent,
+  Dialog,
+} from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -218,11 +226,37 @@ const AdminCategoriesTable = ({
               <TableRow key={category.id}>
                 <TableCell>{category.id}</TableCell>
                 <TableCell>
-                  <img
-                    src={category.image}
-                    alt={category.description}
-                    className='h-8 w-8 rounded-full'
-                  />
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <div className='relative rounded-lg overflow-hidden cursor-pointer'>
+                        <img
+                          alt={category.description}
+                          className='h-8 w-8 rounded-full'
+                          height={600}
+                          src={category.image}
+                          style={{
+                            objectFit: 'cover',
+                          }}
+                          width={800}
+                        />
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className='max-w-4xl'>
+                      <DialogHeader>
+                        <DialogTitle>{category.name}</DialogTitle>
+                      </DialogHeader>
+                      <DialogDescription>
+                        <img
+                          src={category.image}
+                          alt={category.description}
+                          className='w-full h-full object-cover'
+                          style={{
+                            aspectRatio: '16/9',
+                          }}
+                        />
+                      </DialogDescription>
+                    </DialogContent>
+                  </Dialog>
                 </TableCell>
                 <TableCell className='font-medium'>{category.name}</TableCell>
                 <TableCell>
