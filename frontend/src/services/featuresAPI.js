@@ -4,7 +4,7 @@ const API_URL = import.meta.env.VITE_API_URL
 
 export const getFeatures = async () => {
   try {
-    const response = await axios.get(`${API_URL}/features`)
+    const response = await axios.get(`${API_URL}/product-detail`)
     console.log(response.data)
     return response.data
   } catch (error) {
@@ -15,7 +15,7 @@ export const getFeatures = async () => {
 
 export const getFeatureById = async (featureId) => {
   try {
-    const response = await axios.get(`${API_URL}/features/${featureId}`)
+    const response = await axios.get(`${API_URL}/product-detail/${featureId}`)
     return response.data
   } catch (error) {
     console.error('Error fetching feature by ID:', error)
@@ -25,7 +25,18 @@ export const getFeatureById = async (featureId) => {
 
 export const createFeature = async (featureData) => {
   try {
-    const response = await axios.post(`${API_URL}/features`, featureData)
+    const response = await axios.post(
+      `${API_URL}/product-detail/product/${featureData.id}`,
+      {
+        characteristic: featureData.characteristic,
+        image: featureData.image,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
     return response.data
   } catch (error) {
     console.error('Error creating feature:', error)
@@ -36,8 +47,16 @@ export const createFeature = async (featureData) => {
 export const updateFeature = async (featureData) => {
   try {
     const response = await axios.put(
-      `${API_URL}/features/${featureData.id}`,
-      featureData
+      `${API_URL}/product-detail/${featureData.id}`,
+      {
+        characteristic: featureData.characteristic,
+        image: featureData.image,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
     )
     return response.data
   } catch (error) {
@@ -48,10 +67,24 @@ export const updateFeature = async (featureData) => {
 
 export const deleteFeature = async (featureId) => {
   try {
-    const response = await axios.delete(`${API_URL}/features/${featureId}`)
+    const response = await axios.delete(
+      `${API_URL}/product-detail/${featureId}`
+    )
     return response.data
   } catch (error) {
     console.error('Error deleting feature:', error)
+    throw error
+  }
+}
+
+export const getFeaturesByProduct = async (productId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/product-detail/product-characteristic/${productId}`
+    )
+    return response.data
+  } catch (error) {
+    console.error('Error getting features by product:', error)
     throw error
   }
 }
