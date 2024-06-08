@@ -283,7 +283,7 @@ export const ContextProvider = ({ children }) => {
     try {
       const data = await getFeatures()
       if (data) {
-        dispatch({ type: 'GET_FEATURES', payload: data })
+        dispatch({ type: 'GET_FEATURE', payload: data })
       } else {
         throw new Error('Failed to fetch features data')
       }

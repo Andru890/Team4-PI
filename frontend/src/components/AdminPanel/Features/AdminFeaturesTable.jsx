@@ -1,4 +1,6 @@
 import { useState, useMemo } from 'react'
+import Swal from 'sweetalert2'
+import { toast } from 'sonner'
 import { Input } from '@/components/ui/input'
 import {
   DropdownMenu,
@@ -7,9 +9,6 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   Table,
   TableHeader,
@@ -23,173 +22,25 @@ import {
   SearchIcon,
   ArrowUpDownIcon,
   FilterIcon,
-  ComponentIcon,
-  DeleteIcon,
-  Trash2Icon,
+  TrashIcon,
+  PenIcon,
 } from '@/components/Icons'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { Checkbox } from '@/components/ui/checkbox'
 import AdminFeatureDialog from '@/components/AdminPanel/Features/AddFeaturesDialog'
 
-const AdminFeaturesTable = () => {
+const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState({ key: 'id', order: 'asc' })
   const [filters, setFilters] = useState({
     customer: [],
   })
-  const features = useMemo(
-    () =>
-      [
-        {
-          id: 'FEAT001',
-          name: 'Alta Resolución',
-          description: 'Imágenes de alta calidad con resolución 4K.',
-          icon: 'ResoluciónAlta',
-        },
-        {
-          id: 'FEAT002',
-          name: 'Zoom Óptico',
-          description: 'Aproxímate a los detalles sin perder calidad.',
-          icon: 'ZoomÓptico',
-        },
-        {
-          id: 'FEAT003',
-          name: 'Reducción de Ruido',
-          description: 'Capta sonido claro y sin interferencias.',
-          icon: 'ReducciónRuido',
-        },
-        {
-          id: 'FEAT004',
-          name: 'Iluminación LED',
-          description:
-            'Luces de estudio LED con ajuste de temperatura de color.',
-          icon: 'LED',
-        },
-        {
-          id: 'FEAT005',
-          name: 'Estabilizador de Imagen',
-          description: 'Imágenes y videos sin movimiento borroso.',
-          icon: 'Estabilizador',
-        },
-        {
-          id: 'FEAT006',
-          name: 'Micrófono Inalámbrico',
-          description: 'Mayor movilidad y calidad de sonido sin cables.',
-          icon: 'Micrófono',
-        },
-        {
-          id: 'FEAT007',
-          name: 'Control Remoto',
-          description: 'Maneja tu equipo a distancia con un control remoto.',
-          icon: 'ControlRemoto',
-        },
-        {
-          id: 'FEAT008',
-          name: 'Autofoco Rápido',
-          description: 'Enfoca rápidamente para no perder ningún detalle.',
-          icon: 'Autofoco',
-        },
-        {
-          id: 'FEAT009',
-          name: 'Batería de Larga Duración',
-          description: 'Horas de uso continuo sin necesidad de recargar.',
-          icon: 'Batería',
-        },
-        {
-          id: 'FEAT010',
-          name: 'Soporte para Trípode',
-          description: 'Compatibilidad con diversos tipos de trípodes.',
-          icon: 'Trípode',
-        },
-        {
-          id: 'FEAT011',
-          name: 'Grabación en Cámara Lenta',
-          description: 'Captura videos en cámara lenta con alta calidad.',
-          icon: 'CámaraLenta',
-        },
-        {
-          id: 'FEAT012',
-          name: 'Resistente al Agua',
-          description: 'Equipos diseñados para resistir condiciones húmedas.',
-          icon: 'ResistenteAgua',
-        },
-        {
-          id: 'FEAT013',
-          name: 'Montura Rápida',
-          description: 'Fácil montaje y desmontaje de accesorios.',
-          icon: 'MonturaRápida',
-        },
-        {
-          id: 'FEAT014',
-          name: 'Pantalla Táctil',
-          description: 'Interfaz de usuario intuitiva con pantalla táctil.',
-          icon: 'PantallaTáctil',
-        },
-        {
-          id: 'FEAT015',
-          name: 'Filtro de Color',
-          description:
-            'Diversos filtros para ajustes de color en tus fotos y videos.',
-          icon: 'FiltroColor',
-        },
-        {
-          id: 'FEAT016',
-          name: 'Grabación 360°',
-          description:
-            'Captura de video en 360 grados para una experiencia inmersiva.',
-          icon: '360',
-        },
-        {
-          id: 'FEAT017',
-          name: 'Compatibilidad con Bluetooth',
-          description: 'Conexión inalámbrica sencilla a otros dispositivos.',
-          icon: 'Bluetooth',
-        },
-        {
-          id: 'FEAT018',
-          name: 'Montura para Micrófono',
-          description: 'Acopla fácilmente un micrófono a tu cámara.',
-          icon: 'MonturaMicrófono',
-        },
-        {
-          id: 'FEAT019',
-          name: 'Grabación en HDR',
-          description: 'Videos con alto rango dinámico para mayor detalle.',
-          icon: 'HDR',
-        },
-        {
-          id: 'FEAT020',
-          name: 'Asistente de Enfoque',
-          description:
-            'Herramientas para un enfoque preciso en todas las condiciones.',
-          icon: 'AsistenteEnfoque',
-        },
-      ]
 
-        .filter((feature) => {
-          const searchValue = search.toLowerCase()
-          return (
-            feature.id.toLowerCase().includes(searchValue) ||
-            feature.name.toLowerCase().includes(searchValue) ||
-            feature.description.toLowerCase().includes(searchValue)
-          )
-        })
-        .filter((feature) => {
-          if (
-            filters.customer.length > 0 &&
-            !filters.customer.includes(feature.name)
-          ) {
-            return false
-          }
-          return true
-        })
-        .sort((a, b) => {
-          if (sort.order === 'asc') {
-            return a[sort.key] > b[sort.key] ? 1 : -1
-          } else {
-            return a[sort.key] < b[sort.key] ? 1 : -1
-          }
-        }),
-    [search, sort, filters]
-  )
+  const filteredFeatures = useMemo(() => {
+    return features
+  }, [features, search, sort, filters])
+
   const handleSort = (key) => {
     if (sort.key === key) {
       setSort({ key, order: sort.order === 'asc' ? 'desc' : 'asc' })
@@ -197,6 +48,7 @@ const AdminFeaturesTable = () => {
       setSort({ key, order: 'asc' })
     }
   }
+
   const handleFilterChange = (type, value) => {
     if (type === 'customer') {
       setFilters({
@@ -207,10 +59,25 @@ const AdminFeaturesTable = () => {
       })
     }
   }
-  const handleEditFeature = (feature) => {}
-  const handleDeleteFeature = (feature) => {}
+
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDeleteFeature(id)
+        toast.success('Característica eliminada con éxito')
+      }
+    })
+  }
+
   return (
-    <div className='flex flex-col gap-4 p-4 md:p-6'>
+    <main className='flex flex-col gap-4 p-4 md:p-6'>
       <div className='flex items-center gap-4'>
         <div className='relative w-full'>
           <Input
@@ -230,12 +97,9 @@ const AdminFeaturesTable = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className='w-[200px]' align='end'>
             <DropdownMenuRadioGroup value={sort.key} onValueChange={handleSort}>
-              <DropdownMenuRadioItem value='id'>
-                Característica #
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value='name'>Nombre</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value='description'>
-                Descripción
+              <DropdownMenuRadioItem value='id'>ID</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value='characteristic'>
+                Característica
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
@@ -289,64 +153,55 @@ const AdminFeaturesTable = () => {
                 className='cursor-pointer'
                 onClick={() => handleSort('id')}
               >
-                Característica #
+                ID
                 {sort.key === 'id' && (
-                  <span className='ml-1'>
-                    {sort.order === 'asc' ? '\u2191' : '\u2193'}
-                  </span>
-                )}
-              </TableHead>
-              <TableHead
-                className='cursor-pointer'
-                onClick={() => handleSort('name')}
-              >
-                Nombre
-                {sort.key === 'name' && (
-                  <span className='ml-1'>
-                    {sort.order === 'asc' ? '\u2191' : '\u2193'}
-                  </span>
-                )}
-              </TableHead>
-              <TableHead
-                className='cursor-pointer'
-                onClick={() => handleSort('description')}
-              >
-                Descripción
-                {sort.key === 'description' && (
-                  <span className='ml-1'>
-                    {sort.order === 'asc' ? '\u2191' : '\u2193'}
-                  </span>
+                  <span>{sort.order === 'asc' ? '\u2191' : '\u2193'}</span>
                 )}
               </TableHead>
               <TableHead>Icono</TableHead>
+              <TableHead
+                className='cursor-pointer'
+                onClick={() => handleSort('characteristic')}
+              >
+                Característica
+                {sort.key === 'characteristic' && (
+                  <span>{sort.order === 'asc' ? '\u2191' : '\u2193'}</span>
+                )}
+              </TableHead>
+
               <TableHead>Acciones</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {features.map((feature) => (
+            {filteredFeatures.map((feature) => (
               <TableRow key={feature.id}>
-                <TableCell className='font-medium'>{feature.id}</TableCell>
-                <TableCell>{feature.name}</TableCell>
-                <TableCell>{feature.description}</TableCell>
+                <TableCell>{feature.id}</TableCell>
                 <TableCell>
-                  <ComponentIcon className='w-4 h-4' />
+                  <img
+                    src={feature.image}
+                    alt={feature.image}
+                    className='w-8 h-8'
+                  />
                 </TableCell>
+                <TableCell>{feature.characteristic}</TableCell>
+
                 <TableCell>
                   <div className='flex items-center gap-2'>
                     <Button
                       variant='ghost'
                       size='icon'
-                      onClick={() => handleEditFeature(feature)}
+                      // onClick={() => handleEditFeature(feature)}
                     >
-                      <DeleteIcon className='w-4 h-4' />
+                      <PenIcon className='h-4 w-4' />
                       <span className='sr-only'>Editar</span>
                     </Button>
                     <Button
-                      variant='ghost'
                       size='icon'
-                      onClick={() => handleDeleteFeature(feature)}
+                      variant='ghost'
+                      className='text-red-500'
+                      onClick={() => handleDelete(feature.id)}
                     >
-                      <Trash2Icon className='w-4 h-4' />
+                      <TrashIcon className='h-4 w-4' />
                       <span className='sr-only'>Eliminar</span>
                     </Button>
                   </div>
@@ -356,7 +211,7 @@ const AdminFeaturesTable = () => {
           </TableBody>
         </Table>
       </div>
-    </div>
+    </main>
   )
 }
 
