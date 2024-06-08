@@ -133,6 +133,36 @@ export const reducer = (state, action) => {
             : user
         ),
       }
+    case 'GET_FEATURE':
+      return {
+        ...state,
+        dataFeature: action.payload,
+      }
+    case 'GET_FEATURE_DETAIL':
+      return {
+        ...state,
+        featureSelected: action.payload,
+      }
+    case 'ADD_FEATURE':
+      return {
+        ...state,
+        dataFeature: [...state.dataFeature, action.payload],
+      }
+    case 'DELETE_FEATURE':
+      return {
+        ...state,
+        dataFeature: state.dataFeature.filter(
+          (feature) => feature.id !== action.payload
+        ),
+      }
+    case 'UPDATE_FEATURE':
+      return {
+        ...state,
+        dataFeature: state.dataFeature.map((feature) =>
+          feature.id === action.payload.id ? action.payload : feature
+        ),
+      }
+
     default:
       return state
   }

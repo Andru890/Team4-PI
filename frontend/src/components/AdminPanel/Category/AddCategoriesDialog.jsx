@@ -49,8 +49,8 @@ const AddCategoriesDialog = () => {
   }
 
   const handleDeleteImage = () => {
-    setImageURL(null)
-    setImageFile(null)
+    setImageURL('')
+    setImageFile('')
   }
 
   return (

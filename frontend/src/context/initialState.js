@@ -5,4 +5,6 @@ export const initialState = {
   categorySelected: {},
   dataUser: [],
   userSelected: {},
+  dataFeature: [],
+  featureSelected: {},
 }
