@@ -7,4 +7,6 @@ export const initialState = {
   userSelected: {},
   dataFeature: [],
   featureSelected: {},
+  dataRole: [],
+  roleSelected: {},
 }

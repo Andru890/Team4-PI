@@ -38,6 +38,7 @@ import {
   deleteFeature,
   getFeaturesByProduct,
 } from '@/services/featuresAPI'
+import { getRole } from '@/services/roleAPI'
 
 export const ContextGlobal = createContext(undefined)
 
@@ -279,6 +280,19 @@ export const ContextProvider = ({ children }) => {
     }
   }, [])
 
+  const handleGetRole = useCallback(async () => {
+    try {
+      const data = await getRole()
+      if (data) {
+        dispatch({ type: 'GET_ROLE', payload: data })
+      } else {
+        throw new Error('Failed to fetch role data')
+      }
+    } catch (error) {
+      console.error('Failed to fetch role data', error)
+    }
+  }, [])
+
   const handleGetFeatures = useCallback(async () => {
     try {
       const data = await getFeatures()
@@ -392,6 +406,7 @@ export const ContextProvider = ({ children }) => {
     login,
     logout,
     handleRoleChange,
+    handleGetRole,
     handleGetFeatures,
     handleGetFeatureById,
     handleCreateFeature,

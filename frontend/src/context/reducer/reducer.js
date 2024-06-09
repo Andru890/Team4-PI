@@ -111,6 +111,12 @@ export const reducer = (state, action) => {
         dataUser: state.dataUser.filter((user) => user.id !== action.payload),
       }
 
+    case 'GET_ROLE':
+      return {
+        ...state,
+        dataRole: action.payload,
+      }
+
     case 'LOGIN_SUCCESS':
       return {
         ...state,

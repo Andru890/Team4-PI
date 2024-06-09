@@ -107,6 +107,8 @@ const ProductTable = ({
       ...prev,
       [productId]: newCategoryId,
     }))
+    // valida el id de la categoria con el nombre de esta para esto compara categories.name con product.categoryId
+
     toast.success(`Se ha actualizado la categoría del producto con éxito`)
   }
 
@@ -296,7 +298,7 @@ const ProductTable = ({
                     }
                   >
                     <option value='' disabled>
-                      {product.category ? product.category.name : 'Seleccionar'}
+                      Seleccionar
                     </option>
                     {categories.map((category) => (
                       <option key={category.id} value={category.id}>

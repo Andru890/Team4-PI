@@ -27,12 +27,21 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 
-const AdminUsersTable = ({ users, handleDeleteUser, handleRoleChange }) => {
+const AdminUsersTable = ({
+  users,
+  handleDeleteUser,
+  handleRoleChange,
+  handleGetRole,
+  roles,
+}) => {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState({ key: 'id', order: 'asc' })
   const [filters, setFilters] = useState({
     role: [],
   })
+
+  console.log('roles actuales:')
+  console.log(roles.name)
 
   const filteredUsers = useMemo(() => {
     return users
