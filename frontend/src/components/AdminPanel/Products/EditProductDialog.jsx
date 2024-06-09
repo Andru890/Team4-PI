@@ -14,8 +14,11 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog'
+import { PencilIcon } from '@/components/Icons'
 
 const EditProductDialog = ({ productId }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
   const [product, setProduct] = useState(null)
   const { state, handleUpdateProduct } = useGlobalContext()
   const { data: products } = state
@@ -37,8 +40,14 @@ const EditProductDialog = ({ productId }) => {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger as={Button}>Edit</DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <Button variant='ghost'>
+          <PencilIcon className='h-5 w-5' />
+          <span className='sr-only'>Editar</span>
+        </Button>
+      </DialogTrigger>
+
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Product</DialogTitle>

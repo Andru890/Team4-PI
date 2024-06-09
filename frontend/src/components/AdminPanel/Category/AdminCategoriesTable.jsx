@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react'
-import Swal from 'sweetalert2'
 import { toast } from 'sonner'
 import { Input } from '@/components/ui/input'
 import {
@@ -35,6 +34,7 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import AdminCategoriesDialog from '@/components/AdminPanel/Category/AddCategoriesDialog'
+import useConfirmDialog from '@/hooks/useConfirmDialog'
 
 const AdminCategoriesTable = ({ categories, handleDeleteCategory }) => {
   const [search, setSearch] = useState('')
@@ -42,6 +42,8 @@ const AdminCategoriesTable = ({ categories, handleDeleteCategory }) => {
   const [filters, setFilters] = useState({
     productCount: [],
   })
+
+  const { openDialog, ConfirmDialog } = useConfirmDialog()
 
   const filteredCategories = useMemo(() => {
     return categories
@@ -97,31 +99,17 @@ const AdminCategoriesTable = ({ categories, handleDeleteCategory }) => {
     })
   }
 
-  const handleDelete = async (categoryId) => {
-    const category = categories.find((category) => category.id === categoryId)
+  const handleDelete = (category) => {
     if (category.products && category.products.length > 0) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'No puedes eliminar una categoría con productos asociados',
-      })
+      toast.error('No puedes eliminar una categoría con productos asociados')
       return
     }
+    openDialog(category, handleConfirmDelete)
+  }
 
-    const result = await Swal.fire({
-      title: `¿Estás seguro que deseas eliminar la categoría?`,
-      text: '¡No podrás revertir esto!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, bórralo!',
-    })
-
-    if (result.isConfirmed) {
-      handleDeleteCategory(categoryId)
-      toast.success(`Categoría eliminada con éxito`)
-    }
+  const handleConfirmDelete = (categoryId) => {
+    handleDeleteCategory(categoryId)
+    toast.success('Categoría eliminada con éxito')
   }
 
   return (
@@ -202,7 +190,6 @@ const AdminCategoriesTable = ({ categories, handleDeleteCategory }) => {
                   <span>{sort.order === 'asc' ? '\u2191' : '\u2193'}</span>
                 )}
               </TableHead>
-
               <TableHead>Productos</TableHead>
               <TableHead
                 className='cursor-pointer'
@@ -229,9 +216,7 @@ const AdminCategoriesTable = ({ categories, handleDeleteCategory }) => {
                           className='h-8 w-8 rounded-full'
                           height={600}
                           src={category.imageUrl}
-                          style={{
-                            objectFit: 'cover',
-                          }}
+                          style={{ objectFit: 'cover' }}
                           width={800}
                         />
                       </div>
@@ -245,9 +230,7 @@ const AdminCategoriesTable = ({ categories, handleDeleteCategory }) => {
                           src={category.imageUrl}
                           alt={category.description}
                           className='w-full h-full object-cover'
-                          style={{
-                            aspectRatio: '16/9',
-                          }}
+                          style={{ aspectRatio: '16/9' }}
                         />
                       </DialogDescription>
                     </DialogContent>
@@ -262,12 +245,10 @@ const AdminCategoriesTable = ({ categories, handleDeleteCategory }) => {
                 </TableCell>
                 <TableCell className='flex items-center gap-2'>
                   <Button
-                    size='icon'
-                    variant='ghost'
-                    className='text-red-500'
-                    onClick={() => handleDelete(category.id)}
+                    variant='destructive'
+                    onClick={() => handleDelete(category)}
                   >
-                    <TrashIcon className='h-4 w-4' />
+                    <TrashIcon className='h-5 w-5' />
                     <span className='sr-only'>Eliminar</span>
                   </Button>
                 </TableCell>
@@ -276,6 +257,10 @@ const AdminCategoriesTable = ({ categories, handleDeleteCategory }) => {
           </TableBody>
         </Table>
       </div>
+      <ConfirmDialog
+        title='¿Estás seguro que deseas eliminar la categoría?'
+        description='¡No podrás revertir esto!'
+      />
     </main>
   )
 }

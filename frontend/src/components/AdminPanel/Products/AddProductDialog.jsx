@@ -15,52 +15,53 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog'
+import useCloudinary from '@/hooks/useCloudinary'
 
 const AddProductDialog = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [characteristic, setCharacteristic] = useState('')
+  const [imageFiles, setImageFiles] = useState([])
   const [imageUrls, setImageUrls] = useState([])
   const [category, setCategory] = useState('')
   const [stock, setStock] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const { state, handleAddProduct } = useGlobalContext()
   const { dataCategory: categories } = state
+  const { uploadImage, isUploading } = useCloudinary()
 
   const handleImageChange = (e) => {
-    const files = e.target.files
-    const urls = []
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i]
-      const reader = new FileReader()
-      reader.onload = () => {
-        urls.push(reader.result)
-        setImageUrls([...urls])
-      }
-      reader.readAsDataURL(file)
-    }
+    const files = Array.from(e.target.files)
+    setImageFiles(files)
+    const urls = files.map((file) => URL.createObjectURL(file))
+    setImageUrls(urls)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const selectedCategory = categories.find((cat) => cat.name === category)
+      const uploadedImageUrls = await Promise.all(
+        imageFiles.map((file) => uploadImage(file))
+      )
+
       handleAddProduct({
         name,
         description,
         price: parseFloat(price),
         characteristic,
-        images: imageUrls,
+        images: uploadedImageUrls,
         category: selectedCategory,
         stock: parseInt(stock, 10),
       })
+
       toast.success('Producto agregado con éxito')
       setName('')
       setDescription('')
       setPrice('')
       setCharacteristic('')
+      setImageFiles([])
       setImageUrls([])
       setCategory('')
       setStock('')
@@ -176,8 +177,8 @@ const AddProductDialog = () => {
                 </div>
               )}
             </div>
-            <Button className='w-full' type='submit'>
-              Crear Producto
+            <Button className='w-full' type='submit' disabled={isUploading}>
+              {isUploading ? 'Subiendo imágenes...' : 'Crear Producto'}
             </Button>
           </form>
         </CardContent>

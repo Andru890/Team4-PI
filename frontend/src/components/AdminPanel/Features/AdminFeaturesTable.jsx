@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react'
-import Swal from 'sweetalert2'
 import { toast } from 'sonner'
 import { Input } from '@/components/ui/input'
 import {
@@ -17,28 +16,50 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table'
-
 import {
   SearchIcon,
   ArrowUpDownIcon,
   FilterIcon,
   TrashIcon,
-  PenIcon,
+  PencilIcon,
 } from '@/components/Icons'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import AdminFeatureDialog from '@/components/AdminPanel/Features/AddFeaturesDialog'
+import useConfirmDialog from '@/hooks/useConfirmDialog'
 
 const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState({ key: 'id', order: 'asc' })
-  const [filters, setFilters] = useState({
-    customer: [],
-  })
+  const [filters, setFilters] = useState({ customer: [] })
+  const { openDialog, ConfirmDialog } = useConfirmDialog()
 
   const filteredFeatures = useMemo(() => {
     return features
+      .filter((feature) => {
+        const searchValue = search.toLowerCase()
+        return (
+          feature.id.toString().toLowerCase().includes(searchValue) ||
+          feature.characteristic.toLowerCase().includes(searchValue)
+        )
+      })
+      .filter((feature) => {
+        if (
+          filters.customer.length > 0 &&
+          !filters.customer.includes(feature.customer)
+        ) {
+          return false
+        }
+        return true
+      })
+      .sort((a, b) => {
+        if (sort.order === 'asc') {
+          return a[sort.key] > b[sort.key] ? 1 : -1
+        } else {
+          return a[sort.key] < b[sort.key] ? 1 : -1
+        }
+      })
   }, [features, search, sort, filters])
 
   const handleSort = (key) => {
@@ -60,20 +81,13 @@ const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
     }
   }
 
-  const handleDelete = async (id) => {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: '¡No podrás revertir esto!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        handleDeleteFeature(id)
-        toast.success('Característica eliminada con éxito')
-      }
-    })
+  const handleDelete = (id) => {
+    openDialog(id, handleConfirmDelete)
+  }
+
+  const handleConfirmDelete = (id) => {
+    handleDeleteFeature(id)
+    toast.success('Característica eliminada con éxito')
   }
 
   return (
@@ -168,7 +182,6 @@ const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
                   <span>{sort.order === 'asc' ? '\u2191' : '\u2193'}</span>
                 )}
               </TableHead>
-
               <TableHead>Acciones</TableHead>
             </TableRow>
           </TableHeader>
@@ -184,24 +197,17 @@ const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
                   />
                 </TableCell>
                 <TableCell>{feature.characteristic}</TableCell>
-
                 <TableCell>
                   <div className='flex items-center gap-2'>
-                    <Button
-                      variant='ghost'
-                      size='icon'
-                      // onClick={() => handleEditFeature(feature)}
-                    >
-                      <PenIcon className='h-4 w-4' />
+                    <Button variant='ghost'>
+                      <PencilIcon className='h-5 w-5' />
                       <span className='sr-only'>Editar</span>
                     </Button>
                     <Button
-                      size='icon'
-                      variant='ghost'
-                      className='text-red-500'
+                      variant='destructive'
                       onClick={() => handleDelete(feature.id)}
                     >
-                      <TrashIcon className='h-4 w-4' />
+                      <TrashIcon className='h-5 w-5' />
                       <span className='sr-only'>Eliminar</span>
                     </Button>
                   </div>
@@ -211,6 +217,10 @@ const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
           </TableBody>
         </Table>
       </div>
+      <ConfirmDialog
+        title='¿Estás seguro que deseas eliminar la característica?'
+        description='¡No podrás revertir esto!'
+      />
     </main>
   )
 }

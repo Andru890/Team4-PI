@@ -23,12 +23,20 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table'
+import {
+  DialogTrigger,
+  DialogTitle,
+  DialogHeader,
+  DialogDescription,
+  DialogContent,
+  Dialog,
+} from '@/components/ui/dialog'
 import { toast } from 'sonner'
-import Swal from 'sweetalert2'
 import EditProductDialog from '@/components/AdminPanel/Products/EditProductDialog'
 import AddProductDialog from '@/components/AdminPanel/Products/AddProductDialog'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
+import useConfirmDialog from '@/hooks/useConfirmDialog'
 
 const ProductTable = ({
   products,
@@ -49,6 +57,7 @@ const ProductTable = ({
   const [filters, setFilters] = useState({
     categories: [],
   })
+  const { openDialog, ConfirmDialog, QuantityDialog } = useConfirmDialog()
 
   const filteredProducts = useMemo(() => {
     return products
@@ -107,48 +116,18 @@ const ProductTable = ({
       ...prev,
       [productId]: newCategoryId,
     }))
-    // valida el id de la categoria con el nombre de esta para esto compara categories.name con product.categoryId
-
     toast.success(`Se ha actualizado la categoría del producto con éxito`)
   }
 
-  const onDeleteClick = async (product) => {
-    const result = await Swal.fire({
-      title: `¿Estás seguro de que deseas eliminar el producto "${product.name}"?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
-    })
+  const onDeleteClick = (product) => {
+    openDialog(product, handleConfirmDelete)
+  }
 
-    if (result.isConfirmed) {
-      const stockResult = await Swal.fire({
-        title: `El producto "${product.name}" tiene un stock de ${product.stock} unidades.`,
-        input: 'number',
-        inputPlaceholder: 'Ingresa la cantidad a eliminar',
-        showCancelButton: true,
-        confirmButtonText: 'Eliminar',
-        cancelButtonText: 'Cancelar',
-        inputValidator: (value) => {
-          if (!value) {
-            return 'Por favor, ingresa una cantidad'
-          } else if (isNaN(value)) {
-            return 'Por favor, ingresa un número válido'
-          } else if (value > product.stock) {
-            return `La cantidad no puede ser mayor que el stock (${product.stock})`
-          }
-        },
-      })
-
-      if (stockResult.isConfirmed) {
-        handleDeleteProduct(product.id, stockResult.value)
-        toast.success(
-          `Se han eliminado ${stockResult.value} unidades del producto "${product.name}". Stock restante: ${product.stock - stockResult.value}.`
-        )
-      }
-    }
+  const handleConfirmDelete = (product, quantity) => {
+    handleDeleteProduct(product.id, quantity)
+    toast.success(
+      `Se han eliminado ${quantity} unidades del producto "${product.name}". Stock restante: ${product.stock - quantity}.`
+    )
   }
 
   return (
@@ -270,22 +249,39 @@ const ProductTable = ({
             {filteredProducts.map((product) => (
               <TableRow key={product.id}>
                 <TableCell className='w-[30px]'>{product.id}</TableCell>
-                <TableCell>
-                  <img
-                    alt='Product image'
-                    className='aspect-square rounded-md object-cover'
-                    height='64'
-                    src={product.images}
-                    width='64'
-                  />
-                </TableCell>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <div className='flex relative rounded-lg overflow-hidden cursor-pointer items-center justify-center'>
+                      <img
+                        alt={product.description}
+                        className='aspect-square rounded-md object-contain'
+                        src={product.images}
+                        height='64'
+                        width='64'
+                      />
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className='max-w-4xl'>
+                    <DialogHeader>
+                      <DialogTitle>{product.name}</DialogTitle>
+                    </DialogHeader>
+                    <DialogDescription>
+                      <img
+                        src={product.images}
+                        alt={product.description}
+                        className='w-full h-full object-contain aspect-auto'
+                        style={{ aspectRatio: '16/9' }}
+                      />
+                    </DialogDescription>
+                  </DialogContent>
+                </Dialog>
                 <TableCell className='font-medium'>{product.name}</TableCell>
                 <TableCell className='hidden md:table-cell w-[400px]'>
                   {product.description}
                 </TableCell>
                 <TableCell className='hidden md:table-cell'>
                   <select
-                    className='border rounded-md p-1'
+                    className='border rounded-md p-1 cursor-pointer'
                     onChange={(e) =>
                       handleCategoryChange(product.id, e.target.value)
                     }
@@ -307,7 +303,6 @@ const ProductTable = ({
                     ))}
                   </select>
                 </TableCell>
-
                 <TableCell className='hidden md:table-cell'>
                   <ul className='list-disc pl-4 text-sm'>
                     {product.characteristic &&
@@ -326,22 +321,17 @@ const ProductTable = ({
                 </TableCell>
                 <TableCell>
                   <div className='flex items-center gap-2'>
+                    <EditProductDialog
+                      product={editingProduct}
+                      onClose={() => setEditingProduct(null)}
+                      handleUpdateProduct={handleUpdateProduct}
+                    />
                     <Button
-                      size='icon'
-                      variant='ghost'
-                      onClick={() => onEditClick(product)}
-                    >
-                      <PenIcon className='h-4 w-4' />
-                      <span className='sr-only'>Editar</span>
-                    </Button>
-                    <Button
-                      className='text-red-500'
-                      size='icon'
-                      variant='ghost'
+                      variant='destructive'
                       onClick={() => onDeleteClick(product)}
                       disabled={product.stock === 0}
                     >
-                      <TrashIcon className='h-4 w-4' />
+                      <TrashIcon className='h-5 w-5' />
                       <span className='sr-only'>Eliminar</span>
                     </Button>
                   </div>
@@ -351,13 +341,11 @@ const ProductTable = ({
           </TableBody>
         </Table>
       </div>
-      {editingProduct && (
-        <EditProductDialog
-          product={editingProduct}
-          onClose={() => setEditingProduct(null)}
-          handleUpdateProduct={handleUpdateProduct}
-        />
-      )}
+      <QuantityDialog />
+      <ConfirmDialog
+        title='¿Estás seguro que deseas eliminar el producto?'
+        description='¡No podrás revertir esto!'
+      />
     </main>
   )
 }

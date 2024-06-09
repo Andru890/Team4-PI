@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react'
-import Swal from 'sweetalert2'
 import { toast } from 'sonner'
 import { Input } from '@/components/ui/input'
 import {
@@ -26,6 +25,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
+import useConfirmDialog from '@/hooks/useConfirmDialog'
 
 const AdminUsersTable = ({
   users,
@@ -36,9 +36,8 @@ const AdminUsersTable = ({
 }) => {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState({ key: 'id', order: 'asc' })
-  const [filters, setFilters] = useState({
-    role: [],
-  })
+  const [filters, setFilters] = useState({ role: [] })
+  const { openDialog, ConfirmDialog } = useConfirmDialog()
 
   console.log('roles actuales:')
   console.log(roles.name)
@@ -89,21 +88,13 @@ const AdminUsersTable = ({
     })
   }
 
-  const handleDelete = async (userId) => {
-    const result = await Swal.fire({
-      title: `¿Estás seguro que deseas eliminar el usuario?`,
-      text: '¡No podrás revertir esto!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, bórralo!',
-    })
+  const handleDelete = (userId) => {
+    openDialog(userId, handleConfirmDelete)
+  }
 
-    if (result.isConfirmed) {
-      handleDeleteUser(userId)
-      toast.success(`Usuario eliminado con éxito`)
-    }
+  const handleConfirmDelete = (userId) => {
+    handleDeleteUser(userId)
+    toast.success(`Usuario eliminado con éxito`)
   }
 
   const handleUpdateChangeRole = async (userId, newRole) => {
@@ -272,12 +263,10 @@ const AdminUsersTable = ({
                 </TableCell>
                 <TableCell className='flex items-center gap-2'>
                   <Button
-                    size='icon'
-                    variant='ghost'
-                    className='text-red-500'
+                    variant='destructive'
                     onClick={() => handleDelete(user.id)}
                   >
-                    <TrashIcon className='h-4 w-4' />
+                    <TrashIcon className='h-5 w-5' />
                     <span className='sr-only'>Eliminar</span>
                   </Button>
                 </TableCell>
@@ -286,6 +275,10 @@ const AdminUsersTable = ({
           </TableBody>
         </Table>
       </div>
+      <ConfirmDialog
+        title='¿Estás seguro que deseas eliminar el usuario?'
+        description='¡No podrás revertir esto!'
+      />
     </main>
   )
 }
