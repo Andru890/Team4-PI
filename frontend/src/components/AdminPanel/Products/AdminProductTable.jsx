@@ -255,7 +255,7 @@ const ProductTable = ({
                       <img
                         alt={product.description}
                         className='aspect-square rounded-md object-contain'
-                        src={product.images}
+                        src={product.images[0]}
                         height='64'
                         width='64'
                       />
@@ -267,7 +267,7 @@ const ProductTable = ({
                     </DialogHeader>
                     <DialogDescription>
                       <img
-                        src={product.images}
+                        src={product.images[0]}
                         alt={product.description}
                         className='w-full h-full object-contain aspect-auto'
                         style={{ aspectRatio: '16/9' }}
