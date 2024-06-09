@@ -40,6 +40,10 @@ public class User {
     @Column(name = "city")
     private String city;
 
+    @Lob
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "role_id")
     @JsonIgnoreProperties({"users"})
