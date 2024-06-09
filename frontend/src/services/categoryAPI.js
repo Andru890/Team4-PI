@@ -5,7 +5,8 @@ const API_URL = import.meta.env.VITE_API_URL
 export const getCategory = async () => {
   try {
     const res = await axios.get(`${API_URL}/category`)
-    console.log(res.data)
+    console.log('Categorias: ')
+    console.table(res.data)
     return res.data
   } catch (error) {
     console.error(error)
