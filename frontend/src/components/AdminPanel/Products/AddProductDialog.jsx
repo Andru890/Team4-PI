@@ -104,8 +104,15 @@ const AddProductDialog = () => {
                 id='description'
                 placeholder='Descripción del producto'
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value
+                  if (value.length <= 1000) {
+                    setDescription(value)
+                  }
+                }}
+                maxLength={1000}
               />
+              <p>Total {description.length}/1000 caracteres</p>
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='characteristic'>Características</Label>
