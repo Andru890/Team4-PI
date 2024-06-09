@@ -32,7 +32,8 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "images")
+    @Lob
+    @Column(name = "images", columnDefinition = "MEDIUMBLOB")
     private List<String> images;
 
     @Column(name = "stock")

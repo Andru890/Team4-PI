@@ -23,6 +23,7 @@ public class Category {
     @Column(name = "name")
     private String name;
 
+    @Lob
     @Column(name = "image_url")
     private String imageUrl;
 

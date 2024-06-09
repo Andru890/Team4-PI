@@ -24,6 +24,7 @@ public class ProductDetail {
     @Column(name = "characteristic", length = 1000)
     private String characteristic;
 
+    @Lob
     @Column(name = "image_url")
     private String imageUrl;
 

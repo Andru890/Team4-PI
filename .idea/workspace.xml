@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="" />
+    <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/ProductDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/ProductDetail.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
