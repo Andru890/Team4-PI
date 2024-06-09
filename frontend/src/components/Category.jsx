@@ -37,7 +37,7 @@ const Category = () => {
                   alt={category.name}
                   className='aspect-square object-cover w-full group-hover:scale-125 transition-transform group-hover:brightness-50'
                   height={200}
-                  src={category.image}
+                  src={category.imageUrl}
                   width={200}
                 />
                 <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-center justify-center text-white font-semibold text-lg opacity-0 group-hover:opacity-100 transition-opacity'>

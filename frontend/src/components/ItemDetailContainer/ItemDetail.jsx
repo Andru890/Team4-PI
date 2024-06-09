@@ -78,7 +78,7 @@ const ItemDetail = ({ product }) => {
               alt='Product Image'
               className='w-full h-full object-cover rounded-lg'
               height={400}
-              src={product.image ? product.image : '/placeholder.svg'}
+              src={product.images ? product.images : '/placeholder.svg'}
               style={{
                 aspectRatio: '600/400',
                 objectFit: 'contain',
@@ -98,7 +98,7 @@ const ItemDetail = ({ product }) => {
                   alt='Main Image'
                   className='w-full h-full object-cover'
                   height={600}
-                  src={product.image ? product.image : '/placeholder.svg'}
+                  src={product.images ? product.images : '/placeholder.svg'}
                   style={{
                     aspectRatio: '800/00',
                     objectFit: 'contain',
@@ -116,7 +116,7 @@ const ItemDetail = ({ product }) => {
                   alt='Main Image'
                   className='w-full h-full object-cover'
                   height={600}
-                  src={product.image ? product.image : '/placeholder.svg'}
+                  src={product.images ? product.images : '/placeholder.svg'}
                   style={{
                     aspectRatio: '800/600',
                     objectFit: 'contain',
