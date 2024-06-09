@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import {
   TableHead,
   TableRow,
@@ -25,24 +26,32 @@ import {
 
 import { BarChart } from '@/components/AdminPanel/AdminBarChart'
 
-const AdminDashboard = ({ productCount, userCount, products, users }) => {
-  const categoryData = []
+const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
+  const [productCountByCategory, setProductCountByCategory] = useState([])
 
-  if (products.length > 0) {
-    const categories = products.map((product) => product.category)
-    const categoryCount = categories.reduce((acc, category) => {
-      if (!acc[category.id]) {
-        acc[category.id] = { name: category.name, cantidad: 1 }
-      } else {
-        acc[category.id].cantidad += 1
-      }
-      return acc
-    }, {})
-
-    for (const value of Object.values(categoryCount)) {
-      categoryData.push(value)
+  useEffect(() => {
+    const countProductsByCategory = () => {
+      const counts = {}
+      dataCategory.forEach((category) => {
+        const count = category.products.length
+        counts[category.name] = count
+      })
+      return counts
     }
-  }
+
+    const counts = countProductsByCategory()
+
+    const productCountsArray = Object.keys(counts).map((category) => ({
+      name: category,
+      cantidad: counts[category],
+    }))
+
+    const filteredProductCountsArray = productCountsArray.filter(
+      (category) => category.cantidad > 0
+    )
+
+    setProductCountByCategory(filteredProductCountsArray)
+  }, [dataCategory])
 
   const rentalsData = [] //! luego se va a cambiar por la data de los alquileres
 
@@ -118,7 +127,7 @@ const AdminDashboard = ({ productCount, userCount, products, users }) => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <BarChart className='aspect-[1/1]' data={categoryData} />
+            <BarChart className='aspect-[1/1]' data={productCountByCategory} />
           </CardContent>
         </Card>
         <Card>

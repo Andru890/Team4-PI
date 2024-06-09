@@ -273,7 +273,7 @@ const ProductTable = ({
                     alt='Product image'
                     className='aspect-square rounded-md object-cover'
                     height='64'
-                    src={product.image}
+                    src={product.images}
                     width='64'
                   />
                 </TableCell>
@@ -296,7 +296,7 @@ const ProductTable = ({
                     }
                   >
                     <option value='' disabled>
-                      {product.category.name}
+                      {product.category ? product.category.name : 'Seleccionar'}
                     </option>
                     {categories.map((category) => (
                       <option key={category.id} value={category.id}>
@@ -305,6 +305,7 @@ const ProductTable = ({
                     ))}
                   </select>
                 </TableCell>
+
                 <TableCell className='hidden md:table-cell'>
                   <ul className='list-disc pl-4 text-sm'>
                     {product.characteristic &&
