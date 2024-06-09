@@ -2,10 +2,8 @@ import AdminFeaturesTable from '@/components/AdminPanel/Features/AdminFeaturesTa
 import { useGlobalContext } from '@/context/global.context'
 
 const AdminFeatures = () => {
-  const { state, handleCreateFeature, handleDeleteFeature } = useGlobalContext()
+  const { state, handleDeleteFeature } = useGlobalContext()
   const { dataFeature: features } = state
-
-  console.log(features)
 
   return (
     <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6'>

@@ -36,11 +36,7 @@ import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import AdminCategoriesDialog from '@/components/AdminPanel/Category/AddCategoriesDialog'
 
-const AdminCategoriesTable = ({
-  products,
-  categories,
-  handleDeleteCategory,
-}) => {
+const AdminCategoriesTable = ({ categories, handleDeleteCategory }) => {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState({ key: 'id', order: 'asc' })
   const [filters, setFilters] = useState({
@@ -55,16 +51,12 @@ const AdminCategoriesTable = ({
           category.id.toString().toLowerCase().includes(searchValue) ||
           category.name.toLowerCase().includes(searchValue) ||
           category.description.toLowerCase().includes(searchValue) ||
-          products
-            .filter((product) => product.category.id === category.id)
-            .length.toString()
-            .includes(searchValue)
+          (category.products &&
+            category.products.length.toString().includes(searchValue))
         )
       })
       .filter((category) => {
-        const productCount = products.filter(
-          (product) => product.category.id === category.id
-        ).length
+        const productCount = category.products ? category.products.length : 0
         if (
           filters.productCount.length > 0 &&
           !filters.productCount.some((count) => productCount >= count)
@@ -80,7 +72,7 @@ const AdminCategoriesTable = ({
           return a[sort.key] < b[sort.key] ? 1 : -1
         }
       })
-  }, [categories, products, search, sort, filters])
+  }, [categories, search, sort, filters])
 
   const handleSort = (key) => {
     if (sort.key === key) {
@@ -106,11 +98,8 @@ const AdminCategoriesTable = ({
   }
 
   const handleDelete = async (categoryId) => {
-    const hasProducts = products.some(
-      (product) => product.category.id === categoryId
-    )
-
-    if (hasProducts) {
+    const category = categories.find((category) => category.id === categoryId)
+    if (category.products && category.products.length > 0) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -239,7 +228,7 @@ const AdminCategoriesTable = ({
                           alt={category.description}
                           className='h-8 w-8 rounded-full'
                           height={600}
-                          src={category.image}
+                          src={category.imageUrl}
                           style={{
                             objectFit: 'cover',
                           }}
@@ -253,7 +242,7 @@ const AdminCategoriesTable = ({
                       </DialogHeader>
                       <DialogDescription>
                         <img
-                          src={category.image}
+                          src={category.imageUrl}
                           alt={category.description}
                           className='w-full h-full object-cover'
                           style={{
@@ -266,11 +255,7 @@ const AdminCategoriesTable = ({
                 </TableCell>
                 <TableCell className='font-medium'>{category.name}</TableCell>
                 <TableCell>
-                  {
-                    products.filter(
-                      (product) => product.category.id === category.id
-                    ).length
-                  }
+                  {category.products ? category.products.length : 0}
                 </TableCell>
                 <TableCell>
                   {category.description || 'Sin descripción'}

@@ -178,8 +178,8 @@ const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
                 <TableCell>{feature.id}</TableCell>
                 <TableCell>
                   <img
-                    src={feature.image}
-                    alt={feature.image}
+                    src={feature.imageUrl}
+                    alt={feature.imageUrl}
                     className='w-8 h-8'
                   />
                 </TableCell>

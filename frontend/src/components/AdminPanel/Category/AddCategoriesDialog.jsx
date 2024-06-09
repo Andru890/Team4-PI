@@ -28,7 +28,7 @@ const AddCategoriesDialog = () => {
     e.preventDefault()
     try {
       const imageUrl = await uploadImage(imageFile)
-      handleAddCategory({ name, description, image: imageUrl })
+      handleAddCategory({ name, description, imageUrl })
       toast.success('Categoría agregada con éxito')
       setName('')
       setDescription('')
