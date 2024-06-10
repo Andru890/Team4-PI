@@ -41,6 +41,14 @@ public class ProductServiceImpl implements IProductService {
                 throw new ResourceExistException("El nombre ya esta en uso");
             }
         }
+      
+        List<String> urlImages = product.getImages();
+        List<String> newImages = new ArrayList<>();
+        for (String url : urlImages){
+            newImages.add(url);
+        }
+        product.setImages(newImages);
+      
         Category category = categoryRepository.findById(product.getCategory().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", product.getCategory().getId())));
         product.setCategory(category);

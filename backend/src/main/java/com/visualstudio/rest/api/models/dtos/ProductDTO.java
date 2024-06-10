@@ -1,5 +1,6 @@
 package com.visualstudio.rest.api.models.dtos;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.visualstudio.rest.api.models.entities.Category;
@@ -9,6 +10,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+
+
 import java.util.List;
 
 @Getter
@@ -23,10 +26,11 @@ public class ProductDTO {
     private String name;
     private String description;
     private Double price;
-    private String image;
     private Integer stock;
     private boolean isReserved;
     private Date dateIn;
     private Date dateOut;
     private List<ProductDetailDTO> characteristics;
+    private List<String> images;
+    private String categoryId;
 }

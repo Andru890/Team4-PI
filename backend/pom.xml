@@ -59,14 +59,34 @@
 			<artifactId>modelmapper</artifactId>
 			<version>3.2.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.cloudinary/cloudinary-http44 -->
 		<dependency>
 			<groupId>com.cloudinary</groupId>
 			<artifactId>cloudinary-http44</artifactId>
 			<version>1.38.0</version>
 		</dependency>
-
-
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+			<!- Temporary explicit version to fix Thymeleaf bug ->
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency> -->
 	</dependencies>
 
 	<build>

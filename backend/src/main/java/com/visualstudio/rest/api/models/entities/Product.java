@@ -33,8 +33,9 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "image")
-    private String image;
+    @Lob
+    @Column(name = "images", columnDefinition = "MEDIUMBLOB")
+    private List<String> images;
 
     @Column(name = "stock")
     private Integer stock;
@@ -57,7 +58,7 @@ public class Product {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "products"})
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"product", "hibernateLazyInitializer"})
     private List<ProductDetail> characteristics;
 }
