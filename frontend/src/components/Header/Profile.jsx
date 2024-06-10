@@ -236,7 +236,7 @@ const Profile = () => {
                   </Button>
                   <Button
                     onClick={() => setIsEditingProfile(false)}
-                    className='mt-2'
+                    className='ml-2'
                   >
                     Cancelar
                   </Button>

@@ -1,55 +1,41 @@
-import { useState, useRef } from 'react'
-import { toast, Toaster } from 'sonner'
-import confetti from 'canvas-confetti'
-import { useNavigate } from 'react-router-dom'
+// Login.js
+import { useNavigate, Link } from 'react-router-dom'
 import { useGlobalContext } from '@/context/global.context'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Link } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { routes } from '@/routes/routes'
-import { MailIcon, LockIcon } from '@/components/Icons'
+import AuthForm from '@/components/AuthForm'
 import Video from '@/components/Login/Videos'
 import Logo from '@/components/Login/Logo'
+import { routes } from '@/routes/routes'
+import { toast, Toaster } from 'sonner'
+import confetti from 'canvas-confetti'
 
 const Login = () => {
-  const buttonRef = useRef(null)
   const { login } = useGlobalContext()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const navigate = useNavigate()
-  const handleEmailChange = (event) => setEmail(event.target.value)
-  const handlePasswordChange = (event) => setPassword(event.target.value)
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    try {
-      // Intenta iniciar sesión
-      const user = await login(email, password)
-      if (user) {
-        // Lanza confeti en la posición del botón
-        const buttonPosition = buttonRef.current.getBoundingClientRect()
-        confetti({
-          particleCount: 100,
-          startVelocity: 30,
-          spread: 70,
-          origin: {
-            x:
-              (buttonPosition.left + buttonPosition.right) /
-              2 /
-              window.innerWidth,
-            y: buttonPosition.top / window.innerHeight,
-          },
-        })
-        toast.success('Inicio de sesión exitoso!')
-        setTimeout(() => {
-          navigate(routes.home)
-        }, 2000)
-      } else {
-        toast.error('El correo electrónico o la contraseña son incorrectos')
-      }
-    } catch (error) {
-      toast.error('Error al iniciar sesión')
+  const handleLogin = async (formData, buttonRef) => {
+    const { email, password } = formData
+    const user = await login(email, password)
+    if (user) {
+      const buttonPosition = buttonRef.getBoundingClientRect()
+      confetti({
+        particleCount: 100,
+        startVelocity: 30,
+        spread: 70,
+        origin: {
+          x:
+            (buttonPosition.left + buttonPosition.right) /
+            2 /
+            window.innerWidth,
+          y: buttonPosition.top / window.innerHeight,
+        },
+      })
+      toast.success('Inicio de sesión exitoso!')
+      setTimeout(() => {
+        navigate(routes.home)
+      }, 2000)
+    } else {
+      toast.error('El correo electrónico o la contraseña son incorrectos')
+      throw new Error('Invalid login credentials')
     }
   }
 
@@ -71,54 +57,12 @@ const Login = () => {
                 en tu cuenta
               </p>
             </div>
-            <div className='space-y-4'>
-              <div className='space-y-2'>
-                <Label htmlFor='email'>Correo electrónico</Label>
-                <div className='relative'>
-                  <MailIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
-                  <Input
-                    className='pl-10'
-                    id='email'
-                    placeholder='ejemplo@dominio.com'
-                    required
-                    type='email'
-                    value={email}
-                    onChange={handleEmailChange}
-                  />
-                </div>
-              </div>
-              <div className='space-y-2'>
-                <div className='flex items-center'>
-                  <Label htmlFor='password'>Contraseña</Label>
-                  <Link
-                    className='ml-auto inline-block text-sm underline'
-                    href='#'
-                  >
-                    ¿Olvidaste tu contraseña?
-                  </Link>
-                </div>
-                <div className='relative'>
-                  <LockIcon className='absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400' />
-                  <Input
-                    className='pl-10'
-                    id='password'
-                    required
-                    type='password'
-                    placeholder='Ingresa tu contraseña'
-                    value={password}
-                    onChange={handlePasswordChange}
-                  />
-                </div>
-              </div>
-              <Button
-                className='w-full'
-                type='submit'
-                onClick={handleSubmit}
-                ref={buttonRef}
-              >
-                Iniciar sesión
-              </Button>
-            </div>
+            <AuthForm
+              isRegister={false}
+              onSubmit={handleLogin}
+              initialData={{ email: '', password: '' }}
+              buttonText='Iniciar sesión'
+            />
             <div className='mt-4 text-center text-sm'>
               ¿No tienes una cuenta?{' '}
               <Link className='underline' to={routes.register}>
