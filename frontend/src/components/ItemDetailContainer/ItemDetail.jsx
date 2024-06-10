@@ -19,6 +19,7 @@ import {
   LinkedinIcon,
   WhatsappIcon,
 } from 'react-share'
+import ItemCalendar from '@/components/ItemDetailContainer/ItemCalendar'
 
 const ItemDetail = ({ product }) => {
   const goBack = () => {
@@ -349,6 +350,7 @@ const ItemDetail = ({ product }) => {
             <ChevronRightIcon className='w-4 h-4' />
           </Link>
         </div>
+        <ItemCalendar />
         <ItemPolicies />
       </div>
     </>
