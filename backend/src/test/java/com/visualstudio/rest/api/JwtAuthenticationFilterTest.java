@@ -1,8 +1,8 @@
 package com.visualstudio.rest.api;
 
-import com.visualstudio.rest.api.security.CustomerUserDetailsService;
-import com.visualstudio.rest.api.security.JwtAuthenticationFilter;
-import com.visualstudio.rest.api.security.JwtUtilities;
+import com.visualstudio.rest.api.Security.CustomerUserDetailsService;
+import com.visualstudio.rest.api.Security.JwtAuthenticationFilter;
+import com.visualstudio.rest.api.Security.JwtUtilities;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

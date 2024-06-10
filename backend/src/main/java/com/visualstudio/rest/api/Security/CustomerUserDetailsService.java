@@ -1,4 +1,4 @@
-package com.visualstudio.rest.api.security;
+package com.visualstudio.rest.api.Security;
 
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.UserRepository;

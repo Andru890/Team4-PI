@@ -1,6 +1,7 @@
-package com.visualstudio.rest.api.security;
+package com.visualstudio.rest.api.Security;
 
 import jakarta.servlet.FilterChain;
+import com.visualstudio.rest.api.Security.JwtUtilities;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
+import com.visualstudio.rest.api.Security.CustomerUserDetailsService;
 import java.io.IOException;
 
 

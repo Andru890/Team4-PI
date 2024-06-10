@@ -1,10 +1,9 @@
-package com.visualstudio.rest.api.security;
+package com.visualstudio.rest.api.Security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
@@ -21,20 +20,14 @@ import java.util.function.Function;
 @Component
 public class JwtUtilities {
 
-    private final SecretKey secretKey;
-    private final Long jwtExpiration;
+    private final String secretKey= "4sRGsHtzZbQjNVTJkG9z5f3Q6vTnZ2s7cKxG6ZfRf2RqKrXQYvJpCxJ9X54WcTJ";
+    private final long jwtExpiration = 1000 * 60 * 60 * 10;
 
-    public JwtUtilities(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") Long jwtExpiration) {
-        byte[] keyBytes = Base64.getDecoder().decode(secret);
-        this.secretKey = Keys.hmacShaKeyFor(keyBytes);
-        this.jwtExpiration = jwtExpiration;
-    }
+    private SecretKey getKey() {
+        return Keys.hmacShaKeyFor(Base64.getDecoder().decode(secretKey));}
 
-    public SecretKey getKey() {
-        return secretKey;
-    }
 
-    public String extractUserName(String token) {
+      public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 

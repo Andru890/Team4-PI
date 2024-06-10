@@ -1,4 +1,4 @@
-package com.visualstudio.rest.api.security;
+package com.visualstudio.rest.api.Security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.visualstudio.rest.api.Security.JwtAuthenticationFilter;
+import com.visualstudio.rest.api.Security.CustomerUserDetailsService;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 

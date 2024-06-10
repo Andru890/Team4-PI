@@ -2,8 +2,11 @@
 package com.visualstudio.rest.api.configuration;
 
 
+import com.visualstudio.rest.api.Security.CustomAuthenticationProvider;
+import com.visualstudio.rest.api.Security.CustomLogoutHandler;
+import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.RoleRepository;
-import com.visualstudio.rest.api.security.JwtAuthenticationFilter;
+import com.visualstudio.rest.api.Security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +15,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +23,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.authentication.AuthenticationProvider;
-import static com.visualstudio.rest.api.models.entities.RoleName.ROLE_ADMIN;
+
+import static com.visualstudio.rest.api.models.entities.RoleName.ADMIN;
+
+import static com.visualstudio.rest.api.models.entities.RoleName.USER;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -41,24 +48,23 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger-ui.html"};
 
-    private final AuthenticationProvider authenticationProvider;
+    private final CustomAuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final LogoutHandler logoutHandler;
+    private final CustomLogoutHandler logoutHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http,
                                            RoleRepository roleRepository) throws Exception {
 
-        http
-
+        http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers("/api/v1/auth/**").hasAnyRole(ROLE_ADMIN.name())
-                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ROLE_ADMIN.name())
-                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ROLE_ADMIN.name())
-                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ROLE_ADMIN.name())
-                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ROLE_ADMIN.name())
+                                .requestMatchers("/api/v1/auth/**").hasAnyRole(USER.name())
+                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
                                 .anyRequest()
                                 .authenticated()
                 )

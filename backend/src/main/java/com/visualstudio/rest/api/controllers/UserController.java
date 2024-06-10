@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,9 +61,18 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
     @PutMapping
-    public ResponseEntity<User> userUpdate(@Valid @RequestBody User user){
-        User userUpdate = userService.update(user);
-        return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
+    public ResponseEntity<User> userUpdate(@Valid @RequestBody User user) {
+    try {
+        User updatedUser = userService.update(user);
+        return ResponseEntity.ok(updatedUser);
+    }
+    catch (UsernameNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+    catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+
     }
 
     @PutMapping("/role/{userId}")
