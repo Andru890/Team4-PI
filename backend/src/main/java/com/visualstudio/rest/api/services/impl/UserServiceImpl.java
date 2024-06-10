@@ -50,6 +50,7 @@ public class UserServiceImpl implements IUserService {
         wantedUser.setEmail(user.getEmail());
         wantedUser.setPhone(user.getPhone());
         wantedUser.setCity(user.getCity());
+        wantedUser.setImageUrl(user.getImageUrl());
         return userRepository.save(wantedUser);
     }
 
