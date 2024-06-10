@@ -99,6 +99,12 @@ export const reducer = (state, action) => {
         dataUserSelected: action.payload,
       }
 
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        user: action.payload, // Actualizamos el usuario en el estado global
+      }
+
     case 'ADD_USER':
       return {
         ...state,

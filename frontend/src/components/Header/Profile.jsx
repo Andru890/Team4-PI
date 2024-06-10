@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { AvatarImage, AvatarFallback, Avatar } from '@/components/ui/avatar'
 import {
   DropdownMenuTrigger,
@@ -8,16 +8,35 @@ import {
   DropdownMenuContent,
   DropdownMenu,
 } from '@/components/ui/dropdown-menu'
-import { useGlobalContext } from '@/context/global.context'
 import { routes } from '@/routes/routes'
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
-import { useState } from 'react'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useGlobalContext } from '@/context/global.context'
+import useCloudinary from '@/hooks/useCloudinary'
 
 const Profile = () => {
-  const { state, logout } = useGlobalContext()
+  const { state, logout, handleUpdateUser } = useGlobalContext()
   const user = state.user
   const navigate = useNavigate()
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [isEditingImage, setIsEditingImage] = useState(false)
+  const [loadingImage, setLoadingImage] = useState(false)
+  const [isEditingProfile, setIsEditingProfile] = useState(false)
+  const [name, setName] = useState('')
+  const [lastname, setLastname] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [city, setCity] = useState('')
+  const { uploadImage, isUploading } = useCloudinary()
+
+  useEffect(() => {
+    setName(user?.name || '')
+    setLastname(user?.lastname || '')
+    setEmail(user?.email || '')
+    setPhone(user?.phone || '')
+    setCity(user?.city || '')
+  }, [user])
 
   const getInitials = (name, lastname) => {
     if (!name || !lastname) return 'NA'
@@ -30,14 +49,40 @@ const Profile = () => {
     navigate(routes.home)
   }
 
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      setLoadingImage(true)
+      const imageUrl = await uploadImage(file)
+      if (imageUrl) {
+        const updatedUser = { ...user, imageUrl }
+        handleUpdateUser(updatedUser)
+        console.log('Imagen subida correctamente:', imageUrl)
+        console.log('Usuario actualizado:', updatedUser)
+      }
+      setLoadingImage(false)
+    }
+    setIsEditingImage(false)
+  }
+
+  const handleSaveChanges = () => {
+    const updatedUser = { ...user, name, lastname, email, phone, city }
+    handleUpdateUser(updatedUser)
+    console.log('Usuario actualizado:', updatedUser)
+    setIsEditingProfile(false)
+  }
+
   const isAdmin = user?.role.name === 'admin'
 
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Avatar className='h-9 w-9'>
-            <AvatarImage alt={`@${user?.name}`} src='/placeholder-avatar.jpg' />
+          <Avatar className='h-9 w-9 relative'>
+            <AvatarImage
+              alt={`@${user?.name}`}
+              src={user?.imageUrl || '/placeholder-avatar.jpg'}
+            />
             <AvatarFallback>
               {getInitials(user?.name, user?.lastname)}
             </AvatarFallback>
@@ -78,37 +123,125 @@ const Profile = () => {
             />
             <div className='absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent' />
           </div>
-          <div className='-mt-16 flex flex-col items-center justify-center'>
-            <Avatar className='h-32 w-32 border-4 border-white dark:border-gray-800'>
+          <div className='-mt-16 flex flex-col items-center justify-center cursor-pointer'>
+            <Avatar className='h-32 w-32 border-4 border-white dark:border-gray-800 relative'>
+              {loadingImage && (
+                <div className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+                  <span className='text-white'>Cargando...</span>
+                </div>
+              )}
               <AvatarImage src={user?.imageUrl} alt='User Avatar' />
               <AvatarFallback>
                 {getInitials(user?.name, user?.lastname)}
               </AvatarFallback>
+              <div
+                className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity'
+                onClick={() => setIsEditingImage(true)}
+              >
+                <span className='text-white'>✏️</span>
+              </div>
+              {isEditingImage && (
+                <input
+                  type='file'
+                  className='absolute inset-0 opacity-0 cursor-pointer'
+                  onChange={handleImageChange}
+                />
+              )}
             </Avatar>
             <div className='mt-4 text-center'>
-              <h3 className='text-2xl font-bold'>{user?.name}</h3>
-              <p className='text-gray-500 dark:text-gray-400 text-lg'>
-                {user?.email}
-              </p>
-              <div className='my-4 border-b border-gray-300 dark:border-gray-700'></div>
-              <div className='grid grid-cols-2 gap-4 text-left'>
-                <div>
-                  <p className='text-gray-500 dark:text-gray-400 font-medium'>
-                    Telefono
+              {!isEditingProfile ? (
+                <>
+                  <h3 className='text-2xl font-bold'>
+                    {user?.name} {user?.lastname}
+                  </h3>
+                  <p className='text-gray-500 dark:text-gray-400 text-lg'>
+                    {user?.email}
                   </p>
-                  <p className='text-gray-700 dark:text-gray-300'>
-                    {user?.phone || 'No disponible'}
-                  </p>
-                </div>
-                <div>
-                  <p className='text-gray-500 dark:text-gray-400 font-medium'>
-                    Localización
-                  </p>
-                  <p className='text-gray-700 dark:text-gray-300'>
-                    {user?.city || 'No disponible'}
-                  </p>
-                </div>
-              </div>
+                  <div className='my-4 border-b border-gray-300 dark:border-gray-700'></div>
+                  <div className='grid grid-cols-2 gap-4 text-left'>
+                    <div>
+                      <p className='text-gray-500 dark:text-gray-400 font-medium'>
+                        Telefono
+                      </p>
+                      <p className='text-gray-700 dark:text-gray-300'>
+                        {user?.phone || 'No disponible'}
+                      </p>
+                    </div>
+                    <div>
+                      <p className='text-gray-500 dark:text-gray-400 font-medium'>
+                        Localización
+                      </p>
+                      <p className='text-gray-700 dark:text-gray-300'>
+                        {user?.city || 'No disponible'}
+                      </p>
+                    </div>
+                    <div>
+                      <p className='text-gray-500 dark:text-gray-400 font-medium'>
+                        Role
+                      </p>
+                      <p className='text-gray-700 dark:text-gray-300'>
+                        {user?.role.name}
+                      </p>
+                    </div>
+                    <div>
+                      <p className='text-gray-500 dark:text-gray-400 font-medium'>
+                        ID
+                      </p>
+                      <p className='text-gray-700 dark:text-gray-300'>
+                        {user?.id}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    onClick={() => setIsEditingProfile(true)}
+                    className='mt-4'
+                  >
+                    Editar
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder='Nombre'
+                    className='mb-2'
+                  />
+                  <Input
+                    value={lastname}
+                    onChange={(e) => setLastname(e.target.value)}
+                    placeholder='Apellido'
+                    className='mb-2'
+                  />
+                  <Input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder='Correo electrónico'
+                    className='mb-2'
+                  />
+                  <Input
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder='Teléfono'
+                    className='mb-2'
+                  />
+                  <Input
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder='Localización'
+                    className='mb-4'
+                  />
+                  <Button onClick={handleSaveChanges} disabled={isUploading}>
+                    {isUploading ? 'Guardando...' : 'Guardar Cambios'}
+                  </Button>
+                  <Button
+                    onClick={() => setIsEditingProfile(false)}
+                    className='mt-2'
+                  >
+                    Cancelar
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </DialogContent>

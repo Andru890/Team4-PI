@@ -220,13 +220,18 @@ export const ContextProvider = ({ children }) => {
     })
   }, [])
 
-  const handleUpdateUser = useCallback(async (user) => {
-    const updatedUser = await updateUser(user)
-    dispatch({
-      type: 'UPDATE_USER',
-      payload: updatedUser,
-    })
-  }, [])
+  const handleUpdateUser = async (updatedUser) => {
+    try {
+      const response = await updateUser(updatedUser)
+      if (response) {
+        dispatch({ type: 'UPDATE_USER', payload: response })
+        // Actualizar el AuthContext
+        updateUser(response)
+      }
+    } catch (error) {
+      console.error('Failed to update user', error)
+    }
+  }
 
   const handleDeleteUser = useCallback(async (id) => {
     if (!id) {
