@@ -36,17 +36,21 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**", //debo modificar los endpoints para que no sean publicos
-            "/api/v1/user/**",
-            "swagger-ui/**",
-            "swagger-resources/**",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
+    private static final String[] WHITE_LIST_URL = { //debo modificar los endpoints para que no sean publicos
+
             "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/configuration/ui",
+            "/swagger-ui.html",
             "/webjars/**",
-            "/swagger-ui.html"};
+            "role/**",
+            "user/**",
+            "reservation/**",
+            "category/**",
+            "productDetail/**",
+            "product/**",};
+
 
     private final CustomAuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -60,11 +64,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers("/api/v1/auth/**").hasAnyRole(USER.name())
-                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                //.requestMatchers("/user/register/").permitAll()
+                                //.requestMatchers("/user/validate").permitAll(
+
+                                //)
+                                //.requestMatchers("/user/authenticate/").permitAll()
+                                //.requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                //.requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                //.requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                //.requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
                                 .anyRequest()
                                 .authenticated()
                 )
@@ -81,4 +89,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    }
+
+
+
+}

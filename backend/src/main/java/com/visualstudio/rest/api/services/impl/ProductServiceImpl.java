@@ -2,7 +2,7 @@ package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.exceptions.ResourceExistException;
 import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
-import com.visualstudio.rest.api.models.dtos.CategoryDTO;
+import com.visualstudio.rest.api.dto.Entrada.CategoryDTO;
 import com.visualstudio.rest.api.models.dtos.ProductDTO;
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.models.entities.Product;

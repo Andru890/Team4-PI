@@ -1,5 +1,6 @@
 package com.visualstudio.rest.api.controllers;
 
+import com.visualstudio.rest.api.Security.CustomAuthenticationProvider;
 import com.visualstudio.rest.api.dto.LoginDto;
 import com.visualstudio.rest.api.dto.RegistroDto;
 import com.visualstudio.rest.api.models.entities.Role;
@@ -22,6 +23,7 @@ public class UserController {
 
     private final IUserService userService;
     private final UserRepository userRepository;
+    private final CustomAuthenticationProvider authenticationProvider;
 
     @PostMapping("/registry")
     public ResponseEntity<User> save(@Valid @RequestBody User user) {
@@ -88,6 +90,10 @@ public class UserController {
 
     @PostMapping("/authenticate")
     public String authenticate(@RequestBody LoginDto loginDto) {
-        return userService.authenticate(loginDto);
+        String token = userService.authenticate(loginDto);
+        return ResponseEntity.ok(token).getBody();
+
     }
+
+
 }
