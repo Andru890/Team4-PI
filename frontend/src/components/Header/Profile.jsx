@@ -117,7 +117,7 @@ const Profile = () => {
         <DialogContent className='mx-auto max-w-md rounded-xl bg-white shadow-lg dark:bg-gray-800'>
           <div className='relative h-40 overflow-hidden rounded-t-xl'>
             <img
-              src='/logo.png'
+              src='/logo.jpg'
               alt='Background'
               className='h-full w-full object-cover object-center'
             />
@@ -138,7 +138,7 @@ const Profile = () => {
                 className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity'
                 onClick={() => setIsEditingImage(true)}
               >
-                <span className='text-white'>✏️</span>
+                <span className='text-white'>Editar</span>
               </div>
               {isEditingImage && (
                 <input
