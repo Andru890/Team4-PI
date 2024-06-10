@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useGlobalContext } from '@/context/global.context'
+import { useAuthContext } from '@/context/auth.context' // Importa useAuthContext
 import { toast, Toaster } from 'sonner'
 
 import { HeartIcon } from '@/components/Icons'
 
 const Item = ({ product }) => {
   const { state, dispatch } = useGlobalContext()
+  const { user } = useAuthContext() // Usa useAuthContext para obtener el usuario
   const [isFav, setIsFav] = useState(false)
 
   useEffect(() => {
@@ -16,9 +18,15 @@ const Item = ({ product }) => {
   }, [state.favs, product.id])
 
   const handleFav = () => {
+    if (!user) {
+      // Verifica si el usuario está autenticado
+      toast.warning('Inicia sesión para guardar tus favoritos')
+      return
+    }
+
     if (isFav) {
       dispatch({ type: 'DEL_FAV', payload: product })
-      toast.warning(`El producto ${product.name} fue eliminado de favoritos`)
+      toast.success(`El producto ${product.name} fue eliminado de favoritos`)
     } else {
       dispatch({ type: 'ADD_FAV', payload: product })
       toast.success(`El producto ${product.name} fue añadido a favoritos`)
