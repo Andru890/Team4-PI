@@ -3,6 +3,8 @@ package com.visualstudio.rest.api.dto.Entrada;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,6 +14,7 @@ public class CategoryDTO {
 
     private Long id;
     private String name;
-    private String image;
+    private String imageUrl;
     private String description;
+    private List<ProductDTO> products;
 }

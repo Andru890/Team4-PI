@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -32,14 +33,21 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "url_image")
-    private String image;
-
-    @Column(name = "characteristic", length = 1000)
-    private String characteristic;
+    @Lob
+    @Column(name = "images", columnDefinition = "MEDIUMBLOB")
+    private List<String> images;
 
     @Column(name = "stock")
     private Integer stock;
+
+    @Column(name="reserved", nullable = false )
+    private boolean isReserved;
+
+    @Column(name = "date_in")
+    private Date dateIn;
+
+    @Column(name = "date_out")
+    private Date dateOut;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_CATEGORY_ID"))
@@ -49,4 +57,8 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "products"})
     private List<Reservation> reservations;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"product", "hibernateLazyInitializer"})
+    private List<ProductDetail> characteristics;
 }

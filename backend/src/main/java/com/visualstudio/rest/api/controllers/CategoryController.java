@@ -13,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -29,8 +31,18 @@ public class CategoryController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Category.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid category id", content = @Content)})
     @PostMapping
-    public ResponseEntity<CategoryDTO> addCategory(@RequestBody Category category) {
-        return new ResponseEntity<>(categoryService.save(category), HttpStatus.CREATED);
+    public ResponseEntity<CategoryDTO> addCategory(@RequestBody  Category category)  {
+        return new ResponseEntity<>(categoryService.save( category), HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Update a category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Update a category",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Category.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid category id", content = @Content)})
+    @PutMapping("/{categoryId}")
+    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody Category category, @PathVariable Long categoryId) throws IOException {
+        return new ResponseEntity<>(categoryService.update(category, categoryId), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Found list category")

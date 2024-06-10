@@ -1,7 +1,5 @@
 #!/bin/bash
 
-docker network create -d bridge visual
+git pull
 
-docker build -t visual:latest . -f Dockerfile
-
-docker-compose up -d
+docker-compose up --build
