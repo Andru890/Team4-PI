@@ -59,5 +59,5 @@ public class Product {
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"product", "hibernateLazyInitializer"})
-    private List<ProductDetail> productsDetail;
+    private List<ProductDetail> characteristics;
 }

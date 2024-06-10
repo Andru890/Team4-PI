@@ -63,7 +63,7 @@ public class ProductController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
             @ApiResponse(responseCode = "404", description = "Product not found", content = @Content)})
     @GetMapping
-    public ResponseEntity<List<ProductDTO>> searchAll() {
+    public ResponseEntity<List<Product>> searchAll() {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 

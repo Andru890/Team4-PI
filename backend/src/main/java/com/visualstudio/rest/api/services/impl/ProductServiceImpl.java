@@ -6,7 +6,9 @@ import com.visualstudio.rest.api.models.dtos.CategoryDTO;
 import com.visualstudio.rest.api.models.dtos.ProductDTO;
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.models.entities.Product;
+import com.visualstudio.rest.api.models.entities.ProductDetail;
 import com.visualstudio.rest.api.repositories.CategoryRepository;
+import com.visualstudio.rest.api.repositories.ProductDetailRepository;
 import com.visualstudio.rest.api.repositories.ProductRepository;
 import com.visualstudio.rest.api.services.IProductService;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +25,11 @@ public class ProductServiceImpl implements IProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final ModelMapper mapper;
+    private final ProductDetailRepository productDetailRepository;
 
     @Override
-    public List<ProductDTO> getAll() {
-        return productRepository
-                .findAll()
-                .stream()
-                .map(this::convertToDTO)
-                .toList();
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
 
     @Override
@@ -45,7 +44,20 @@ public class ProductServiceImpl implements IProductService {
         Category category = categoryRepository.findById(product.getCategory().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", product.getCategory().getId())));
         product.setCategory(category);
-        return productRepository.save(product);
+
+        Product savedProduct = productRepository.save(product);
+
+        List<ProductDetail> characteristics = product.getCharacteristics();
+
+        characteristics.forEach(c -> {
+            ProductDetail characteristic = ProductDetail
+                    .builder()
+                    .characteristic(c.getCharacteristic())
+                    .product(savedProduct)
+                    .build();
+            productDetailRepository.save(characteristic);
+        });
+        return savedProduct;
     }
 
     @Override

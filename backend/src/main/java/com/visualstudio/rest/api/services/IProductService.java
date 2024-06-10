@@ -6,7 +6,7 @@ import com.visualstudio.rest.api.models.entities.Product;
 import java.util.List;
 
 public interface IProductService {
-    List<ProductDTO> getAll();
+    List<Product> getAll();
     Product save(Product product);
     Product update(Product product, Long id);
     Product findById(Long id);
