@@ -1,7 +1,11 @@
 package com.visualstudio.rest.api.services.impl;
 
+import com.visualstudio.rest.api.models.entities.FavoriteProducts;
+import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
+import com.visualstudio.rest.api.repositories.FavoriteProductsRepository;
+import com.visualstudio.rest.api.repositories.ProductRepository;
 import com.visualstudio.rest.api.repositories.RoleRepository;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IUserService;
@@ -15,6 +19,8 @@ public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final FavoriteProductsRepository favoriteProductsRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public List<User> getAll() {
@@ -63,6 +69,21 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public FavoriteProducts addFavorite(Long userId, Long productId) {
+        User user = userRepository.findById(userId).get();
+        Product product = productRepository.findById(productId).get();
+
+        FavoriteProducts newProduct = new FavoriteProducts();
+        newProduct.setUser(user);
+        newProduct.setProduct(product);
+        return favoriteProductsRepository.save(newProduct);
+    }
+
+    public void removeFavorite(Long id) {
+        FavoriteProducts product = favoriteProductsRepository.fin
+
     }
 
     public Role getDefaultRole() {

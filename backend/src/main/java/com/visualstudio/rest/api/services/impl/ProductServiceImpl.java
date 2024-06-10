@@ -54,6 +54,8 @@ public class ProductServiceImpl implements IProductService {
         Category category = categoryRepository.findById(product.getCategory().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", finalProduct.getCategory().getId())));
         product.setCategory(category);
+
+
         product = productRepository.save(product);
         return convertToDTO(product);
 
