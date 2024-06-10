@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,14 +42,14 @@ public class ProductServiceImpl implements IProductService {
                 throw new ResourceExistException("El nombre ya esta en uso");
             }
         }
-      
+
         List<String> urlImages = product.getImages();
         List<String> newImages = new ArrayList<>();
-        for (String url : urlImages){
+        for (String url : urlImages) {
             newImages.add(url);
         }
         product.setImages(newImages);
-      
+
         Category category = categoryRepository.findById(product.getCategory().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", product.getCategory().getId())));
         product.setCategory(category);
@@ -69,13 +70,25 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public Product update(Product product, Long id) {
+    public ProductDTO update(Product product, Long id) {
+
         Product productFound = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", id)));
+
         productFound.setName(product.getName());
         productFound.setDescription(product.getDescription());
         productFound.setPrice(product.getPrice());
-        return productRepository.save(productFound);
+        productFound.setStock(product.getStock());
+
+        List<String> urlImages = product.getImages();
+        List<String> newImages = new ArrayList<>();
+        for (String url : urlImages) {
+            newImages.add(url);
+        }
+        productFound.setImages(newImages);
+
+
+        return convertToDTO(productRepository.save(productFound));
     }
 
     @Override
@@ -85,14 +98,14 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public Product changeCategory(Long productId, Long categoryId) {
+    public ProductDTO changeCategory(Long productId, Long categoryId) {
         Product productFound = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", productId)));
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", categoryId)));
         productFound.setCategory(category);
         productRepository.save(productFound);
-        return productFound;
+        return convertToDTO(productFound);
     }
 
     @Override

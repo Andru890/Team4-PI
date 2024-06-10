@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IProductService {
-    List<ProductDTO> getAll();
-    ProductDTO save(Product product /*Optional<List<MultipartFile>> imageFiles*/) ;
+    List<Product> getAll();
+    Product save(Product product /*Optional<List<MultipartFile>> imageFiles*/) ;
     ProductDTO update(Product product, Long id /* Optional<List<MultipartFile>> imageFiles*/) ;
-    ProductDTO findById(Long id);
+    Product findById(Long id);
     ProductDTO changeCategory(Long productId, Long categoryId);
     void delete(Long id) ;
 
