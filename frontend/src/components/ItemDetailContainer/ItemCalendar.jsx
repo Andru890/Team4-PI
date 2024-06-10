@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { es } from 'date-fns/locale'
+import { isBefore, endOfDay } from 'date-fns'
 
 export default function ItemCalendar({ className }) {
   const [date, setDate] = useState({
@@ -12,6 +13,9 @@ export default function ItemCalendar({ className }) {
     to: addDays(new Date(), 0),
   })
 
+  const isDisabled = (date) => {
+    return isBefore(date, endOfDay(new Date()))
+  }
   return (
     <div className={cn('container mx-auto p-4 mt-20', className)}>
       <h2 className='text-2xl font-bold mb-2'>Selecciona un rango de fechas</h2>
@@ -32,9 +36,8 @@ export default function ItemCalendar({ className }) {
           {date?.from ? (
             date.to ? (
               <>
-                <span>{format(date.from, 'LLL dd, y')}</span>
-                <span className='text-muted-foreground'> - </span>
-                <span>{format(date.to, 'LLL dd, y')}</span>
+                {format(date.from, 'LLL dd, y')} -{' '}
+                {format(date.to, 'LLL dd, y')}
               </>
             ) : (
               format(date.from, 'LLL dd, y')
@@ -52,6 +55,7 @@ export default function ItemCalendar({ className }) {
           selected={date}
           onSelect={setDate}
           numberOfMonths={2}
+          disabled={isDisabled}
         />
       </div>
     </div>
