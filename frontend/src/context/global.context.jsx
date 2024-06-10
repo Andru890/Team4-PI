@@ -367,6 +367,10 @@ export const ContextProvider = ({ children }) => {
     }
   }, [])
 
+  const toggleTheme = () => {
+    dispatch({ type: 'CHANGE_THEME' })
+  }
+
   useEffect(() => {
     handleGetFeatures()
   }, [handleGetFeatures])
@@ -390,6 +394,14 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     handleGetUsers()
   }, [handleGetUsers])
+
+  useEffect(() => {
+    localStorage.setItem('favs', JSON.stringify(state.favs))
+  }, [state.favs])
+
+  useEffect(() => {
+    localStorage.setItem('theme', state.theme)
+  }, [state.theme])
 
   const data = {
     state,
@@ -418,6 +430,7 @@ export const ContextProvider = ({ children }) => {
     handleUpdateFeature,
     handleDeleteFeature,
     handleGetFeaturesByProduct,
+    toggleTheme,
   }
 
   return (

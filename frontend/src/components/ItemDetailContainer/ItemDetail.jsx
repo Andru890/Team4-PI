@@ -8,11 +8,24 @@ import {
   Dialog,
 } from '@/components/ui/dialog'
 import { ChevronLeftIcon, ChevronRightIcon } from '@/components/Icons'
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  XIcon,
+  LinkedinIcon,
+  WhatsappIcon,
+} from 'react-share'
 
 const ItemDetail = ({ product }) => {
   const goBack = () => {
     window.history.back()
   }
+
+  const shareUrl = window.location.href
+
   return (
     <>
       <header className='w-full bg-gray-100 dark:bg-gray-800 py-4 px-4 md:px-6'>
@@ -20,7 +33,7 @@ const ItemDetail = ({ product }) => {
           <div className='flex items-center gap-2'>
             <Link
               className='text-gray-900 dark:text-gray-50 font-bold text-lg'
-              href='#'
+              to='#'
             >
               {product.name}
             </Link>
@@ -44,16 +57,12 @@ const ItemDetail = ({ product }) => {
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
               <div>
-                <h2 className='text-xl font-bold mb-2'>Caracteristicas</h2>
+                <h2 className='text-xl font-bold mb-2'>Características</h2>
                 <ul className='list-disc pl-4 text-gray-500 dark:text-gray-400'>
-                  <li>
-                    {product.characteristic &&
-                      product.characteristic
-                        .split(',')
-                        .map((char, index) => (
-                          <li key={index}>{char.trim()}</li>
-                        ))}
-                  </li>
+                  {product.characteristic &&
+                    product.characteristic
+                      .split(',')
+                      .map((char, index) => <li key={index}>{char.trim()}</li>)}
                 </ul>
               </div>
               <div>
@@ -71,6 +80,37 @@ const ItemDetail = ({ product }) => {
               <div className='text-gray-500 dark:text-gray-400'>
                 {product.stock > 0 ? 'Stock Disponible' : 'Stock Agotado'}
               </div>
+            </div>
+            <div className='flex items-center gap-4'>
+              <FacebookShareButton
+                url={shareUrl}
+                quote={`¡No te pierdas este increíble producto! ${product.name} está disponible ahora en nuestra tienda. 😍✨ #AlquilaAhora #Ofertas`}
+                hashtag='#AlquilaAhora'
+              >
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <TwitterShareButton
+                url={shareUrl}
+                title={`¡No te pierdas este increíble producto! ${product.name} está disponible ahora en nuestra tienda. 😍✨ #AlquilaAhora #Ofertas`}
+                hashtags={['AlquilaAhora', 'Ofertas']}
+              >
+                <XIcon size={32} round />
+              </TwitterShareButton>
+              <LinkedinShareButton
+                url={shareUrl}
+                title={`¡No te pierdas este increíble producto! ${product.name} está disponible ahora en nuestra tienda. 😍✨`}
+                summary='Descubre nuestras ofertas y productos destacados en nuestra tienda en línea.'
+                source='TuTiendaOnline'
+              >
+                <LinkedinIcon size={32} round />
+              </LinkedinShareButton>
+              <WhatsappShareButton
+                url={shareUrl}
+                title={`¡No te pierdas este increíble producto! ${product.name} está disponible ahora en nuestra tienda. 😍✨`}
+                separator=' - '
+              >
+                <WhatsappIcon size={32} round />
+              </WhatsappShareButton>
             </div>
           </div>
           <div>
@@ -102,7 +142,7 @@ const ItemDetail = ({ product }) => {
                     product.images[1] ? product.images[1] : '/placeholder.svg'
                   }
                   style={{
-                    aspectRatio: '800/00',
+                    aspectRatio: '800/600',
                     objectFit: 'contain',
                   }}
                   width={800}
@@ -125,7 +165,7 @@ const ItemDetail = ({ product }) => {
                     aspectRatio: '800/600',
                     objectFit: 'contain',
                   }}
-                  width={400}
+                  width={800}
                 />
               </DialogDescription>
             </DialogContent>
@@ -292,7 +332,7 @@ const ItemDetail = ({ product }) => {
         <div className='flex justify-end'>
           <Link
             className='inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline'
-            href='#'
+            to='#'
           >
             Ver más
             <ChevronRightIcon className='w-4 h-4' />

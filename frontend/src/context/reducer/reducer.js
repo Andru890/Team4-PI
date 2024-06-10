@@ -179,6 +179,17 @@ export const reducer = (state, action) => {
         ...state,
         dataFeature: action.payload,
       }
+    case 'ADD_FAV':
+      return { ...state, favs: [...state.favs, action.payload] }
+    case 'DEL_FAV':
+      return {
+        ...state,
+        favs: state.favs.filter((fav) => fav.id !== action.payload.id),
+      }
+    case 'CLEAR_FAVS':
+      return { ...state, favs: [] }
+    case 'CHANGE_THEME':
+      return { ...state, theme: state.theme === 'light' ? 'dark' : 'light' }
 
     default:
       return state
