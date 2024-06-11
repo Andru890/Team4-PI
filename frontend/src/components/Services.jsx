@@ -1,12 +1,9 @@
 import { CameraIcon, MicIcon, TriangleIcon } from '@/components/Icons'
-import Header from '@/components/Header/Header'
-import Footer from '@/components/Footer/Footer'
 
 const Services = () => {
   return (
     <>
-      <Header />
-      <div className='flex justify-center items-center h-screen'>
+      <div className='flex justify-center items-center'>
         <div className='bg-white dark:bg-gray-950 py-12 md:py-20 lg:py-24'>
           <div className='container px-4 md:px-6'>
             <div className='grid gap-8 md:gap-12 lg:gap-16'>
@@ -59,7 +56,6 @@ const Services = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   )
 }

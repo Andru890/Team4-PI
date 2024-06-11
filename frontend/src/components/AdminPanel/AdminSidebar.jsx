@@ -6,8 +6,6 @@ import {
   ShoppingCartIcon,
   PackageIcon,
   UsersIcon,
-  LineChartIcon,
-  CameraLogo,
   BellIcon,
   FolderIcon,
   SlidersVerticalIcon,

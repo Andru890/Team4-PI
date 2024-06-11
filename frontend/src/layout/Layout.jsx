@@ -3,7 +3,6 @@ import { routes } from '@/routes/routes'
 import Home from '@/pages/Home'
 import Dashboard from '@/pages/Dashboard'
 import Contact from '@/pages/Contact'
-import Services from '@/pages/Services'
 import AdminDashboard from '@/components/AdminPanel/AdminDashboard'
 import AdminUsers from '@/components/AdminPanel/Users/AdminUsers'
 import AdminProducts from '@/components/AdminPanel/Products/AdminProducts'
@@ -25,7 +24,6 @@ const Layout = () => {
         <Route path={routes.itemDetail} element={<ItemDetailContainer />} />
       </Route>
       <Route path={routes.contact} element={<Contact />} />
-      <Route path={routes.services} element={<Services />} />
       <Route path={routes.categories} element={<Categories />} />
       <Route path={routes.login} element={<Login />} />
       <Route path={routes.register} element={<Register />} />
