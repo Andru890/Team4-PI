@@ -26,8 +26,18 @@ const AdminSidebar = () => {
       <div className='flex h-full max-h-screen flex-col gap-2'>
         <div className='flex h-[60px] items-center border-b px-6'>
           <Link className='flex items-center gap-2 font-semibold' to='/'>
-            <CameraLogo className='h-6 w-6' />
-            <span className=''>VisualStudio Service</span>
+            <img
+              src='/logoimg.png'
+              alt='logotipo de la empresa que representa la imagen'
+              height={100}
+              width={60}
+            />
+            <img
+              src='/isotipo.png'
+              alt='isotipo de la empresa que representa el nombre'
+              height={100}
+              width={100}
+            />
           </Link>
           <Button className='ml-auto h-8 w-8' size='icon' variant='outline'>
             <BellIcon className='h-4 w-4' />
