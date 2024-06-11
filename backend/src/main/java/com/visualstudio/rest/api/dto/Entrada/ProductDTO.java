@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 package com.visualstudio.rest.api.models.dtos;
+=======
+>>>>>>> 6c1f94879226d1696c5ca3e6878ac7de3f22046f
 package com.visualstudio.rest.api.dto.Entrada;
 
 
@@ -10,6 +13,7 @@ import com.visualstudio.rest.api.models.entities.ProductDetail;
 import com.visualstudio.rest.api.models.entities.Reservation;
 import jakarta.persistence.*;
 import lombok.*;
+import com.visualstudio.rest.api.models.dtos.ProductDetailDTO;
 
 import java.util.Date;
 
