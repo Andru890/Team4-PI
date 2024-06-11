@@ -48,8 +48,6 @@ public class User implements  UserDetails {
     @Column(name = "image_url")
     private String imageUrl;
 
-    private List <Role> roles = new ArrayList<>();
-
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "role_id")
     @JsonIgnoreProperties({"users"})
@@ -65,11 +63,6 @@ public class User implements  UserDetails {
         authorities.add(new SimpleGrantedAuthority(this.role.getName()));
         return authorities;
     }
-
-    public void addRole(Role role) {
-        this.roles.add(role);
-    }
-
 
     @Override
     public String getUsername() {

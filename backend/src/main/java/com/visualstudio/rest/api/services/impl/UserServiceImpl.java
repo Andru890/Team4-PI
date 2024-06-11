@@ -1,8 +1,6 @@
 package com.visualstudio.rest.api.services.impl;
 
-import com.visualstudio.rest.api.dto.Entrada.UserEntradaDto;
 import com.visualstudio.rest.api.dto.LoginDto;
-import com.visualstudio.rest.api.dto.RegistroDto;
 import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.RoleRepository;
@@ -11,6 +9,11 @@ import com.visualstudio.rest.api.services.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.visualstudio.rest.api.Security.JwtUtilities;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -85,5 +88,31 @@ public class UserServiceImpl implements IUserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public String authentication(LoginDto loginDto) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginDto.getEmail(),
+                            loginDto.getPassword()
+                    )
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-}
+            User user = (User) authentication.getPrincipal();
+            String email = user.getEmail();
+            Role userRole = user.getRole();
+            String roleName = (userRole != null) ? userRole.getName() : null;
+            return jwtUtilities.generateToken(email, Collections.singletonList(roleName));
+        }
+        catch (BadCredentialsException e) {
+            throw new BadCredentialsException("El usuario y/o la contraseña son incorrectos");
+        }
+        catch (UsernameNotFoundException e) {
+            throw new UsernameNotFoundException("El usuario no existe " + loginDto.getEmail());
+        }
+    }
+
+    }
+
+

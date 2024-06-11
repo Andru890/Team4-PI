@@ -16,6 +16,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +46,18 @@ public class UserController {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
+        try {
+           String token = userService.authentication(loginDto);
+            return ResponseEntity.ok(token);
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("usuario o/y contraseña invalida");
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+        }
+
+    }
    @Operation(summary = "Found user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found a user",
@@ -79,7 +93,7 @@ public class UserController {
     @PutMapping
     public ResponseEntity<User> update(@Valid @RequestBody User user) {
     try {
-        User updatedUser = userService.update(user);
+        User updatedUser = userService.updateRole(user.getId());
         return ResponseEntity.ok(updatedUser);
     }
     catch (UsernameNotFoundException e) {
@@ -120,7 +134,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
-    
+
     @PutMapping("/{userId}/assign-admin")
     public ResponseEntity<User> assignAdminRole(@PathVariable Long userId) {
         User assignedAdmin = userService.assignAdminRole(userId);

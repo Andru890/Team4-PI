@@ -27,7 +27,6 @@ public class Role {
     @JsonIgnoreProperties({"role"})
     private List<User> users;
 
-    private String description;
 
     public Role(String name) {
         this.name = name;

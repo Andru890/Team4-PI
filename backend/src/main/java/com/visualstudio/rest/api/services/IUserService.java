@@ -14,4 +14,6 @@ public interface IUserService {
     void delete(Long id);
     User updateRole(Long userId);
     User assignAdminRole(Long userId);
+
+    String authentication(LoginDto loginDto);
 }
