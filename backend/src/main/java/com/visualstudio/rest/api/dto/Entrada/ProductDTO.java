@@ -1,4 +1,4 @@
-package com.visualstudio.rest.api.models.dtos;
+package com.visualstudio.rest.api.dto.Entrada;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,6 +9,7 @@ import com.visualstudio.rest.api.models.entities.ProductDetail;
 import com.visualstudio.rest.api.models.entities.Reservation;
 import jakarta.persistence.*;
 import lombok.*;
+import com.visualstudio.rest.api.models.dtos.ProductDetailDTO;
 
 import java.util.Date;
 
