@@ -4,6 +4,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
@@ -19,6 +20,7 @@ import java.util.function.Function;
 @Slf4j
 @Component
 public class JwtUtilities {
+
 
     private final String secretKey= "4sRGsHtzZbQjNVTJkG9z5f3Q6vTnZ2s7cKxG6ZfRf2RqKrXQYvJpCxJ9X54WcTJ";
     private final long jwtExpiration = 1000 * 60 * 60 * 10;

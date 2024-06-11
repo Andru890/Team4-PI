@@ -10,10 +10,7 @@ import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.stereotype.Service;
 import com.visualstudio.rest.api.Security.JwtUtilities;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,40 +30,10 @@ public class UserServiceImpl implements IUserService {
     private final JwtUtilities jwtUtilities;
     private final AuthenticationManager authenticationManager;
 
+
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
-    }
-
-    @Override
-    public User save(RegistroDto registroDto) {
-        User existingUser = userRepository.findByEmail(registroDto.getEmail());
-        if (existingUser != null) {
-            throw new IllegalArgumentException("El usuario con el correo " + registroDto.getEmail() + " ya existe.");
-        }
-
-        Role customerRole = roleRepository.findByName("customer");
-        registroDto.setRole(customerRole != null ? customerRole : getDefaultRole());
-
-        registroDto.setPassword(passwordEncoder.encode(registroDto.getPassword()));
-
-        String token = jwtUtilities.generateToken(registroDto.getEmail(), Collections.singletonList(registroDto.getRole().getName()));
-
-        User newUser = new User();
-        newUser.setName(registroDto.getName());
-        newUser.setLastname(registroDto.getLastname());
-        newUser.setEmail(registroDto.getEmail());
-        newUser.setPhone(registroDto.getPhone());
-        newUser.setCity(registroDto.getCity());
-        newUser.setPassword(registroDto.getPassword());
-        newUser.setRole(registroDto.getRole());
-
-        return userRepository.save(newUser);
-    }
-
-    @Override
-    public User update(User user) {
-        return null;
     }
 
     public User update(User user, Long id) {
@@ -86,36 +53,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public String authenticate(LoginDto loginDto) {
-        Authentication authentication= authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginDto.getEmail(),
-                        loginDto.getPassword()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String email = authentication.getName();
-        Optional <User> userOptional = Optional.ofNullable(userRepository.findByEmail(email));
-        User user = userOptional.orElseThrow(() -> new UsernameNotFoundException("usuario no encontrado"));
-        String roleName = user.getRole().getName();
-        return jwtUtilities.generateToken(email, Collections.singletonList(roleName));
-    }
-
-    @Override
     public User getOne(Long id) {
         return userRepository.findById(id).get();
     }
 
-    public User confirmRegistration(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user != null) {
-            userRepository.save(user);}
-        else {
-            throw new IllegalArgumentException("El usuario con mail " + email + " no está registrado.");
-        }
-        return user;
 
-    }
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
@@ -129,5 +71,19 @@ public class UserServiceImpl implements IUserService {
     public Role getDefaultRole() {
         return new Role("customer");
     }
+
+    @Override
+    public User assignAdminRole(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("El usuario no existe"));
+        if (user.getRole() != null) {
+            throw new IllegalArgumentException("El usuario ya tiene un rol asignado");
+        }
+        Role adminRole = roleRepository.findByName("admin");
+        if (adminRole == null)
+            throw new IllegalArgumentException("El rol 'admin' no existe en la base de datos");
+        user.setRole(adminRole);
+        return userRepository.save(user);
+    }
+
 
 }

@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements IRoleService {
+
     private final RoleRepository roleRepository;
-    private final UserRepository userRepository;
 
     @Override
     public List<Role> getAll() {
@@ -39,17 +39,6 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public User changeRole(Role role, Long id){
-        User user = userRepository.findById(id).get();
-        Role newRole = roleRepository.findByName(role.getName());
-        if (newRole == null){
-            throw new IllegalArgumentException("El rol " + role.getName() + " no existe en la base de datos.");
-        }
-        user.setRole(newRole);
-        return userRepository.save(user);
-    }
-
-    @Override
     public Role getOne(Long id) {
         return roleRepository.findById(id).get();
     }
@@ -58,7 +47,6 @@ public class RoleServiceImpl implements IRoleService {
     public void delete(Long id) {
         roleRepository.deleteById(id);
     }
-
 }
 
 

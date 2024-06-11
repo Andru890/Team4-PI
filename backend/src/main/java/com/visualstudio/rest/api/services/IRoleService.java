@@ -13,9 +13,11 @@ public interface IRoleService {
 
     Role update(Role role, Long id);
 
-    User changeRole(Role role, Long id);
-
     Role getOne(Long id);
 
     void delete(Long id);
+
+
+
+
 }

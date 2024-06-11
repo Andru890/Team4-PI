@@ -18,6 +18,8 @@ spring:
 jwt.secret: "4sRGsHtzZbQjNVTJkG9z5f3Q6vTnZ2s7cKxG6ZfRf2RqKrXQYvJpCxJ9X54WcTJ"
 jtw.expiration: 86400000
 
+email.sender: pa.al.pa.ag12@gmail.com
+email.password: Sonoandati12
 
 
 

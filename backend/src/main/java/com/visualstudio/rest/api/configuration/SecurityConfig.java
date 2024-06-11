@@ -4,29 +4,20 @@ package com.visualstudio.rest.api.configuration;
 
 import com.visualstudio.rest.api.Security.CustomAuthenticationProvider;
 import com.visualstudio.rest.api.Security.CustomLogoutHandler;
-import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.RoleRepository;
 import com.visualstudio.rest.api.Security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.security.authentication.AuthenticationProvider;
-
 import static com.visualstudio.rest.api.models.entities.RoleName.ADMIN;
-
-import static com.visualstudio.rest.api.models.entities.RoleName.USER;
+import static com.visualstudio.rest.api.models.entities.RoleName.CUSTOMER;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -49,7 +40,10 @@ public class SecurityConfig {
             "reservation/**",
             "category/**",
             "productDetail/**",
-            "product/**",};
+            "product/**",
+            "v1/**",
+            "registration/**",}
+            ;
 
 
     private final CustomAuthenticationProvider authenticationProvider;

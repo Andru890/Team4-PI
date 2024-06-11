@@ -3,14 +3,20 @@ package com.visualstudio.rest.api.controllers;
 import com.visualstudio.rest.api.Security.CustomAuthenticationProvider;
 import com.visualstudio.rest.api.dto.LoginDto;
 import com.visualstudio.rest.api.dto.RegistroDto;
-import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.UserRepository;
+import com.visualstudio.rest.api.services.IRegistrationService;
 import com.visualstudio.rest.api.services.IUserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,45 +31,53 @@ public class UserController {
     private final UserRepository userRepository;
     private final CustomAuthenticationProvider authenticationProvider;
 
-    @PostMapping("/registry")
-    public ResponseEntity<User> save(@Valid @RequestBody User user) {
-        RegistroDto registroDto = new RegistroDto();
-        registroDto.setName(user.getName());
-        registroDto.setLastname(user.getLastname());
-        registroDto.setEmail(user.getEmail());
-        registroDto.setPhone(user.getPhone());
-        registroDto.setCity(user.getCity());
-        registroDto.setPassword(user.getPassword());
+    private final IRegistrationService registrationService;
 
-        User savedUser = userService.save(registroDto);
-
-        if (savedUser == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
-    }
-
+    @Operation(summary = "Found list user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found a user",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
+    })
     @GetMapping
-    public ResponseEntity<List<User>> serchAllUser() {
+    public ResponseEntity<List<User>> getAll() {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
+   @Operation(summary = "Found user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found a user",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
+    })
     @GetMapping("/{userId}")
-    public ResponseEntity<User> userDetail(@PathVariable Long userId) {
+    public ResponseEntity<User> getOne(@PathVariable Long userId) {
         return new ResponseEntity<>(userService.getOne(userId), HttpStatus.OK);
     }
 
+    @Operation(summary = "Found user by email")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found a user",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
+    })
     @GetMapping("/email/{email}")
     public ResponseEntity<User> userDetail(@PathVariable String email) {
-        User user = userService.confirmRegistration(email);
+        User user = registrationService.confirmRegistration(email);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+    @Operation(summary = "Update user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Update a user",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
+    })
     @PutMapping
-    public ResponseEntity<User> userUpdate(@Valid @RequestBody User user) {
+    public ResponseEntity<User> update(@Valid @RequestBody User user) {
     try {
         User updatedUser = userService.update(user);
         return ResponseEntity.ok(updatedUser);
@@ -77,23 +91,40 @@ public class UserController {
 
     }
 
+    @Operation(summary = "Change Role")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Delete a user",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
+    })
     @PutMapping("/role/{userId}")
-    public ResponseEntity<User> changeRole(@PathVariable Long userId){
+    public ResponseEntity<User> updateRole(@PathVariable Long userId){
         return new ResponseEntity<>(userService.updateRole(userId), HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Delete a user",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
+    })
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> userDelete(@PathVariable Long userId){
+    public ResponseEntity<Void> delete(@PathVariable Long userId){
         userService.delete(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/authenticate")
-    public String authenticate(@RequestBody LoginDto loginDto) {
-        String token = userService.authenticate(loginDto);
-        return ResponseEntity.ok(token).getBody();
-
+    @Operation(summary = "Assign Admin Role")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Assign Admin Role",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
+    })
+    
+    @PutMapping("/{userId}/assign-admin")
+    public ResponseEntity<User> assignAdminRole(@PathVariable Long userId) {
+        User assignedAdmin = userService.assignAdminRole(userId);
+        return ResponseEntity.ok(assignedAdmin);
     }
-
 
 }

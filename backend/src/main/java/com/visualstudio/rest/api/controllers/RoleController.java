@@ -18,32 +18,27 @@ public class RoleController {
     private final IRoleService roleService;
 
     @PostMapping
-    public ResponseEntity<Role> roleAdd(@Valid @RequestBody Role role) {
+    public ResponseEntity<Role> save(@Valid @RequestBody Role role) {
         return new ResponseEntity<>(roleService.save(role), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Role>> serchAllRoles() {
+    public ResponseEntity<List<Role>> getAll() {
         return new ResponseEntity<>(roleService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{roleId}")
-    public ResponseEntity<Role> roleDetail(@PathVariable Long roleId) {
+    public ResponseEntity<Role> getOne(@PathVariable Long roleId) {
         return new ResponseEntity<>(roleService.getOne(roleId), HttpStatus.OK);
     }
 
     @PutMapping("/{roleId}")
-    public ResponseEntity<Role> roleUpdate(@Valid @RequestBody Role role, @PathVariable Long roleId){
+    public ResponseEntity<Role> update(@Valid @RequestBody Role role, @PathVariable Long roleId){
         return new ResponseEntity<>(roleService.update(role, roleId), HttpStatus.OK);
     }
 
-    @PutMapping("/change/{userId}")
-    public ResponseEntity<User> changeRole(@Valid @RequestBody Role role, @PathVariable Long userId){
-        return new ResponseEntity<>(roleService.changeRole(role, userId), HttpStatus.OK);
-    }
-
     @DeleteMapping("/{roleId}")
-    public ResponseEntity<Void> deleteRole(@PathVariable Long roleId){
+    public ResponseEntity<Void> delete(@PathVariable Long roleId){
         roleService.delete(roleId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

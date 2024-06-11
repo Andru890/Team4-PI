@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -47,6 +48,8 @@ public class User implements  UserDetails {
     @Column(name = "image_url")
     private String imageUrl;
 
+    private List <Role> roles = new ArrayList<>();
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "role_id")
     @JsonIgnoreProperties({"users"})
@@ -55,11 +58,16 @@ public class User implements  UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Reservation> reservations;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(this.role.getName()));
         return authorities;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 
 
@@ -87,4 +95,6 @@ public class User implements  UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

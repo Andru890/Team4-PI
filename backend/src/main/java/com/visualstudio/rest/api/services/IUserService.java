@@ -9,11 +9,9 @@ import java.util.List;
 
 public interface IUserService {
     List<User> getAll();
-    User save(RegistroDto registroDto);
-    User update(User user);
+
     User getOne(Long id);
     void delete(Long id);
     User updateRole(Long userId);
-    User confirmRegistration(String email);
-    String authenticate(LoginDto loginDto);
+    User assignAdminRole(Long userId);
 }
