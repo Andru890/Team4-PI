@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { CardContent } from '@/components/ui/card'
 import { PlusIcon } from '@/components/Icons'
+import { Badge } from '@/components/ui/badge'
 import {
   Dialog,
   DialogTrigger,
@@ -22,6 +23,7 @@ const AddProductDialog = () => {
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [characteristic, setCharacteristic] = useState('')
+  const [characteristics, setCharacteristics] = useState([])
   const [imageFiles, setImageFiles] = useState([])
   const [imageUrls, setImageUrls] = useState([])
   const [category, setCategory] = useState('')
@@ -38,6 +40,18 @@ const AddProductDialog = () => {
     setImageUrls(urls)
   }
 
+  const handleAddCharacteristic = () => {
+    if (characteristic.trim()) {
+      setCharacteristics([...characteristics, characteristic.trim()])
+      setCharacteristic('')
+    }
+  }
+
+  const handleRemoveCharacteristic = (index) => {
+    const newCharacteristics = characteristics.filter((_, i) => i !== index)
+    setCharacteristics(newCharacteristics)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -50,7 +64,9 @@ const AddProductDialog = () => {
         name,
         description,
         price: parseFloat(price),
-        characteristic,
+        characteristics: characteristics.map((char) => ({
+          characteristic: char,
+        })),
         images: uploadedImageUrls,
         category: selectedCategory,
         stock: parseInt(stock, 10),
@@ -61,6 +77,7 @@ const AddProductDialog = () => {
       setDescription('')
       setPrice('')
       setCharacteristic('')
+      setCharacteristics([])
       setImageFiles([])
       setImageUrls([])
       setCategory('')
@@ -116,12 +133,31 @@ const AddProductDialog = () => {
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='characteristic'>Características</Label>
-              <Textarea
-                id='characteristic'
-                placeholder='Características del producto'
-                value={characteristic}
-                onChange={(e) => setCharacteristic(e.target.value)}
-              />
+              <div className='flex'>
+                <Input
+                  id='characteristic'
+                  placeholder='Características del producto'
+                  value={characteristic}
+                  onChange={(e) => setCharacteristic(e.target.value)}
+                />
+                <Button type='button' onClick={handleAddCharacteristic}>
+                  Añadir
+                </Button>
+              </div>
+              <div className='flex flex-wrap gap-2 mt-2'>
+                {characteristics.map((char, index) => (
+                  <Badge key={index} className='flex items-center space-x-2'>
+                    <span>{char}</span>
+                    <button
+                      type='button'
+                      onClick={() => handleRemoveCharacteristic(index)}
+                      className='ml-2 text-red-500'
+                    >
+                      x
+                    </button>
+                  </Badge>
+                ))}
+              </div>
             </div>
             <div className='grid gap-2 md:grid-cols-2 md:gap-4'>
               <div className='grid gap-2'>

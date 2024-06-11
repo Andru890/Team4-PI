@@ -104,12 +104,13 @@ const AdminCategoriesTable = ({ categories, handleDeleteCategory }) => {
       toast.error('No puedes eliminar una categoría con productos asociados')
       return
     }
-    openDialog(category, handleConfirmDelete)
+    openDialog(category.id, handleConfirmDelete)
   }
 
   const handleConfirmDelete = (categoryId) => {
     handleDeleteCategory(categoryId)
-    toast.success('Categoría eliminada con éxito')
+      .then(() => toast.success('Categoría eliminada con éxito'))
+      .catch((error) => toast.error('Error al eliminar la categoría'))
   }
 
   return (

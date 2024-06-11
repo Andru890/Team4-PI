@@ -305,12 +305,10 @@ const ProductTable = ({
                 </TableCell>
                 <TableCell className='hidden md:table-cell'>
                   <ul className='list-disc pl-4 text-sm'>
-                    {product.characteristic &&
-                      product.characteristic
-                        .split(',')
-                        .map((char, index) => (
-                          <li key={index}>{char.trim()}</li>
-                        ))}
+                    {product.characteristics &&
+                      product.characteristics.map((char, index) => (
+                        <li key={index}>{char.characteristic}</li>
+                      ))}
                   </ul>
                 </TableCell>
                 <TableCell className='hidden md:table-cell w-[120px]'>

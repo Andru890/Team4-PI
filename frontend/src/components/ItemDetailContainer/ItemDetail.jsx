@@ -63,19 +63,10 @@ const ItemDetail = ({ product }) => {
               <div>
                 <h2 className='text-xl font-bold mb-2'>Características</h2>
                 <ul className='list-disc pl-4 text-gray-500 dark:text-gray-400'>
-                  {product.characteristic &&
-                    product.characteristic
-                      .split(',')
-                      .map((char, index) => <li key={index}>{char.trim()}</li>)}
-                </ul>
-              </div>
-              <div>
-                <h2 className='text-xl font-bold mb-2'>Especificaciones</h2>
-                <ul className='list-disc pl-4 text-gray-500 dark:text-gray-400'>
-                  <li>Size: Medium</li>
-                  <li>Color: Black</li>
-                  <li>Weight: 2 lbs</li>
-                  <li>Dimensions: 10 x 6 x 4 inches</li>
+                  {product.characteristics &&
+                    product.characteristics.map((char, index) => (
+                      <li key={index}>{char.characteristic}</li>
+                    ))}
                 </ul>
               </div>
             </div>

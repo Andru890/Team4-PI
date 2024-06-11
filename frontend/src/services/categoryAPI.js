@@ -42,3 +42,13 @@ export const deleteCategory = async (categoryId) => {
     console.error(error)
   }
 }
+
+export const updateCategory = async (categoryId, category) => {
+  try {
+    const res = await axios.put(`${API_URL}/category/${categoryId}`, category)
+    console.log(res.data)
+    return res.data
+  } catch (error) {
+    console.error(error)
+  }
+}
