@@ -1,4 +1,5 @@
 package com.visualstudio.rest.api.models.dtos;
+package com.visualstudio.rest.api.dto.Entrada;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
