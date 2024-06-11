@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
+import { useGlobalContext } from '@/context/global.context'
 import { Button } from '@/components/ui/button'
 import {
-  PenIcon,
   TrashIcon,
   SearchIcon,
   ArrowUpDownIcon,
@@ -39,12 +39,13 @@ import { Checkbox } from '@/components/ui/checkbox'
 import useConfirmDialog from '@/hooks/useConfirmDialog'
 
 const ProductTable = ({
-  products,
   categories,
   handleDeleteProduct,
-  handleUpdateProduct,
   handleUpdateProductCategory,
 }) => {
+  const { state, handleUpdateProduct } = useGlobalContext()
+  const { data: products } = state
+
   const [editingProduct, setEditingProduct] = useState(null)
   const [selectedCategories, setSelectedCategories] = useState(
     products.reduce((acc, product) => {
@@ -58,6 +59,9 @@ const ProductTable = ({
     categories: [],
   })
   const { openDialog, ConfirmDialog, QuantityDialog } = useConfirmDialog()
+
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [productImages, setProductImages] = useState([])
 
   const filteredProducts = useMemo(() => {
     return products
@@ -128,6 +132,28 @@ const ProductTable = ({
     toast.success(
       `Se han eliminado ${quantity} unidades del producto "${product.name}". Stock restante: ${product.stock - quantity}.`
     )
+  }
+
+  const handleImageClick = (product) => {
+    setProductImages(product.images)
+    setSelectedImageIndex(0)
+    setEditingProduct(product)
+  }
+
+  const handleSelectImage = async (index) => {
+    const newImages = [...productImages]
+    const [selectedImage] = newImages.splice(index, 1)
+    newImages.unshift(selectedImage)
+    setProductImages(newImages)
+    setSelectedImageIndex(0)
+
+    const updatedProduct = {
+      ...editingProduct,
+      images: newImages,
+    }
+
+    await handleUpdateProduct(updatedProduct)
+    setEditingProduct(updatedProduct)
   }
 
   return (
@@ -251,7 +277,10 @@ const ProductTable = ({
                 <TableCell className='w-[30px]'>{product.id}</TableCell>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <div className='flex relative rounded-lg overflow-hidden cursor-pointer items-center justify-center'>
+                    <div
+                      className='flex relative rounded-lg overflow-hidden cursor-pointer items-center justify-center'
+                      onClick={() => handleImageClick(product)}
+                    >
                       <img
                         alt={product.description}
                         className='aspect-square rounded-md object-contain'
@@ -266,12 +295,17 @@ const ProductTable = ({
                       <DialogTitle>{product.name}</DialogTitle>
                     </DialogHeader>
                     <DialogDescription>
-                      <img
-                        src={product.images[0]}
-                        alt={product.description}
-                        className='w-full h-full object-contain aspect-auto'
-                        style={{ aspectRatio: '16/9' }}
-                      />
+                      <div className='flex gap-2'>
+                        {productImages.map((image, index) => (
+                          <img
+                            key={index}
+                            src={image}
+                            alt={product.description}
+                            className={`cursor-pointer w-1/4 h-1/4 object-contain ${selectedImageIndex === index ? 'border-2 border-blue-500' : ''}`}
+                            onClick={() => handleSelectImage(index)}
+                          />
+                        ))}
+                      </div>
                     </DialogDescription>
                   </DialogContent>
                 </Dialog>
