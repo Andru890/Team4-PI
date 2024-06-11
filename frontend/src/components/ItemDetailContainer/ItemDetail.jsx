@@ -153,9 +153,6 @@ const ItemDetail = ({ product }) => {
               </div>
             </DialogTrigger>
             <DialogContent className='max-w-4xl'>
-              <DialogHeader>
-                <DialogTitle>Main Image</DialogTitle>
-              </DialogHeader>
               <DialogDescription>
                 <img
                   alt='Main Image'
@@ -193,9 +190,6 @@ const ItemDetail = ({ product }) => {
                 </div>
               </DialogTrigger>
               <DialogContent className='max-w-2xl'>
-                <DialogHeader>
-                  <DialogTitle>Image 1</DialogTitle>
-                </DialogHeader>
                 <DialogDescription>
                   <img
                     alt='Image 1'
@@ -232,9 +226,6 @@ const ItemDetail = ({ product }) => {
                 </div>
               </DialogTrigger>
               <DialogContent className='max-w-2xl'>
-                <DialogHeader>
-                  <DialogTitle>Image 2</DialogTitle>
-                </DialogHeader>
                 <DialogDescription>
                   <img
                     alt='Image 2'
@@ -271,9 +262,6 @@ const ItemDetail = ({ product }) => {
                 </div>
               </DialogTrigger>
               <DialogContent className='max-w-2xl'>
-                <DialogHeader>
-                  <DialogTitle>Image 3</DialogTitle>
-                </DialogHeader>
                 <DialogDescription>
                   <img
                     alt='Image 3'
@@ -310,9 +298,6 @@ const ItemDetail = ({ product }) => {
                 </div>
               </DialogTrigger>
               <DialogContent className='max-w-2xl'>
-                <DialogHeader>
-                  <DialogTitle>Image 4</DialogTitle>
-                </DialogHeader>
                 <DialogDescription>
                   <img
                     alt='Image 4'

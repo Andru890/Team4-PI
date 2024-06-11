@@ -15,7 +15,7 @@ export const getProduct = async () => {
 export const getProductById = async (id) => {
   try {
     const res = await axios.get(`${API_URL}/product/detail/${id}`)
-    console.log(res.data)
+    console.table(res.data)
     return res.data
   } catch (error) {
     console.error(error)
