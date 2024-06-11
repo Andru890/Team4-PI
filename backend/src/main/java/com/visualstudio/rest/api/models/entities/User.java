@@ -2,6 +2,7 @@ package com.visualstudio.rest.api.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.hibernate.mapping.Set;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,6 +38,7 @@ public class User implements  UserDetails {
     private String phone;
 
     @Column(name = "email")
+    @Email
     private String email;
 
     @Column(name = "password")
@@ -47,6 +50,10 @@ public class User implements  UserDetails {
     @Lob
     @Column(name = "image_url")
     private String imageUrl;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"user", "hibernateLazyInitializer"})
+    private List<FavoriteProducts> favoriteProducts;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "role_id")

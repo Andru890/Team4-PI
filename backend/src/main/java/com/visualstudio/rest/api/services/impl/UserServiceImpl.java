@@ -1,8 +1,11 @@
 package com.visualstudio.rest.api.services.impl;
 
-import com.visualstudio.rest.api.dto.LoginDto;
+import com.visualstudio.rest.api.models.entities.FavoriteProducts;
+import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
+import com.visualstudio.rest.api.repositories.FavoriteProductsRepository;
+import com.visualstudio.rest.api.repositories.ProductRepository;
 import com.visualstudio.rest.api.repositories.RoleRepository;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IUserService;
@@ -33,12 +36,30 @@ public class UserServiceImpl implements IUserService {
     private final JwtUtilities jwtUtilities;
     private final AuthenticationManager authenticationManager;
 
+    private final FavoriteProductsRepository favoriteProductsRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
+    @Override
+    public User save(User user) {
+        User existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser != null){
+            throw new IllegalArgumentException("El usuario con el correo " + user.getEmail() + " ya existe.");
+        } else {
+            Role customerRole = roleRepository.findByName("customer");
+            user.setRole(customerRole);
+            if (user.getRole() == null){
+                user.setRole(getDefaultRole());
+            }
+        }
+        return userRepository.save(user);
+    }
+
+    @Override
     public User update(User user, Long id) {
         User wantedUser = userRepository.findById(id).get();
         wantedUser.setName(user.getName());
@@ -59,7 +80,14 @@ public class UserServiceImpl implements IUserService {
     public User getOne(Long id) {
         return userRepository.findById(id).get();
     }
-
+    @Override
+    public User findByEmail(String email){
+        User user = userRepository.findByEmail(email);
+        if (user == null){
+            throw new IllegalArgumentException("El usuario con mail " + email + " no está registrado.");
+        }
+        return user;
+    }
 
     @Override
     public void delete(Long id) {
@@ -70,6 +98,21 @@ public class UserServiceImpl implements IUserService {
     public User updateRole(Long userId) {
         return null;
     }
+
+    public FavoriteProducts addFavorite(Long userId, Long productId) {
+        User user = userRepository.findById(userId).get();
+        Product product = productRepository.findById(productId).get();
+
+        FavoriteProducts newProduct = new FavoriteProducts();
+        newProduct.setUser(user);
+        newProduct.setProduct(product);
+        return favoriteProductsRepository.save(newProduct);
+    }
+
+    /*public void removeFavorite(Long id) {
+        FavoriteProducts product = favoriteProductsRepository.fin
+
+    }*/
 
     public Role getDefaultRole() {
         return new Role("customer");
@@ -113,6 +156,4 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
-    }
-
-
+}
