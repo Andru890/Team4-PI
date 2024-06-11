@@ -6,14 +6,17 @@ const Logo = () => {
       <Link to='/'>
         <div className='flex items-center gap-2'>
           <img
-            src='https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1717985268/xprasaudvxzaamytncli.png'
-            alt=''
-            height={120}
-            width={120}
+            src='/logoimg2.png'
+            alt='logotipo de la empresa que representa la imagen'
+            height={100}
+            width={90}
           />
-          <span className='text-3xl text-primary font-semibold'>
-            VisualStudio Service
-          </span>
+          <img
+            src='/isotipo2.png'
+            alt='isotipo de la empresa que representa el nombre'
+            height={100}
+            width={180}
+          />
         </div>
       </Link>
     </>

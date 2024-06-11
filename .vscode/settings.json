@@ -74,5 +74,5 @@
   "breadcrumbs.enabled": false,
   "editor.stickyScroll.enabled": true,
   "editor.cursorSmoothCaretAnimation": "on",
-  "CodeGPT.apiKey": "CodeGPT Plus Beta"
+  "CodeGPT.apiKey": "OpenAI"
 }

@@ -2,14 +2,17 @@ const FooterLogo = () => (
   <div className='flex items-center justify-start gap-2'>
     <div className='flex items-center gap-2'>
       <img
-        src='https://res.cloudinary.com/wilsondelcanto-dev/image/upload/v1717985268/xprasaudvxzaamytncli.png'
-        alt=''
+        src='/logoimg.png'
+        alt='logotipo de la empresa que representa la imagen'
         height={100}
-        width={100}
+        width={90}
       />
-      <span className='text-lg text-primary font-semibold'>
-        VisualStudio Service
-      </span>
+      <img
+        src='/isotipo.png'
+        alt='isotipo de la empresa que representa el nombre'
+        height={100}
+        width={120}
+      />
     </div>
   </div>
 )
