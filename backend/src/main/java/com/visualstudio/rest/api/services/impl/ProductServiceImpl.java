@@ -1,25 +1,27 @@
 package com.visualstudio.rest.api.services.impl;
 
-import com.visualstudio.rest.api.dto.Entrada.ProductDTO;
 import com.visualstudio.rest.api.exceptions.ResourceExistException;
 import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
-import com.visualstudio.rest.api.dto.Entrada.CategoryDTO;
-
+import com.visualstudio.rest.api.models.dtos.ProductDTO;
+import com.visualstudio.rest.api.models.dtos.ReservationDTO;
+import com.visualstudio.rest.api.models.dtos.ReservationProductDTO;
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.models.entities.ProductDetail;
+import com.visualstudio.rest.api.models.entities.Reservation;
+import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.CategoryRepository;
 import com.visualstudio.rest.api.repositories.ProductDetailRepository;
 import com.visualstudio.rest.api.repositories.ProductRepository;
+import com.visualstudio.rest.api.repositories.ReservationRepository;
+import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.*;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +32,15 @@ public class ProductServiceImpl implements IProductService {
     private final CategoryRepository categoryRepository;
     private final ModelMapper mapper;
     private final ProductDetailRepository productDetailRepository;
+    private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public List<ProductDTO> getAll() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        products.forEach(p -> productDTOS.add(convertProductToDTO(p)));
+        return productDTOS;
     }
 
     @Override
@@ -91,13 +98,13 @@ public class ProductServiceImpl implements IProductService {
         productFound.setImages(newImages);
 
 
-        return convertToDTO(productRepository.save(productFound));
+        return convertProductToDTO(productRepository.save(productFound));
     }
 
     @Override
-    public Product findById(Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", id)));
+    public ProductDTO findById(Long id) {
+        return convertProductToDTO(productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", id))));
     }
 
     @Override
@@ -108,7 +115,7 @@ public class ProductServiceImpl implements IProductService {
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", categoryId)));
         productFound.setCategory(category);
         productRepository.save(productFound);
-        return convertToDTO(productFound);
+        return convertProductToDTO(productFound);
     }
 
     @Override
@@ -116,7 +123,36 @@ public class ProductServiceImpl implements IProductService {
         productRepository.deleteById(id);
     }
 
-    private ProductDTO convertToDTO(Product product) {
+    @Override
+    public ProductDTO preReservation(Long productId, Long userId, ReservationProductDTO reservationProductDTO) {
+
+        Product productFound = productRepository.findById(productId)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", productId)));
+
+        productFound.setDateIn(reservationProductDTO.getDateIn());
+        productFound.setDateOut(reservationProductDTO.getDateOut());
+        productFound.setReserved(true);
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Usuario con id %s", userId)));
+
+        Reservation reservation = Reservation
+                .builder()
+                .user(user)
+                .products(List.of(productFound))
+                .status("reserved")
+                .build();
+
+        reservationRepository.save(reservation);
+
+        return convertProductToDTO(productRepository.save(productFound));
+    }
+
+    private ProductDTO convertProductToDTO(Product product) {
         return mapper.map(product, ProductDTO.class);
+    }
+
+    private ReservationDTO convertReservationToDTO(Reservation reservation){
+        return mapper.map(reservation, ReservationDTO.class);
     }
 }

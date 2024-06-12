@@ -1,4 +1,4 @@
-package com.visualstudio.rest.api.dto.Entrada;
+package com.visualstudio.rest.api.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;

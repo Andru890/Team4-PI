@@ -1,6 +1,6 @@
 package com.visualstudio.rest.api.services.impl;
 
-import com.visualstudio.rest.api.dto.LoginDto;
+import com.visualstudio.rest.api.models.dtos.security.LoginDto;
 import com.visualstudio.rest.api.models.entities.FavoriteProducts;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.models.entities.Role;

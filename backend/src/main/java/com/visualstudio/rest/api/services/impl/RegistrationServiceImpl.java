@@ -8,8 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import com.visualstudio.rest.api.dto.LoginDto;
-import com.visualstudio.rest.api.dto.RegistroDto;
+import com.visualstudio.rest.api.models.dtos.security.LoginDto;
+import com.visualstudio.rest.api.models.dtos.security.RegistroDto;
 import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.RoleRepository;

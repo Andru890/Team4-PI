@@ -1,8 +1,8 @@
 package com.visualstudio.rest.api.controllers;
 
 import com.visualstudio.rest.api.Security.CustomAuthenticationProvider;
-import com.visualstudio.rest.api.dto.LoginDto;
-import com.visualstudio.rest.api.dto.RegistroDto;
+import com.visualstudio.rest.api.models.dtos.security.LoginDto;
+import com.visualstudio.rest.api.models.dtos.security.RegistroDto;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IRegistrationService;
@@ -14,14 +14,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor

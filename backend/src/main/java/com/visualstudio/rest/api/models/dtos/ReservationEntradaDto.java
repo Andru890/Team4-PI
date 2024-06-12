@@ -1,4 +1,4 @@
-package com.visualstudio.rest.api.dto.Entrada;
+package com.visualstudio.rest.api.models.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.visualstudio.rest.api.models.entities.Product;
