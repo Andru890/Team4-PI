@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom' // Importar useNavigate
+import { useNavigate } from 'react-router-dom'
 import { es } from 'date-fns/locale'
-import { isBefore, startOfToday } from 'date-fns' // Importar funciones para manejar fechas
+import { isBefore, startOfToday } from 'date-fns'
 import { Input } from '@/components/ui/input'
 import {
   Popover,
@@ -12,7 +12,7 @@ import { Calendar } from '@/components/ui/calendar'
 import { Button } from '@/components/ui/button'
 import { SearchIcon } from '@/components/Icons'
 import { useGlobalContext } from '@/context/global.context'
-import { toast } from 'sonner' // Importar Sonner
+import { toast } from 'sonner'
 
 const debounce = (func, delay) => {
   let timeoutId
@@ -37,7 +37,7 @@ const CalendarMain = () => {
   const [isStartDatePickerOpen, setIsStartDatePickerOpen] = useState(false)
   const [isEndDatePickerOpen, setIsEndDatePickerOpen] = useState(false)
   const dropdownRef = useRef(null)
-  const navigate = useNavigate() // Usar useNavigate para redirección
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -119,6 +119,26 @@ const CalendarMain = () => {
             value={searchTerm}
             onChange={handleSearch}
           />
+          {showDropdown && (
+            <div
+              ref={dropdownRef}
+              className='absolute z-10 left-0 right-0 top-full mt-2 bg-white shadow-lg rounded-md dark:bg-gray-800 lg:rounded-lg max-h-60 overflow-y-auto'
+            >
+              {filteredProducts.length > 0 ? (
+                <ul>
+                  {filteredProducts.map((product) => (
+                    <li
+                      key={product.id}
+                      className='px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer'
+                      onClick={() => handleProductClick(product.name)}
+                    >
+                      {product.name}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          )}
         </form>
         <Popover open={isStartDatePickerOpen}>
           <PopoverTrigger asChild>
@@ -188,26 +208,6 @@ const CalendarMain = () => {
           Buscar
         </Button>
       </div>
-      {showDropdown && (
-        <div
-          ref={dropdownRef}
-          className='absolute z-10 ml-5 mt-0.5 bg-white shadow-lg rounded-md dark:bg-gray-800 lg:rounded-lg max-h-60 overflow-y-auto'
-        >
-          {filteredProducts.length > 0 ? (
-            <ul>
-              {filteredProducts.map((product) => (
-                <li
-                  key={product.id}
-                  className='px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer'
-                  onClick={() => handleProductClick(product.name)} // Agregar evento onClick
-                >
-                  {product.name}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-      )}
     </div>
   )
 }
