@@ -1,3 +1,4 @@
+
 package com.visualstudio.rest.api.models.dtos;
 
 import lombok.*;

@@ -124,7 +124,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ProductDTO preReservation(Long productId, ReservationProductDTO reservationProductDTO) {
+    public ProductDTO preReservation(Long productId, Long userId, ReservationProductDTO reservationProductDTO) {
 
         Product productFound = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", productId)));
@@ -133,8 +133,8 @@ public class ProductServiceImpl implements IProductService {
         productFound.setDateOut(reservationProductDTO.getDateOut());
         productFound.setReserved(true);
 
-        User user = userRepository.findById(1L)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Usuario con id %s", 1)));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Usuario con id %s", userId)));
 
         Reservation reservation = Reservation
                 .builder()

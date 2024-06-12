@@ -1,5 +1,6 @@
 package com.visualstudio.rest.api.controllers;
 
+
 import com.visualstudio.rest.api.models.dtos.CategoryDTO;
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.services.ICategoryService;
@@ -12,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;

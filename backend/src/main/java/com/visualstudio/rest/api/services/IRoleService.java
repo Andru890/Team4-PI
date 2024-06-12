@@ -8,9 +8,16 @@ import java.util.List;
 public interface IRoleService {
 
     List<Role> getAll();
+
     Role save(Role role);
+
     Role update(Role role, Long id);
-    User changeRole(Role role, Long id);
+
     Role getOne(Long id);
+
     void delete(Long id);
+
+
+
+
 }

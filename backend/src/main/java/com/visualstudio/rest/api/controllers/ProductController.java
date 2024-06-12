@@ -95,9 +95,9 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/reservation/{productId}")
-    public ResponseEntity<ProductDTO> updateProductDates(@PathVariable Long productId, @RequestBody ReservationProductDTO reservationProductDTO) {
-        return new ResponseEntity<>(productService.preReservation(productId, reservationProductDTO), HttpStatus.OK);
+    @PutMapping("/reservation/{productId}/user/{userId}")
+    public ResponseEntity<ProductDTO> updateProductDates(@PathVariable Long productId, @PathVariable Long userId, @RequestBody ReservationProductDTO reservationProductDTO) {
+        return new ResponseEntity<>(productService.preReservation(productId, userId, reservationProductDTO), HttpStatus.OK);
     }
 }
 

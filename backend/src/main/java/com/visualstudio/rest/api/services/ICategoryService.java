@@ -1,10 +1,11 @@
 package com.visualstudio.rest.api.services;
 
-import com.visualstudio.rest.api.models.dtos.CategoryDTO;
-import com.visualstudio.rest.api.models.entities.Category;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import com.visualstudio.rest.api.models.dtos.CategoryDTO;
+
+
+import com.visualstudio.rest.api.models.entities.Category;
+
 import java.util.List;
 
 public interface ICategoryService {
