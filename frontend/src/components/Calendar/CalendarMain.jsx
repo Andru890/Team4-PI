@@ -79,8 +79,18 @@ const CalendarMain = () => {
   const handleSearchSubmit = (event) => {
     event.preventDefault()
 
-    if (!startDate || !endDate) {
+    if (!startDate && !endDate) {
       toast.error('Por favor, seleccione las fechas de arriendo y devolución')
+      return
+    }
+
+    if (!startDate) {
+      toast.error('Por favor, seleccione la fecha de arriendo')
+      return
+    }
+
+    if (!endDate) {
+      toast.error('Por favor, seleccione la fecha de devolución')
       return
     }
 
