@@ -282,7 +282,7 @@ const ProductTable = ({
                       onClick={() => handleImageClick(product)}
                     >
                       <img
-                        alt={product.description}
+                        alt={product.name}
                         className='aspect-square rounded-md object-contain'
                         src={product.images[0]}
                         height='64'
@@ -300,7 +300,7 @@ const ProductTable = ({
                           <img
                             key={index}
                             src={image}
-                            alt={product.description}
+                            alt={product.name}
                             className={`cursor-pointer w-1/4 h-1/4 object-contain ${selectedImageIndex === index ? 'border-2 border-blue-500' : ''}`}
                             onClick={() => handleSelectImage(index)}
                           />

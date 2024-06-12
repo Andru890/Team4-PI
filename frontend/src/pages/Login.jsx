@@ -1,7 +1,7 @@
 // Login.js
 import { useNavigate, Link } from 'react-router-dom'
 import { useGlobalContext } from '@/context/global.context'
-import AuthForm from '@/components/AuthForm'
+import AuthForm from '@/components/Login/AuthForm'
 import Video from '@/components/Login/Videos'
 import Logo from '@/components/Login/Logo'
 import { routes } from '@/routes/routes'
