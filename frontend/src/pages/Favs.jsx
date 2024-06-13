@@ -7,7 +7,7 @@ const Favs = () => {
   return (
     <>
       <Header />
-      <main className='flex flex-col items-center justify-center gap-4 p-4 mt-20'>
+      <main className='flex flex-col items-center justify-center gap-4 p-4 min-h-screen'>
         <FavsList />
       </main>
       <Footer />
