@@ -1,6 +1,6 @@
 package com.visualstudio.rest.api.services;
 
-import com.visualstudio.rest.api.models.dtos.ProductDetailDTO;
+import com.visualstudio.rest.api.dto.Entrada.ProductDetailDTO;
 import com.visualstudio.rest.api.models.entities.ProductDetail;
 import org.springframework.web.multipart.MultipartFile;
 

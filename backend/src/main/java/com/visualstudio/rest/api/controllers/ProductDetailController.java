@@ -1,6 +1,6 @@
 package com.visualstudio.rest.api.controllers;
 
-import com.visualstudio.rest.api.models.dtos.ProductDetailDTO;
+import com.visualstudio.rest.api.dto.Entrada.ProductDetailDTO;
 import com.visualstudio.rest.api.models.entities.ProductDetail;
 import com.visualstudio.rest.api.services.IProductDetailService;
 import io.swagger.v3.oas.annotations.Operation;

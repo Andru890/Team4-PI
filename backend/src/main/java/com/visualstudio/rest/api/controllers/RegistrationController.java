@@ -3,6 +3,7 @@ package com.visualstudio.rest.api.controllers;
 import com.visualstudio.rest.api.Security.CustomAuthenticationProvider;
 import com.visualstudio.rest.api.dto.LoginDto;
 import com.visualstudio.rest.api.dto.RegistroDto;
+import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IEmailService;
@@ -30,14 +31,29 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/registration")
 public class RegistrationController {
+    @Autowired
     private final IUserService userService;
+
     private final UserRepository userRepository;
+
     private final CustomAuthenticationProvider authenticationProvider;
+
     private final IRegistrationService registrationService;
 
     @Autowired
     private IEmailService emailService;
 
+    @PostMapping("/role")
+    public ResponseEntity<Role> saveRole(@RequestBody Role role) {
+        Role savedRole = registrationService.saveRole(role);
+        return new ResponseEntity<>(savedRole, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/user")
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
+        User savedUser = registrationService.saveUser(user);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    }
     @Operation(summary = "Registrar")
     @ApiResponses(value = {
 
@@ -47,21 +63,20 @@ public class RegistrationController {
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content)
     })
     @PostMapping("/registry")
-    public ResponseEntity<User> save(@Valid @RequestBody RegistroDto registroDto) {
-        User savedUser = registrationService.save(registroDto);
+    public ResponseEntity<?> register(@Valid @RequestBody RegistroDto registroDto) {
+        ResponseEntity<?> savedUser = registrationService.register(registroDto);
 
         if (savedUser == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         String subject = "Bienvenido a Visual Studio";
-        String message = "Gracias por registrarte. Tu usuario es: " + savedUser.getUsername() + " y tu contraseña es: " + savedUser.getPassword();
 
-        emailService.sendEmail(savedUser.getEmail(), subject, message);
+        emailService.sendEmail((String) savedUser.getBody(), subject, "Bienvenido a Visual Studio");
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
-    @Operation (summary = "Login")
+    @Operation (summary = "authenticate")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Login",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),

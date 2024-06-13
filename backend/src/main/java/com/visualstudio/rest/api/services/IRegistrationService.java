@@ -4,13 +4,18 @@ import com.visualstudio.rest.api.dto.LoginDto;
 import com.visualstudio.rest.api.dto.RegistroDto;
 import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
+import org.springframework.http.ResponseEntity;
 
 public interface IRegistrationService {
 
-    User save(RegistroDto registroDto);
+    Role saveRole(Role role);
 
-    User confirmRegistration(String email);
+
+    User saveUser(User user);
+
+    ResponseEntity<?> register(RegistroDto registroDto);
+
     String authenticate(LoginDto loginDto);
 
-    Role getDefaultRole();
+
 }

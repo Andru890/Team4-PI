@@ -31,12 +31,13 @@ public class SecurityConfig {
 
             "/swagger-ui/**",
             "/swagger-resources/**",
-            "/configuration/security",
             "/configuration/ui",
             "/swagger-ui.html",
             "/webjars/**",
             "role/**",
-            "user/**",
+            "user/",
+            "user/logout",
+            "user/{email}/role",
             "reservation/**",
             "category/**",
             "productDetail/**",
@@ -58,15 +59,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                //.requestMatchers("/user/register/").permitAll()
-                                //.requestMatchers("/user/validate").permitAll(
-
-                                //)
-                                //.requestMatchers("/user/authenticate/").permitAll()
-                                //.requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                //.requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                //.requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                //.requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers("/user/register/").permitAll()
+                                .requestMatchers("/user/delete").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers("/configuration/security").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(GET, "/rest/api/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(POST, "/rest/api/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(PUT, "/rest/api/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(DELETE, "/rest/api/**").hasAnyAuthority(ADMIN.name())
                                 .anyRequest()
                                 .authenticated()
                 )

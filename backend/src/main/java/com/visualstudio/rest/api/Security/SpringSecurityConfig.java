@@ -32,10 +32,10 @@ public class SpringSecurityConfig {
     { httpSecurity.csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> { authz
-            .requestMatchers(antMatcher("/auth/**")).permitAll()
-            .requestMatchers("/user/**").permitAll()
-            .requestMatchers("/admin/**").hasAuthority("ADMIN");});
-            httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                    .requestMatchers(antMatcher("/auth/**")).permitAll()
+                    .requestMatchers("/user/**").permitAll()
+                    .requestMatchers("/admin/**").hasAuthority("ADMIN");});
+        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return  httpSecurity.build();
     }

@@ -2,7 +2,13 @@ package com.visualstudio.rest.api.services.impl;
 
 
 import com.visualstudio.rest.api.Security.JwtUtilities;
+
+import com.visualstudio.rest.api.dto.BearerToken;
+import com.visualstudio.rest.api.models.entities.RoleName;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,27 +31,38 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-
 public class RegistrationServiceImpl implements IRegistrationService {
 
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final RoleRepository roleRepository;
+
     private final PasswordEncoder passwordEncoder;
     private final JwtUtilities jwtUtilities;
     private final AuthenticationManager authenticationManager;
 
+    @Override
+    public Role saveRole(Role role) {
 
+        return roleRepository.save(role);
+    }
 
     @Override
-    public User save(RegistroDto registroDto) {
-        User existingUser = userRepository.findByEmail(registroDto.getEmail());
-        if (existingUser != null) {
+    public User saveUser(User user) {
+
+        return userRepository.save(user);
+    }
+    @Override
+    public ResponseEntity<?> register(RegistroDto registroDto) {
+        Optional<User> existingUserOpt = Optional.ofNullable(userRepository.findByEmail(registroDto.getEmail()));
+        if (existingUserOpt.isPresent()) {
             throw new IllegalArgumentException("El usuario con el correo " + registroDto.getEmail() + " ya existe.");
         }
 
         registroDto.setPassword(passwordEncoder.encode(registroDto.getPassword()));
 
-        String token = jwtUtilities.generateToken(registroDto.getEmail(), Collections.singletonList(registroDto.getName()));
+
 
         User newUser = new User();
         newUser.setName(registroDto.getName());
@@ -54,10 +71,18 @@ public class RegistrationServiceImpl implements IRegistrationService {
         newUser.setPhone(registroDto.getPhone());
         newUser.setCity(registroDto.getCity());
         newUser.setPassword(registroDto.getPassword());
-        newUser.setRole(getDefaultRole());
+        Role role = roleRepository.findByRoleName(RoleName.CUSTOMER);
+        if (role == null) {
+           role = new Role(RoleName.CUSTOMER);
+           role.setRoleName(RoleName.CUSTOMER);
+           roleRepository.save(role);
+        }
+        newUser.setRole(Collections.singletonList(role));
 
-        return userRepository.save(newUser);
+        userRepository.save(newUser);
+        String token = jwtUtilities.generateToken(registroDto.getEmail(), Collections.singletonList(role.getRoleName()));
 
+        return new ResponseEntity<>(new BearerToken(token, "Bearer"), HttpStatus.OK);
     }
 
     @Override
@@ -72,29 +97,12 @@ public class RegistrationServiceImpl implements IRegistrationService {
         String email = authentication.getName();
         Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(email));
         User user = userOptional.orElseThrow(() -> new UsernameNotFoundException("usuario no encontrado"));
-        String roleName = user.getRole().getName();
+        String roleName = user.getRole().stream().findFirst().map(Role::getRoleName).orElse(null);
         return jwtUtilities.generateToken(email, Collections.singletonList(roleName));
     }
 
-    public User confirmRegistration(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user != null) {
-            userRepository.save(user);
-        } else {
-            throw new IllegalArgumentException("El usuario con mail " + email + " no está registrado.");
-        }
-        return user;
-    }
 
-    public Role getDefaultRole() {
-        String defaultRoleName = "customer";
-        Role defaultRole = roleRepository.findByName(defaultRoleName);
-        if (defaultRole == null) {
-            defaultRole = new Role(defaultRoleName);
-            roleRepository.save(defaultRole);
-        }
-        return defaultRole;
-    }
 
-    }
 
+
+}

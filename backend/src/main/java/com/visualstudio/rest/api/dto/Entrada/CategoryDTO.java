@@ -2,7 +2,7 @@
 package com.visualstudio.rest.api.dto.Entrada;
 
 import lombok.*;
-
+import com.visualstudio.rest.api.dto.Entrada.ProductDTO;
 import java.util.List;
 
 @Getter
