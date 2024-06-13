@@ -189,6 +189,8 @@ export const reducer = (state, action) => {
         ...state,
         dataFeature: action.payload,
       }
+    case 'GET_FAVS':
+      return { ...state, favs: action.payload }
     case 'ADD_FAV':
       return { ...state, favs: [...state.favs, action.payload] }
     case 'DEL_FAV':

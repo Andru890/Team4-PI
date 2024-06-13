@@ -367,6 +367,25 @@ export const ContextProvider = ({ children }) => {
     }
   }, [])
 
+  const handleGetFavs = useCallback(() => {
+    const favs = localStorage.getItem('favs')
+    if (favs) {
+      dispatch({ type: 'GET_FAVS', payload: JSON.parse(favs) })
+    }
+  }, [])
+
+  const handleAddFav = useCallback((product) => {
+    dispatch({ type: 'ADD_FAV', payload: product })
+  }, [])
+
+  const handleDelFav = useCallback((product) => {
+    dispatch({ type: 'DEL_FAV', payload: product })
+  }, [])
+
+  const handleClearFavs = useCallback(() => {
+    dispatch({ type: 'CLEAR_FAVS' })
+  }, [])
+
   const toggleTheme = () => {
     dispatch({ type: 'CHANGE_THEME' })
   }
@@ -431,6 +450,10 @@ export const ContextProvider = ({ children }) => {
     handleDeleteFeature,
     handleGetFeaturesByProduct,
     toggleTheme,
+    handleGetFavs,
+    handleAddFav,
+    handleDelFav,
+    handleClearFavs,
   }
 
   return (
