@@ -96,9 +96,15 @@ const Profile = () => {
           >
             Mi Perfil
           </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <Link to={routes.favs}>
+            <DropdownMenuItem className='cursor-pointer'>
+              Mis Favoritos
+            </DropdownMenuItem>
+          </Link>
+          <DropdownMenuSeparator />
           {isAdmin && (
             <>
-              <DropdownMenuSeparator />
               <Link to={routes.dashboard}>
                 <DropdownMenuItem className='cursor-pointer'>
                   Panel Administración

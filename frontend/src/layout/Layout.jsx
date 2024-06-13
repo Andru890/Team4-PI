@@ -16,6 +16,7 @@ import AdminFeatures from '@/components/AdminPanel/Features/AdminFeatures'
 import Categories from '@/pages/Categories'
 import Profile from '@/pages/Profile'
 import { PrivateRoute, AdminGuard } from '@/routes/AuthGuard'
+import Favs from '@/pages/Favs'
 
 const Layout = () => {
   return (
@@ -30,6 +31,7 @@ const Layout = () => {
 
       <Route element={<PrivateRoute />}>
         <Route path={routes.profile} element={<Profile />} />
+        <Route path={routes.favs} element={<Favs />} />
         <Route
           path={routes.dashboard}
           element={

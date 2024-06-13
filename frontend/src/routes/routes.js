@@ -20,4 +20,5 @@ export const routes = {
   search: '/search',
   cart: '/cart',
   contact: '/contact',
+  favs: '/favs',
 }
