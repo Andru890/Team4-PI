@@ -46,6 +46,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import ExportCSVButton from './ExportCSVButton' // Import the ExportCSVButton component
 
 const ProductTable = ({
   categories,
@@ -223,6 +224,7 @@ const ProductTable = ({
           </DropdownMenuContent>
         </DropdownMenu>
         <AddProductDialog />
+        <ExportCSVButton data={filteredProducts} />
       </div>
       <div className='overflow-hidden rounded-lg border'>
         <Table>
