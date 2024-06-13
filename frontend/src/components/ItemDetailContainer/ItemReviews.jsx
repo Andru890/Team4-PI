@@ -115,16 +115,20 @@ const ItemReviews = () => {
         <Separator />
         <div className='grid gap-2'>
           <Label htmlFor='review'>Deja un comentario</Label>
-          <Textarea
-            id='review'
-            placeholder='Escribe tu comentario aquí...'
-            rows={5}
-            value={review}
-            onChange={handleTextareaChange}
-            maxLength={300}
-            limitReachedClassName='text-red-500'
-            className='resize-none'
-          />
+          <div className='relative'>
+            <Textarea
+              id='review'
+              placeholder='Escribe tu comentario aquí...'
+              rows={5}
+              value={review}
+              onChange={handleTextareaChange}
+              maxLength={300}
+              className='resize-none'
+            />
+            <span className='absolute bottom-2 right-2 text-sm text-gray-500'>
+              {review.length}/300
+            </span>
+          </div>
           <div className='flex items-center gap-2'>
             <div className='flex items-center gap-0.5'>
               {[...Array(5)].map((_, index) => (
