@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useGlobalContext } from '@/context/global.context'
 import {
   Dialog,
@@ -17,31 +18,24 @@ import { toast } from 'sonner'
 
 const AddFeaturesDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [newFeature, setNewFeature] = useState({
-    name: '',
-    description: '',
-    imageFile: null,
-    imageURL: null,
-  })
+  const [imageFile, setImageFile] = useState(null)
+  const [imageURL, setImageURL] = useState(null)
   const { handleCreateFeature } = useGlobalContext()
   const { uploadImage, isUploading } = useCloudinary()
+  const { register, handleSubmit, reset } = useForm()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const onSubmit = async (data) => {
     try {
-      const imageUrl = await uploadImage(newFeature.imageFile)
+      const imageUrl = await uploadImage(imageFile)
       handleCreateFeature({
-        name: newFeature.name,
-        description: newFeature.description,
+        name: data.name,
+        description: data.description,
         image: imageUrl,
       })
       toast.success('Característica agregada con éxito')
-      setNewFeature({
-        name: '',
-        description: '',
-        imageFile: null,
-        imageURL: null,
-      })
+      reset()
+      setImageFile(null)
+      setImageURL(null)
       setIsOpen(false)
     } catch (error) {
       console.error(error)
@@ -51,19 +45,13 @@ const AddFeaturesDialog = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0]
-    setNewFeature({
-      ...newFeature,
-      imageFile: file,
-      imageURL: URL.createObjectURL(file),
-    })
+    setImageFile(file)
+    setImageURL(URL.createObjectURL(file))
   }
 
   const handleDeleteImage = () => {
-    setNewFeature({
-      ...newFeature,
-      imageFile: null,
-      imageURL: null,
-    })
+    setImageFile(null)
+    setImageURL(null)
   }
 
   return (
@@ -82,29 +70,23 @@ const AddFeaturesDialog = () => {
             deseas agregar.
           </DialogDescription>
         </DialogHeader>
-        <form className='space-y-4' onSubmit={handleSubmit}>
+        <form className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
           <div className='space-y-1'>
             <Label htmlFor='name'>Nombre</Label>
             <Input
               id='name'
-              value={newFeature.name}
-              onChange={(e) =>
-                setNewFeature({ ...newFeature, name: e.target.value })
-              }
+              {...register('name', { required: true })}
               placeholder='Ingresa el nombre de la característica'
-              aria-label=''
+              aria-label='Nombre de la característica'
             />
           </div>
           <div className='space-y-1'>
             <Label htmlFor='description'>Descripción</Label>
             <Input
               id='description'
-              value={newFeature.description}
-              onChange={(e) =>
-                setNewFeature({ ...newFeature, description: e.target.value })
-              }
+              {...register('description', { required: true })}
               placeholder='Ingresa la descripción de la característica'
-              aria-label=''
+              aria-label='Descripción de la característica'
             />
           </div>
           <div className='space-y-1'>
@@ -115,12 +97,12 @@ const AddFeaturesDialog = () => {
               accept='image/*'
               onChange={handleImageChange}
               placeholder='Selecciona una imagen para la característica'
-              aria-label=''
+              aria-label='Imagen de la característica'
             />
-            {newFeature.imageURL && (
+            {imageURL && (
               <div>
                 <img
-                  src={newFeature.imageURL}
+                  src={imageURL}
                   alt='Vista previa de la imagen'
                   className='w-32 h-32 object-cover mt-2'
                 />

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useForm, Controller } from 'react-hook-form'
 import { useGlobalContext } from '@/context/global.context'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -17,17 +18,30 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog'
 import useCloudinary from '@/hooks/useCloudinary'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 const AddProductDialog = () => {
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [price, setPrice] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue,
+    watch,
+    control,
+  } = useForm()
   const [characteristic, setCharacteristic] = useState('')
   const [characteristics, setCharacteristics] = useState([])
   const [imageFiles, setImageFiles] = useState([])
   const [imageUrls, setImageUrls] = useState([])
-  const [category, setCategory] = useState('')
-  const [stock, setStock] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const { state, handleAddProduct } = useGlobalContext()
   const { dataCategory: categories } = state
@@ -52,42 +66,39 @@ const AddProductDialog = () => {
     setCharacteristics(newCharacteristics)
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const onSubmit = async (data) => {
     try {
-      const selectedCategory = categories.find((cat) => cat.name === category)
+      const selectedCategory = categories.find(
+        (cat) => cat.name === data.category
+      )
       const uploadedImageUrls = await Promise.all(
         imageFiles.map((file) => uploadImage(file))
       )
 
       handleAddProduct({
-        name,
-        description,
-        price: parseFloat(price),
+        ...data,
+        price: parseFloat(data.price),
         characteristics: characteristics.map((char) => ({
           characteristic: char,
         })),
         images: uploadedImageUrls,
         category: selectedCategory,
-        stock: parseInt(stock, 10),
+        stock: parseInt(data.stock, 10),
       })
 
       toast.success('Producto agregado con éxito')
-      setName('')
-      setDescription('')
-      setPrice('')
-      setCharacteristic('')
+      reset()
       setCharacteristics([])
       setImageFiles([])
       setImageUrls([])
-      setCategory('')
-      setStock('')
       setIsOpen(false)
     } catch (error) {
       console.error('Error al agregar el producto:', error)
       toast.error('Error al agregar el producto')
     }
   }
+
+  const descriptionValue = watch('description', '')
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -105,31 +116,42 @@ const AddProductDialog = () => {
           </DialogDescription>
         </DialogHeader>
         <CardContent>
-          <form className='grid gap-4' onSubmit={handleSubmit}>
+          <form className='grid gap-4' onSubmit={handleSubmit(onSubmit)}>
             <div className='grid gap-2'>
               <Label htmlFor='name'>Nombre</Label>
               <Input
                 id='name'
                 placeholder='Nombre del producto'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                {...register('name', { required: 'El nombre es obligatorio' })}
+                className={errors.name ? 'border-red-500' : ''}
               />
+              {errors.name && (
+                <span className='text-red-500 text-sm'>
+                  {errors.name.message}
+                </span>
+              )}
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='description'>Descripción</Label>
               <Textarea
                 id='description'
                 placeholder='Descripción del producto'
-                value={description}
-                onChange={(e) => {
-                  const value = e.target.value
-                  if (value.length <= 1000) {
-                    setDescription(value)
-                  }
-                }}
-                maxLength={1000}
+                {...register('description', {
+                  required: 'La descripción es obligatoria',
+                  maxLength: {
+                    value: 1000,
+                    message:
+                      'La descripción no puede superar los 1000 caracteres',
+                  },
+                })}
+                className={errors.description ? 'border-red-500' : ''}
               />
-              <p>Total {description.length}/1000 caracteres</p>
+              {errors.description && (
+                <span className='text-red-500 text-sm'>
+                  {errors.description.message}
+                </span>
+              )}
+              <p>Total {descriptionValue.length}/1000 caracteres</p>
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='characteristic'>Características</Label>
@@ -139,6 +161,7 @@ const AddProductDialog = () => {
                   placeholder='Características del producto'
                   value={characteristic}
                   onChange={(e) => setCharacteristic(e.target.value)}
+                  className='mr-2'
                 />
                 <Button type='button' onClick={handleAddCharacteristic}>
                   Añadir
@@ -166,37 +189,71 @@ const AddProductDialog = () => {
                   id='price'
                   placeholder='Precio del producto'
                   type='number'
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                  {...register('price', {
+                    required: 'El precio es obligatorio',
+                  })}
+                  className={errors.price ? 'border-red-500' : ''}
                 />
+                {errors.price && (
+                  <span className='text-red-500 text-sm'>
+                    {errors.price.message}
+                  </span>
+                )}
               </div>
 
               <div className='grid gap-2'>
                 <Label htmlFor='category'>Categoría</Label>
-                <select
-                  id='category'
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  className='border-input bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-black focus:border-transparent rounded-md w-full'
-                >
-                  <option value=''>Selecciona una categoría</option>
-                  {categories.map((cat) => (
-                    <option key={cat.id} value={cat.name}>
-                      {cat.name}
-                    </option>
-                  ))}
-                </select>
+                <Controller
+                  name='category'
+                  control={control}
+                  defaultValue=''
+                  rules={{ required: 'La categoría es obligatoria' }}
+                  render={({ field }) => (
+                    <Select
+                      onValueChange={(value) => field.onChange(value)}
+                      value={field.value}
+                    >
+                      <SelectTrigger
+                        className={`w-full ${errors.category ? 'border-red-500' : ''}`}
+                      >
+                        <SelectValue placeholder='Selecciona una categoría' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Categorías</SelectLabel>
+                          {categories.map((cat) => (
+                            <SelectItem key={cat.id} value={cat.name}>
+                              {cat.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+                {errors.category && (
+                  <span className='text-red-500 text-sm'>
+                    {errors.category.message}
+                  </span>
+                )}
               </div>
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='stock'>Cantidad</Label>
               <Input
                 id='stock'
-                value={stock}
                 placeholder='Cantidad disponible'
                 type='number'
-                onChange={(e) => setStock(e.target.value)}
+                {...register('stock', {
+                  required: 'La cantidad es obligatoria',
+                })}
+                className={errors.stock ? 'border-red-500' : ''}
               />
+              {errors.stock && (
+                <span className='text-red-500 text-sm'>
+                  {errors.stock.message}
+                </span>
+              )}
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='image'>Imágenes</Label>
