@@ -123,6 +123,16 @@ export const reducer = (state, action) => {
         dataRole: action.payload,
       }
 
+    case 'SET_ROLE':
+      return {
+        ...state,
+        dataUser: state.dataUser.map((user) =>
+          user.id === action.payload.userId
+            ? { ...user, role: action.payload.role }
+            : user
+        ),
+      }
+
     case 'LOGIN_SUCCESS':
       return {
         ...state,

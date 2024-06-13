@@ -37,6 +37,15 @@ import AddProductDialog from '@/components/AdminPanel/Products/AddProductDialog'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import useConfirmDialog from '@/hooks/useConfirmDialog'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 const ProductTable = ({
   categories,
@@ -301,7 +310,11 @@ const ProductTable = ({
                             key={index}
                             src={image}
                             alt={product.name}
-                            className={`cursor-pointer w-1/4 h-1/4 object-contain ${selectedImageIndex === index ? 'border-2 border-blue-500' : ''}`}
+                            className={`cursor-pointer w-1/4 h-1/4 object-contain ${
+                              selectedImageIndex === index
+                                ? 'border-2 border-blue-500'
+                                : ''
+                            }`}
                             onClick={() => handleSelectImage(index)}
                           />
                         ))}
@@ -314,28 +327,26 @@ const ProductTable = ({
                   {product.description}
                 </TableCell>
                 <TableCell className='hidden md:table-cell'>
-                  <select
-                    className='border rounded-md p-1 cursor-pointer'
-                    onChange={(e) =>
-                      handleCategoryChange(product.id, e.target.value)
-                    }
-                    value={
-                      selectedCategories[product.id] ||
-                      (product.categories && product.categories.length > 0
-                        ? product.categories[0].id
-                        : '') ||
-                      ''
+                  <Select
+                    value={selectedCategories[product.id] || ''}
+                    onValueChange={(value) =>
+                      handleCategoryChange(product.id, value)
                     }
                   >
-                    <option value='' disabled>
-                      Seleccionar
-                    </option>
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </select>
+                    <SelectTrigger className='w-full'>
+                      <SelectValue placeholder='Seleccionar' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Categorías</SelectLabel>
+                        {categories.map((category) => (
+                          <SelectItem key={category.id} value={category.id}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </TableCell>
                 <TableCell className='hidden md:table-cell'>
                   <ul className='list-disc pl-4 text-sm'>
