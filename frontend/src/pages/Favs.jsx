@@ -1,6 +1,7 @@
 import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 import FavsList from '@/components/FavsList/FavsList'
+import { Toaster } from 'sonner'
 
 const Favs = () => {
   return (
@@ -10,6 +11,7 @@ const Favs = () => {
         <FavsList />
       </main>
       <Footer />
+      <Toaster richColors />
     </>
   )
 }
