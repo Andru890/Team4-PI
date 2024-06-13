@@ -58,7 +58,7 @@ public class Product {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "products"})
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"product", "hibernateLazyInitializer"})
     private List<ProductDetail> characteristics;
 
