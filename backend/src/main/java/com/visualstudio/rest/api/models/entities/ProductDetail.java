@@ -28,7 +28,7 @@ public class ProductDetail {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_ID"))
     @JsonIgnoreProperties({"hibernateLazyInitializer", "productsDetail"})
     private Product product;
