@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
 import {
   DialogTrigger,
-  DialogTitle,
-  DialogHeader,
   DialogDescription,
   DialogContent,
   Dialog,
@@ -20,6 +18,7 @@ import {
   WhatsappIcon,
 } from 'react-share'
 import ItemCalendar from '@/components/ItemDetailContainer/ItemCalendar'
+import ItemReviews from '@/components/ItemDetailContainer/ItemReviews'
 
 const ItemDetail = ({ product }) => {
   const goBack = () => {
@@ -326,7 +325,10 @@ const ItemDetail = ({ product }) => {
             <ChevronRightIcon className='w-4 h-4' />
           </Link>
         </div>
-        <ItemCalendar />
+        <div className='flex mt-20'>
+          <ItemCalendar />
+          <ItemReviews />
+        </div>
         <ItemPolicies />
       </div>
     </>
