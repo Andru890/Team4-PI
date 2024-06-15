@@ -1,14 +1,16 @@
+// components/Header.js
 import { Button } from '@/components/ui/button'
 import Navbar from '@/components/Header/Navbar/Navbar'
 import HamburgerMenu from '@/components/Header/Navbar/HamburgerMenu'
 import { Link } from 'react-router-dom'
 import { routes } from '@/routes/routes'
 import Profile from '@/components/Header/Profile'
-import { useGlobalContext } from '@/context/global.context'
+import { useAuthContext } from '@/context/auth.context'
 
 const Header = () => {
-  const { state } = useGlobalContext()
-  const isAuthenticated = state.isAuthenticated
+  const { user } = useAuthContext()
+  const token = sessionStorage.getItem('token')
+  const isAuthenticated = user && token
 
   return (
     <header className='fixed top-0 left-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 bg-white'>

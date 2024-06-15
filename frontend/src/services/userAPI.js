@@ -1,12 +1,20 @@
+// services/user.service.js
 import axios from 'axios'
 
 const API_URL = import.meta.env.VITE_API_URL
 
+const getAuthHeaders = () => {
+  const token = sessionStorage.getItem('token')
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+}
+
 export const getUsers = async () => {
   try {
-    const response = await axios.get(`${API_URL}/user`)
-    console.log('Users: ')
-    console.table(response.data)
+    const response = await axios.get(`${API_URL}/user/all`, getAuthHeaders())
     return response.data
   } catch (error) {
     console.error('Error fetching users:', error)
@@ -16,7 +24,10 @@ export const getUsers = async () => {
 
 export const getUserById = async (userId) => {
   try {
-    const response = await axios.get(`${API_URL}/user/${userId}`)
+    const response = await axios.get(
+      `${API_URL}/user/${userId}`,
+      getAuthHeaders()
+    )
     return response.data
   } catch (error) {
     console.error('Error fetching user by ID:', error)
@@ -26,7 +37,11 @@ export const getUserById = async (userId) => {
 
 export const createUser = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/user`, userData)
+    const response = await axios.post(
+      `${API_URL}/user`,
+      userData,
+      getAuthHeaders()
+    )
     return response.data
   } catch (error) {
     console.error('Error creating user:', error)
@@ -36,7 +51,11 @@ export const createUser = async (userData) => {
 
 export const updateUser = async (userData) => {
   try {
-    const response = await axios.put(`${API_URL}/user/${userData.id}`, userData)
+    const response = await axios.put(
+      `${API_URL}/user/${userData.id}`,
+      userData,
+      getAuthHeaders()
+    )
     return response.data
   } catch (error) {
     console.error('Error updating user:', error)
@@ -46,7 +65,10 @@ export const updateUser = async (userData) => {
 
 export const deleteUser = async (userId) => {
   try {
-    const response = await axios.delete(`${API_URL}/user/${userId}`)
+    const response = await axios.delete(
+      `${API_URL}/user/${userId}`,
+      getAuthHeaders()
+    )
     return response.data
   } catch (error) {
     console.error('Error deleting user:', error)

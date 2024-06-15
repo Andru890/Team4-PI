@@ -1,3 +1,4 @@
+// components/Header/Profile.js
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AvatarImage, AvatarFallback, Avatar } from '@/components/ui/avatar'
@@ -12,12 +13,11 @@ import { routes } from '@/routes/routes'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { useGlobalContext } from '@/context/global.context'
+import { useAuthContext } from '@/context/auth.context'
 import useCloudinary from '@/hooks/useCloudinary'
 
 const Profile = () => {
-  const { state, logout, handleUpdateUser } = useGlobalContext()
-  const user = state.user
+  const { user, logout, handleUpdateUser } = useAuthContext()
   const navigate = useNavigate()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [isEditingImage, setIsEditingImage] = useState(false)
@@ -31,11 +31,13 @@ const Profile = () => {
   const { uploadImage, isUploading } = useCloudinary()
 
   useEffect(() => {
-    setName(user?.name || '')
-    setLastname(user?.lastname || '')
-    setEmail(user?.email || '')
-    setPhone(user?.phone || '')
-    setCity(user?.city || '')
+    if (user) {
+      setName(user.name || '')
+      setLastname(user.lastname || '')
+      setEmail(user.email || '')
+      setPhone(user.phone || '')
+      setCity(user.city || '')
+    }
   }, [user])
 
   const getInitials = (name, lastname) => {
@@ -45,8 +47,13 @@ const Profile = () => {
 
   const handleLogout = () => {
     logout()
-    window.location.reload()
-    navigate(routes.home)
+      .then(() => {
+        window.location.reload()
+        navigate(routes.home)
+      })
+      .catch((error) => {
+        console.error('Error during logout:', error)
+      })
   }
 
   const handleImageChange = async (e) => {
@@ -56,7 +63,7 @@ const Profile = () => {
       const imageUrl = await uploadImage(file)
       if (imageUrl) {
         const updatedUser = { ...user, imageUrl }
-        handleUpdateUser(updatedUser)
+        await handleUpdateUser(updatedUser)
         console.log('Imagen subida correctamente:', imageUrl)
         console.log('Usuario actualizado:', updatedUser)
       }
@@ -65,14 +72,14 @@ const Profile = () => {
     setIsEditingImage(false)
   }
 
-  const handleSaveChanges = () => {
+  const handleSaveChanges = async () => {
     const updatedUser = { ...user, name, lastname, email, phone, city }
-    handleUpdateUser(updatedUser)
+    await handleUpdateUser(updatedUser)
     console.log('Usuario actualizado:', updatedUser)
     setIsEditingProfile(false)
   }
 
-  const isAdmin = user?.role.name === 'admin'
+  const isAdmin = user?.roles?.includes('admin')
 
   return (
     <>
@@ -186,7 +193,7 @@ const Profile = () => {
                         Role
                       </p>
                       <p className='text-gray-700 dark:text-gray-300'>
-                        {user?.role.name}
+                        {isAdmin ? 'Admin' : 'User'}
                       </p>
                     </div>
                     <div>

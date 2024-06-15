@@ -244,32 +244,6 @@ export const ContextProvider = ({ children }) => {
     })
   }, [])
 
-  const login = useCallback(async (email, password) => {
-    try {
-      const users = await getUsers()
-      const user = users.find(
-        (u) => u.email === email && u.password === password
-      )
-      if (user) {
-        dispatch({ type: 'LOGIN_SUCCESS', payload: user })
-        localStorage.setItem('isAuthenticated', 'true')
-        localStorage.setItem('user', JSON.stringify(user))
-        return user
-      } else {
-        throw new Error('Invalid credentials')
-      }
-    } catch (error) {
-      console.error('Login failed', error)
-      throw error
-    }
-  }, [])
-
-  const logout = useCallback(() => {
-    dispatch({ type: 'LOGOUT' })
-    localStorage.removeItem('isAuthenticated')
-    localStorage.removeItem('user')
-  }, [])
-
   const handleRoleChange = useCallback(async (userId, newRole) => {
     try {
       // Realiza la solicitud al servidor para actualizar el rol
@@ -439,8 +413,6 @@ export const ContextProvider = ({ children }) => {
     handleGetUserById,
     handleUpdateUser,
     handleDeleteUser,
-    login,
-    logout,
     handleRoleChange,
     handleGetRole,
     handleGetFeatures,

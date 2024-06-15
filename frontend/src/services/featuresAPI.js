@@ -2,11 +2,17 @@ import axios from 'axios'
 
 const API_URL = import.meta.env.VITE_API_URL
 
+const getAuthToken = () => {
+  return sessionStorage.getItem('token')
+}
+
 export const getFeatures = async () => {
   try {
-    const response = await axios.get(`${API_URL}/product-detail`)
-    console.log('Features: ')
-    console.table(response.data)
+    const response = await axios.get(`${API_URL}/product-detail`, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    })
     return response.data
   } catch (error) {
     console.error('Error fetching features:', error)
@@ -16,7 +22,11 @@ export const getFeatures = async () => {
 
 export const getFeatureById = async (featureId) => {
   try {
-    const response = await axios.get(`${API_URL}/product-detail/${featureId}`)
+    const response = await axios.get(`${API_URL}/product-detail/${featureId}`, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    })
     return response.data
   } catch (error) {
     console.error('Error fetching feature by ID:', error)
@@ -35,6 +45,7 @@ export const createFeature = async (featureData) => {
       {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${getAuthToken()}`,
         },
       }
     )
@@ -56,6 +67,7 @@ export const updateFeature = async (featureData) => {
       {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${getAuthToken()}`,
         },
       }
     )
@@ -69,7 +81,12 @@ export const updateFeature = async (featureData) => {
 export const deleteFeature = async (featureId) => {
   try {
     const response = await axios.delete(
-      `${API_URL}/product-detail/${featureId}`
+      `${API_URL}/product-detail/${featureId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      }
     )
     return response.data
   } catch (error) {
@@ -81,7 +98,12 @@ export const deleteFeature = async (featureId) => {
 export const getFeaturesByProduct = async (productId) => {
   try {
     const response = await axios.get(
-      `${API_URL}/product-detail/product-characteristic/${productId}`
+      `${API_URL}/product-detail/product-characteristic/${productId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      }
     )
     return response.data
   } catch (error) {

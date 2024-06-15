@@ -1,6 +1,6 @@
-// Register.js
+// components/Register.js
 import { useNavigate, Link } from 'react-router-dom'
-import { useGlobalContext } from '@/context/global.context'
+import { useAuthContext } from '@/context/auth.context'
 import AuthForm from '@/components/Login/AuthForm'
 import Video from '@/components/Login/Videos'
 import Logo from '@/components/Login/Logo'
@@ -9,7 +9,7 @@ import { toast, Toaster } from 'sonner'
 import confetti from 'canvas-confetti'
 
 const Register = () => {
-  const { handleCreateUser } = useGlobalContext()
+  const { register } = useAuthContext()
   const navigate = useNavigate()
 
   const handleRegister = async (formData, buttonRef) => {
@@ -25,8 +25,8 @@ const Register = () => {
       city: formData.city,
       password: formData.password,
     }
-    const user = await handleCreateUser(newUser)
-    if (user) {
+    try {
+      await register(newUser)
       const buttonPosition = buttonRef.getBoundingClientRect()
       confetti({
         particleCount: 100,
@@ -44,11 +44,10 @@ const Register = () => {
       setTimeout(() => {
         navigate(routes.login)
       }, 1000)
-    } else {
+    } catch {
       toast.error(
-        `No se pudo crear el usuario con el mail ${formData.email} ya exsite`
+        `No se pudo crear el usuario con el mail ${formData.email}, ya existe.`
       )
-      throw new Error('User already exists')
     }
   }
 

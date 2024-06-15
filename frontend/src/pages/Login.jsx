@@ -1,6 +1,6 @@
-// Login.js
+// components/Login.js
 import { useNavigate, Link } from 'react-router-dom'
-import { useGlobalContext } from '@/context/global.context'
+import { useAuthContext } from '@/context/auth.context'
 import AuthForm from '@/components/Login/AuthForm'
 import Video from '@/components/Login/Videos'
 import Logo from '@/components/Login/Logo'
@@ -9,13 +9,13 @@ import { toast, Toaster } from 'sonner'
 import confetti from 'canvas-confetti'
 
 const Login = () => {
-  const { login } = useGlobalContext()
+  const { login } = useAuthContext()
   const navigate = useNavigate()
 
   const handleLogin = async (formData, buttonRef) => {
     const { email, password } = formData
-    const user = await login(email, password)
-    if (user) {
+    try {
+      await login({ email, password })
       const buttonPosition = buttonRef.getBoundingClientRect()
       confetti({
         particleCount: 100,
@@ -33,9 +33,8 @@ const Login = () => {
       setTimeout(() => {
         navigate(routes.home)
       }, 2000)
-    } else {
+    } catch {
       toast.error('El correo electrónico o la contraseña son incorrectos')
-      throw new Error('Invalid login credentials')
     }
   }
 

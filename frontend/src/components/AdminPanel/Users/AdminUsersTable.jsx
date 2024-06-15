@@ -38,10 +38,6 @@ const AdminUsersTable = ({
   const [sort, setSort] = useState({ key: 'id', order: 'asc' })
   const [filters, setFilters] = useState({ role: [] })
   const { openDialog, ConfirmDialog } = useConfirmDialog()
-
-  console.log('roles actuales:')
-  console.log(roles.name)
-
   const filteredUsers = useMemo(() => {
     return users
       .filter((user) => {

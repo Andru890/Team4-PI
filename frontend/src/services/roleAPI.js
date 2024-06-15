@@ -5,8 +5,6 @@ const API_URL = import.meta.env.VITE_API_URL
 export const getRole = async () => {
   try {
     const res = await axios.get(`${API_URL}/role`)
-    console.log('Roles: ')
-    console.table(res.data)
     return res.data
   } catch (error) {
     console.error(error)
@@ -16,7 +14,6 @@ export const getRole = async () => {
 export const getRoleById = async (roleId) => {
   try {
     const res = await axios.get(`${API_URL}/role/${roleId}`)
-    console.log(res.data)
     return res.data
   } catch (error) {
     console.error(error)

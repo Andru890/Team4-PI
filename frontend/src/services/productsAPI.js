@@ -5,8 +5,6 @@ const API_URL = import.meta.env.VITE_API_URL
 export const getProduct = async () => {
   try {
     const res = await axios.get(`${API_URL}/product`)
-    console.log('Productos: ')
-    console.table(res.data)
     return res.data
   } catch (error) {
     console.error(error)
