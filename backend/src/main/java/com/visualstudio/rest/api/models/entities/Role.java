@@ -1,33 +1,35 @@
 package com.visualstudio.rest.api.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "roles")
-@Getter
-@Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder(toBuilder = true)
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false, unique = true)
+    private String name;
 
-    @Enumerated(EnumType.STRING)
-    RoleName roleName;
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"role"})
+    private List<User> users;
 
-   public Role(RoleName roleName) {
-       this.roleName = roleName;
-   }
 
-   public String getRoleName() {
-       return roleName.toString();
-   }
-
+    public Role(String name) {
+        this.name = name;
+    }
 
 }

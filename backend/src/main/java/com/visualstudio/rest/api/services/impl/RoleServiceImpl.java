@@ -1,7 +1,6 @@
 package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.models.entities.Role;
-import com.visualstudio.rest.api.models.entities.RoleName;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.RoleRepository;
 import com.visualstudio.rest.api.repositories.UserRepository;
@@ -25,9 +24,9 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public Role save(Role role) {
-        Role existingRole = roleRepository.findByRoleName(RoleName.ADMIN);
+        Role existingRole = roleRepository.findByName(role.getName());
         if (existingRole != null) {
-            throw new IllegalArgumentException("El rol " + role.getRoleName() + " ya existe en la base de datos");
+            throw new IllegalArgumentException("El rol " + role.getName() + " ya existe en la base de datos");
         }
         return roleRepository.save(role);
     }
@@ -35,7 +34,7 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public Role update(Role role, Long id) {
         Role wantedRole = roleRepository.findById(id).get();
-        wantedRole.setRoleName(RoleName.ADMIN);
+        wantedRole.setName(role.getName());
         return roleRepository.save(wantedRole);
     }
 
@@ -49,6 +48,3 @@ public class RoleServiceImpl implements IRoleService {
         roleRepository.deleteById(id);
     }
 }
-
-
-

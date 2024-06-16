@@ -19,5 +19,6 @@ public class RegistroDto implements Serializable {
     private String password;
     private Role role;
 
+
 }
 

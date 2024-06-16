@@ -5,6 +5,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
@@ -15,6 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 @Slf4j
@@ -59,14 +61,24 @@ public class JwtUtilities {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(String email, List<String> roles) {
-        return Jwts.builder()
-                .subject(email)
+    public String generateToken(String Email, List<String> roles, String name, String lastname, String phone, String city, Map<String, Object> additionalClaims) {
+        JwtBuilder builder= Jwts.builder()
+                .subject(Email)
                 .claim("roles", roles)
+                .claim("name", name)
+                .claim("lastname", lastname)
+                .claim("phone", phone)
+                .claim("city", city)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(Date.from(Instant.now().plus(jwtExpiration, ChronoUnit.MILLIS)))
-                .signWith(getKey())
-                .compact();
+                .signWith(getKey());
+        if (additionalClaims != null) {
+            for (Map.Entry<String, Object> entry : additionalClaims.entrySet()) {
+                builder.claim(entry.getKey(), entry.getValue());
+            }
+        }
+
+        return builder.compact();
     }
 
     public boolean validateToken(String token) {
@@ -90,4 +102,5 @@ public class JwtUtilities {
         }
         return null;
     }
+
 }
