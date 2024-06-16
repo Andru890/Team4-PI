@@ -69,6 +69,7 @@ public class UserServiceImpl implements IUserService {
         wantedUser.setPhone(user.getPhone());
         wantedUser.setCity(user.getCity());
         wantedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        wantedUser.setImageUrl(user.getImageUrl());
 
         String email = wantedUser.getEmail();
         Role userRole = wantedUser.getRole();
@@ -85,6 +86,7 @@ public class UserServiceImpl implements IUserService {
                 wantedUser.getLastname(),
                 wantedUser.getPhone(),
                 wantedUser.getCity(),
+                wantedUser.getImageUrl(),
                 additionalClaims);
 
         return userRepository.save(wantedUser);
@@ -172,6 +174,7 @@ public class UserServiceImpl implements IUserService {
                     user.getLastname(),
                     user.getPhone(),
                     user.getCity(),
+                    user.getImageUrl(),
                     additionalClaims
             );
 

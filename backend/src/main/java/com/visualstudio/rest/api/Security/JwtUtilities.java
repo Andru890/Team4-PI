@@ -61,7 +61,7 @@ public class JwtUtilities {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(String Email, List<String> roles, String name, String lastname, String phone, String city, Map<String, Object> additionalClaims) {
+    public String generateToken(String Email, List<String> roles, String name, String lastname, String phone, String city, String imageUrl,Map<String, Object> additionalClaims) {
         JwtBuilder builder= Jwts.builder()
                 .subject(Email)
                 .claim("roles", roles)
@@ -69,6 +69,7 @@ public class JwtUtilities {
                 .claim("lastname", lastname)
                 .claim("phone", phone)
                 .claim("city", city)
+                .claim("imageUrl", imageUrl)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(Date.from(Instant.now().plus(jwtExpiration, ChronoUnit.MILLIS)))
                 .signWith(getKey());

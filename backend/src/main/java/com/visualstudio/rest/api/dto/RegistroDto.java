@@ -18,6 +18,7 @@ public class RegistroDto implements Serializable {
     private String email;
     private String password;
     private Role role;
+    private String imageUrl;
 
 
 }

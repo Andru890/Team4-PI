@@ -40,7 +40,7 @@ public class SecurityConfig {
             "user/{email}/role",
             "reservation/**",
             "category/**",
-            "productDetail/**",
+            "product-detail/**",
             "product/**",
             "v1/**",
             "registration/**",}

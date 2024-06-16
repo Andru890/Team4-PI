@@ -60,6 +60,7 @@ public class RegistrationServiceImpl implements IRegistrationService {
                 registroDto.getLastname(),
                 registroDto.getPhone(),
                 registroDto.getCity(),
+                registroDto.getImageUrl(),
                 additionalClaims
         );
 
@@ -103,6 +104,7 @@ public class RegistrationServiceImpl implements IRegistrationService {
                 user.getLastname(),
                 user.getPhone(),
                 user.getCity(),
+                user.getImageUrl(),
                 additionalClaims
         );
         return token;
