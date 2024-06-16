@@ -1,8 +1,7 @@
 package com.visualstudio.rest.api.controllers;
 
 import com.visualstudio.rest.api.Security.CustomAuthenticationProvider;
-import com.visualstudio.rest.api.dto.LoginDto;
-import com.visualstudio.rest.api.dto.RegistroDto;
+import com.visualstudio.rest.api.models.dtos.security.LoginDto;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IRegistrationService;

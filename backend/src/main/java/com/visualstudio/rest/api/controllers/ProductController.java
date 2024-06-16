@@ -1,7 +1,7 @@
 package com.visualstudio.rest.api.controllers;
 
-
-import com.visualstudio.rest.api.dto.Entrada.ProductDTO;
+import com.visualstudio.rest.api.models.dtos.ProductDTO;
+import com.visualstudio.rest.api.models.dtos.ReservationProductDTO;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.services.IProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +49,7 @@ public class ProductController {
     }
 
 
-    @Operation(summary = "Update a product")
+    @Operation(summary = "Update a product by Category")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Update a product",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
@@ -65,7 +65,7 @@ public class ProductController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
             @ApiResponse(responseCode = "404", description = "Product not found", content = @Content)})
     @GetMapping
-    public ResponseEntity<List<Product>> searchAll() {
+    public ResponseEntity<List<ProductDTO>> searchAll() {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 
@@ -77,7 +77,7 @@ public class ProductController {
             @ApiResponse(responseCode = "404", description = "Product not found", content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
     @GetMapping("/detail/{productId}")
-    public ResponseEntity<Product> detailProduct(@PathVariable Long productId) {
+    public ResponseEntity<ProductDTO> detailProduct(@PathVariable Long productId) {
         return new ResponseEntity<>(productService.findById(productId), HttpStatus.OK);
     }
 
@@ -93,6 +93,11 @@ public class ProductController {
     public ResponseEntity<Void> delete(@PathVariable Long productId) throws IOException {
         productService.delete(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/reservation/{productId}/user/{userId}")
+    public ResponseEntity<ProductDTO> updateProductDates(@PathVariable Long productId, @PathVariable Long userId, @RequestBody ReservationProductDTO reservationProductDTO) {
+        return new ResponseEntity<>(productService.preReservation(productId, userId, reservationProductDTO), HttpStatus.OK);
     }
 }
 
