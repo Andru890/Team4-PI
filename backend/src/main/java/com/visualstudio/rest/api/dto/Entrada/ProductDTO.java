@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-package com.visualstudio.rest.api.models.dtos;
-=======
->>>>>>> 6c1f94879226d1696c5ca3e6878ac7de3f22046f
 package com.visualstudio.rest.api.dto.Entrada;
 
 
