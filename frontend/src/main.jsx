@@ -6,6 +6,7 @@ import App from '@/App'
 import '@/index.css'
 import ErrorBoundary from '@/components/ErrorBoundary'
 
+// Renderiza la aplicación
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <ContextProvider>
@@ -17,3 +18,17 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </ContextProvider>
   </BrowserRouter>
 )
+
+// Registra el Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/serviceWorker.js')
+      .then((registration) => {
+        console.log('Service Worker registrado con éxito:', registration.scope)
+      })
+      .catch((err) => {
+        console.log('Registro de Service Worker fallido:', err)
+      })
+  })
+}
