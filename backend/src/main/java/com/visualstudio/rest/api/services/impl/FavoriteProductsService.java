@@ -15,9 +15,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class FavoriteProductsService  implements IFavoriteProductsService {
+
     private final FavoriteProductsRepository favoriteProductsRepository;
     private final ProductRepository productsRepository;
     private final UserRepository userRepository;
+
     @Override
     public List<FavoriteProducts> getAll(){
         return favoriteProductsRepository.findAll();
@@ -36,6 +38,10 @@ public class FavoriteProductsService  implements IFavoriteProductsService {
     public void saveFavorite(Long userId, Long productId){
         User user = userRepository.findById(userId).get();
         Product product = productsRepository.findById(productId).get();
+        List<FavoriteProducts> existingProducts = favoriteProductsRepository.findByUserIdAndProductId(userId, productId);
+        if (!existingProducts.isEmpty()) {
+            throw new IllegalArgumentException("El producto ya es favorito");
+        }
 
         FavoriteProducts newFavorite = new FavoriteProducts();
         newFavorite.setUser(user);

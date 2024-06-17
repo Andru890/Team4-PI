@@ -12,7 +12,9 @@ import java.util.List;
 @RequestMapping("/favorites")
 @RequiredArgsConstructor
 public class FavoriteProductController {
+
     private final IFavoriteProductsService favoriteProductsService;
+
     @GetMapping("/list")
     public List<FavoriteProducts> allFavoritesList() {
      return favoriteProductsService.getAll();
