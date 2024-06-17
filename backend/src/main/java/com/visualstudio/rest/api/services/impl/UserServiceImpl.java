@@ -82,10 +82,6 @@ public class UserServiceImpl implements IUserService {
         return favoriteProductsRepository.save(newProduct);
     }
 
-    /*public void removeFavorite(Long id) {
-        FavoriteProducts product = favoriteProductsRepository.fin
-
-    }*/
 
     public Role getDefaultRole() {
         return new Role("customer");

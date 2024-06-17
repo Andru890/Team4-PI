@@ -33,6 +33,5 @@ public class ProductDTO {
     private Date dateOut;
     private List<ProductDetailDTO> characteristics;
     private List<String> images;
-    private List<FavoriteProducts> favoriteProducts;
     private String categoryId;
 }
