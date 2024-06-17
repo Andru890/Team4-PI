@@ -1,5 +1,6 @@
 package com.visualstudio.rest.api.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -51,8 +52,8 @@ public class User implements  UserDetails {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonIgnoreProperties({"user", "hibernateLazyInitializer"})
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<FavoriteProducts> favoriteProducts;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

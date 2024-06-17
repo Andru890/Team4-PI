@@ -1,5 +1,6 @@
 package com.visualstudio.rest.api.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
@@ -63,6 +64,6 @@ public class Product {
     private List<ProductDetail> characteristics;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"product", "hibernateLazyInitializer"})
+    @JsonIgnore
     private List<FavoriteProducts> favoriteProducts;
 }
