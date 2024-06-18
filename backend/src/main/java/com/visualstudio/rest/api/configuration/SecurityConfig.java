@@ -43,7 +43,8 @@ public class SecurityConfig {
             "product/**",
             "v1/**",
             "registration/**",
-            "confirmation-email/**"}
+            "confirmation-email/**",
+            "product-detail/**"}
             ;
 
 
