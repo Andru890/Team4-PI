@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class RegistrationController {
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content)
     })
     @PostMapping("/registry")
-    public ResponseEntity<User> save(@Valid @RequestBody RegistroDto registroDto) {
+    public ResponseEntity<User> save(@Valid @RequestBody RegistroDto registroDto) throws MessagingException {
         User savedUser = registrationService.save(registroDto);
 
         if (savedUser == null) {

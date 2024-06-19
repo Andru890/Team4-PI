@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -31,6 +32,7 @@ public class UserController {
     private final CustomAuthenticationProvider authenticationProvider;
 
     private final IRegistrationService registrationService;
+
 
     @Operation(summary = "Found list user")
     @ApiResponses(value = {
@@ -149,7 +151,9 @@ public class UserController {
     public ResponseEntity<String> confirmRegistration(@RequestParam("token") String token) {
         try {
             userService.confirmRegistration(token);
-            return ResponseEntity.ok("Registration confirmed");
+            return ResponseEntity.status(HttpStatus.FOUND)
+                    .header(HttpHeaders.LOCATION, "http://visualstudioservice.duckdns.org:3000/")
+                    .build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token");
         }
