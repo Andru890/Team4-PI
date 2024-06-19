@@ -21,13 +21,16 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user])
 
-  const getEmailFromToken = () => {
+  const getUserInfoFromToken = () => {
     const token = sessionStorage.getItem('token')
     if (!token) return null
 
     try {
       const payload = JSON.parse(atob(token.split('.')[1]))
-      return payload.sub
+      return {
+        email: payload.sub,
+        roles: payload.roles,
+      }
     } catch (error) {
       console.error('Error decoding token:', error)
       return null
@@ -118,7 +121,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         register,
         handleUpdateUser,
-        getEmailFromToken,
+        getUserInfoFromToken,
       }}
     >
       {children}

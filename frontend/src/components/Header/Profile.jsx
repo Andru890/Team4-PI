@@ -17,9 +17,10 @@ import useCloudinary from '@/hooks/useCloudinary'
 import { getUserByEmail } from '@/services/userAPI'
 
 const Profile = () => {
-  const { logout, handleUpdateUser, getEmailFromToken } = useAuthContext()
+  const { logout, handleUpdateUser, getUserInfoFromToken } = useAuthContext()
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
+  const [roles, setRoles] = useState([])
   const [dialogOpen, setDialogOpen] = useState(false)
   const [isEditingImage, setIsEditingImage] = useState(false)
   const [loadingImage, setLoadingImage] = useState(false)
@@ -33,11 +34,12 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const email = getEmailFromToken() // Usa la función para obtener el correo del token
-      if (email) {
+      const userInfo = getUserInfoFromToken() // Usa la función para obtener la información del usuario del token
+      if (userInfo && userInfo.email) {
         try {
-          const userData = await getUserByEmail(email)
+          const userData = await getUserByEmail(userInfo.email)
           setUser(userData)
+          setRoles(userInfo.roles) // Guardar los roles del usuario
           setName(userData.name || '')
           setLastname(userData.lastname || '')
           setEmail(userData.email || '')
@@ -50,7 +52,7 @@ const Profile = () => {
     }
 
     fetchUser()
-  }, [getEmailFromToken])
+  }, [getUserInfoFromToken])
 
   const getInitials = (name, lastname) => {
     if (!name || !lastname) return 'NA'
@@ -90,7 +92,7 @@ const Profile = () => {
     setIsEditingProfile(false)
   }
 
-  const isAdmin = user?.roles?.includes('admin')
+  const isAdmin = roles.includes('admin')
 
   return (
     <>
