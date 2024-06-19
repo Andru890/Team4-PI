@@ -1,9 +1,9 @@
 package com.visualstudio.rest.api.services.impl;
 
+import com.visualstudio.rest.api.dto.Entrada.ProductDTO;
 import com.visualstudio.rest.api.exceptions.ResourceExistException;
 import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
-import com.visualstudio.rest.api.dto.Entrada.CategoryDTO;
-import com.visualstudio.rest.api.dto.Entrada.ProductDTO;
+
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.models.entities.ProductDetail;
@@ -14,7 +14,6 @@ import com.visualstudio.rest.api.services.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.*;
 import java.io.IOException;
