@@ -14,10 +14,12 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useAuthContext } from '@/context/auth.context'
 import useCloudinary from '@/hooks/useCloudinary'
+import { getUserByEmail } from '@/services/userAPI'
 
 const Profile = () => {
-  const { user, logout, handleUpdateUser } = useAuthContext()
+  const { logout, handleUpdateUser, getEmailFromToken } = useAuthContext()
   const navigate = useNavigate()
+  const [user, setUser] = useState(null)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [isEditingImage, setIsEditingImage] = useState(false)
   const [loadingImage, setLoadingImage] = useState(false)
@@ -30,14 +32,25 @@ const Profile = () => {
   const { uploadImage, isUploading } = useCloudinary()
 
   useEffect(() => {
-    if (user) {
-      setName(user.name || '')
-      setLastname(user.lastname || '')
-      setEmail(user.email || '')
-      setPhone(user.phone || '')
-      setCity(user.city || '')
+    const fetchUser = async () => {
+      const email = getEmailFromToken() // Usa la función para obtener el correo del token
+      if (email) {
+        try {
+          const userData = await getUserByEmail(email)
+          setUser(userData)
+          setName(userData.name || '')
+          setLastname(userData.lastname || '')
+          setEmail(userData.email || '')
+          setPhone(userData.phone || '')
+          setCity(userData.city || '')
+        } catch (error) {
+          console.error('Error fetching user data:', error)
+        }
+      }
     }
-  }, [user])
+
+    fetchUser()
+  }, [getEmailFromToken])
 
   const getInitials = (name, lastname) => {
     if (!name || !lastname) return 'NA'
@@ -63,8 +76,7 @@ const Profile = () => {
       if (imageUrl) {
         const updatedUser = { ...user, imageUrl }
         await handleUpdateUser(updatedUser)
-        console.log('Imagen subida correctamente:', imageUrl)
-        console.log('Usuario actualizado:', updatedUser)
+        setUser(updatedUser)
       }
       setLoadingImage(false)
     }
@@ -74,7 +86,7 @@ const Profile = () => {
   const handleSaveChanges = async () => {
     const updatedUser = { ...user, name, lastname, email, phone, city }
     await handleUpdateUser(updatedUser)
-    console.log('Usuario actualizado:', updatedUser)
+    setUser(updatedUser)
     setIsEditingProfile(false)
   }
 

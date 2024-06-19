@@ -75,3 +75,16 @@ export const deleteUser = async (userId) => {
     throw error
   }
 }
+
+export const getUserByEmail = async (email) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/user/email/${email}`,
+      getAuthHeaders()
+    )
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user by email:', error)
+    throw error
+  }
+}

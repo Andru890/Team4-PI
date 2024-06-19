@@ -21,6 +21,19 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user])
 
+  const getEmailFromToken = () => {
+    const token = sessionStorage.getItem('token')
+    if (!token) return null
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]))
+      return payload.sub
+    } catch (error) {
+      console.error('Error decoding token:', error)
+      return null
+    }
+  }
+
   const login = async (credentials) => {
     try {
       const response = await axios.post(
@@ -29,21 +42,16 @@ export const AuthProvider = ({ children }) => {
       )
       console.log('Response from API:', response.data)
 
-      // El token es una cadena simple en la respuesta
       const token = response.data
       if (!token) {
         throw new Error('Token not found in the response')
       }
 
-      // Decodifica el token para extraer la información del usuario
       const userInfo = JSON.parse(atob(token.split('.')[1]))
-      console.log('Decoded User Info:', userInfo) // Print decoded user info to console
+      console.log('Decoded User Info:', userInfo)
 
-      // Aquí puedes agregar una solicitud adicional para obtener datos completos del usuario si es necesario
-
-      // Guarda el usuario y el token
       setUser({ ...userInfo, token })
-      console.log('JWT Token:', token) // Print token to console
+      console.log('JWT Token:', token)
     } catch (error) {
       console.error('Error during login:', error)
       throw error
@@ -60,7 +68,7 @@ export const AuthProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          timeout: 5000, // Setting a timeout of 5 seconds
+          timeout: 5000,
         }
       )
       setUser(null)
@@ -104,7 +112,14 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, logout, register, handleUpdateUser }}
+      value={{
+        user,
+        login,
+        logout,
+        register,
+        handleUpdateUser,
+        getEmailFromToken,
+      }}
     >
       {children}
     </AuthContext.Provider>
