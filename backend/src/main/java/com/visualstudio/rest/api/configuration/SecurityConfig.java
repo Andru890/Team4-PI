@@ -43,7 +43,8 @@ public class SecurityConfig {
             "product-detail/**",
             "product/**",
             "v1/**",
-            "registration/**",}
+            "registration/**",
+            "/mail",}
             ;
 
 
@@ -60,6 +61,7 @@ public class SecurityConfig {
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
                                 .requestMatchers("/user/register/").permitAll()
+                                .requestMatchers("/mail/List").permitAll()
                                 .requestMatchers("/user/delete").hasAnyAuthority(ADMIN.name())
                                 .requestMatchers("/configuration/security").hasAnyAuthority(ADMIN.name())
                                 .requestMatchers(GET, "/rest/api/**").hasAnyAuthority(ADMIN.name())
