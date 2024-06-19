@@ -44,7 +44,7 @@ public class SecurityConfig {
             "product/**",
             "v1/**",
             "registration/**",
-            "/mail",
+            "/mail/**",
             "registration/**",
             "confirmation-email/**"}
             ;
@@ -64,6 +64,7 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers("/user/register/").permitAll()
                                 .requestMatchers("/mail/List").permitAll()
+                                .requestMatchers("user/confirm").permitAll()
                                 .requestMatchers("/user/delete").hasAnyAuthority(ADMIN.name())
                                 .requestMatchers("/configuration/security").hasAnyAuthority(ADMIN.name())
                                 .requestMatchers(GET, "/rest/api/**").hasAnyAuthority(ADMIN.name())

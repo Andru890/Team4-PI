@@ -1,8 +1,7 @@
-package com.visualstudio.rest.api.dto;
+package com.visualstudio.rest.api.models.dtos.security;
 
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
 public class BearerToken {

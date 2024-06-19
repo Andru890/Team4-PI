@@ -1,14 +1,10 @@
-package com.visualstudio.rest.api.dto.Entrada;
+package com.visualstudio.rest.api.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
 
 import jakarta.validation.constraints.*;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+
 @JsonIgnoreProperties (ignoreUnknown = true)
 public class UserEntradaDto {
 
@@ -47,16 +43,63 @@ public class UserEntradaDto {
     @Size(min = 4, max = 20)
     private String city;
 
+    private String imageUrl;
+
     public UserEntradaDto() {}
 
-    public UserEntradaDto(String name, String mobile, String address, String email, String password, String city) {
+    public UserEntradaDto(String name, String mobile, String address, String email, String password, String city, String imageUrl) {
         this.name = name;
         this.mobile = mobile;
         this.address = address;
         this.email = email;
         this.password = password;
         this.city = city;
+        this.imageUrl = imageUrl;
     }
 
+    public String getName() {
+        return name;
+    }
+    public String getMobile() {
+        return mobile;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public String getCity() {
+        return city;
+    }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
 }

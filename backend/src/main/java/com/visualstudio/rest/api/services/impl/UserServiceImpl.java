@@ -1,6 +1,6 @@
 package com.visualstudio.rest.api.services.impl;
 
-import com.visualstudio.rest.api.dto.LoginDto;
+import com.visualstudio.rest.api.models.dtos.security.LoginDto;
 import com.visualstudio.rest.api.models.entities.FavoriteProducts;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.models.entities.Role;
@@ -186,6 +186,14 @@ public class UserServiceImpl implements IUserService {
         catch (UsernameNotFoundException e) {
             throw new UsernameNotFoundException("El usuario no existe " + loginDto.getEmail());
         }
+    }
+
+    public void confirmRegistration(String token) {
+
+        String email = jwtUtilities.extractUserName(token);
+        User user = userRepository.findByEmail(email);
+        user.setConfirmed(true);
+        userRepository.save(user);
     }
 
 }

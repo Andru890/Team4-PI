@@ -1,6 +1,6 @@
 package com.visualstudio.rest.api.services;
 
-import com.visualstudio.rest.api.dto.LoginDto;
+import com.visualstudio.rest.api.models.dtos.security.LoginDto;
 import com.visualstudio.rest.api.models.entities.User;
 
 import java.util.List;
@@ -21,4 +21,6 @@ public interface IUserService {
     User assignAdminRole(Long userId);
 
     String authentication(LoginDto loginDto);
+
+    void confirmRegistration(String token);
 }

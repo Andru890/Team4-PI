@@ -1,7 +1,7 @@
 package com.visualstudio.rest.api.services.impl;
 
 
-import com.visualstudio.rest.api.dto.Entrada.CategoryDTO;
+import com.visualstudio.rest.api.models.dtos.CategoryDTO;
 import com.visualstudio.rest.api.models.entities.Category;
 import com.visualstudio.rest.api.repositories.CategoryRepository;
 import com.visualstudio.rest.api.services.ICategoryService;
@@ -9,9 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service

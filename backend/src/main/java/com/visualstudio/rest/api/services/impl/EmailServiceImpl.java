@@ -1,7 +1,7 @@
 package com.visualstudio.rest.api.services.impl;
 
 
-import com.visualstudio.rest.api.dto.EmailDto;
+import com.visualstudio.rest.api.models.dtos.security.EmailDto;
 import com.visualstudio.rest.api.services.IEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

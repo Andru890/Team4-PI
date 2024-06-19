@@ -1,7 +1,7 @@
 package com.visualstudio.rest.api.controllers;
 
 import com.visualstudio.rest.api.Security.CustomAuthenticationProvider;
-import com.visualstudio.rest.api.dto.LoginDto;
+import com.visualstudio.rest.api.models.dtos.security.LoginDto;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IRegistrationService;
@@ -143,6 +143,16 @@ public class UserController {
     public ResponseEntity<User> assignAdminRole(@PathVariable Long userId) {
         User assignedAdmin = userService.assignAdminRole(userId);
         return ResponseEntity.ok(assignedAdmin);
+    }
+
+    @GetMapping("/confirm")
+    public ResponseEntity<String> confirmRegistration(@RequestParam("token") String token) {
+        try {
+            userService.confirmRegistration(token);
+            return ResponseEntity.ok("Registration confirmed");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token");
+        }
     }
 
 }

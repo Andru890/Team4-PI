@@ -1,11 +1,10 @@
 package com.visualstudio.rest.api.controllers;
 
 import com.visualstudio.rest.api.Security.CustomAuthenticationProvider;
-import com.visualstudio.rest.api.dto.LoginDto;
-import com.visualstudio.rest.api.dto.RegistroDto;
+import com.visualstudio.rest.api.models.dtos.security.LoginDto;
+import com.visualstudio.rest.api.models.dtos.security.RegistroDto;
 import com.visualstudio.rest.api.models.entities.User;
 import com.visualstudio.rest.api.repositories.UserRepository;
-import com.visualstudio.rest.api.services.IEmailService;
 import com.visualstudio.rest.api.services.IRegistrationService;
 import com.visualstudio.rest.api.services.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,11 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/registration")
@@ -33,7 +27,6 @@ public class RegistrationController {
     private final UserRepository userRepository;
     private final CustomAuthenticationProvider authenticationProvider;
     private final IRegistrationService registrationService;
-    private final IEmailService emailService;
 
 
 

@@ -1,6 +1,6 @@
 package com.visualstudio.rest.api.services;
 
-import com.visualstudio.rest.api.dto.EmailDto;
+import com.visualstudio.rest.api.models.dtos.security.EmailDto;
 
 import java.util.List;
 

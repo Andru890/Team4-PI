@@ -1,7 +1,7 @@
 package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
-import com.visualstudio.rest.api.dto.Entrada.ProductDetailDTO;
+import com.visualstudio.rest.api.models.dtos.ProductDetailDTO;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.models.entities.ProductDetail;
 import com.visualstudio.rest.api.repositories.ProductDetailRepository;

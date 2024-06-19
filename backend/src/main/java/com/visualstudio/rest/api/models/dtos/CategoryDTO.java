@@ -1,8 +1,8 @@
 
-package com.visualstudio.rest.api.dto.Entrada;
+package com.visualstudio.rest.api.models.dtos;
 
 import lombok.*;
-import com.visualstudio.rest.api.dto.Entrada.ProductDTO;
+
 import java.util.List;
 
 @Getter

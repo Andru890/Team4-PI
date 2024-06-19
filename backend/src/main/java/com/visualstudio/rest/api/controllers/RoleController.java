@@ -1,4 +1,3 @@
-
 package com.visualstudio.rest.api.controllers;
 
 import com.visualstudio.rest.api.models.entities.Role;

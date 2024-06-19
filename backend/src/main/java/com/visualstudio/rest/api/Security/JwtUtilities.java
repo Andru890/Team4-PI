@@ -1,10 +1,14 @@
 package com.visualstudio.rest.api.Security;
 
+import com.visualstudio.rest.api.configuration.MailConfiguration;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,9 +27,19 @@ import java.util.function.Function;
 @Component
 public class JwtUtilities {
 
+    @Autowired
+    private JavaMailSender mailSender;
+
+    @Autowired
+    private MailConfiguration mailConfiguration;
+
+    @Value("${mail.sender}")
+    private String emailUser;
 
     private final String secretKey= "4sRGsHtzZbQjNVTJkG9z5f3Q6vTnZ2s7cKxG6ZfRf2RqKrXQYvJpCxJ9X54WcTJ";
     private final long jwtExpiration = 1000 * 60 * 60 * 10;
+
+
 
     private SecretKey getKey() {
         return Keys.hmacShaKeyFor(Base64.getDecoder().decode(secretKey));}
@@ -102,6 +116,15 @@ public class JwtUtilities {
             return bearerToken.substring(7);
         }
         return null;
+    }
+
+    public void SendEmail(String toUser, String subject, String message) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(toUser);
+        simpleMailMessage.setSubject(subject);
+        simpleMailMessage.setText(message);
+        simpleMailMessage.setFrom(emailUser);
+        mailSender.send(simpleMailMessage);
     }
 
 }

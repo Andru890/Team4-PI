@@ -1,15 +1,7 @@
-package com.visualstudio.rest.api.dto.Entrada;
+package com.visualstudio.rest.api.models.dtos;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.visualstudio.rest.api.models.entities.Category;
-import com.visualstudio.rest.api.models.entities.FavoriteProducts;
-import com.visualstudio.rest.api.models.entities.ProductDetail;
-import com.visualstudio.rest.api.models.entities.Reservation;
-import jakarta.persistence.*;
 import lombok.*;
-import com.visualstudio.rest.api.dto.Entrada.ProductDetailDTO;
 
 import java.util.Date;
 
@@ -34,6 +26,5 @@ public class ProductDTO {
     private Date dateOut;
     private List<ProductDetailDTO> characteristics;
     private List<String> images;
-    private List<FavoriteProducts> favoriteProducts;
     private String categoryId;
 }
