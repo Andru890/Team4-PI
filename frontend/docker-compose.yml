@@ -9,14 +9,14 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - frontend-data:/app/build  # Bind mount para persistir los archivos generados
+      - frontend-data:/app/build 
     networks:
       - spring
     restart: always
 
 volumes:
   frontend-data:
-    name: frontend-data  # Nombre del volumen
+    name: frontend-data
 
 networks:
   spring:
