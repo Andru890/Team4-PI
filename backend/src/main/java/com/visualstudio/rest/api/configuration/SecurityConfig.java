@@ -43,7 +43,8 @@ public class SecurityConfig {
             "product/**",
             "v1/**",
             "registration/**",
-            "confirmation-email/**"}
+            "confirmation-email/**",
+            "product-detail/**"}
             ;
 
 
@@ -59,15 +60,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                //.requestMatchers("/user/register/").permitAll()
-                                //.requestMatchers("/user/validate").permitAll(
+                                .requestMatchers("/user/register/").permitAll()
+                                .requestMatchers("/user/validate").permitAll(
 
-                                //)
-                                //.requestMatchers("/user/authenticate/").permitAll()
-                                //.requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                //.requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                //.requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                //.requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                )
+                                .requestMatchers("/user/authenticate/").permitAll()
+                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
                                 .anyRequest()
                                 .authenticated()
                 )
