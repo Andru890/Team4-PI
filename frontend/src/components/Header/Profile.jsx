@@ -1,4 +1,3 @@
-// components/Header/Profile.js
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AvatarImage, AvatarFallback, Avatar } from '@/components/ui/avatar'

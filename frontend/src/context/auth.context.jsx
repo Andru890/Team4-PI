@@ -1,4 +1,3 @@
-// context/auth.context.js
 import { createContext, useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 
@@ -15,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       sessionStorage.setItem('user', JSON.stringify(user))
-      sessionStorage.setItem('token', user.token) // Store token separately
+      sessionStorage.setItem('token', user.token)
     } else {
       sessionStorage.removeItem('user')
       sessionStorage.removeItem('token')
@@ -28,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         `${API_URL}/registration/authenticate`,
         credentials
       )
-      console.log('Response from API:', response.data) // Debugging the response
+      console.log('Response from API:', response.data)
 
       // El token es una cadena simple en la respuesta
       const token = response.data
