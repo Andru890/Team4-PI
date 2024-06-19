@@ -55,6 +55,7 @@ public class RegistrationServiceImpl implements IRegistrationService {
         newUser.setCity(registroDto.getCity());
         newUser.setPassword(registroDto.getPassword());
         newUser.setRole(getDefaultRole());
+        newUser.setImageUrl(registroDto.getImageUrl());
 
         return userRepository.save(newUser);
 
