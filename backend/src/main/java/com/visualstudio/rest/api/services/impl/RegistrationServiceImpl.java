@@ -37,6 +37,7 @@ public class RegistrationServiceImpl implements IRegistrationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtilities jwtUtilities;
     private final AuthenticationManager authenticationManager;
+    private final EmailServiceImpl emailService;
 
 
 
@@ -72,9 +73,17 @@ public class RegistrationServiceImpl implements IRegistrationService {
         newUser.setCity(registroDto.getCity());
         newUser.setPassword(registroDto.getPassword());
         newUser.setRole(getDefaultRole());
+        newUser.setImageUrl(registroDto.getImageUrl());
 
-        return userRepository.save(newUser);
+        User savedUser = userRepository.save(newUser);
 
+        String toUser = savedUser.getEmail();
+        String subject = "Bienvenido a Visual Studio";
+        String message = "Hola " + savedUser.getName() + ",\n\n" + "Gracias por registrarte en Visual Studio";
+
+        emailService.sendEmail(toUser, subject, message);
+
+        return savedUser;
 
     }
 

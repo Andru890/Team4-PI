@@ -8,9 +8,5 @@ public interface IEmailService {
 
     void sendEmail(String toUser, String subject, String message);
 
-    String getLastToUser();
-
-    String getLastSubject();
-
-    String getLastMessage();
+    List<EmailDto> getAllEmails();
 }

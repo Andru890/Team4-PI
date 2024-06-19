@@ -1,23 +1,24 @@
 package com.visualstudio.rest.api.services.impl;
 
 
+import com.visualstudio.rest.api.dto.EmailDto;
 import com.visualstudio.rest.api.services.IEmailService;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class EmailServiceImpl implements IEmailService {
 
-    private String emailUser = System.getenv("EMAIL.USER");
+    @Value("${mail.sender}")
+    private String emailUser;
     @Autowired
     private JavaMailSender mailSender;
-
-    private String lastToUser;
-    private String lastSubject;
-    private String lastMessage;
 
     @Override
     public void sendEmail(String toUser, String subject, String message) {
@@ -28,24 +29,13 @@ public class EmailServiceImpl implements IEmailService {
         simpleMailMessage.setText(message);
         simpleMailMessage.setFrom(emailUser);
 
-        lastToUser = toUser;
-        lastSubject = subject;
-        lastMessage = message;
-
         mailSender.send(simpleMailMessage);
     }
 
 
-    public String getLastToUser() {
-        return lastToUser;
-    }
+    @Override
+    public List<EmailDto> getAllEmails() {
 
-    public String getLastSubject() {
-        return lastSubject;
+        return new ArrayList<>();
     }
-
-    public String getLastMessage() {
-        return lastMessage;
-    }
-
 }
