@@ -47,21 +47,6 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User save(User user) {
-        User existingUser = userRepository.findByEmail(user.getEmail());
-        if (existingUser != null){
-            throw new IllegalArgumentException("El usuario con el correo " + user.getEmail() + " ya existe.");
-        } else {
-            Role customerRole = roleRepository.findByName("customer");
-            user.setRole(customerRole);
-            if (user.getRole() == null){
-                user.setRole(getDefaultRole());
-            }
-        }
-        return userRepository.save(user);
-    }
-
-    @Override
     public User update(User user, Long id) {
         User wantedUser = userRepository.findById(id).get();
         wantedUser.setName(user.getName());
@@ -205,6 +190,18 @@ public class UserServiceImpl implements IUserService {
         } else {
             throw new IllegalArgumentException("Invalid token");
         }
+    }
+
+    @Override
+    public void resendConfirmationEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new IllegalArgumentException("El usuario no existe");
+        }
+        if (user.isConfirmed()) {
+            throw new IllegalArgumentException("El usuario ya ha sido confirmado");
+        }
+        confirmRegistration(jwtUtilities.extractUserName(user.getEmail()));
     }
 
 }

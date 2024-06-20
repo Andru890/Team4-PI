@@ -8,8 +8,6 @@ import java.util.List;
 public interface IUserService {
     List<User> getAll();
 
-    User save(User user);
-
     User update(User user, Long id);
 
     User getOne(Long id);
@@ -23,4 +21,6 @@ public interface IUserService {
     String authentication(LoginDto loginDto);
 
     void confirmRegistration(String token);
+
+    void resendConfirmationEmail(String email);
 }

@@ -35,7 +35,7 @@ public class SecurityConfig {
             "/swagger-ui.html",
             "/webjars/**",
             "role/**",
-            "user/",
+            "user/**",
             "user/logout",
             "user/{email}/role",
             "reservation/**",
@@ -65,6 +65,8 @@ public class SecurityConfig {
                                 .requestMatchers("/user/register/").permitAll()
                                 .requestMatchers("/mail/List").permitAll()
                                 .requestMatchers("user/confirm").permitAll()
+                                .requestMatchers("/user/login").permitAll()
+                                .requestMatchers("user/resend-confirmation").permitAll()
                                 .requestMatchers("/user/delete").hasAnyAuthority(ADMIN.name())
                                 .requestMatchers("/configuration/security").hasAnyAuthority(ADMIN.name())
                                 .requestMatchers(GET, "/rest/api/**").hasAnyAuthority(ADMIN.name())

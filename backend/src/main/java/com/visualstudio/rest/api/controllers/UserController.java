@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -81,21 +82,8 @@ public class UserController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
-    @GetMapping("/email/{email}")
-    public ResponseEntity<User> userDetail(@PathVariable String email) {
-        User user = registrationService.confirmRegistration(email);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
 
-    @Operation(summary = "Update user")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Update a user",
-                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
-            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
-    })
+
     @PutMapping
     public ResponseEntity<User> update(@Valid @RequestBody User user) {
         try {
@@ -147,16 +135,23 @@ public class UserController {
         return ResponseEntity.ok(assignedAdmin);
     }
 
-    @GetMapping("/confirm")
-    public ResponseEntity<String> confirmRegistration(@RequestParam("token") String token) {
+    @PostMapping("/confirm")
+    public ResponseEntity<Void> confirmRegistration(@RequestParam("token") String token) throws MessagingException {
         try {
             userService.confirmRegistration(token);
-            return ResponseEntity.status(HttpStatus.FOUND)
-                    .header(HttpHeaders.LOCATION, "http://visualstudioservice.duckdns.org:3000/")
-                    .build();
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+    @PostMapping("/resend-confirmation")
+    public ResponseEntity<?> resendConfirmationEmail(@RequestParam("email") String email) {
+        try {
+            userService.resendConfirmationEmail(email);
+            return ResponseEntity.ok("Correo de confirmación reenviado exitosamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al reenviar el correo de confirmación");
         }
     }
-
 }

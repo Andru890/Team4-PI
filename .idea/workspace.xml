@@ -4,13 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="">
+    <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="SE REALIZA REENVIAR CORREO DE CONFIRMACIÓN">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/FavoriteProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/MailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/ReservationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/ReservationEntradaDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/ReservationProductDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/ProductServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/RegistrationServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/Security/JwtUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/Security/JwtUtilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/configuration/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/configuration/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/configuration/WebCorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/configuration/WebCorsConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/RegistrationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IEmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IEmailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IRegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IRegistrationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/EmailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/EmailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/node_modules/.bin/acorn" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/node_modules/.bin/autoprefixer" beforeDir="false" />
@@ -17043,6 +17053,7 @@
       <change beforePath="$PROJECT_DIR$/frontend/node_modules/react/cjs/react.production.min.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/node_modules/react/cjs/react.shared-subset.development.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/node_modules/react/cjs/react.shared-subset.production.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/node_modules/react/index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/node_modules/react/jsx-dev-runtime.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/node_modules/react/jsx-runtime.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/node_modules/react/package.json" beforeDir="false" />
@@ -21868,7 +21879,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718765491021</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="SE REALIZA CONFIRMACIÓN DE CORREO ELECTRÓNICO CONECTANDOLO AL HOME">
+      <option name="closed" value="true" />
+      <created>1718828752313</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1718828752313</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -21901,7 +21920,9 @@
     <MESSAGE value=" @Override&#10;    public String getUsername() {&#10;        return this.id.toString();&#10;    } se modifica el traer el username" />
     <MESSAGE value="se modifica el getUsername trayendo todos los atributos" />
     <MESSAGE value="SE REALIZA LA CONFIRMACIÓN CON EL TOKEN DE USUARIO" />
-    <option name="LAST_COMMIT_MESSAGE" value="SE REALIZA LA CONFIRMACIÓN CON EL TOKEN DE USUARIO" />
+    <MESSAGE value="SE REALIZA CONFIRMACIÓN DE CORREO ELECTRÓNICO CONECTANDOLO AL HOME" />
+    <MESSAGE value="SE REALIZA REENVIAR CORREO DE CONFIRMACIÓN" />
+    <option name="LAST_COMMIT_MESSAGE" value="SE REALIZA REENVIAR CORREO DE CONFIRMACIÓN" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

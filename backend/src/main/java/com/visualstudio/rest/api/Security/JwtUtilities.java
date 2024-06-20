@@ -49,6 +49,7 @@ public class JwtUtilities {
         return extractClaim(token, Claims::getSubject);
     }
 
+
     private Claims getAllClaims(String token) {
         return Jwts.parser()
                 .verifyWith(getKey())
@@ -118,13 +119,14 @@ public class JwtUtilities {
         return null;
     }
 
-    public void SendEmail(String toUser, String subject, String message) {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo(toUser);
-        simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(message);
-        simpleMailMessage.setFrom(emailUser);
-        mailSender.send(simpleMailMessage);
+    public String getEmailFromToken(String token) {
+        Claims claims =
+                Jwts.parser()
+                        .verifyWith(getKey())
+                        .build()
+                        .parseSignedClaims(token)
+                        .getPayload();
+        return claims.getSubject();
     }
 
 }
