@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  frontend:
+    container_name: frontend-service
+    image: frontend:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - frontend-data:/app/build  # Bind mount para persistir los archivos generados
+    networks:
+      - spring
+    restart: always
+
+volumes:
+  frontend-data:
+    name: frontend-data  # Nombre del volumen
+
+networks:
+  spring:
+    external: true

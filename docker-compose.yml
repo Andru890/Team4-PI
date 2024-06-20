@@ -1,0 +1,51 @@
+version: "3.9"
+services:
+  mysql8:
+    container_name: mysql8
+    image: mysql:8
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: sa
+      MYSQL_DATABASE: visual_studio_db
+    volumes:
+      - ./query_categories.sql:/docker-entrypoint-initdb.d/query_categories.sql
+      - ./query_products.sql:/docker-entrypoint-initdb.d/query_products.sql
+    restart: always
+    networks:
+      - spring
+
+  visual-studio:
+    container_name: visual-service
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file: ./backend/.env
+    networks:
+      - spring
+    depends_on:
+      - mysql8
+    restart: always
+
+  frontend:
+    container_name: frontend-service
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - frontend-data:/app/build
+    networks:
+      - spring
+    restart: always
+
+volumes:
+  frontend-data:
+    name: frontend-data
+
+networks:
+  spring:
+    name: spring

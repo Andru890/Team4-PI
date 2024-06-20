@@ -1,0 +1,37 @@
+{
+  "database": {
+    "1716249734269": {
+      "host": "127.0.0.1",
+      "port": 3306,
+      "user": "root",
+      "dbType": "MySQL",
+      "advance": {
+        "hideSystemSchema": true,
+        "groupingTables": false
+      },
+      "treeFeatures": [],
+      "timezone": "+00:00",
+      "useConnectionString": true,
+      "connectionUrl": "mysql://root:sa@localhost:3307",
+      "usingSSH": false,
+      "useSocksProxy": false,
+      "useHTTPProxy": false,
+      "global": true,
+      "savePassword": "Forever",
+      "readonly": false,
+      "sort": 11,
+      "useSSL": false,
+      "fs": {
+        "encoding": "utf8",
+        "showHidden": true
+      },
+      "httpAuth": {
+        "authType": "none"
+      },
+      "key": "1716249734269",
+      "connectionKey": "database.connections"
+    }
+  },
+  "nosql": null,
+  "$schema": "http://127.0.0.1:8828/schema.json"
+}
