@@ -1,4 +1,5 @@
 package com.visualstudio.rest.api.models.dtos.security;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

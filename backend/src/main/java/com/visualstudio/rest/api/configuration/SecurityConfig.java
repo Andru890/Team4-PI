@@ -31,6 +31,7 @@ public class SecurityConfig {
 
             "/swagger-ui/**",
             "/swagger-resources/**",
+            "/configuration/security",
             "/configuration/ui",
             "/swagger-ui.html",
             "/webjars/**",
@@ -46,7 +47,8 @@ public class SecurityConfig {
             "registration/**",
             "/mail/**",
             "registration/**",
-            "confirmation-email/**"}
+            "confirmation-email/**",
+            "product-detail/**"}
             ;
 
 

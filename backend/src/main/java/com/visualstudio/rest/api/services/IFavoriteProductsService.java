@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IFavoriteProductsService {
 
+
     public List<FavoriteProducts> getAll();
     public FavoriteProducts getOne(Long id);
     public List<FavoriteProducts> getUserProducts(Long userId);

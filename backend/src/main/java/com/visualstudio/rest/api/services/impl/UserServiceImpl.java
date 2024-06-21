@@ -98,7 +98,19 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User updateRole(Long userId) {
-        return null;
+        User user = userRepository.findById(userId).get();
+        Role newRole = roleRepository.findByName("admin");
+
+        if (newRole == null){
+            updateRole(userId);
+        }
+
+        if (user.getRole().getName() == "customer"){
+            user.setRole(newRole);
+        } else if (user.getRole().getName() == "admin") {
+            user.setRole(roleRepository.findByName("customer"));
+        }
+        return userRepository.save(user);
     }
 
     public FavoriteProducts addFavorite(Long userId, Long productId) {
@@ -111,10 +123,6 @@ public class UserServiceImpl implements IUserService {
         return favoriteProductsRepository.save(newProduct);
     }
 
-    /*public void removeFavorite(Long id) {
-        FavoriteProducts product = favoriteProductsRepository.fin
-
-    }*/
 
     public Role getDefaultRole() {
         return new Role("customer");

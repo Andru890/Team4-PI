@@ -2,6 +2,7 @@ package com.visualstudio.rest.api.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.*;
 
 

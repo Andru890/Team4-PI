@@ -29,6 +29,7 @@ public class FavoriteProductController {
     @GetMapping("/list")
     public List<FavoriteProducts> allFavoritesList() {
         return favoriteProductsService.getAll();
+
     }
 
     @GetMapping("/{id}")
