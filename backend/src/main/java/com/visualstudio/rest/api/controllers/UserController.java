@@ -2,7 +2,9 @@ package com.visualstudio.rest.api.controllers;
 
 import com.visualstudio.rest.api.Security.CustomAuthenticationProvider;
 import com.visualstudio.rest.api.models.dtos.security.LoginDto;
+import com.visualstudio.rest.api.models.entities.Role;
 import com.visualstudio.rest.api.models.entities.User;
+import com.visualstudio.rest.api.repositories.RoleRepository;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IRegistrationService;
 import com.visualstudio.rest.api.services.IUserService;
@@ -30,6 +32,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final CustomAuthenticationProvider authenticationProvider;
     private final IRegistrationService registrationService;
+    private final RoleRepository roleRepository;
 
     @Operation(summary = "Found list user")
     @ApiResponses(value = {
@@ -95,34 +98,48 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
-    @PutMapping("/{userId}")
-    public ResponseEntity<?> update(@Valid @RequestBody User user, @PathVariable Long userId) {
-        try {
-            User existingUser = userService.getOne(userId);
-            if (existingUser == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
-            }
-
-            // Si no se proporciona una nueva contraseña, usa la existente
-            if (user.getPassword() == null || user.getPassword().isEmpty()) {
-                user.setPassword(existingUser.getPassword());
-            }
-
-            // Actualiza imageUrl si se proporciona uno nuevo
-            if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
-                existingUser.setImageUrl(user.getImageUrl());
-            }
-
-            User updatedUser = userService.update(existingUser, userId);
-            return ResponseEntity.ok(updatedUser);
-        } catch (UsernameNotFoundException e) {
+   @PutMapping("/{userId}")
+public ResponseEntity<?> update(@Valid @RequestBody User user, @PathVariable Long userId) {
+    try {
+        User existingUser = userService.getOne(userId);
+        if (existingUser == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos de solicitud inválidos");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor");
         }
+
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            user.setPassword(existingUser.getPassword());
+        }
+
+        if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
+            existingUser.setImageUrl(user.getImageUrl());
+        }
+
+        if (user.getName() != null && !user.getName().isEmpty()) {
+            existingUser.setName(user.getName());
+        }
+        if (user.getLastname() != null && !user.getLastname().isEmpty()) {
+            existingUser.setLastname(user.getLastname());
+        }
+        if (user.getPhone() != null && !user.getPhone().isEmpty()) {
+            existingUser.setPhone(user.getPhone());
+        }
+        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+            existingUser.setEmail(user.getEmail());
+        }
+        if (user.getCity() != null && !user.getCity().isEmpty()) {
+            existingUser.setCity(user.getCity());
+        }
+
+        User updatedUser = userService.update(existingUser, userId);
+        return ResponseEntity.ok(updatedUser);
+    } catch (UsernameNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos de solicitud inválidos");
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor");
     }
+}
 
     @Operation(summary = "Change Role")
     @ApiResponses(value = {
@@ -142,7 +159,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> delete(@PathVariable("userId") Long userId){
+    public ResponseEntity<Void> delete(@PathVariable Long userId){
         userService.delete(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -155,7 +172,19 @@ public class UserController {
     })
     @PutMapping("/{userId}/assign-admin")
     public ResponseEntity<User> assignAdminRole(@PathVariable Long userId) {
-        User assignedAdmin = userService.assignAdminRole(userId);
-        return ResponseEntity.ok(assignedAdmin);
+        if (userId == null) {
+            throw new IllegalArgumentException("El id del usuario no puede ser null");
+        }
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        Role adminRole = roleRepository.findByName("ADMIN");
+        if (adminRole == null) {
+            throw new IllegalArgumentException("Rol de administrador no encontrado");
+        }
+
+        user.setRole(adminRole);
+        User updatedUser = userRepository.save(user);
+        return ResponseEntity.ok(updatedUser);
     }
 }
