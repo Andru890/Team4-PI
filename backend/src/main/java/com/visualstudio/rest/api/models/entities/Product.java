@@ -66,4 +66,8 @@ public class Product {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<FavoriteProducts> favoriteProducts;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<QualifyProduct> qualifyProducts;
 }

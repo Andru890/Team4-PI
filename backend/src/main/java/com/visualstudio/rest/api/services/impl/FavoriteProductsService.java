@@ -35,10 +35,10 @@ public class FavoriteProductsService  implements IFavoriteProductsService {
         return products;
     }
     @Override
-    public void saveFavorite(Long userId, Long productId){
-        User user = userRepository.findById(userId).get();
+    public void saveFavorite(String emailId, Long productId){
+        User user = userRepository.findByEmail(emailId);
         Product product = productsRepository.findById(productId).get();
-        List<FavoriteProducts> existingProducts = favoriteProductsRepository.findByUserIdAndProductId(userId, productId);
+        List<FavoriteProducts> existingProducts = favoriteProductsRepository.findByUserIdAndProductId(user.getId(), productId);
         if (!existingProducts.isEmpty()) {
             throw new IllegalArgumentException("El producto ya es favorito");
         }

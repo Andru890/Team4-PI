@@ -30,9 +30,9 @@ public class FavoriteProductController {
         return favoriteProductsService.getUserProducts(id);
     }
 
-    @PostMapping("/user/{userId}/product/{productId}")
-    public void addFavorite(@PathVariable Long userId, @PathVariable Long productId) {
-        favoriteProductsService.saveFavorite(userId, productId);
+    @PostMapping("/user/{emailId}/product/{productId}")
+    public void addFavorite(@PathVariable String emailId, @PathVariable Long productId) {
+        favoriteProductsService.saveFavorite(emailId, productId);
     }
     @DeleteMapping("/delete/{id}")
     private void deleteFavorite(@PathVariable Long id){

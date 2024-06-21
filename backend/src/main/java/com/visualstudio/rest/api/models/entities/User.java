@@ -57,4 +57,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Reservation> reservations;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<QualifyProduct> qualifyProducts;
 }

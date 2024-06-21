@@ -9,6 +9,6 @@ public interface IFavoriteProductsService {
     public List<FavoriteProducts> getAll();
     public FavoriteProducts getOne(Long id);
     public List<FavoriteProducts> getUserProducts(Long userId);
-    public void saveFavorite(Long userId, Long productId);
+    public void saveFavorite(String emailId, Long productId);
     public void deleteFavorite(Long id);
 }

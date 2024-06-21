@@ -42,4 +42,7 @@ public class Reservation {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_USER_ID"))
     private User user;
+
+    @OneToOne(mappedBy = "reservation")
+    private QualifyProduct qualifyProduct;
 }
