@@ -1,0 +1,35 @@
+{
+  "display_override": ["windows-control-overlay"],
+  "name":"Visual Studio Service",
+  "lang": "es-ES",
+  "short_name": "VSS App",
+  "description": "Arriendo de equipos Audiovisuales",
+  "icons": [
+    {
+      "src": "service.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logoimg2.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "logoimg2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

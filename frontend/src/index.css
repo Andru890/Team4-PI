@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 216 100% 100%;
+    --foreground: 216 5% 10%;
+    --card: 216 50% 100%;
+    --card-foreground: 216 5% 15%;
+    --popover: 216 100% 100%;
+    --popover-foreground: 216 100% 10%;
+    --primary: 216 88% 24%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 216 30% 90%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 178 30% 95%;
+    --muted-foreground: 216 5% 40%;
+    --accent: 178 30% 90%;
+    --accent-foreground: 216 5% 15%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 216 5% 100%;
+    --border: 216 30% 82%;
+    --input: 216 30% 50%;
+    --ring: 216 88% 24%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 216 50% 10%;
+    --foreground: 216 5% 100%;
+    --card: 216 50% 10%;
+    --card-foreground: 216 5% 100%;
+    --popover: 216 50% 5%;
+    --popover-foreground: 216 5% 100%;
+    --primary: 216 88% 24%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 216 30% 20%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 178 30% 25%;
+    --muted-foreground: 216 5% 65%;
+    --accent: 178 30% 25%;
+    --accent-foreground: 216 5% 95%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 216 5% 100%;
+    --border: 216 30% 50%;
+    --input: 216 30% 50%;
+    --ring: 216 88% 24%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* background-color: #dcd8cf; */
+  }
+}
+
+.loader {
+  @apply relative w-20 h-20;
+}
+
+.loader-dot {
+  @apply absolute w-4 h-4 rounded-full bg-blue-500;
+}
+
+.loader-dot:nth-child(1) {
+  @apply animate-loader1 top-0 left-1/4;
+}
+
+.loader-dot:nth-child(2) {
+  @apply animate-loader2 top-1/4 left-0;
+}
+
+.loader-dot:nth-child(3) {
+  @apply animate-loader2 top-1/2 right-0;
+}
+
+.loader-dot:nth-child(4) {
+  @apply animate-loader3 bottom-1/4 left-1/2;
+}
+
+@keyframes loader1 {
+  0% {
+    @apply scale-0;
+  }
+  100% {
+    @apply scale-100;
+  }
+}
+
+@keyframes loader3 {
+  0% {
+    @apply scale-100;
+  }
+  100% {
+    @apply scale-0;
+  }
+}
+
+@keyframes loader2 {
+  0% {
+    @apply translate-x-0 translate-y-0;
+  }
+  100% {
+    @apply translate-x-6 translate-y-6;
+  }
+}
+
+@layer utilities {
+  /* Aquí puedes definir tus clases de animación */
+  .animate-loader1 {
+    animation: loader1 0.6s infinite;
+  }
+
+  .animate-loader2 {
+    animation: loader2 0.6s infinite;
+  }
+
+  .animate-loader3 {
+    animation: loader3 0.6s infinite;
+  }
+}

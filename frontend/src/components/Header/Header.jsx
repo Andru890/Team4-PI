@@ -1,0 +1,55 @@
+// components/Header.js
+import { Button } from '@/components/ui/button'
+import Navbar from '@/components/Header/Navbar/Navbar'
+import HamburgerMenu from '@/components/Header/Navbar/HamburgerMenu'
+import { Link } from 'react-router-dom'
+import { routes } from '@/routes/routes'
+import Profile from '@/components/Header/Profile'
+import { useAuthContext } from '@/context/auth.context'
+
+const Header = () => {
+  const { user } = useAuthContext()
+  const token = sessionStorage.getItem('token')
+  const isAuthenticated = user && token
+
+  return (
+    <header className='fixed top-0 left-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 bg-white'>
+      <Link to='/'>
+        <div className='flex items-center gap-2'>
+          <img
+            src='/logoimg.png'
+            alt='logotipo de la empresa que representa la imagen'
+            height={100}
+            width={70}
+          />
+          <img
+            src='/isotipo.png'
+            alt='isotipo de la empresa que representa el nombre'
+            height={100}
+            width={120}
+          />
+        </div>
+      </Link>
+      <HamburgerMenu />
+      <div className='ml-auto hidden lg:flex items-center gap-4'>
+        <Navbar />
+        <div className='flex items-center gap-2 cursor-pointer'>
+          {isAuthenticated ? (
+            <Profile />
+          ) : (
+            <>
+              <Link to={routes.login}>
+                <Button variant='outline'>Iniciar sesión</Button>
+              </Link>
+              <Link to={routes.register}>
+                <Button>Registrarse</Button>
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+    </header>
+  )
+}
+
+export default Header
