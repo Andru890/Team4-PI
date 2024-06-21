@@ -35,6 +35,7 @@ public class AdminInicialData implements ApplicationRunner {
             adminUser.setCity("admin");
             adminUser.setImageUrl("null");
             adminUser.setRole(adminRole);
+            adminUser.setConfirmed(true);
             userRepository.save(adminUser);
         }
     }

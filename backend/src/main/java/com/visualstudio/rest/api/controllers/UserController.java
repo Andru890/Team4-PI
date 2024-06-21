@@ -16,7 +16,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -33,7 +32,7 @@ public class UserController {
     private final IUserService userService;
     private final UserRepository userRepository;
     private final CustomAuthenticationProvider authenticationProvider;
-
+    private final RoleRepository roleRepository;
     private final IRegistrationService registrationService;
 
 
@@ -73,6 +72,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
+
     @GetMapping("/{userId}")
     public ResponseEntity<User> getOne(@PathVariable Long userId) {
         return new ResponseEntity<>(userService.getOne(userId), HttpStatus.OK);
@@ -84,10 +84,25 @@ public class UserController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> userDetail(@PathVariable String email) {
+        User user = registrationService.confirmRegistration(email);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
-
-    @PutMapping
-    public ResponseEntity<User> update(@Valid @RequestBody User user) {
+    @Operation(summary = "Update user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Update a user",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid request data", content = @Content),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    @PutMapping("/{userId}")
+    public ResponseEntity<?> update(@Valid @RequestBody User user, @PathVariable Long userId) {
         try {
             User existingUser = userService.getOne(userId);
             if (existingUser == null) {
@@ -178,7 +193,13 @@ public class UserController {
         User updatedUser = userRepository.save(user);
         return ResponseEntity.ok(updatedUser);
     }
-}
+
+    @Operation(summary = "Confirm Registration")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Confirm Registration",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
+    })
     @PostMapping("/confirm")
     public ResponseEntity<Void> confirmRegistration(@RequestParam("token") String token) throws MessagingException {
         try {
@@ -187,7 +208,6 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
     }
     @PostMapping("/resend-confirmation")
     public ResponseEntity<?> resendConfirmationEmail(@RequestParam("email") String email) {

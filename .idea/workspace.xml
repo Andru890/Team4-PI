@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/Security/AdminInicialData.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/Security/AdminInicialData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/UserEntradaDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/UserEntradaDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +87,7 @@
       <recent name="C:\Users\Paula A Palacios\OneDrive\Documentos\Team4-PI\backend\src\main\java\com\visualstudio\rest\api\models\dto" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RegistrationServiceImplTest">
+  <component name="RunManager">
     <configuration name="RegistrationServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="visual-studio" />
       <extension name="coverage">
@@ -165,11 +169,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.RegistrationServiceImplTest" />
         <item itemvalue="JUnit.RegistrationServiceImplTest.testSave_NewUser_Success" />
         <item itemvalue="JUnit.RegistrationServiceImplTest.testConfirmRegistration_UserExists_Success" />
         <item itemvalue="JUnit.RegistrationServiceImplTest.testConfirmRegistration_UserDoesNotExist" />
         <item itemvalue="JUnit.RegistrationServiceImplTest.testAuthenticate_ValidCredentials_Success" />
-        <item itemvalue="JUnit.RegistrationServiceImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -289,31 +293,6 @@
     <MESSAGE value="SE REALIZA REENVIAR CORREO DE CONFIRMACIÓN" />
     <MESSAGE value="se cambia correo en la aplicación" />
     <option name="LAST_COMMIT_MESSAGE" value="se cambia correo en la aplicación" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/test/java/com/visualstudio/rest/api/EmailServiceImplTest.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/test/java/com/visualstudio/rest/api/UserServiceTest.java</url>
-          <line>183</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/backend/src/test/java/com/visualstudio/rest/api/UserServiceTest.java</url>
-          <line>157</line>
-          <properties class="com.visualstudio.rest.api.UserServiceTest" method="testAuthentication">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

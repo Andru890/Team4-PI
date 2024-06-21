@@ -52,7 +52,7 @@ public class User implements  UserDetails {
     private String imageUrl;
 
     @Column(name = "confirmed")
-    private boolean confirmed;
+    private Boolean confirmed;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"user", "hibernateLazyInitializer"})
@@ -109,4 +109,6 @@ public class User implements  UserDetails {
     }
 
 
-}
+    public boolean isConfirmed() { return confirmed; }
+    }
+
