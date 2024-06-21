@@ -4,12 +4,11 @@ spring:
   application:
     name: visual-studio-api
   datasource:
-    #url: jdbc:mysql://mysql8:3306/visual_studio_db
+    #    url: jdbc:mysql://mysql8:3306/visual_studio_db
     url: jdbc:mysql://localhost:3306/visual_studio_db
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -21,8 +20,8 @@ jwt.secret: "4sRGsHtzZbQjNVTJkG9z5f3Q6vTnZ2s7cKxG6ZfRf2RqKrXQYvJpCxJ9X54WcTJ"
 jtw.expiration: 86400000
 
 mail:
-  sender: paula.a.palacios.a@gmail.com
-  password: xqib debt qzbh jzoz
+  sender: visualstudioservice@gmail.com
+  password: wuod dgfa hpjc tazj
 
 
 

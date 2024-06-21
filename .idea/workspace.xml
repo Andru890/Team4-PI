@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/security/LoginDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/security/LoginDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/RegistrationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +84,7 @@
       <recent name="C:\Users\Paula A Palacios\OneDrive\Documentos\Team4-PI\backend\src\main\java\com\visualstudio\rest\api\models\dto" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RegistrationServiceImplTest.testConfirmRegistration_UserDoesNotExist">
+  <component name="RunManager">
     <configuration name="RegistrationServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="visual-studio" />
       <extension name="coverage">
@@ -167,10 +166,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RegistrationServiceImplTest.testConfirmRegistration_UserDoesNotExist" />
-        <item itemvalue="JUnit.RegistrationServiceImplTest.testConfirmRegistration_UserExists_Success" />
-        <item itemvalue="JUnit.RegistrationServiceImplTest.testAuthenticate_ValidCredentials_Success" />
         <item itemvalue="JUnit.RegistrationServiceImplTest.testSave_NewUser_Success" />
+        <item itemvalue="JUnit.RegistrationServiceImplTest.testConfirmRegistration_UserExists_Success" />
+        <item itemvalue="JUnit.RegistrationServiceImplTest.testConfirmRegistration_UserDoesNotExist" />
+        <item itemvalue="JUnit.RegistrationServiceImplTest.testAuthenticate_ValidCredentials_Success" />
         <item itemvalue="JUnit.RegistrationServiceImplTest" />
       </list>
     </recent_temporary>
@@ -296,15 +295,10 @@
           <line>183</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/UserServiceImpl.java</url>
-          <line>189</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/backend/src/test/java/com/visualstudio/rest/api/UserServiceTest.java</url>
           <line>157</line>
-          <properties class="com.visualstudio.rest.api.UserServiceImplTest" method="testAuthentication">
+          <properties class="com.visualstudio.rest.api.UserServiceTest" method="testAuthentication">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
