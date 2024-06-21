@@ -153,7 +153,7 @@ public class UserServiceImpl implements IUserService {
             additionalClaims.put("customClaim2", "value2");
 
 
-            String token = jwtUtilities.generateToken(
+            return jwtUtilities.generateToken(
                     email,
                     Collections.singletonList(roleName),
                     user.getName(),
@@ -163,8 +163,6 @@ public class UserServiceImpl implements IUserService {
                     user.getImageUrl(),
                     additionalClaims
             );
-
-            return token;
         }
         catch (BadCredentialsException e) {
             throw new BadCredentialsException("El usuario y/o la contraseña son incorrectos");
@@ -174,6 +172,7 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
     public void confirmRegistration(String token) {
         if (jwtUtilities.validateToken(token)) {
             String email = jwtUtilities.extractUserName(token);
@@ -201,7 +200,16 @@ public class UserServiceImpl implements IUserService {
         if (user.isConfirmed()) {
             throw new IllegalArgumentException("El usuario ya ha sido confirmado");
         }
-        confirmRegistration(jwtUtilities.extractUserName(user.getEmail()));
+        String token = jwtUtilities.generateToken(
+                user.getEmail(),
+                Collections.singletonList(user.getRole().getName()),
+                user.getName(),
+                user.getLastname(),
+                user.getPhone(),
+                user.getCity(),
+                user.getImageUrl(),
+                new HashMap<>());
+        confirmRegistration(token);
     }
 
 }
