@@ -32,10 +32,10 @@ public class QualifyProduct {
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
-    @Column(name = "qualify")
+    @Column(name = "rating")
     @Min(1)
     @Max(5)
-    private Integer qualify;
+    private Integer rating;
 
     @Column(name = "coment")
     @Size(max = 300)
