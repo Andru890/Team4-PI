@@ -13,7 +13,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "reservations")
+@Entity
+@Table(name = "reservations")
 @Builder(toBuilder = true)
 public class Reservation {
 
