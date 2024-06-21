@@ -5,7 +5,7 @@ spring:
     name: visual-studio-api
   datasource:
     url: jdbc:mysql://mysql8:3306/visual_studio_db
-    #url: jdbc:mysql://localhost:3306/visual_studio_db
+#    url: jdbc:mysql://localhost:3307/visual_studio_db
     username: root
     password: sa
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -21,6 +21,7 @@ jtw.expiration: 86400000
 
 email.user: pa.al.pa.ag12@gmail.com
 email.password: Sonoandati12
+
 
 
 
