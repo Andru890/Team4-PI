@@ -10,6 +10,7 @@ import com.visualstudio.rest.api.repositories.ProductRepository;
 import com.visualstudio.rest.api.repositories.RoleRepository;
 import com.visualstudio.rest.api.repositories.UserRepository;
 import com.visualstudio.rest.api.services.IUserService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 
@@ -37,10 +38,24 @@ public class UserServiceImpl implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtilities jwtUtilities;
     private final AuthenticationManager authenticationManager;
-
+    private final EmailServiceImpl emailService;
     private final FavoriteProductsRepository favoriteProductsRepository;
     private final ProductRepository productRepository;
-
+    private String generateConfirmationEmailContent(User user, String token) {
+        String baseUrl = "http://localhost:8000/";
+        String confirmationUrl = baseUrl + "user/confirm?token=" + token;
+        String message = "<html><body style='font-family: Helvetica, Arial, sans-serif; line-height: 1.5; text-align: center; font-size: 18px; color: #333;'>" +
+                "<div style='max-width: 600px; margin: auto; padding: 15px; border: 5px solid #ddd; border-radius: 15px;'>" +
+                "<h1 style='color: #333; font-size: 25px; text-align: center'>Bienvenido a Visual Studio</h1>" +
+                "<h2>" + user.getName() + "</h2>" +
+                "<h2 style= 'color: #345382'>Tu correo electrónico de acceso es: " + user.getEmail() + "</h2>" +
+                "<p>Gracias por registrarte en Visual Studio. Por favor, confirma tu registro haciendo clic en el siguiente enlace:</p>" +
+                "<p><a href='" + confirmationUrl + "' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #007bff; text-decoration: none; border-radius: 8px;'>Confirmar registro</a></p>" +
+                "<p style= 'color: #345382'>Saludos desde el equipo de Visual Studio.</p>" +
+                "<p>Si no has solicitado este registro, puedes ignorar este correo.</p>" +
+                "</div></body></html>";
+        return message;
+    }
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
@@ -92,9 +107,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void delete(Long id) {
-        userRepository.deleteById(id);
-    }
+    public void delete(Long userId) {userRepository.deleteById(userId);}
+
 
     @Override
     public User updateRole(Long userId) {
@@ -200,7 +214,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void resendConfirmationEmail(String email) {
+    public void resendConfirmationEmail(String email) throws MessagingException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new IllegalArgumentException("El usuario no existe");
@@ -217,7 +231,14 @@ public class UserServiceImpl implements IUserService {
                 user.getCity(),
                 user.getImageUrl(),
                 new HashMap<>());
-        confirmRegistration(token);
+
+        String toUser = user.getEmail();
+        String subject = "Reenvio correo de confirmación Visual Studio";
+        String message = generateConfirmationEmailContent(user, token);
+
+        emailService.sendEmail(user.getEmail(), subject, message);
+
     }
+
 
 }

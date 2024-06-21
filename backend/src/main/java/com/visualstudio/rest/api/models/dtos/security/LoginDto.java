@@ -1,8 +1,8 @@
 package com.visualstudio.rest.api.models.dtos.security;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
+@Getter
+@Setter
 @Data
 @RequiredArgsConstructor
 

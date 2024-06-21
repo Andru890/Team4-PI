@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -162,6 +163,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = User.class))}),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
+
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> delete(@PathVariable Long userId){
         userService.delete(userId);
@@ -204,7 +206,9 @@ public class UserController {
     public ResponseEntity<Void> confirmRegistration(@RequestParam("token") String token) throws MessagingException {
         try {
             userService.confirmRegistration(token);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.FOUND)
+                    .header(HttpHeaders.LOCATION, "http://visualstudioservice.duckdns.org:3000/")
+                    .build();
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

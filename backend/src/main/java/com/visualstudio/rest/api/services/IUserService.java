@@ -2,6 +2,7 @@ package com.visualstudio.rest.api.services;
 
 import com.visualstudio.rest.api.models.dtos.security.LoginDto;
 import com.visualstudio.rest.api.models.entities.User;
+import jakarta.mail.MessagingException;
 
 import java.util.List;
 
@@ -22,5 +23,5 @@ public interface IUserService {
 
     void confirmRegistration(String token);
 
-    void resendConfirmationEmail(String email);
+    void resendConfirmationEmail(String email) throws MessagingException;
 }
