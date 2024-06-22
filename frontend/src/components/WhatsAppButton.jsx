@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { PhoneIcon } from '@/components/Icons'
-import { toast } from 'sonner' // Importar biblioteca de notificaciones
+import { toast } from 'sonner'
 
 export default function Component() {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,22 +13,28 @@ export default function Component() {
   const [message, setMessage] = useState('')
   const [showSuccessNotification, setShowSuccessNotification] = useState(false)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const phoneNumber = '56954205188' // Reemplaza con el número de teléfono real
-    const whatsappMessage = `Hola, soy ${name}. Mi correo es ${email}. ${message}`
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`
-    window.open(url, '_blank')
-
-    setShowSuccessNotification(true)
-    setName('')
-    setEmail('')
-    setMessage('')
-    toast.success('¡Mensaje enviado con éxito!') // Notificación de éxito
+  const handleMessageChange = (e) => {
+    if (e.target.value.length <= 300) {
+      setMessage(e.target.value)
+    }
   }
 
-  const handleError = () => {
-    toast.error('Error al enviar el mensaje. Por favor, inténtalo de nuevo.') // Manejo de errores
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    try {
+      const phoneNumber = '56954205188'
+      const whatsappMessage = `Hola, soy ${name}. Mi correo es ${email}. ${message}`
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`
+      window.open(url, '_blank')
+
+      setShowSuccessNotification(true)
+      setName('')
+      setEmail('')
+      setMessage('')
+      toast.success('¡Mensaje enviado con éxito!')
+    } catch (error) {
+      toast.error('Error al enviar el mensaje. Por favor, inténtalo de nuevo.')
+    }
   }
 
   return (
@@ -70,10 +76,14 @@ export default function Component() {
                 <Textarea
                   id='message'
                   value={message}
-                  onChange={(e) => setMessage(e.target.value)}
+                  onChange={handleMessageChange}
                   rows={4}
                   required
+                  className='resize-none'
                 />
+                <div className='text-right text-gray-500'>
+                  {message.length}/300
+                </div>
               </div>
               <Button type='submit'>Enviar mensaje</Button>
             </div>
