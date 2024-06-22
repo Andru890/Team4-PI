@@ -16,7 +16,7 @@ const Videos = () => {
   const randomVideo = videos[Math.floor(Math.random() * videos.length)]
 
   return (
-    <div className='relative h-screen'>
+    <div className='relative h-full'>
       <video autoPlay muted loop className='h-full w-full object-cover'>
         <source src={randomVideo} type='video/webm' />
       </video>

@@ -40,7 +40,7 @@ const Login = () => {
 
   return (
     <>
-      <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-3 xl:min-h-[800px]'>
+      <div className='w-full lg:grid lg:grid-cols-3 min-h-screen'>
         <div className='hidden bg-gray-100 lg:col-span-2 lg:block dark:bg-gray-800'>
           <div className='absolute top-5 left-5 z-10'>
             <Logo />
