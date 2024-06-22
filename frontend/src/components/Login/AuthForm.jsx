@@ -12,7 +12,6 @@ import {
   GlobeIcon,
 } from '@/components/Icons'
 
-// Componente Loader
 const Loader = () => (
   <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
     <div className='loader'>Cargando...</div>
@@ -40,7 +39,7 @@ const AuthForm = ({ isRegister, onSubmit, initialData, buttonText }) => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      toast.error('Error al procesar la solicitud')
+      toast.error(error.message)
     }
   }
 

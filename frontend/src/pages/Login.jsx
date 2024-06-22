@@ -34,7 +34,7 @@ const Login = () => {
         navigate(routes.home)
       }, 2000)
     } catch {
-      toast.error('El correo electrónico o la contraseña son incorrectos')
+      throw new Error('Error al iniciar sesión')
     }
   }
 

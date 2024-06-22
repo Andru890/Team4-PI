@@ -40,7 +40,7 @@ export default function Component() {
   return (
     <div className='fixed bottom-4 right-4 z-50'>
       <div
-        className={`bg-[#25D366] rounded-full p-3 cursor-pointer transition-all duration-300 ${
+        className={`bg-[#25D366] rounded-full p-3 cursor-pointer transition-all duration-300 hover:scale-125 focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2" ${
           isOpen ? 'scale-125' : ''
         }`}
         onClick={() => setIsOpen(!isOpen)}

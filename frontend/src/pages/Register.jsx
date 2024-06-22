@@ -44,7 +44,7 @@ const Register = () => {
         navigate(routes.login)
       }, 1000)
     } catch {
-      toast.error(
+      throw new Error(
         `No se pudo crear el usuario con el mail ${formData.email}, ya existe.`
       )
     }
