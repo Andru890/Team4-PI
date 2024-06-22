@@ -1,8 +1,9 @@
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import Navbar from '@/components/Header/Navbar/Navbar'
 import HamburgerMenu from '@/components/Header/Navbar/HamburgerMenu'
 import MobileNavigationBar from '@/components/Header/Navbar/MobileNavigationBar'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { routes } from '@/routes/routes'
 import Profile from '@/components/Header/Profile'
 import { useAuthContext } from '@/context/auth.context'
@@ -12,18 +13,45 @@ const Header = () => {
   const token = sessionStorage.getItem('token')
   const isAuthenticated = user && token
 
+  const [isScrolled, setIsScrolled] = useState(false)
+  const location = useLocation()
+
+  const isHome = location.pathname === routes.home
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isHome) {
+        setIsScrolled(window.scrollY > 0)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isHome])
+
+  const logoImgSrc = isHome && !isScrolled ? '/logoimg2.png' : '/logoimg.png'
+  const isotipoImgSrc = isHome && !isScrolled ? '/isotipo2.png' : '/isotipo.png'
+
   return (
-    <header className='fixed top-0 left-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 bg-white'>
+    <header
+      className={`fixed top-0 left-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 transition-colors duration-300 ${
+        isScrolled || !isHome
+          ? 'bg-white shadow-lg dark:bg-gray-800'
+          : 'bg-transparent dark:bg-transparent'
+      }`}
+    >
       <Link to='/'>
         <div className='flex items-center gap-2'>
           <img
-            src='/logoimg.png'
+            src={logoImgSrc}
             alt='logotipo de la empresa que representa la imagen'
             height={100}
             width={70}
           />
           <img
-            src='/isotipo.png'
+            src={isotipoImgSrc}
             alt='isotipo de la empresa que representa el nombre'
             height={100}
             width={120}
@@ -33,7 +61,7 @@ const Header = () => {
       <HamburgerMenu />
       <MobileNavigationBar />
       <div className='ml-auto hidden lg:flex items-center gap-4'>
-        <Navbar />
+        <Navbar isHome={isHome} isScrolled={isScrolled} />
         <div className='flex items-center gap-2 cursor-pointer'>
           {isAuthenticated ? (
             <Profile />

@@ -3,7 +3,7 @@ import Videos from '@/components/Login/Videos'
 
 const Banner = () => {
   return (
-    <section className='relative h-[600px] sm:h-[600px] lg:h-[900px] overflow-hidden rounded-lg'>
+    <section className='relative h-[600px] sm:h-[600px] lg:h-full overflow-hidden'>
       <Videos className='absolute inset-0 w-full h-full object-cover object-center z-0' />
       <div className='absolute inset-0 z-10 flex flex-col items-center justify-center text-center'>
         <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 select-none'>

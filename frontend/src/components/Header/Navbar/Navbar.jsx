@@ -10,31 +10,39 @@ import {
   NavigationMenu,
 } from '@/components/ui/navigation-menu'
 
-const Navbar = () => {
+const Navbar = ({ isHome, isScrolled }) => {
   const { state } = useGlobalContext()
   const { dataCategory: categories } = state
 
+  const shouldHide = isHome && !isScrolled
+
   return (
-    <nav className='hidden md:flex items-center gap-6'>
+    <nav
+      className={`hidden md:flex items-center gap-6 transition-opacity duration-300 ${shouldHide ? 'opacity-0' : 'opacity-100'}`}
+    >
       <Link
-        className='text-primary hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full'
+        className={`transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:transition-all after:duration-300 hover:after:w-full ${
+          isScrolled ? 'text-black after:bg-black' : 'text-white after:bg-white'
+        }`}
         to={routes.home}
       >
         Inicio
       </Link>
 
-      <NavigationMenu className='text-primary hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full'>
+      <NavigationMenu
+        className={`transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:transition-all after:duration-300 hover:after:w-full ${
+          isScrolled ? 'bg-transparent' : 'bg-white'
+        }`}
+      >
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className='bg-white'>
-              Categorías
-            </NavigationMenuTrigger>
+            <NavigationMenuTrigger>Categorías</NavigationMenuTrigger>
             <NavigationMenuContent>
               <div className='grid w-[400px] p-2'>
                 {categories.map((category) => (
                   <NavigationMenuLink asChild key={category.id}>
                     <Link
-                      className='group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-white p-4 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50'
+                      className='group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-transparent p-4 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50'
                       to={`${routes.category}/${category.id}`}
                     >
                       <div className='text-sm font-medium leading-none group-hover:underline'>
@@ -53,7 +61,9 @@ const Navbar = () => {
       </NavigationMenu>
 
       <Link
-        className='text-primary hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-300 hover:after:w-full'
+        className={`transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:transition-all after:duration-300 hover:after:w-full ${
+          isScrolled ? 'text-black after:bg-black' : 'text-white after:bg-white'
+        }`}
         to={routes.contact}
       >
         Contacto
