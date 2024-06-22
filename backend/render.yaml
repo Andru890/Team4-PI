@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: spring-boot-app
+    env: static
+    buildCommand: "./mvnw package"
+    startCommand: "java -jar target/demo-0.0.1-SNAPSHOT.jar"
+    envVars:
+      - key: PORT
+        value: "8080"

@@ -14,6 +14,13 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 public class VisualStudioApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VisualStudioApplication.class, args);
+		SpringApplication app = new SpringApplication(DemoApplication.class);
+        Map<String, Object> properties = new HashMap<>();
+        String port = System.getenv("PORT");
+        if (port != null) {
+            properties.put("server.port", port);
+        }
+        app.setDefaultProperties(properties);
+        app.run(args);
 	}
 }
