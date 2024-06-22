@@ -8,9 +8,9 @@ public interface IQualifyProductService {
     List<QualifyProduct> getAll();
     QualifyProduct getOne(Long id);
     List<QualifyProduct> qualifyPerProduct(Long productId);
-    List<QualifyProduct> qualifyPerUser(Long userId);
-    QualifyProduct saveQualify(Long userId, Long productId, Long reservationId, Integer rating, String coment);
-    QualifyProduct updateQualify(Long userId, Long productId, Integer rating, String coment);
-    void deleteQualify(Long qualifyProductId);
+    List<QualifyProduct> qualifyPerUser(String userEmail);
+    QualifyProduct saveQualify(String userEmail, Long productId, Long reservationId, Integer rating, String coment);
+    QualifyProduct updateQualify(String userEmail, Long productId, Integer rating, String coment);
+    void deleteQualify(String userEmail, Long productId);
 
 }

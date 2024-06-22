@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,7 +30,7 @@ public class QualifyProduct {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
@@ -40,5 +42,9 @@ public class QualifyProduct {
     @Column(name = "coment")
     @Size(max = 300)
     private String coment;
+
+    @Column(name = "date")
+    private LocalDate date;
+
 
 }

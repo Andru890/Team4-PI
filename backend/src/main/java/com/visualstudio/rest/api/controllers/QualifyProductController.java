@@ -20,7 +20,7 @@ public class QualifyProductController {
     }
 
     @GetMapping("{qualifyProductId}")
-    public ResponseEntity<QualifyProduct> oneQualify(@PathVariable Long qualifyProductId){
+    public ResponseEntity<QualifyProduct> oneQualification(@PathVariable Long qualifyProductId){
         return ResponseEntity.ok(qualifyProductService.getOne(qualifyProductId));
     }
 
@@ -29,22 +29,22 @@ public class QualifyProductController {
         return ResponseEntity.ok(qualifyProductService.qualifyPerProduct(productId));
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<QualifyProduct>> qualifyPerUser(@PathVariable Long userId){
-        return ResponseEntity.ok(qualifyProductService.qualifyPerUser(userId));
+    @GetMapping("/user/{userEmail}")
+    public ResponseEntity<List<QualifyProduct>> qualifyPerUser(@PathVariable String userEmail){
+        return ResponseEntity.ok(qualifyProductService.qualifyPerUser(userEmail));
     }
 
-    @PostMapping("/user/{userId}/product/{productId}")
-    public ResponseEntity<QualifyProduct> saveQualify(@PathVariable Long userId, @PathVariable Long productId, @RequestParam Long reservationId, @RequestBody QualifyProduct qualifyProduct){
-        return ResponseEntity.ok(qualifyProductService.saveQualify(userId, productId, reservationId, qualifyProduct.getRating(), qualifyProduct.getComent()));
+    @PostMapping("/user/{userEmail}/product/{productId}")
+    public ResponseEntity<QualifyProduct> saveQualify(@PathVariable String userEmail, @PathVariable Long productId, @RequestParam Long reservationId, @RequestBody QualifyProduct qualifyProduct){
+        return ResponseEntity.ok(qualifyProductService.saveQualify(userEmail, productId, reservationId, qualifyProduct.getRating(), qualifyProduct.getComent()));
     }
-    @PutMapping("/user/{userId}/product/{productId}")
-    public ResponseEntity<QualifyProduct> updateQualify(@PathVariable Long userId, @PathVariable Long productId, @RequestBody QualifyProduct qualifyProduct){
-        return ResponseEntity.ok(qualifyProductService.updateQualify(userId, productId, qualifyProduct.getRating(), qualifyProduct.getComent()));
+    @PutMapping("/user/{userEmail}/product/{productId}")
+    public ResponseEntity<QualifyProduct> updateQualify(@PathVariable String userEmail, @PathVariable Long productId, @RequestBody QualifyProduct qualifyProduct){
+        return ResponseEntity.ok(qualifyProductService.updateQualify(userEmail, productId, qualifyProduct.getRating(), qualifyProduct.getComent()));
     }
-    @DeleteMapping("/{qualifyProductId}")
-    public ResponseEntity<Void> deleteQualify(@PathVariable Long qualifyProductId){
-        qualifyProductService.deleteQualify(qualifyProductId);
+    @DeleteMapping("/user/{userEmail}/product/{productId}")
+    public ResponseEntity<Void> deleteQualify(@PathVariable String userEmail, @PathVariable Long productId){
+        qualifyProductService.deleteQualify(userEmail, productId);
         return ResponseEntity.noContent().build();
     }
 }
