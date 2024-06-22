@@ -9,6 +9,7 @@ import com.visualstudio.rest.api.Security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import static com.visualstudio.rest.api.models.entities.RoleName.ADMIN;
-import static com.visualstudio.rest.api.models.entities.RoleName.CUSTOMER;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -48,7 +48,14 @@ public class SecurityConfig {
             "/mail/**",
             "registration/**",
             "confirmation-email/**",
-            "product-detail/**"}
+            "product-detail/**",
+            "qualify",
+            "qualify/{qualifyProductId}",
+            "qualify/{qualifyProductId}",
+            "qualify/product/{productId}",
+            "qualify/user/{userId}",
+
+    }
             ;
 
 
@@ -64,6 +71,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
+                                .requestMatchers(GET,"/qualify/**").authenticated()
+                                .requestMatchers(POST,"/qualify/**").authenticated()
+                                .requestMatchers(DELETE,"/qualify/**").authenticated()
+                                .requestMatchers(PUT,"/qualify/**").authenticated()
                                 .requestMatchers("/user/register/").permitAll()
                                 .requestMatchers("/mail/List").permitAll()
                                 .requestMatchers("user/confirm").permitAll()

@@ -5,16 +5,8 @@ import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
 import com.visualstudio.rest.api.models.dtos.ProductDTO;
 import com.visualstudio.rest.api.models.dtos.ReservationDTO;
 import com.visualstudio.rest.api.models.dtos.ReservationProductDTO;
-import com.visualstudio.rest.api.models.entities.Category;
-import com.visualstudio.rest.api.models.entities.Product;
-import com.visualstudio.rest.api.models.entities.ProductDetail;
-import com.visualstudio.rest.api.models.entities.Reservation;
-import com.visualstudio.rest.api.models.entities.User;
-import com.visualstudio.rest.api.repositories.CategoryRepository;
-import com.visualstudio.rest.api.repositories.ProductDetailRepository;
-import com.visualstudio.rest.api.repositories.ProductRepository;
-import com.visualstudio.rest.api.repositories.ReservationRepository;
-import com.visualstudio.rest.api.repositories.UserRepository;
+import com.visualstudio.rest.api.models.entities.*;
+import com.visualstudio.rest.api.repositories.*;
 import com.visualstudio.rest.api.services.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -34,6 +26,7 @@ public class ProductServiceImpl implements IProductService {
     private final ProductDetailRepository productDetailRepository;
     private final ReservationRepository reservationRepository;
     private final UserRepository userRepository;
+    private final QualifyProductRespository qualifyProductRespository;
 
     @Override
     public List<ProductDTO> getAll() {
@@ -154,5 +147,16 @@ public class ProductServiceImpl implements IProductService {
 
     private ReservationDTO convertReservationToDTO(Reservation reservation){
         return mapper.map(reservation, ReservationDTO.class);
+    }
+
+    public void saveQualifyProduct(QualifyProduct qualifyProduct){
+        qualifyProductRespository.save(qualifyProduct);
+    }
+
+    public double getRatingProduct(Long productId){
+
+        List<QualifyProduct> qualifyProduct = qualifyProductRespository.findByProductId(productId);
+        return qualifyProduct.stream().mapToDouble(QualifyProduct::getRating).average().orElse(0.0);
+
     }
 }
