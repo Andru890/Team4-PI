@@ -13,7 +13,7 @@ const HamburgerMenu = () => {
       <SheetTrigger asChild>
         <Button
           onClick={() => setIsOpen(true)}
-          className='ml-auto lg:hidden'
+          className='ml-auto lg:hidden hide-on-small'
           size='icon'
           variant='outline'
         >

@@ -124,3 +124,18 @@
     animation: loader3 0.6s infinite;
   }
 }
+
+@media (max-width: 450px) {
+  .hide-on-small {
+    display: none;
+  }
+  .move-on-small {
+    bottom: 4rem;
+  }
+}
+
+@media (min-width: 451px) {
+  .hide-on-large {
+    display: none;
+  }
+}

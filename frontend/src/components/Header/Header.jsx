@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import Navbar from '@/components/Header/Navbar/Navbar'
 import HamburgerMenu from '@/components/Header/Navbar/HamburgerMenu'
+import MobileNavigationBar from '@/components/Header/Navbar/MobileNavigationBar'
 import { Link } from 'react-router-dom'
 import { routes } from '@/routes/routes'
 import Profile from '@/components/Header/Profile'
@@ -30,6 +31,7 @@ const Header = () => {
         </div>
       </Link>
       <HamburgerMenu />
+      <MobileNavigationBar />
       <div className='ml-auto hidden lg:flex items-center gap-4'>
         <Navbar />
         <div className='flex items-center gap-2 cursor-pointer'>
