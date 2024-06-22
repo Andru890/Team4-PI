@@ -34,10 +34,7 @@ const Item = ({ product }) => {
   }
 
   return (
-    <Card
-      className='w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300'
-      id='productos'
-    >
+    <Card className='w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300'>
       <div className='relative'>
         <img
           src={product.images[0] ? product.images[0] : '/placeholder.svg'}
