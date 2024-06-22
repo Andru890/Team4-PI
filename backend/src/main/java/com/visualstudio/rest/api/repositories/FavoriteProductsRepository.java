@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface FavoriteProductsRepository extends JpaRepository<FavoriteProducts, Long> {
     List<Product> findByUserId(Long userId);
-    List<FavoriteProducts> findByUserIdAndProductId (Long userId, Long productId);
+    FavoriteProducts findByUserIdAndProductId (Long userId, Long productId);
 }
