@@ -26,7 +26,7 @@ RUN mkdir ./logs
 COPY --from=builder /app/target/*.jar ./app.jar
 
 # Exponer puerto 8000
-EXPOSE 8000
+EXPOSE 8080
 
 # Comando a ejecutar al iniciar el contenedor
 CMD ["java", "-jar", "app.jar"]
