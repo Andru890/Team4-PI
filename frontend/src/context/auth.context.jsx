@@ -26,10 +26,21 @@ export const AuthProvider = ({ children }) => {
     if (!token) return null
 
     try {
-      const payload = JSON.parse(atob(token.split('.')[1]))
+      const base64Url = token.split('.')[1]
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+          })
+          .join('')
+      )
+
+      const payload = JSON.parse(jsonPayload)
       return {
         email: payload.sub,
-        roles: payload.roles,
+        roles: payload.roles.map((role) => role.authority || role), // Normalizamos los roles
       }
     } catch (error) {
       console.error('Error decoding token:', error)
@@ -97,16 +108,31 @@ export const AuthProvider = ({ children }) => {
   const handleUpdateUser = async (updatedUser) => {
     try {
       const token = sessionStorage.getItem('token')
+      const userData = {
+        id: updatedUser.id,
+        name: updatedUser.name,
+        lastname: updatedUser.lastname,
+        phone: updatedUser.phone,
+        email: updatedUser.email,
+        city: updatedUser.city,
+        imageUrl: updatedUser.imageUrl,
+        roles: updatedUser.roles.map((role) => role.authority || role), // Convertimos los roles a strings si es necesario
+      }
+      console.log('Updating user with data:', userData)
       const response = await axios.put(
         `${API_URL}/user/${updatedUser.id}`,
-        updatedUser,
+        userData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       )
-      setUser(response.data)
+      console.log('Response from update user:', response.data)
+
+      // Mantener el token al actualizar el usuario
+      const updatedUserData = { ...response.data, token }
+      setUser(updatedUserData)
     } catch (error) {
       console.error('Error updating user:', error)
       throw error

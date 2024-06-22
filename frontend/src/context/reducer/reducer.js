@@ -102,7 +102,7 @@ export const reducer = (state, action) => {
     case 'UPDATE_USER':
       return {
         ...state,
-        user: action.payload, // Actualizamos el usuario en el estado global
+        user: action.payload,
       }
 
     case 'ADD_USER':

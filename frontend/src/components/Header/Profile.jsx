@@ -34,12 +34,16 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userInfo = getUserInfoFromToken() // Usa la función para obtener la información del usuario del token
+      const userInfo = getUserInfoFromToken()
       if (userInfo && userInfo.email) {
         try {
           const userData = await getUserByEmail(userInfo.email)
           setUser(userData)
-          setRoles(userInfo.roles) // Guardar los roles del usuario
+          setRoles(
+            userInfo.roles.map((role) =>
+              role.authority ? role.authority : role
+            )
+          ) // Normalizamos los roles
           setName(userData.name || '')
           setLastname(userData.lastname || '')
           setEmail(userData.email || '')
@@ -74,22 +78,45 @@ const Profile = () => {
     const file = e.target.files[0]
     if (file) {
       setLoadingImage(true)
-      const imageUrl = await uploadImage(file)
-      if (imageUrl) {
-        const updatedUser = { ...user, imageUrl }
-        await handleUpdateUser(updatedUser)
-        setUser(updatedUser)
+      try {
+        const imageUrl = await uploadImage(file)
+        if (imageUrl) {
+          const updatedUser = {
+            ...user,
+            imageUrl,
+            roles, // Usamos la lista de roles normalizada
+          }
+          await handleUpdateUser(updatedUser)
+          setUser(updatedUser)
+        }
+      } catch (error) {
+        console.error('Error updating user image:', error)
+      } finally {
+        setLoadingImage(false)
       }
-      setLoadingImage(false)
     }
     setIsEditingImage(false)
   }
 
   const handleSaveChanges = async () => {
-    const updatedUser = { ...user, name, lastname, email, phone, city }
-    await handleUpdateUser(updatedUser)
-    setUser(updatedUser)
-    setIsEditingProfile(false)
+    const updatedUser = {
+      id: user.id,
+      name,
+      lastname,
+      email,
+      phone,
+      city,
+      imageUrl: user.imageUrl,
+      roles, // Usamos la lista de roles normalizada
+    }
+    try {
+      console.log('Saving changes for user:', updatedUser)
+      await handleUpdateUser(updatedUser)
+      setUser(updatedUser)
+      setIsEditingProfile(false)
+    } catch (error) {
+      console.error('Error updating user:', error)
+    }
   }
 
   const isAdmin = roles.includes('admin')
