@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 public class VisualStudioApplication {
 
 	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(DemoApplication.class);
+		SpringApplication app = new SpringApplication(VisualStudioApplication.class);
         Map<String, Object> properties = new HashMap<>();
         String port = System.getenv("PORT");
         if (port != null) {
