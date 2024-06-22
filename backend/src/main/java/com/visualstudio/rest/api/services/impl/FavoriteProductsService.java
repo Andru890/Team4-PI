@@ -38,9 +38,9 @@ public class FavoriteProductsService  implements IFavoriteProductsService {
     public void saveFavorite(String userEmail, Long productId){
         User user = userRepository.findByEmail(userEmail);
         Product product = productsRepository.findById(productId).get();
-        List<FavoriteProducts> existingProducts = favoriteProductsRepository.findByUserIdAndProductId(user.getId(), productId);
-        if (!existingProducts.isEmpty()) {
-            throw new IllegalArgumentException("El producto ya es favorito");
+        FavoriteProducts existingProducts = favoriteProductsRepository.findByUserIdAndProductId(user.getId(), productId);
+        if (existingProducts != null) {
+            throw new IllegalArgumentException("El producto ya es un favorito");
         }
 
         FavoriteProducts newFavorite = new FavoriteProducts();
@@ -49,7 +49,13 @@ public class FavoriteProductsService  implements IFavoriteProductsService {
         favoriteProductsRepository.save(newFavorite);
     }
 
-    public void deleteFavorite(Long id){
-        favoriteProductsRepository.deleteById(id);
+    @Override
+    public void deleteFavorite(String userEmail, Long productId){
+        User user = userRepository.findByEmail(userEmail);
+        if (user == null){
+            throw new IllegalArgumentException("El usuario no existe");
+        }
+        FavoriteProducts existingProducts = favoriteProductsRepository.findByUserIdAndProductId(user.getId(), productId);
+        favoriteProductsRepository.delete(existingProducts);
     }
 }

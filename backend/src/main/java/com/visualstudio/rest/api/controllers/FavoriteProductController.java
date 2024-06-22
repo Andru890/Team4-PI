@@ -34,9 +34,9 @@ public class FavoriteProductController {
     public void addFavorite(@PathVariable String userEmail, @PathVariable Long productId) {
         favoriteProductsService.saveFavorite(userEmail, productId);
     }
-    @DeleteMapping("/delete/{id}")
-    private void deleteFavorite(@PathVariable Long id){
-        favoriteProductsService.deleteFavorite(id);
+    @DeleteMapping("/user/{userEmail}/product/{productId}")
+    private void deleteFavorite(@PathVariable String userEmail, @PathVariable Long productId){
+        favoriteProductsService.deleteFavorite(userEmail, productId);
     }
 
 }
