@@ -66,6 +66,10 @@ public class User implements  UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Reservation> reservations;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<QualifyProduct> qualifyProducts;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

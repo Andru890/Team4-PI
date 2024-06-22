@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/RegistrationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/RegistrationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -273,7 +270,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719011424004</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="SE MODIFICA LA BASEURL PARA QUE SE REDIRIJA UNA VEZ EL USUARIO HAGA CLIC AL CORREO DE CONFIRMAR REGISTRO. SE CONECTA CON EL FRONTED.">
+      <option name="closed" value="true" />
+      <created>1719019941464</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1719019941464</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -311,7 +316,8 @@
     <MESSAGE value="se cambia correo en la aplicación" />
     <MESSAGE value="VERSION DEL 21 DE JUNIO DE 2024" />
     <MESSAGE value="VERSION DEL 21 DE JUNIO DE 2024 se modifico el controller del confirmregistration en postman ya aparece la estructura del view se modifico la implementación del método resend-confirmation. Todas testeadas y funcionan con postman. Pero al momento de hacerle clic en la confirmación del correo electrónico dsde un correo electrónico tira este error &quot;error&quot;: &quot;Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: \&quot;confirm\&quot;&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="VERSION DEL 21 DE JUNIO DE 2024 se modifico el controller del confirmregistration en postman ya aparece la estructura del view se modifico la implementación del método resend-confirmation. Todas testeadas y funcionan con postman. Pero al momento de hacerle clic en la confirmación del correo electrónico dsde un correo electrónico tira este error &quot;error&quot;: &quot;Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: \&quot;confirm\&quot;&quot;" />
+    <MESSAGE value="SE MODIFICA LA BASEURL PARA QUE SE REDIRIJA UNA VEZ EL USUARIO HAGA CLIC AL CORREO DE CONFIRMAR REGISTRO. SE CONECTA CON EL FRONTED." />
+    <option name="LAST_COMMIT_MESSAGE" value="SE MODIFICA LA BASEURL PARA QUE SE REDIRIJA UNA VEZ EL USUARIO HAGA CLIC AL CORREO DE CONFIRMAR REGISTRO. SE CONECTA CON EL FRONTED." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
