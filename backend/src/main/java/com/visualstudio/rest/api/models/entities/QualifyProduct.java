@@ -1,10 +1,15 @@
 package com.visualstudio.rest.api.models.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -25,7 +30,21 @@ public class QualifyProduct {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
+
+    @Column(name = "rating")
+    @Min(1)
+    @Max(5)
+    private Integer rating;
+
+    @Column(name = "coment")
+    @Size(max = 300)
+    private String coment;
+
+    @Column(name = "date")
+    private LocalDate date;
+
+
 }

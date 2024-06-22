@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="" />
+    <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/QualifyProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/repositories/QualifyProductRespository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IQualifyProductService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/QualifyProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/QualifyProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/QualifyProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/Reservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/entities/User.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,7 +60,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="2gNuy24gv3umJnquOXbOzYSat78" />
   <component name="ProjectLevelVcsManager">
@@ -146,16 +156,6 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Actualizacion de servicios" />
     <option name="LAST_COMMIT_MESSAGE" value="Actualizacion de servicios" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="org.springframework.context.ApplicationContextException" package="org.springframework.context" />
-          <option name="timeStamp" value="9" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

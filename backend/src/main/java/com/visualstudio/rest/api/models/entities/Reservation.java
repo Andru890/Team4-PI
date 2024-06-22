@@ -1,5 +1,6 @@
 package com.visualstudio.rest.api.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,4 +38,8 @@ public class Reservation {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_USER_ID"))
     private User user;
+
+    @OneToMany(mappedBy = "reservation", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<QualifyProduct> qualifyProducts;
 }

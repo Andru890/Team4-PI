@@ -62,7 +62,12 @@ public class User implements  UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Reservation> reservations;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<QualifyProduct> qualifyProducts;
 
 
     @Override
@@ -96,6 +101,5 @@ public class User implements  UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 
 }
