@@ -4,14 +4,15 @@ spring:
   application:
     name: visual-studio-api
   datasource:
-    url: jdbc:mysql://mysql8:3306/visual_studio_db
-#    url: jdbc:mysql://localhost:3306/visual_studio_db
-    username: root
-    password: sa
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:postgresql://proyectointegradorsql_user:4ujXo4ObD9STJHXxUvsK32KBceeZlety@dpg-cpqa7liju9rs73a1fdng-a/proyectointegradorsql
+#    url: jdbc:postgresql://proyectointegradorsql_user:4ujXo4ObD9STJHXxUvsK32KBceeZlety@dpg-cpqa7liju9rs73a1fdng-a/proyectointegradorsql
+    username: proyectointegradorsql_user
+    password: 4ujXo4ObD9STJHXxUvsK32KBceeZlety
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
     show-sql: true
+
