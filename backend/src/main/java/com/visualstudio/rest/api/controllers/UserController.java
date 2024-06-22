@@ -207,7 +207,7 @@ public class UserController {
         try {
             userService.confirmRegistration(token);
             return ResponseEntity.status(HttpStatus.FOUND)
-                    .header(HttpHeaders.LOCATION, "http://visualstudioservice.duckdns.org:3000/")
+                    .header(HttpHeaders.LOCATION, "http://localhost:3000/")
                     .build();
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

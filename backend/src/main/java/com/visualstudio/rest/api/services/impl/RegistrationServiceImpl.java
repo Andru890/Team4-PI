@@ -42,7 +42,7 @@ public class RegistrationServiceImpl implements IRegistrationService {
     private final AuthenticationManager authenticationManager;
     private final EmailServiceImpl emailService;
     private String generateConfirmationEmailContent(User user, String token) {
-        String baseUrl = "http://localhost:8000/";
+        String baseUrl = "http://localhost:3000/";
         String confirmationUrl = baseUrl + "user/confirm?token=" + token;
         String message = "<html><body style='font-family: Helvetica, Arial, sans-serif; line-height: 1.5; text-align: center; font-size: 18px; color: #333;'>" +
                 "<div style='max-width: 600px; margin: auto; padding: 15px; border: 5px solid #ddd; border-radius: 15px;'>" +

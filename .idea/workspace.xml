@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="VERSION DEL 21 DE JUNIO DE 2024">
+    <list default="true" id="ff781bb8-f7fc-4054-a73c-4949410ea301" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/security/LoginDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/models/dtos/security/LoginDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/repositories/ReservationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/repositories/ReservationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/RegistrationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/RegistrationServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/visualstudio/rest/api/services/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,7 +265,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719005475594</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="VERSION DEL 21 DE JUNIO DE 2024 se modifico el controller del confirmregistration en postman ya aparece la estructura del view se modifico la implementación del método resend-confirmation. Todas testeadas y funcionan con postman. Pero al momento de hacerle clic en la confirmación del correo electrónico dsde un correo electrónico tira este error &quot;error&quot;: &quot;Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: \&quot;confirm\&quot;&quot;">
+      <option name="closed" value="true" />
+      <created>1719011424004</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1719011424004</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -302,7 +310,8 @@
     <MESSAGE value="SE REALIZA REENVIAR CORREO DE CONFIRMACIÓN" />
     <MESSAGE value="se cambia correo en la aplicación" />
     <MESSAGE value="VERSION DEL 21 DE JUNIO DE 2024" />
-    <option name="LAST_COMMIT_MESSAGE" value="VERSION DEL 21 DE JUNIO DE 2024" />
+    <MESSAGE value="VERSION DEL 21 DE JUNIO DE 2024 se modifico el controller del confirmregistration en postman ya aparece la estructura del view se modifico la implementación del método resend-confirmation. Todas testeadas y funcionan con postman. Pero al momento de hacerle clic en la confirmación del correo electrónico dsde un correo electrónico tira este error &quot;error&quot;: &quot;Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: \&quot;confirm\&quot;&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="VERSION DEL 21 DE JUNIO DE 2024 se modifico el controller del confirmregistration en postman ya aparece la estructura del view se modifico la implementación del método resend-confirmation. Todas testeadas y funcionan con postman. Pero al momento de hacerle clic en la confirmación del correo electrónico dsde un correo electrónico tira este error &quot;error&quot;: &quot;Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: \&quot;confirm\&quot;&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
