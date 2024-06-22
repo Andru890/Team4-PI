@@ -366,11 +366,7 @@ const ProductTable = ({
                 </TableCell>
                 <TableCell>
                   <div className='flex items-center gap-2'>
-                    <EditProductDialog
-                      product={editingProduct}
-                      onClose={() => setEditingProduct(null)}
-                      handleUpdateProduct={handleUpdateProduct}
-                    />
+                    <EditProductDialog productId={product.id} />
                     <Button
                       variant='destructive'
                       onClick={() => onDeleteClick(product)}
