@@ -5,18 +5,27 @@ import { FileSpreadsheetIcon } from '@/components/Icons'
 
 const ExportCSVButton = ({ data }) => {
   const exportToCSV = async () => {
-    const formattedData = data.map((item) => ({
-      id: item.id,
-      name: item.name,
-      description: item.description,
-      price: item.price,
-      stock: item.stock,
-      category: item.category.name,
-      categoryDescription: item.category.description,
-      characteristics: item.characteristics
-        .map((char) => char.characteristic)
-        .join(', '),
-    }))
+    if (data.length === 0) {
+      toast.error('No hay productos para exportar')
+      return
+    }
+
+    const formattedData = data.map((item) => {
+      // Agrega un log para depurar
+      console.log('Categoría actual:', item.categories)
+
+      return {
+        id: item.id ? item.id : 'Sin ID',
+        nombre: item.name ? item.name : 'Sin nombre',
+        descripción: item.description ? item.description : 'Sin descripción',
+        precio: item.price ? item.price : 'Sin precio',
+        cantidad: item.stock ? item.stock : 'Sin stock',
+        categoria: item.category ? item.category.name : 'Sin categoria',
+        características: item.characteristics
+          .map((char) => char.characteristic)
+          .join(', '),
+      }
+    })
 
     toast.success('Exportando a CSV...')
 
@@ -26,8 +35,13 @@ const ExportCSVButton = ({ data }) => {
       const link = document.createElement('a')
       const url = URL.createObjectURL(blob)
 
+      const currentDate = new Date()
+      const formattedDate = currentDate.toISOString().split('T')[0] // YYYY-MM-DD format
+
+      const fileName = `data_${formattedDate}.csv`
+
       link.setAttribute('href', url)
-      link.setAttribute('download', 'data.csv')
+      link.setAttribute('download', fileName)
       link.style.visibility = 'hidden'
       document.body.appendChild(link)
       link.click()

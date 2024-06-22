@@ -1,7 +1,5 @@
-// AuthForm.js
 import { useState, useRef } from 'react'
 import { toast } from 'sonner'
-import confetti from 'canvas-confetti'
 import { useNavigate } from 'react-router-dom'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -51,7 +49,10 @@ const AuthForm = ({ isRegister, onSubmit, initialData, buttonText }) => {
       {loading && <Loader />}
       {redirecting ? (
         <div className='text-center mt-4 text-lg'>
-          <img src='/loading.gif' alt='Loading...' />
+          <img
+            src='/loading.gif'
+            alt='Componente de camara de espera de carga.'
+          />
         </div>
       ) : (
         <form onSubmit={handleSubmit}>

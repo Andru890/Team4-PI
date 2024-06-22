@@ -29,7 +29,6 @@ const AddFeaturesDialog = () => {
       const imageUrl = await uploadImage(imageFile)
       handleCreateFeature({
         name: data.name,
-        description: data.description,
         image: imageUrl,
       })
       toast.success('Característica agregada con éxito')
@@ -78,15 +77,6 @@ const AddFeaturesDialog = () => {
               {...register('name', { required: true })}
               placeholder='Ingresa el nombre de la característica'
               aria-label='Nombre de la característica'
-            />
-          </div>
-          <div className='space-y-1'>
-            <Label htmlFor='description'>Descripción</Label>
-            <Input
-              id='description'
-              {...register('description', { required: true })}
-              placeholder='Ingresa la descripción de la característica'
-              aria-label='Descripción de la característica'
             />
           </div>
           <div className='space-y-1'>
