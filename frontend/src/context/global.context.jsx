@@ -145,7 +145,6 @@ export const ContextProvider = ({ children }) => {
       }
     } catch (error) {
       console.error(error)
-      // Handle error here
     }
   }, [])
 
@@ -180,6 +179,7 @@ export const ContextProvider = ({ children }) => {
     await deleteCategory(id)
     dispatch({ type: 'DELETE_CATEGORY', payload: id })
   }, [])
+
   const handleCreateUser = useCallback(async (user) => {
     try {
       const response = await createUser(user)
@@ -225,7 +225,6 @@ export const ContextProvider = ({ children }) => {
       const response = await updateUser(updatedUser)
       if (response) {
         dispatch({ type: 'UPDATE_USER', payload: response })
-        // Actualizar el AuthContext
         updateUser(response)
       }
     } catch (error) {
@@ -246,9 +245,7 @@ export const ContextProvider = ({ children }) => {
 
   const handleRoleChange = useCallback(async (userId, newRole) => {
     try {
-      // Realiza la solicitud al servidor para actualizar el rol
       const updatedUser = await updateRole(userId, { name: newRole })
-      // Actualiza el estado con el nuevo usuario actualizado
       dispatch({ type: 'UPDATE_USER', payload: updatedUser })
       toast.success(
         `Rol actualizado con éxito para el usuario ${updatedUser.name}`

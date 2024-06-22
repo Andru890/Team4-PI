@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Outlet } from 'react-router-dom'
 import { routes } from '@/routes/routes'
 import Home from '@/pages/Home'
 import Dashboard from '@/pages/Dashboard'
@@ -14,21 +14,32 @@ import AdminCategories from '@/components/AdminPanel/Category/AdminCategories'
 import AdminOrders from '@/components/AdminPanel/Orders/AdminOrders'
 import AdminFeatures from '@/components/AdminPanel/Features/AdminFeatures'
 import Categories from '@/pages/Categories'
+import CategoryProducts from '@/pages/CategoryProducts' // Asegúrate de importar tu nuevo componente
 import Profile from '@/pages/Profile'
 import { PrivateRoute, AdminGuard } from '@/routes/AuthGuard'
 import Favs from '@/pages/Favs'
+import WhatsAppButton from '@/components/WhatsAppButton'
+
+const PublicLayout = () => (
+  <div>
+    <WhatsAppButton />
+    <Outlet />
+  </div>
+)
 
 const Layout = () => {
   return (
     <Routes>
-      <Route path={routes.home} element={<Home />}>
-        <Route path={routes.itemDetail} element={<ItemDetailContainer />} />
+      <Route element={<PublicLayout />}>
+        <Route path={routes.home} element={<Home />}>
+          <Route path={routes.itemDetail} element={<ItemDetailContainer />} />
+        </Route>
+        <Route path={routes.contact} element={<Contact />} />
+        <Route path={routes.categories} element={<Categories />} />
+        <Route path={routes.categoryDetail} element={<CategoryProducts />} />
+        <Route path={routes.login} element={<Login />} />
+        <Route path={routes.register} element={<Register />} />
       </Route>
-      <Route path={routes.contact} element={<Contact />} />
-      <Route path={routes.categories} element={<Categories />} />
-      <Route path={routes.login} element={<Login />} />
-      <Route path={routes.register} element={<Register />} />
-
       <Route element={<PrivateRoute />}>
         <Route path={routes.profile} element={<Profile />} />
         <Route path={routes.favs} element={<Favs />} />
@@ -51,7 +62,6 @@ const Layout = () => {
           />
         </Route>
       </Route>
-
       <Route path={routes.notFound} element={<NotFound />} />
     </Routes>
   )
