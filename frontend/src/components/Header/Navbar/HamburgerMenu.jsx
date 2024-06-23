@@ -4,9 +4,16 @@ import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 import { routes } from '@/routes/routes'
 import { MenuIcon } from '@/components/Icons'
+import Profile from '@/components/Header/Profile'
+import { useAuthContext } from '@/context/auth.context'
+
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
   const closeMenu = () => setIsOpen(false)
+
+  const { user } = useAuthContext()
+  const token = sessionStorage.getItem('token')
+  const isAuthenticated = user && token
 
   return (
     <Sheet isOpen={isOpen} onClose={closeMenu}>
@@ -49,17 +56,22 @@ const HamburgerMenu = () => {
           >
             Contacto
           </Link>
-          <div className='flex items-center gap-4 mt-4'>
-            <Link to={routes.login}>
-              <Button variant='outline'>Iniciar sesión</Button>
-            </Link>
-            <Link to={routes.register}>
-              <Button>Registrarse</Button>
-            </Link>
-          </div>
+          {isAuthenticated ? (
+            <Profile />
+          ) : (
+            <div className='flex items-center gap-4 mt-4'>
+              <Link to={routes.login}>
+                <Button variant='outline'>Iniciar sesión</Button>
+              </Link>
+              <Link to={routes.register}>
+                <Button>Registrarse</Button>
+              </Link>
+            </div>
+          )}
         </div>
       </SheetContent>
     </Sheet>
   )
 }
+
 export default HamburgerMenu

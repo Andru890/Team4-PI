@@ -8,7 +8,7 @@ const Services = () => {
           <div className='container px-4 md:px-6'>
             <div className='grid gap-8 md:gap-12 lg:gap-16'>
               <div className='text-center'>
-                <h1 className='text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl'>
+                <h1 className='text-3xl font-bold tracking-tight sm:text-4xl md:text-4xl'>
                   Servicios en nuestra tienda de alquiler
                 </h1>
                 <p className='mt-4 max-w-2xl mx-auto text-lg text-gray-500 dark:text-gray-400'>

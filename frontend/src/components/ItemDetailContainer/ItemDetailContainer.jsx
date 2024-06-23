@@ -20,7 +20,7 @@ const ItemDetailContainer = () => {
   }, [itemId, handleGetProductById])
 
   return (
-    <div className='mt-20'>
+    <div className='mt-20' id='detail'>
       {isLoading ? <UseLoader /> : <ItemDetail product={productSelected} />}
     </div>
   )

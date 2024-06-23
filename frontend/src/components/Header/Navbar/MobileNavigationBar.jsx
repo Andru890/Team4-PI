@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import { HomeIcon, FolderIcon, MailIcon, UserIcon } from '@/components/Icons'
+import { routes } from '@/routes/routes'
 
 const MobileNavigationBar = () => {
   return (
     <nav className='fixed bottom-0 left-0 right-0 bg-background shadow-lg border-t border-border z-50 hide-on-large'>
       <div className='container flex justify-around items-center h-14 px-4'>
         <Link
-          href='#'
+          to={routes.home}
           className='flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition'
           prefetch={false}
         >
@@ -22,7 +23,7 @@ const MobileNavigationBar = () => {
           <span className='text-xs font-medium'>Categorías</span>
         </Link>
         <Link
-          href='#'
+          to={routes.contact}
           className='flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition'
           prefetch={false}
         >
