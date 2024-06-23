@@ -32,8 +32,6 @@ public class ProductServiceImpl implements IProductService {
     private final CategoryRepository categoryRepository;
     private final ModelMapper mapper;
     private final ProductDetailRepository productDetailRepository;
-    private final ReservationRepository reservationRepository;
-    private final UserRepository userRepository;
 
     @Override
     public List<ProductDTO> getAll() {
@@ -121,31 +119,6 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void delete(Long id) {
         productRepository.deleteById(id);
-    }
-
-    @Override
-    public ProductDTO preReservation(Long productId, Long userId, ReservationProductDTO reservationProductDTO) {
-
-        Product productFound = productRepository.findById(productId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto con id %s", productId)));
-
-        productFound.setDateIn(reservationProductDTO.getDateIn());
-        productFound.setDateOut(reservationProductDTO.getDateOut());
-        productFound.setReserved(true);
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Usuario con id %s", userId)));
-
-        Reservation reservation = Reservation
-                .builder()
-                .user(user)
-                .products(List.of(productFound))
-                .status("reserved")
-                .build();
-
-        reservationRepository.save(reservation);
-
-        return convertProductToDTO(productRepository.save(productFound));
     }
 
     private ProductDTO convertProductToDTO(Product product) {

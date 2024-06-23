@@ -26,6 +26,12 @@ public class Reservation {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "date_in")
+    private Date dateIn;
+
+    @Column(name = "date_out")
+    private Date dateOut;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "reservation_product",

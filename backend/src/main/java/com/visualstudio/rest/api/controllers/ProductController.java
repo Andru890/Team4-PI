@@ -100,11 +100,6 @@ public class ProductController {
         productService.delete(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    @PutMapping("/reservation/{productId}/user/{userId}")
-    public ResponseEntity<ProductDTO> updateProductDates(@PathVariable("productId") Long productId, @PathVariable("userId") Long userId, @RequestBody ReservationProductDTO reservationProductDTO) {
-        return new ResponseEntity<>(productService.preReservation(productId, userId, reservationProductDTO), HttpStatus.OK);
-    }
 }
 
 

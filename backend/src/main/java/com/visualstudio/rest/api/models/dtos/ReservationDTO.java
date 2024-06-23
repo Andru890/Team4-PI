@@ -21,6 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -33,5 +34,7 @@ public class ReservationDTO {
 
     private Long id;
     private String status;
+    private Date dateIn;
+    private Date dateOut;
     private List<ProductDTO> products;
 }

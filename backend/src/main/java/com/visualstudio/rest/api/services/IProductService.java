@@ -16,5 +16,5 @@ public interface IProductService {
     ProductDTO findById(Long id);
     ProductDTO changeCategory(Long productId, Long categoryId);
     void delete(Long id) ;
-    ProductDTO preReservation(Long productId, Long userId, ReservationProductDTO reservationProductDTO);
+
 }
