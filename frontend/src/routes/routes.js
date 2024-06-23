@@ -21,4 +21,6 @@ export const routes = {
   cart: '/cart',
   contact: '/contact',
   favs: '/favs',
+  rentals: '/rentals',
+  checkout: '/checkout',
 }

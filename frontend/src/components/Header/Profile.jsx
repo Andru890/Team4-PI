@@ -107,7 +107,7 @@ const Profile = () => {
       phone,
       city,
       imageUrl: user.imageUrl,
-      roles, // Usamos la lista de roles normalizada
+      roles,
     }
     try {
       console.log('Saving changes for user:', updatedUser)
@@ -137,12 +137,14 @@ const Profile = () => {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem
-            className='cursor-pointer'
-            onClick={() => setDialogOpen(true)}
-          >
-            Mi Perfil
-          </DropdownMenuItem>
+          <Link to={routes.profile}>
+            <DropdownMenuItem
+              className='cursor-pointer'
+              // onClick={() => setDialogOpen(true)}
+            >
+              Mi Perfil
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuSeparator />
           <Link to={routes.favs}>
             <DropdownMenuItem className='cursor-pointer'>
@@ -150,6 +152,7 @@ const Profile = () => {
             </DropdownMenuItem>
           </Link>
           <DropdownMenuSeparator />
+
           {isAdmin && (
             <>
               <Link to={routes.dashboard}>
