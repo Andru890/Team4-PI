@@ -44,11 +44,11 @@ public class Product {
     @Column(name="reserved", nullable = false )
     private boolean isReserved;
 
-    @Column(name = "date_in")
+    /*@Column(name = "date_in")
     private Date dateIn;
 
     @Column(name = "date_out")
-    private Date dateOut;
+    private Date dateOut;*/
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_CATEGORY_ID"))

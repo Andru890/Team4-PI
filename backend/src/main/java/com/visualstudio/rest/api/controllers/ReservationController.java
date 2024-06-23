@@ -2,6 +2,7 @@ package com.visualstudio.rest.api.controllers;
 
 import com.visualstudio.rest.api.models.dtos.ProductDTO;
 import com.visualstudio.rest.api.models.dtos.ReservationDTO;
+import com.visualstudio.rest.api.models.dtos.ReservationProductDTO;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.models.entities.Reservation;
 import com.visualstudio.rest.api.services.IReservationService;
@@ -31,17 +32,7 @@ public class ReservationController {
 
     private final IReservationService reservationService;
 
-    @Operation(summary = "Create a reservation")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Create a reservation",
-                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
-    @PostMapping
-    public ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation) {
-        return new ResponseEntity<>(reservationService.save(reservation), HttpStatus.CREATED);
-    }
-
-    @Operation(summary = "Found a reservation")
+        @Operation(summary = "Found a reservation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found a reservation",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
@@ -65,5 +56,15 @@ public class ReservationController {
     @GetMapping("/user")
     public ResponseEntity<List<ReservationDTO>> getReservationByEmail(@RequestParam("email") String email){
         return  new ResponseEntity<>(reservationService.getUserByReservation(email), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Create a reservation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Create a reservation",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Product.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid product id", content = @Content)})
+    @PostMapping("/product/{productId}/user/{userId}")
+    public ResponseEntity<ReservationDTO> addReservation(@PathVariable("productId") Long productId, @PathVariable("userId") Long userId, @RequestBody ReservationProductDTO reservationProductDTO) {
+        return new ResponseEntity<>(reservationService.save(productId, userId, reservationProductDTO), HttpStatus.OK);
     }
 }
