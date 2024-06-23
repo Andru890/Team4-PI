@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,8 +30,12 @@ public class ProductDetail {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_ID"))
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "productsDetail"})
-    private Product product;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "product_has_detail",
+            joinColumns = @JoinColumn(name = "products_detail_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "products_detail"})
+    private List<Product> products;
 }

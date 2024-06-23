@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface IProductDetailService {
     List<ProductDetailDTO> getAll();
-    ProductDetailDTO save(ProductDetail productDetail, Long productId);
-    ProductDetailDTO update(ProductDetail productDetail, Long id);
+    ProductDetailDTO save(ProductDetail productDetail);
+    ProductDetailDTO update(ProductDetail productDetail);
     ProductDetailDTO findById(Long Id);
     void delete(Long id);
     List<ProductDetailDTO> findAllCharacteristicByProduct(Long productId);
