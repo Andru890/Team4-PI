@@ -10,14 +10,19 @@ export const AuthProvider = ({ children }) => {
     const storedUser = sessionStorage.getItem('user')
     return storedUser ? JSON.parse(storedUser) : null
   })
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => !!sessionStorage.getItem('token')
+  )
 
   useEffect(() => {
     if (user) {
       sessionStorage.setItem('user', JSON.stringify(user))
       sessionStorage.setItem('token', user.token)
+      setIsAuthenticated(true)
     } else {
       sessionStorage.removeItem('user')
       sessionStorage.removeItem('token')
+      setIsAuthenticated(false)
     }
   }, [user])
 
@@ -86,6 +91,7 @@ export const AuthProvider = ({ children }) => {
         }
       )
       setUser(null)
+      setIsAuthenticated(false)
     } catch (error) {
       console.error('Error during logout:', error)
       throw error
@@ -143,6 +149,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        isAuthenticated,
         login,
         logout,
         register,

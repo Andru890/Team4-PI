@@ -19,6 +19,7 @@ import Profile from '@/pages/Profile'
 import { PrivateRoute, AdminGuard } from '@/routes/AuthGuard'
 import Favs from '@/pages/Favs'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import ReservationPage from '@/pages/ReservationPage' // Importa la página de reservas
 
 const PublicLayout = () => (
   <div>
@@ -39,6 +40,8 @@ const Layout = () => {
         <Route path={routes.categoryDetail} element={<CategoryProducts />} />
         <Route path={routes.login} element={<Login />} />
         <Route path={routes.register} element={<Register />} />
+        <Route path={routes.reservation} element={<ReservationPage />} />{' '}
+        {/* Agrega esta línea */}
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path={routes.profile} element={<Profile />} />

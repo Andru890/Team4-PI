@@ -23,4 +23,5 @@ export const routes = {
   favs: '/favs',
   rentals: '/rentals',
   checkout: '/checkout',
+  reservation: '/reservation/:itemId', // Agrega esta línea
 }

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import {
   DialogTrigger,
   DialogDescription,
@@ -19,8 +19,29 @@ import {
 } from 'react-share'
 import ItemCalendar from '@/components/ItemDetailContainer/ItemCalendar'
 import ItemReviews from '@/components/ItemDetailContainer/ItemReviews'
+import { useAuthContext } from '@/context/auth.context'
 
 const ItemDetail = ({ product }) => {
+  const { user } = useAuthContext()
+  const navigate = useNavigate()
+  const token = sessionStorage.getItem('token')
+
+  const handleReservation = () => {
+    if (
+      !user ||
+      !token ||
+      !user.roles ||
+      typeof user.roles !== 'object' ||
+      Object.keys(user.roles).length === 0
+    ) {
+      navigate('/login', {
+        state: { from: `/reservation/${product.id}` },
+      })
+    } else {
+      navigate(`/reservation/${product.id}`)
+    }
+  }
+
   const goBack = () => {
     window.history.back()
   }
@@ -114,6 +135,12 @@ const ItemDetail = ({ product }) => {
                 <WhatsappIcon size={32} round />
               </WhatsappShareButton>
             </div>
+            <button
+              className='mt-8 bg-blue-500 text-white py-2 px-4 rounded'
+              onClick={handleReservation}
+            >
+              Reservar
+            </button>
           </div>
           <div>
             <img

@@ -29,4 +29,14 @@ const AdminGuard = ({ children }) => {
   return children ? children : <Outlet />
 }
 
-export { PrivateRoute, AdminGuard }
+const LogginGuard = ({ children }) => {
+  const { user } = useAuthContext()
+  const token = sessionStorage.getItem('token')
+
+  if (!user || !token) {
+    return <Navigate to={routes.home} />
+  }
+  return children ? children : <Outlet />
+}
+
+export { PrivateRoute, AdminGuard, LogginGuard }
