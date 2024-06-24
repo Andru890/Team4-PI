@@ -58,15 +58,22 @@ public class ProductServiceImpl implements IProductService {
         Product savedProduct = productRepository.save(product);
 
         List<ProductDetail> characteristics = product.getCharacteristics();
+        Set<Long> existingCharacteristicIds = new HashSet<>();
+        for (ProductDetail characteristic : characteristics) {
+            existingCharacteristicIds.add(characteristic.getId());
+        }
 
-        characteristics.forEach(c -> {
-            ProductDetail characteristic = ProductDetail
-                    .builder()
-                    .characteristic(c.getCharacteristic())
-                    .product(savedProduct)
-                    .build();
-            productDetailRepository.save(characteristic);
-        });
+        List<ProductDetail> existingCharacteristics = productDetailRepository.findByIdIn(existingCharacteristicIds);
+
+        Set<ProductDetail> characteristicsToSave = new HashSet<>();
+        for (ProductDetail characteristic : characteristics) {
+            if (!existingCharacteristics.contains(characteristic)) {
+                characteristic.getProducts().add(savedProduct);
+                characteristicsToSave.add(characteristic);
+            }
+        }
+        productDetailRepository.saveAll(characteristicsToSave);
+
         return savedProduct;
     }
 
@@ -88,6 +95,14 @@ public class ProductServiceImpl implements IProductService {
         }
         productFound.setImages(newImages);
 
+        List<ProductDetail> existingCharacteristics = productFound.getCharacteristics();
+        List<ProductDetail> newCharacteristics = new ArrayList<>();
+        for (ProductDetail productDetail : existingCharacteristics) {
+            if (!existingCharacteristics.contains(productDetail)) {
+                newCharacteristics.add(productDetail);
+            }
+        }
+        productFound.setCharacteristics(newCharacteristics);
 
         return convertToDTO(productRepository.save(productFound));
     }

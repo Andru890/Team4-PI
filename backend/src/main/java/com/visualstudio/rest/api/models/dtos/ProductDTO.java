@@ -29,8 +29,8 @@ public class ProductDTO {
     private Double price;
     private Integer stock;
     private boolean isReserved;
-    private Date dateIn;
-    private Date dateOut;
+    /*private Date dateIn;
+    private Date dateOut;*/
     private List<ProductDetailDTO> characteristics;
     private List<String> images;
     private String categoryId;
