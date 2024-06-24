@@ -30,3 +30,9 @@ EXPOSE 8000
 
 # Comando a ejecutar al iniciar el contenedor
 CMD ["java", "-jar", "app.jar"]
+
+# Comando para ejecutar la aplicación
+ENTRYPOINT ["java", "-jar", "tu-aplicacion.jar"]
+
+# Copia el archivo JAR generado desde la etapa de construcción
+COPY --from=builder /app/target/tu-aplicacion.jar ./tu-aplicacion.jar
