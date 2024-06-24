@@ -22,9 +22,12 @@ import {
   UsersIcon,
 } from '@/components/Icons'
 import { BarChart } from '@/components/AdminPanel/AdminBarChart'
+import { useGlobalContext } from '@/context/global.context'
 
 const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
   const [productCountByCategory, setProductCountByCategory] = useState([])
+  const { state, handleGetReservations } = useGlobalContext()
+  const { reservations } = state
 
   useEffect(() => {
     const countProductsByCategory = () => {
@@ -50,7 +53,9 @@ const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
     setProductCountByCategory(filteredProductCountsArray)
   }, [dataCategory]) // This ensures the effect runs every time dataCategory changes
 
-  const rentalsData = [] // Placeholder for rentals data
+  useEffect(() => {
+    handleGetReservations()
+  }, [handleGetReservations])
 
   return (
     <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6'>
@@ -88,7 +93,7 @@ const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
               </div>
               <div className='flex items-center justify-between'>
                 <div>
-                  <h3 className='text-2xl font-bold'>0</h3>
+                  <h3 className='text-2xl font-bold'>{reservations.length}</h3>
                   <p className='text-gray-500 dark:text-gray-400'>
                     Total de Pedidos
                   </p>
@@ -135,23 +140,27 @@ const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {rentalsData && rentalsData.length > 0 ? (
+            {reservations && reservations.length > 0 ? (
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Cliente</TableHead>
+                    <TableHead>Rental ID</TableHead>
                     <TableHead>Equipo</TableHead>
-                    <TableHead>Fecha de Inicio</TableHead>
-                    <TableHead>Fecha de Fin</TableHead>
+                    <TableHead>Fecha de Entrada</TableHead>
+                    <TableHead>Fecha de Salida</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {rentalsData.map((rental) => (
+                  {reservations.map((rental) => (
                     <TableRow key={rental.id}>
-                      <TableCell>{rental.client}</TableCell>
-                      <TableCell>{rental.equipment}</TableCell>
-                      <TableCell>{rental.startDate}</TableCell>
-                      <TableCell>{rental.endDate}</TableCell>
+                      <TableCell>{rental.id}</TableCell>
+                      <TableCell>{rental.products[0]?.name}</TableCell>
+                      <TableCell>
+                        {new Date(rental.dateIn).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell>
+                        {new Date(rental.dateOut).toLocaleDateString()}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
