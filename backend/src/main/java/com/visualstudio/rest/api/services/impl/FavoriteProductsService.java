@@ -29,8 +29,8 @@ public class FavoriteProductsService  implements IFavoriteProductsService {
         return favoriteProductsRepository.findById(id).get();
     }
     @Override
-    public List<FavoriteProducts> getUserProducts(Long userId) {
-        User user = userRepository.findById(userId).get();
+    public List<FavoriteProducts> getUserProducts(String userEmail) {
+        User user = userRepository.findByEmail(userEmail);
         List<FavoriteProducts> products = user.getFavoriteProducts();
         return products;
     }

@@ -25,9 +25,9 @@ public class FavoriteProductController {
         return favoriteProductsService.getOne(id);
     }
 
-    @GetMapping("/user/{id}")
-    public List<FavoriteProducts> getUserFavorites(@PathVariable Long id) {
-        return favoriteProductsService.getUserProducts(id);
+    @GetMapping("/user/{userEmail}")
+    public List<FavoriteProducts> getUserFavorites(@PathVariable String userEmail) {
+        return favoriteProductsService.getUserProducts(userEmail);
     }
 
     @PostMapping("/user/{userEmail}/product/{productId}")
