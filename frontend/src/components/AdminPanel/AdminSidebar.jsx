@@ -6,7 +6,7 @@ import {
   ShoppingCartIcon,
   PackageIcon,
   UsersIcon,
-  FolderIcon,
+  TagsIcon,
   SlidersVerticalIcon,
 } from '@/components/Icons'
 import { routes } from '@/routes/routes'
@@ -96,7 +96,7 @@ const AdminSidebar = () => {
               }`}
               to={routes.dashboardcategories}
             >
-              <FolderIcon className='h-4 w-4' />
+              <TagsIcon className='h-4 w-4' />
               Categorías
             </Link>
             <Link

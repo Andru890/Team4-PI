@@ -57,6 +57,15 @@ const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
     handleGetReservations()
   }, [handleGetReservations])
 
+  const totalRentedProducts = reservations.reduce(
+    (acc, reservation) => acc + reservation.products.length,
+    0
+  )
+
+  const equipmentUtilizationPercentage = productCount
+    ? ((totalRentedProducts / productCount) * 100).toFixed(0)
+    : 0
+
   return (
     <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6'>
       <div className='flex items-center'>
@@ -111,7 +120,9 @@ const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
               </div>
               <div className='flex items-center justify-between'>
                 <div>
-                  <h3 className='text-2xl font-bold'>0%</h3>
+                  <h3 className='text-2xl font-bold'>
+                    {equipmentUtilizationPercentage}%
+                  </h3>
                   <p className='text-gray-500 dark:text-gray-400'>
                     Utilización de Equipos
                   </p>
