@@ -162,18 +162,21 @@ const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {reservations.map((rental) => (
-                    <TableRow key={rental.id}>
-                      <TableCell>{rental.id}</TableCell>
-                      <TableCell>{rental.products[0]?.name}</TableCell>
-                      <TableCell>
-                        {new Date(rental.dateIn).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell>
-                        {new Date(rental.dateOut).toLocaleDateString()}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {reservations
+                    .sort((a, b) => new Date(b.dateIn) - new Date(a.dateIn)) // Ordena de más nuevo a más viejo
+                    .slice(0, 5) // Toma los primeros 5 elementos después de ordenar
+                    .map((rental) => (
+                      <TableRow key={rental.id}>
+                        <TableCell>{rental.id}</TableCell>
+                        <TableCell>{rental.products[0]?.name}</TableCell>
+                        <TableCell>
+                          {new Date(rental.dateIn).toLocaleDateString()}
+                        </TableCell>
+                        <TableCell>
+                          {new Date(rental.dateOut).toLocaleDateString()}
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             ) : (
@@ -198,12 +201,18 @@ const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {users.slice(-10).map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell>{user.name}</TableCell>
-                      <TableCell>{user.email}</TableCell>
-                    </TableRow>
-                  ))}
+                  {users
+                    .sort(
+                      (a, b) =>
+                        new Date(b.registeredDate) - new Date(a.registeredDate)
+                    )
+                    .slice(0, 5)
+                    .map((user) => (
+                      <TableRow key={user.id}>
+                        <TableCell>{user.name}</TableCell>
+                        <TableCell>{user.email}</TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             ) : (

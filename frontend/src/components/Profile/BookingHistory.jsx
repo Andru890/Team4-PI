@@ -38,9 +38,9 @@ const BookingHistory = () => {
         <TableHeader>
           <TableRow>
             <TableHead>ID</TableHead>
-            <TableHead>Fecha de Entrada</TableHead>
-            <TableHead>Fecha de Salida</TableHead>
             <TableHead>Equipo</TableHead>
+            <TableHead>Fecha de Entrega</TableHead>
+            <TableHead>Fecha de Devolución</TableHead>
             <TableHead>Estado</TableHead>
           </TableRow>
         </TableHeader>
@@ -49,14 +49,15 @@ const BookingHistory = () => {
             <TableRow key={reservation.id}>
               <TableCell>{reservation.id}</TableCell>
               <TableCell>
+                {reservation.products.map((product) => product.name).join(', ')}
+              </TableCell>
+              <TableCell>
                 {new Date(reservation.dateIn).toLocaleDateString()}
               </TableCell>
               <TableCell>
                 {new Date(reservation.dateOut).toLocaleDateString()}
               </TableCell>
-              <TableCell>
-                {reservation.products.map((product) => product.name).join(', ')}
-              </TableCell>
+
               <TableCell>
                 <Badge
                   variant={
