@@ -21,11 +21,16 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (isHome) {
-        setIsScrolled(window.scrollY > 0)
+        setIsScrolled(window.scrollY > 20)
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
+    if (isHome) {
+      window.addEventListener('scroll', handleScroll)
+    } else {
+      setIsScrolled(false)
+    }
+
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }

@@ -14,25 +14,24 @@ const Navbar = ({ isHome, isScrolled }) => {
   const { state } = useGlobalContext()
   const { dataCategory: categories } = state
 
-  const shouldHide = isHome && !isScrolled
+  const linkClassName =
+    isScrolled || !isHome
+      ? 'text-black after:bg-black'
+      : 'text-white after:bg-white'
 
   return (
     <nav
-      className={`hidden md:flex items-center gap-6 transition-opacity duration-300 ${shouldHide ? 'opacity-0' : 'opacity-100'}`}
+      className={`hidden md:flex items-center gap-6 transition-opacity duration-300 ${isHome && !isScrolled ? 'opacity-0' : 'opacity-100'}`}
     >
       <Link
-        className={`transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:transition-all after:duration-300 hover:after:w-full ${
-          isScrolled ? 'text-black after:bg-black' : 'text-white after:bg-white'
-        }`}
+        className={`transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:transition-all after:duration-300 hover:after:w-full ${linkClassName}`}
         to={routes.home}
       >
         Inicio
       </Link>
 
       <NavigationMenu
-        className={`transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:transition-all after:duration-300 hover:after:w-full ${
-          isScrolled ? 'bg-transparent' : 'bg-white'
-        }`}
+        className={`transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:transition-all after:duration-300 hover:after:w-full ${isScrolled || !isHome ? 'bg-transparent' : 'bg-white'}`}
       >
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -61,9 +60,7 @@ const Navbar = ({ isHome, isScrolled }) => {
       </NavigationMenu>
 
       <Link
-        className={`transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:transition-all after:duration-300 hover:after:w-full ${
-          isScrolled ? 'text-black after:bg-black' : 'text-white after:bg-white'
-        }`}
+        className={`transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:transition-all after:duration-300 hover:after:w-full ${linkClassName}`}
         to={routes.contact}
       >
         Contacto
