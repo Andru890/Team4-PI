@@ -38,6 +38,11 @@ import {
   deleteFeature,
   getFeaturesByProduct,
 } from '@/services/featuresAPI'
+import {
+  getReservations,
+  getReservationById,
+  addReservation,
+} from '@/services/reservationAPI'
 import { getRole } from '@/services/roleAPI'
 
 export const ContextGlobal = createContext(undefined)
@@ -361,6 +366,52 @@ export const ContextProvider = ({ children }) => {
     dispatch({ type: 'CHANGE_THEME' })
   }
 
+  const handleGetReservations = useCallback(async () => {
+    try {
+      const data = await getReservations()
+      if (data) {
+        dispatch({ type: 'GET_RESERVATIONS', payload: data })
+      } else {
+        throw new Error('Failed to fetch reservation data')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
+
+  const handleGetReservationById = useCallback(async (id) => {
+    if (!id) {
+      throw new Error('Reservation ID is required')
+    }
+    const data = await getReservationById(id)
+    if (data) {
+      dispatch({ type: 'GET_RESERVATION_DETAIL', payload: data })
+    } else {
+      throw new Error('Failed to fetch reservation detail')
+    }
+  }, [])
+
+  const handleAddReservation = useCallback(
+    async (productId, userId, reservation) => {
+      if (!productId || !userId || !reservation) {
+        throw new Error(
+          'Product ID, User ID, and reservation details are required'
+        )
+      }
+      const data = await addReservation(productId, userId, reservation)
+      if (data) {
+        dispatch({ type: 'ADD_RESERVATION', payload: data })
+      } else {
+        throw new Error('Failed to add reservation')
+      }
+    },
+    []
+  )
+
+  useEffect(() => {
+    handleGetReservations()
+  }, [handleGetReservations])
+
   useEffect(() => {
     handleGetFeatures()
   }, [handleGetFeatures])
@@ -423,6 +474,9 @@ export const ContextProvider = ({ children }) => {
     handleAddFav,
     handleDelFav,
     handleClearFavs,
+    handleGetReservations,
+    handleGetReservationById,
+    handleAddReservation,
   }
 
   return (

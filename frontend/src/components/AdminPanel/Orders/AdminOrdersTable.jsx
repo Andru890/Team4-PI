@@ -1,4 +1,5 @@
-import { useState, useMemo } from 'react'
+import { useEffect, useState, useMemo } from 'react'
+import { useGlobalContext } from '@/context/global.context'
 import { Input } from '@/components/ui/input'
 import {
   DropdownMenu,
@@ -20,71 +21,36 @@ import {
 } from '@/components/ui/table'
 import { SearchIcon } from '@/components/Icons'
 
-const AdminUsersTable = () => {
+const AdminOrdersTable = () => {
+  const { state, handleGetReservations } = useGlobalContext()
+  const { reservations } = state
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState({ key: 'id', order: 'asc' })
   const [filters, setFilters] = useState({
     status: [],
-    customer: [],
   })
-  const orders = useMemo(
+
+  useEffect(() => {
+    handleGetReservations()
+  }, [handleGetReservations])
+
+  const filteredOrders = useMemo(
     () =>
-      [
-        {
-          id: 'INV001',
-          date: '2024-05-01',
-          customer: 'Wilson Del Canto',
-          total: 250.99,
-          status: 'Finalizada',
-        },
-        {
-          id: 'INV002',
-          date: '2024-04-15',
-          customer: 'Camilo Patiño',
-          total: 150.0,
-          status: 'En Proceso',
-        },
-        {
-          id: 'INV003',
-          date: '2024-03-20',
-          customer: 'Sofia Brugo',
-          total: 350.75,
-          status: 'Cancelada',
-        },
-        {
-          id: 'INV004',
-          date: '2024-02-10',
-          customer: 'Andres Pristone',
-          total: 450.0,
-          status: 'Finalizada',
-        },
-        {
-          id: 'INV005',
-          date: '2024-01-05',
-          customer: 'Paula Palacios',
-          total: 550.5,
-          status: 'En Proceso',
-        },
-      ]
+      reservations
         .filter((order) => {
           const searchValue = search.toLowerCase()
           return (
-            order.id.toLowerCase().includes(searchValue) ||
-            order.customer.toLowerCase().includes(searchValue) ||
-            order.total.toString().toLowerCase().includes(searchValue) ||
-            order.status.toLowerCase().includes(searchValue)
+            String(order.id).toLowerCase().includes(searchValue) ||
+            order.status.toLowerCase().includes(searchValue) ||
+            order.products.some((product) =>
+              product.name.toLowerCase().includes(searchValue)
+            )
           )
         })
         .filter((order) => {
           if (
             filters.status.length > 0 &&
             !filters.status.includes(order.status)
-          ) {
-            return false
-          }
-          if (
-            filters.customer.length > 0 &&
-            !filters.customer.includes(order.customer)
           ) {
             return false
           }
@@ -97,8 +63,9 @@ const AdminUsersTable = () => {
             return a[sort.key] < b[sort.key] ? 1 : -1
           }
         }),
-    [search, sort, filters]
+    [reservations, search, sort, filters]
   )
+
   const handleSort = (key) => {
     if (sort.key === key) {
       setSort({ key, order: sort.order === 'asc' ? 'desc' : 'asc' })
@@ -106,6 +73,7 @@ const AdminUsersTable = () => {
       setSort({ key, order: 'asc' })
     }
   }
+
   const handleFilterChange = (type, value) => {
     if (type === 'status') {
       setFilters({
@@ -114,21 +82,15 @@ const AdminUsersTable = () => {
           ? filters.status.filter((item) => item !== value)
           : [...filters.status, value],
       })
-    } else if (type === 'customer') {
-      setFilters({
-        ...filters,
-        customer: filters.customer.includes(value)
-          ? filters.customer.filter((item) => item !== value)
-          : [...filters.customer, value],
-      })
     }
   }
+
   return (
     <main className='flex flex-col gap-4 p-4 md:p-6'>
       <div className='flex items-center gap-4'>
         <div className='relative w-full'>
           <Input
-            placeholder='Buscar ordenes...'
+            placeholder='Buscar órdenes...'
             className='bg-white dark:bg-gray-950 pl-8'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -145,11 +107,12 @@ const AdminUsersTable = () => {
           <DropdownMenuContent className='w-[200px]' align='end'>
             <DropdownMenuRadioGroup value={sort.key} onValueChange={handleSort}>
               <DropdownMenuRadioItem value='id'>Orden #</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value='date'>Fecha</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value='customer'>
-                Cliente
+              <DropdownMenuRadioItem value='dateIn'>
+                Fecha de Entrada
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value='total'>Total</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value='dateOut'>
+                Fecha de Salida
+              </DropdownMenuRadioItem>
               <DropdownMenuRadioItem value='status'>
                 Estado
               </DropdownMenuRadioItem>
@@ -167,30 +130,30 @@ const AdminUsersTable = () => {
             <div className='grid gap-2'>
               <Label className='flex items-center gap-2 font-normal'>
                 <Checkbox
-                  checked={filters.status.includes('Finalizada')}
+                  checked={filters.status.includes('reserved')}
                   onCheckedChange={() =>
-                    handleFilterChange('status', 'Finalizada')
+                    handleFilterChange('status', 'reserved')
                   }
                 />
-                Finalizada
+                Reservado
               </Label>
               <Label className='flex items-center gap-2 font-normal'>
                 <Checkbox
-                  checked={filters.status.includes('En Proceso')}
+                  checked={filters.status.includes('completed')}
                   onCheckedChange={() =>
-                    handleFilterChange('status', 'En Proceso')
+                    handleFilterChange('status', 'completed')
                   }
                 />
-                En Proceso
+                Completado
               </Label>
               <Label className='flex items-center gap-2 font-normal'>
                 <Checkbox
-                  checked={filters.status.includes('Cancelada')}
+                  checked={filters.status.includes('cancelled')}
                   onCheckedChange={() =>
-                    handleFilterChange('status', 'Cancelada')
+                    handleFilterChange('status', 'cancelled')
                   }
                 />
-                Cancelada
+                Cancelado
               </Label>
             </div>
           </DropdownMenuContent>
@@ -214,10 +177,10 @@ const AdminUsersTable = () => {
               </TableHead>
               <TableHead
                 className='cursor-pointer'
-                onClick={() => handleSort('date')}
+                onClick={() => handleSort('dateIn')}
               >
-                Fecha
-                {sort.key === 'date' && (
+                Fecha de Entrada
+                {sort.key === 'dateIn' && (
                   <span className='ml-1'>
                     {sort.order === 'asc' ? '\u2191' : '\u2193'}
                   </span>
@@ -225,21 +188,10 @@ const AdminUsersTable = () => {
               </TableHead>
               <TableHead
                 className='cursor-pointer'
-                onClick={() => handleSort('customer')}
+                onClick={() => handleSort('dateOut')}
               >
-                Cliente
-                {sort.key === 'customer' && (
-                  <span className='ml-1'>
-                    {sort.order === 'asc' ? '\u2191' : '\u2193'}
-                  </span>
-                )}
-              </TableHead>
-              <TableHead
-                className='text-right cursor-pointer'
-                onClick={() => handleSort('total')}
-              >
-                Total
-                {sort.key === 'total' && (
+                Fecha de Salida
+                {sort.key === 'dateOut' && (
                   <span className='ml-1'>
                     {sort.order === 'asc' ? '\u2191' : '\u2193'}
                   </span>
@@ -259,21 +211,22 @@ const AdminUsersTable = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {orders.map((order) => (
+            {filteredOrders.map((order) => (
               <TableRow key={order.id}>
                 <TableCell className='font-medium'>{order.id}</TableCell>
-                <TableCell>{order.date}</TableCell>
-                <TableCell>{order.customer}</TableCell>
-                <TableCell className='text-right'>
-                  ${order.total.toFixed(2)}
+                <TableCell>
+                  {new Date(order.dateIn).toLocaleDateString()}
+                </TableCell>
+                <TableCell>
+                  {new Date(order.dateOut).toLocaleDateString()}
                 </TableCell>
                 <TableCell>
                   <span
                     className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      order.status === 'Finalizada'
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                        : order.status === 'En Proceso'
-                          ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                      order.status === 'reserved'
+                        ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+                        : order.status === 'completed'
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                           : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
                     }`}
                   >
@@ -289,7 +242,7 @@ const AdminUsersTable = () => {
   )
 }
 
-export default AdminUsersTable
+export default AdminOrdersTable
 
 function ArrowUpDownIcon(props) {
   return (
