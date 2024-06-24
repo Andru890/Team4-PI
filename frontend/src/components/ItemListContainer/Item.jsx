@@ -5,7 +5,6 @@ import { Card, CardContent } from '@/components/ui/card'
 import { useGlobalContext } from '@/context/global.context'
 import { useAuthContext } from '@/context/auth.context'
 import { toast, Toaster } from 'sonner'
-
 import { HeartIcon } from '@/components/Icons'
 
 const Item = ({ product }) => {
@@ -55,7 +54,17 @@ const Item = ({ product }) => {
       </div>
       <CardContent className='space-y-4 p-6'>
         <h3 className='text-xl font-semibold text-gray-800'>{product.name}</h3>
-        <p className='text-gray-600'>{product.description}</p>
+        <p
+          className='text-gray-600 overflow-hidden text-ellipsis'
+          style={{
+            display: '-webkit-box',
+            WebkitLineClamp: 4,
+            WebkitBoxOrient: 'vertical',
+            lineClamp: 4,
+          }}
+        >
+          {product.description}
+        </p>
         <div className='flex justify-between items-center'>
           <Link to={`/product/${product.id}`}>
             <Button className='px-6 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors duration-300'>
