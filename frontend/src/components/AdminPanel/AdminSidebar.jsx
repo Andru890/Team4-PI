@@ -1,12 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
+import { useGlobalContext } from '@/context/global.context'
 import { Badge } from '@/components/ui/badge'
 import {
   HomeIcon,
   ShoppingCartIcon,
   PackageIcon,
   UsersIcon,
-  BellIcon,
   FolderIcon,
   SlidersVerticalIcon,
 } from '@/components/Icons'
@@ -14,6 +13,8 @@ import { routes } from '@/routes/routes'
 
 const AdminSidebar = () => {
   const location = useLocation()
+  const { state } = useGlobalContext()
+  const orderCount = state.reservations.length
 
   const isActive = (path) => {
     return location.pathname.startsWith(path.replace(/\/$/, ''))
@@ -37,11 +38,6 @@ const AdminSidebar = () => {
               width={100}
             />
           </Link>
-          {/* //! Se habilitara cuando se cree alguna logica
-            <Button className='ml-auto h-8 w-8' size='icon' variant='outline'>
-            <BellIcon className='h-4 w-4' />
-            <span className='sr-only'>Toggle notifications</span>
-          </Button> */}
         </div>
         <div className='flex-1 overflow-auto py-2'>
           <nav className='grid items-start px-4 text-sm font-medium'>
@@ -65,9 +61,9 @@ const AdminSidebar = () => {
               to={routes.dashboardorders}
             >
               <ShoppingCartIcon className='h-4 w-4' />
-              Alquileres
+              Ordenes
               <Badge className='ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full'>
-                6
+                {orderCount}
               </Badge>
             </Link>
             <Link

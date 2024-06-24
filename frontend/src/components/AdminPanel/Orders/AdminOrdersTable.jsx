@@ -37,14 +37,17 @@ const AdminOrdersTable = () => {
   const filteredOrders = useMemo(
     () =>
       reservations
+        .map((order) => ({
+          ...order,
+          productName:
+            order.products.length > 0 ? order.products[0].name : 'N/A',
+        }))
         .filter((order) => {
           const searchValue = search.toLowerCase()
           return (
             String(order.id).toLowerCase().includes(searchValue) ||
             order.status.toLowerCase().includes(searchValue) ||
-            order.products.some((product) =>
-              product.name.toLowerCase().includes(searchValue)
-            )
+            order.productName.toLowerCase().includes(searchValue)
           )
         })
         .filter((order) => {
@@ -107,6 +110,9 @@ const AdminOrdersTable = () => {
           <DropdownMenuContent className='w-[200px]' align='end'>
             <DropdownMenuRadioGroup value={sort.key} onValueChange={handleSort}>
               <DropdownMenuRadioItem value='id'>Orden #</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value='productName'>
+                Nombre del Producto
+              </DropdownMenuRadioItem>
               <DropdownMenuRadioItem value='dateIn'>
                 Fecha de Entrada
               </DropdownMenuRadioItem>
@@ -177,6 +183,17 @@ const AdminOrdersTable = () => {
               </TableHead>
               <TableHead
                 className='cursor-pointer'
+                onClick={() => handleSort('productName')}
+              >
+                Nombre del Producto
+                {sort.key === 'productName' && (
+                  <span className='ml-1'>
+                    {sort.order === 'asc' ? '\u2191' : '\u2193'}
+                  </span>
+                )}
+              </TableHead>
+              <TableHead
+                className='cursor-pointer'
                 onClick={() => handleSort('dateIn')}
               >
                 Fecha de Entrada
@@ -214,6 +231,7 @@ const AdminOrdersTable = () => {
             {filteredOrders.map((order) => (
               <TableRow key={order.id}>
                 <TableCell className='font-medium'>{order.id}</TableCell>
+                <TableCell>{order.productName}</TableCell>
                 <TableCell>
                   {new Date(order.dateIn).toLocaleDateString()}
                 </TableCell>
@@ -273,7 +291,7 @@ function FilterIcon(props) {
       xmlns='http://www.w3.org/2000/svg'
       width='24'
       height='24'
-      viewBox='0 0 24 24'
+      viewBox='0 0 24'
       fill='none'
       stroke='currentColor'
       strokeWidth='2'
