@@ -1,19 +1,11 @@
 import { useAuthContext } from '@/context/auth.context'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from '@/components/ui/table'
-import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
 import useCloudinary from '@/hooks/useCloudinary'
 import { getUserByEmail } from '@/services/userAPI'
+import BookingHistory from './BookingHistory'
 
 const ProfileContainer = () => {
   const { handleUpdateUser, getUserInfoFromToken } = useAuthContext()
@@ -194,58 +186,7 @@ const ProfileContainer = () => {
           )}
         </div>
       </div>
-      <div className='p-8'>
-        <h3 className='text-xl font-bold mb-4'>Historial de Alquileres</h3>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Fecha</TableHead>
-              <TableHead>Equipo</TableHead>
-              <TableHead>Costo</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead>Período de Alquiler</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>15 de junio de 2023</TableCell>
-              <TableCell>Drone DJI Mavic Pro</TableCell>
-              <TableCell>$50</TableCell>
-              <TableCell>
-                <Badge variant='success'>Devuelto</Badge>
-              </TableCell>
-              <TableCell>10 de junio de 2023 - 15 de junio de 2023</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>20 de mayo de 2023</TableCell>
-              <TableCell>GoPro HERO10 Black</TableCell>
-              <TableCell>$30</TableCell>
-              <TableCell>
-                <Badge>Activo</Badge>
-              </TableCell>
-              <TableCell>20 de mayo de 2023 - 5 de junio de 2023</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>10 de abril de 2023</TableCell>
-              <TableCell>Canon EOS R6</TableCell>
-              <TableCell>$75</TableCell>
-              <TableCell>
-                <Badge variant='success'>Devuelto</Badge>
-              </TableCell>
-              <TableCell>5 de abril de 2023 - 10 de abril de 2023</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>25 de marzo de 2023</TableCell>
-              <TableCell>Nikon D850</TableCell>
-              <TableCell>$60</TableCell>
-              <TableCell>
-                <Badge variant='success'>Devuelto</Badge>
-              </TableCell>
-              <TableCell>20 de marzo de 2023 - 25 de marzo de 2023</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
+      <BookingHistory />
     </div>
   )
 }
