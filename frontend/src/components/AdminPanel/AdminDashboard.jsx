@@ -7,7 +7,6 @@ import {
   TableBody,
   Table,
 } from '@/components/ui/table'
-
 import {
   CardTitle,
   CardDescription,
@@ -15,7 +14,6 @@ import {
   CardContent,
   Card,
 } from '@/components/ui/card'
-
 import {
   ActivityIcon,
   DollarSignIcon,
@@ -23,7 +21,6 @@ import {
   ShoppingCartIcon,
   UsersIcon,
 } from '@/components/Icons'
-
 import { BarChart } from '@/components/AdminPanel/AdminBarChart'
 
 const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
@@ -51,9 +48,9 @@ const AdminDashboard = ({ productCount, userCount, users, dataCategory }) => {
     )
 
     setProductCountByCategory(filteredProductCountsArray)
-  }, [dataCategory])
+  }, [dataCategory]) // This ensures the effect runs every time dataCategory changes
 
-  const rentalsData = [] //! luego se va a cambiar por la data de los alquileres
+  const rentalsData = [] // Placeholder for rentals data
 
   return (
     <main className='flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6'>

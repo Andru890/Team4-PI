@@ -31,9 +31,12 @@ export const getReservationsByUser = async (email) => {
   }
 }
 
-export const addReservation = async (reservation) => {
+export const addReservation = async (productId, userId, reservation) => {
   try {
-    const res = await axios.post(`${API_URL}/reservation`, reservation)
+    const res = await axios.post(
+      `${API_URL}/reservation/product/${productId}/user/${userId}`,
+      reservation
+    )
     return res.data
   } catch (error) {
     console.error(error)
