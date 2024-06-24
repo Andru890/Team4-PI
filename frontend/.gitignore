@@ -27,3 +27,6 @@ dist-ssr
 .env.development
 .env.production
 .env.*
+.env
+
+pnpm-lock.yaml
