@@ -60,11 +60,7 @@
 						</exclude>
 					</excludes>
 				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	<!-- Plugin del compilador Maven -->
-	<plugin>
+
 		<groupId>org.apache.maven.plugins</groupId>
 		<artifactId>maven-compiler-plugin</artifactId>
 		<version>3.11.7</version>
@@ -74,5 +70,6 @@
 		</configuration>
 	</plugin>
 </plugins>
+	</build>
 
 </project>
