@@ -1,21 +1,55 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CalendarIcon } from '@radix-ui/react-icons'
-import { addDays, format } from 'date-fns'
+import { addDays, format, isBefore, endOfDay } from 'date-fns'
+import { es } from 'date-fns/locale'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
-import { es } from 'date-fns/locale'
-import { isBefore, endOfDay } from 'date-fns'
+import { useGlobalContext } from '@/context/global.context'
 
-export default function ItemCalendar({ className }) {
+export default function ItemCalendar({ className, productId }) {
   const [date, setDate] = useState({
     from: new Date(),
     to: addDays(new Date(), 0),
   })
 
+  const { state, handleGetReservations } = useGlobalContext()
+  const [disabledDates, setDisabledDates] = useState([])
+
+  useEffect(() => {
+    handleGetReservations()
+  }, [handleGetReservations])
+
+  useEffect(() => {
+    if (state.reservations) {
+      const reservations = state.reservations.filter((reservation) =>
+        reservation.products.some((product) => product.id === productId)
+      )
+
+      const dates = []
+      reservations.forEach((reservation) => {
+        const startDate = new Date(reservation.dateIn)
+        const endDate = new Date(reservation.dateOut)
+        for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+          dates.push(new Date(d))
+        }
+      })
+
+      setDisabledDates(dates)
+    }
+  }, [state.reservations, productId])
+
   const isDisabled = (date) => {
-    return isBefore(date, endOfDay(new Date()))
+    const result =
+      isBefore(date, endOfDay(new Date())) ||
+      disabledDates.some(
+        (disabledDate) =>
+          format(disabledDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
+      )
+
+    return result
   }
+
   return (
     <div className={cn('container mx-auto p-4 mt-20', className)}>
       <h2 className='text-2xl font-bold mb-2'>Selecciona un rango de fechas</h2>

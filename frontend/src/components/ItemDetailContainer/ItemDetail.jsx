@@ -2,7 +2,6 @@ import { useNavigate, Link } from 'react-router-dom'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@/components/Icons'
 import ItemPolicies from '@/components/ItemDetailContainer/ItemPolicies'
-
 import ItemCalendar from '@/components/ItemDetailContainer/ItemCalendar'
 import ItemReviews from '@/components/ItemDetailContainer/ItemReviews'
 import { useAuthContext } from '@/context/auth.context'
@@ -83,7 +82,7 @@ const ItemDetail = ({ product }) => {
               </div>
             </div>
             <ItemShare product={product} />
-            <ItemCalendar />
+            <ItemCalendar productId={product.id} />
             <button
               className='mt-8 bg-blue-500 text-white py-2 px-4 rounded'
               onClick={handleReservation}
