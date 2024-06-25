@@ -98,10 +98,10 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
-   @PutMapping("/{userId}")
-public ResponseEntity<?> update(@Valid @RequestBody User user, @PathVariable Long userId) {
+   @PutMapping("/{userEmail}")
+public ResponseEntity<?> update(@Valid @RequestBody User user, @PathVariable String userEmail) {
     try {
-        User existingUser = userService.getOne(userId);
+        User existingUser = userService.findByEmail(userEmail);
         if (existingUser == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
         }
@@ -130,7 +130,7 @@ public ResponseEntity<?> update(@Valid @RequestBody User user, @PathVariable Lon
             existingUser.setCity(user.getCity());
         }
 
-        User updatedUser = userService.update(existingUser, userId);
+        User updatedUser = userService.update(existingUser, userEmail);
         return ResponseEntity.ok(updatedUser);
     } catch (UsernameNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");

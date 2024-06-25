@@ -61,19 +61,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User update(User user, Long id) {
-        User wantedUser = userRepository.findById(id).get();
+    public User update(User user, String userEmail) {
+        User wantedUser = userRepository.findByEmail(userEmail);
         wantedUser.setName(user.getName());
         wantedUser.setLastname(user.getLastname());
         wantedUser.setEmail(user.getEmail());
         wantedUser.setPhone(user.getPhone());
         wantedUser.setCity(user.getCity());
-        wantedUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        String email = wantedUser.getEmail();
-        Role userRole = wantedUser.getRole();
-        String roleName = (userRole != null) ? userRole.getName() : null;
-        String token = jwtUtilities.generateToken(email, Collections.singletonList(roleName));
-
+        wantedUser.setImageUrl(user.getImageUrl());
+        if (user.getPassword() != wantedUser.getPassword()){
+            wantedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return userRepository.save(wantedUser);
     }
 
