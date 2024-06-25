@@ -58,7 +58,7 @@ const ItemDetail = ({ product }) => {
 
       <div className='container mx-auto py-12 md:py-16 lg:py-20 bg-white'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-          <div>
+          <div className=''>
             <h1 className='text-3xl font-bold mb-4'>{product.name}</h1>
             <p className='text-gray-500 dark:text-gray-400 mb-8 max-w-full break-words'>
               {product.description}
@@ -76,8 +76,8 @@ const ItemDetail = ({ product }) => {
               </div>
             </div>
             <div className='flex items-center gap-4 mb-8 mt-20'>
-              <div className='text-2xl font-bold'>${product.price}</div>
-              <div className='text-gray-500 dark:text-gray-400'>
+              <div className='text-4xl font-bold'>${product.price}</div>
+              <div className='text-green-600 font-bold  dark:text-gray-400'>
                 {product.stock > 0 ? 'Stock Disponible' : 'Stock Agotado'}
               </div>
             </div>
@@ -90,18 +90,22 @@ const ItemDetail = ({ product }) => {
               Reservar
             </button>
           </div>
-          <div>
-            <img
-              alt='Product Image'
-              className='w-full h-full object-cover rounded-lg'
-              height={400}
-              src={product.images[0] ? product.images[0] : '/placeholder.svg'}
-              style={{
-                aspectRatio: '600/400',
-                objectFit: 'contain',
-              }}
-              width={600}
-            />
+          <div className='grid align-top grid-cols-1 gap-9'>
+            <div>
+              {' '}
+              <img
+                alt='Product Image'
+                className='w-full h-full object-cover rounded-lg'
+                height={400}
+                src={product.images[0] ? product.images[0] : '/placeholder.svg'}
+                style={{
+                  aspectRatio: '600/400',
+                  objectFit: 'contain',
+                }}
+                width={600}
+              />
+            </div>
+            <div></div>
           </div>
         </div>
       </div>

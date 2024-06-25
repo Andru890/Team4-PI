@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { es } from 'date-fns/locale'
-import { isBefore, startOfToday } from 'date-fns'
+import { addDays, format, isBefore, endOfDay, startOfToday } from 'date-fns'
 import { Input } from '@/components/ui/input'
 import {
   Popover,
@@ -27,7 +27,8 @@ const debounce = (func, delay) => {
 }
 
 const CalendarMain = () => {
-  const { state } = useGlobalContext()
+  const { state, handleGetReservations } = useGlobalContext()
+  const [disabledDates, setDisabledDates] = useState([])
   const { data: products } = state
   const [searchTerm, setSearchTerm] = useState('')
   const [filteredProducts, setFilteredProducts] = useState([])
@@ -114,6 +115,40 @@ const CalendarMain = () => {
 
   const today = startOfToday()
 
+  useEffect(() => {
+    handleGetReservations()
+  }, [handleGetReservations])
+
+  useEffect(() => {
+    if (state.reservations) {
+      const reservations = state.reservations.filter((reservation) =>
+        reservation.products.some((product) => product.id === products.id)
+      )
+
+      const dates = []
+      reservations.forEach((reservation) => {
+        const startDate = new Date(reservation.dateIn)
+        const endDate = new Date(reservation.dateOut)
+        for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+          dates.push(new Date(d))
+        }
+      })
+
+      setDisabledDates(dates)
+    }
+  }, [state.reservations, products.id])
+
+  const isDisabled = (date) => {
+    const result =
+      isBefore(date, endOfDay(new Date())) ||
+      disabledDates.some(
+        (disabledDate) =>
+          format(disabledDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
+      )
+
+    return result
+  }
+
   return (
     <div className='max-w-4xl mx-auto p-8 bg-white lg:rounded-full md:rounded-lg shadow'>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
@@ -176,7 +211,7 @@ const CalendarMain = () => {
                   toast.error('No puede seleccionar una fecha anterior a hoy')
                 }
               }}
-              disabled={(date) => isBefore(date, today)}
+              disabled={isDisabled}
             />
           </PopoverContent>
         </Popover>
@@ -206,7 +241,7 @@ const CalendarMain = () => {
                   toast.error('No puede seleccionar una fecha anterior a hoy')
                 }
               }}
-              disabled={(date) => isBefore(date, today)}
+              disabled={isDisabled}
             />
           </PopoverContent>
         </Popover>
