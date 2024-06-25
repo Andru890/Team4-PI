@@ -85,7 +85,7 @@ const ReservationPage = () => {
                   </h1>
                   <div className='flex items-center gap-4'>
                     <div className='flex items-center gap-0.5'>
-                      <span>test</span>
+                      <span>Disponible para retiro en Oficina Central</span>
                     </div>
                   </div>
                   <div className='grid gap-4'>
@@ -133,6 +133,11 @@ const ReservationPage = () => {
                     <p>
                       {productSelected?.description ||
                         'Descripción del Producto'}
+                    </p>
+                  </div>
+                  <div className='grid gap-4'>
+                    <p className='text-green-600 dark:text-gray-400 text-l'>
+                      Stock Disponible: {productSelected?.stock}
                     </p>
                   </div>
                 </div>
@@ -189,7 +194,7 @@ const ReservationPage = () => {
                               className='flex-col items-start w-full h-auto'
                             >
                               <span className='font-semibold uppercase text-[0.65rem]'>
-                                Check in
+                                Fecha de alquiler
                               </span>
                               <span className='font-normal'>4/2/2024</span>
                             </Button>
@@ -205,7 +210,7 @@ const ReservationPage = () => {
                               className='flex-col items-start w-full h-auto'
                             >
                               <span className='font-semibold uppercase text-[0.65rem]'>
-                                Check out
+                                Fecha devolución
                               </span>
                               <span className='font-normal'>10/2/2024</span>
                             </Button>
