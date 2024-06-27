@@ -85,13 +85,22 @@ const ItemReviews = ({ productId }) => {
   }
 
   const handleSubmitReview = async () => {
-    if (!rating || !review) {
-      setError('Por favor, selecciona una puntuación y escribe un comentario.')
+    if (!rating) {
+      setError('Por favor, escribe un comentario.')
+      return
+    }
+    if (!review) {
+      setError('Por favor, selecciona una puntuación')
       return
     }
 
     setError('')
-    console.log('Submit Review:', { review, rating, productId, reservationId })
+    console.log('Submit Review:', {
+      review,
+      rating,
+      productId,
+      reservationId,
+    })
     console.log('Reservation:', reservationId)
     if (review && rating && productId && reservationId) {
       await handleAddQualify(
