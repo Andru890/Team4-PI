@@ -30,9 +30,17 @@ public class ReservationServiceImpl implements IReservationService {
     public List<ReservationDTO> getAll() {
         List<Reservation> reservations = reservationRepository.findAll();
         List<ReservationDTO> reservationDTOS = new ArrayList<>();
-        reservations.forEach(p -> reservationDTOS.add(convertReservationToDTO(p)));
+        reservations.forEach(r -> {
+            User user = userRepository.findById(r.getUser().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Usuario con id %s", r.getUser().getId())));
+            ReservationDTO reservationDTO = convertReservationToDTO(r);
+            reservationDTO.setEmail(user.getEmail());
+            reservationDTOS.add(reservationDTO);
+        });
         return reservationDTOS;
     }
+
+    
 
     @Override
     public ReservationDTO save(Long productId, Long userId, ReservationProductDTO reservationProductDTO) {
@@ -64,8 +72,17 @@ public class ReservationServiceImpl implements IReservationService {
 
     @Override
     public ReservationDTO findById(Long id) {
-        return convertReservationToDTO(reservationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Reservation con id %s", id))));
+
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Reservation con id %s", id)));
+
+        User user = userRepository.findById(reservation.getUser().getId())
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe usuario con id %s", reservation.getUser().getId())));
+
+        ReservationDTO reservationDTO = convertReservationToDTO(reservation);
+        reservationDTO.setEmail(user.getEmail());
+
+        return reservationDTO;
     }
 
     @Override

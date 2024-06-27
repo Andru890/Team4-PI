@@ -37,4 +37,5 @@ public class ReservationDTO {
     private Date dateIn;
     private Date dateOut;
     private List<ProductDTO> products;
+    private String email;
 }
