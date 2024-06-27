@@ -30,12 +30,4 @@ public class ProductDetail {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "product_has_detail",
-            joinColumns = @JoinColumn(name = "products_detail_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "products_detail"})
-    private List<Product> products;
 }

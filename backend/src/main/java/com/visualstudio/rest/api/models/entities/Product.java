@@ -59,8 +59,13 @@ public class Product {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "products"})
     private List<Reservation> reservations;
 
-    @ManyToMany(mappedBy = "products")
-    @JsonIgnoreProperties({"product", "hibernateLazyInitializer"})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "product_has_detail",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "products_detail_id")
+    )
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "products_detail"})
     private List<ProductDetail> characteristics;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)

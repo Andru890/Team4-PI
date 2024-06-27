@@ -36,6 +36,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product save(Product product) {
+        Product newProduct = product;
 
         List<Product> products = productRepository.findAll();
         for (Product foundProduct : products) {
@@ -49,30 +50,20 @@ public class ProductServiceImpl implements IProductService {
         for (String url : urlImages) {
             newImages.add(url);
         }
-        product.setImages(newImages);
+        newProduct.setImages(newImages);
 
         Category category = categoryRepository.findById(product.getCategory().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", product.getCategory().getId())));
-        product.setCategory(category);
-
-        Product savedProduct = productRepository.save(product);
+        newProduct.setCategory(category);
 
         List<ProductDetail> characteristics = product.getCharacteristics();
-        Set<Long> existingCharacteristicIds = new HashSet<>();
-        for (ProductDetail characteristic : characteristics) {
-            existingCharacteristicIds.add(characteristic.getId());
+        Set<Long> characteristicsIds = new HashSet<>();
+        for (ProductDetail detail : characteristics) {
+            characteristicsIds.add(detail.getId());
         }
-
-        List<ProductDetail> existingCharacteristics = productDetailRepository.findByIdIn(existingCharacteristicIds);
-
-        Set<ProductDetail> characteristicsToSave = new HashSet<>();
-        for (ProductDetail characteristic : characteristics) {
-            if (!existingCharacteristics.contains(characteristic)) {
-                characteristic.getProducts().add(savedProduct);
-                characteristicsToSave.add(characteristic);
-            }
-        }
-        productDetailRepository.saveAll(characteristicsToSave);
+        List<ProductDetail> foundCharacteristic = productDetailRepository.findByIdIn(characteristicsIds);
+        newProduct.setCharacteristics(foundCharacteristic);
+        Product savedProduct = productRepository.save(newProduct);
 
         return savedProduct;
     }
