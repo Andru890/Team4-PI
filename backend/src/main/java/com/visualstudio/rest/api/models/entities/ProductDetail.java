@@ -1,6 +1,5 @@
 package com.visualstudio.rest.api.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.*;
@@ -28,8 +27,4 @@ public class ProductDetail {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_ID"))
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "productsDetail"})
-    private Product product;
 }

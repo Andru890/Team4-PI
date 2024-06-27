@@ -29,9 +29,9 @@ public class ProductDetailController {
             @ApiResponse(responseCode = "200", description = "Create a productDetail",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ProductDetail.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid productDetail id", content = @Content)})
-    @PostMapping("/product/{productId}")
-    public ResponseEntity<ProductDetailDTO> addProductDetail(@RequestBody ProductDetail productDetail, @PathVariable Long productId)  {
-        return new ResponseEntity<>(productDetailService.save(productDetail, productId), HttpStatus.CREATED);
+    @PostMapping
+    public ResponseEntity<ProductDetailDTO> addProductDetail(@RequestBody ProductDetail productDetail)  {
+        return new ResponseEntity<>(productDetailService.save(productDetail), HttpStatus.CREATED);
     }
 
 
@@ -55,7 +55,7 @@ public class ProductDetailController {
         return new ResponseEntity<>(productDetailService.getAll(), HttpStatus.OK);
     }
 
-    @Operation(summary = "Found list productDetail")
+    /*@Operation(summary = "Found list productDetail")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found a productDetail",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ProductDetail.class))}),
@@ -63,7 +63,7 @@ public class ProductDetailController {
     @GetMapping("/product-characteristic/{productId}")
     public ResponseEntity<List<ProductDetailDTO>> searchAllByProduct(@PathVariable Long productId) {
         return new ResponseEntity<>(productDetailService.findAllCharacteristicByProduct(productId), HttpStatus.OK);
-    }
+    }*/
 
 
     @Operation(summary = "Found a productDetail")

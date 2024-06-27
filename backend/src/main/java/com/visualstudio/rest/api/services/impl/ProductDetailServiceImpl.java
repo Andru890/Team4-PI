@@ -1,6 +1,7 @@
 package com.visualstudio.rest.api.services.impl;
 
 import com.visualstudio.rest.api.exceptions.ResourceNotFoundException;
+import com.visualstudio.rest.api.models.dtos.ProductDTO;
 import com.visualstudio.rest.api.models.dtos.ProductDetailDTO;
 import com.visualstudio.rest.api.models.entities.Product;
 import com.visualstudio.rest.api.models.entities.ProductDetail;
@@ -19,7 +20,6 @@ import java.util.List;
 public class ProductDetailServiceImpl implements IProductDetailService {
 
     private final ProductDetailRepository productDetailRepository;
-    private final ProductRepository productRepository;
     private final ModelMapper mapper;
     @Override
     public List<ProductDetailDTO> getAll() {
@@ -31,13 +31,13 @@ public class ProductDetailServiceImpl implements IProductDetailService {
     }
 
     @Override
-    public ProductDetailDTO save(ProductDetail productDetail, Long productId){
-
-        Product productFound = productRepository.findById(productId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto Detalle con id %s", productId)));
-        productDetail.setProduct(productFound);
-        productDetail = productDetailRepository.save(productDetail);
-        return convertToDTO(productDetail);
+    public ProductDetailDTO save(ProductDetail productDetail){
+        ProductDetail newCharacteritic = ProductDetail
+                .builder()
+                .characteristic(productDetail.getCharacteristic())
+                .imageUrl(productDetail.getImageUrl())
+                .build();
+        return convertToDTO(productDetailRepository.save(newCharacteritic));
     }
 
     @Override
@@ -45,6 +45,7 @@ public class ProductDetailServiceImpl implements IProductDetailService {
         ProductDetail productDetailFound = productDetailRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Producto Detalle con id %s", id)));
         productDetailFound.setCharacteristic(productDetail.getCharacteristic());
+        productDetailFound.setImageUrl(productDetail.getImageUrl());
         return convertToDTO(productDetailRepository.save(productDetailFound));
     }
 
@@ -59,15 +60,16 @@ public class ProductDetailServiceImpl implements IProductDetailService {
         productDetailRepository.deleteById(id);
     }
 
-    @Override
+    /*@Override
     public List<ProductDetailDTO> findAllCharacteristicByProduct(Long productId) {
         return productDetailRepository.findByProductId(productId)
                 .stream()
                 .map(this::convertToDTO)
                 .toList();
-    }
+    }*/
 
     private ProductDetailDTO convertToDTO(ProductDetail productDetail){
         return mapper.map(productDetail, ProductDetailDTO.class);
     }
+
 }

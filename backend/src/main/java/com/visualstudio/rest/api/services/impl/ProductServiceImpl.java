@@ -21,7 +21,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +45,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product save(Product product) {
+        Product newProduct = product;
 
         List<Product> products = productRepository.findAll();
         for (Product foundProduct : products) {
@@ -56,24 +59,21 @@ public class ProductServiceImpl implements IProductService {
         for (String url : urlImages) {
             newImages.add(url);
         }
-        product.setImages(newImages);
+        newProduct.setImages(newImages);
 
         Category category = categoryRepository.findById(product.getCategory().getId())
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No existe Categoria con id %s", product.getCategory().getId())));
-        product.setCategory(category);
-
-        Product savedProduct = productRepository.save(product);
+        newProduct.setCategory(category);
 
         List<ProductDetail> characteristics = product.getCharacteristics();
+        Set<Long> characteristicsIds = new HashSet<>();
+        for (ProductDetail detail : characteristics) {
+            characteristicsIds.add(detail.getId());
+        }
+        List<ProductDetail> foundCharacteristic = productDetailRepository.findByIdIn(characteristicsIds);
+        newProduct.setCharacteristics(foundCharacteristic);
+        Product savedProduct = productRepository.save(newProduct);
 
-        characteristics.forEach(c -> {
-            ProductDetail characteristic = ProductDetail
-                    .builder()
-                    .characteristic(c.getCharacteristic())
-                    .product(savedProduct)
-                    .build();
-            productDetailRepository.save(characteristic);
-        });
         return savedProduct;
     }
 
@@ -95,6 +95,14 @@ public class ProductServiceImpl implements IProductService {
         }
         productFound.setImages(newImages);
 
+        List<ProductDetail> existingCharacteristics = productFound.getCharacteristics();
+        List<ProductDetail> newCharacteristics = new ArrayList<>();
+        for (ProductDetail productDetail : existingCharacteristics) {
+            if (!existingCharacteristics.contains(productDetail)) {
+                newCharacteristics.add(productDetail);
+            }
+        }
+        productFound.setCharacteristics(newCharacteristics);
 
         return convertProductToDTO(productRepository.save(productFound));
     }
