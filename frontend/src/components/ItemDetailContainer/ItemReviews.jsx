@@ -7,21 +7,36 @@ import { Button } from '@/components/ui/button'
 import { StarIcon } from '@/components/Icons/'
 import { useGlobalContext } from '@/context/global.context'
 import { useAuthContext } from '@/context/auth.context'
+import { toast, Toaster } from 'sonner'
 
 const ItemReviews = ({ productId }) => {
   const {
     state,
     handleGetQualifyByProduct,
     handleAddQualify,
-    getReservationsByUser,
+    handleGetReservationsByUser,
   } = useGlobalContext()
-  const { user } = useAuthContext()
+  const { getUserInfoFromToken } = useAuthContext()
+  const [user, setUser] = useState(null)
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
   const [reviews, setReviews] = useState([])
-  const [reservationId, setReservationId] = useState(null)
+  const [reservationId, setReservationId] = useState(1)
   const [averageRating, setAverageRating] = useState(0)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userInfo = getUserInfoFromToken()
+      if (userInfo && userInfo.email) {
+        setUser(userInfo)
+      } else {
+        console.error('User not found in token')
+      }
+    }
+
+    fetchUser()
+  }, [getUserInfoFromToken])
 
   useEffect(() => {
     if (productId) {
@@ -36,15 +51,17 @@ const ItemReviews = ({ productId }) => {
     const fetchReservations = async () => {
       if (user?.email) {
         try {
-          const reservations = await getReservationsByUser(user.email)
-          console.log('Reservations:', reservations)
+          const reservations = await handleGetReservationsByUser(user.email)
           const reservation = reservations.find((res) =>
-            res.products.some((product) => product.id === productId)
+            res.products.some((product) => {
+              return product.id === productId
+            })
           )
           if (reservation) {
             setReservationId(reservation.id)
+            console.log('Matching Reservation ID:', reservation.id)
           } else {
-            console.log('No reservation found for the product.')
+            console.error('No matching reservation found for the product.')
           }
         } catch (error) {
           console.error('Error fetching reservations:', error)
@@ -52,7 +69,7 @@ const ItemReviews = ({ productId }) => {
       }
     }
     fetchReservations()
-  }, [user, productId, getReservationsByUser])
+  }, [user, productId, handleGetReservationsByUser])
 
   useEffect(() => {
     if (state.dataQualify) {
@@ -101,21 +118,29 @@ const ItemReviews = ({ productId }) => {
       productId,
       reservationId,
     })
-    console.log('Reservation:', reservationId)
     if (review && rating && productId && reservationId) {
-      await handleAddQualify(
-        user.email,
-        productId,
-        reservationId,
-        rating,
-        review
-      )
-      setReview('')
-      setRating(0)
-      await handleGetQualifyByProduct(productId)
+      try {
+        await handleAddQualify(
+          user.email,
+          productId,
+          reservationId,
+          rating,
+          review
+        )
+        setReview('')
+        setRating(0)
+        await handleGetQualifyByProduct(productId)
+      } catch (error) {
+        console.error('Error adding qualify:', error)
+        toast.error('El usuario no puede calificar la reserva') // Muestra el mensaje de error con toast
+      }
     } else {
       console.error('Review, rating, productId, and reservationId are required')
     }
+  }
+
+  if (!user) {
+    return <p>Por favor inicia sesión para dejar una reseña.</p>
   }
 
   return (
@@ -208,6 +233,14 @@ const ItemReviews = ({ productId }) => {
           </div>
         </div>
       </div>
+      <Toaster
+        position='top-right'
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=''
+        containerStyle={{}}
+        toastOptions={{}}
+      />
     </div>
   )
 }
