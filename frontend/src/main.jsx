@@ -9,13 +9,13 @@ import ErrorBoundary from '@/components/ErrorBoundary'
 // Renderiza la aplicación
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <ContextProvider>
+    <ErrorBoundary>
       <AuthProvider>
-        <ErrorBoundary>
+        <ContextProvider>
           <App />
-        </ErrorBoundary>
+        </ContextProvider>
       </AuthProvider>
-    </ContextProvider>
+    </ErrorBoundary>
   </BrowserRouter>
 )
 

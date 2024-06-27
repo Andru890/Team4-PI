@@ -32,7 +32,7 @@ const ProfileContainer = () => {
             userInfo.roles.map((role) =>
               role.authority ? role.authority : role
             )
-          ) // Normalizamos los roles
+          )
           setName(userData.name || '')
           setLastname(userData.lastname || '')
           setEmail(userData.email || '')
@@ -57,6 +57,7 @@ const ProfileContainer = () => {
           const updatedUser = {
             ...user,
             imageUrl,
+            roles: user.roles || roles, // Asegúrate de que los roles estén definidos
           }
           await handleUpdateUser(updatedUser)
         }
@@ -71,13 +72,13 @@ const ProfileContainer = () => {
 
   const handleSaveChanges = async () => {
     const updatedUser = {
-      id: user.id,
+      email: user.email,
       name,
       lastname,
-      email,
       phone,
       city,
       imageUrl: user.imageUrl,
+      roles: user.roles || roles, // Asegúrate de que los roles estén definidos
     }
     try {
       await handleUpdateUser(updatedUser)
@@ -135,6 +136,7 @@ const ProfileContainer = () => {
               </h2>
               <div className='text-sm text-muted-foreground'>{email}</div>
               <div className='text-sm text-muted-foreground'>{phone}</div>
+              <div className='text-sm text-muted-foreground'>{city}</div>
               <Button
                 onClick={() => setIsEditingProfile(true)}
                 className='mt-2'
@@ -154,12 +156,6 @@ const ProfileContainer = () => {
                 value={lastname}
                 onChange={(e) => setLastname(e.target.value)}
                 placeholder='Apellido'
-                className='mb-2'
-              />
-              <Input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder='Correo electrónico'
                 className='mb-2'
               />
               <Input

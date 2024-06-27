@@ -115,18 +115,17 @@ export const AuthProvider = ({ children }) => {
     try {
       const token = sessionStorage.getItem('token')
       const userData = {
-        id: updatedUser.id,
         name: updatedUser.name,
         lastname: updatedUser.lastname,
         phone: updatedUser.phone,
         email: updatedUser.email,
         city: updatedUser.city,
         imageUrl: updatedUser.imageUrl,
-        roles: updatedUser.roles.map((role) => role.authority || role), // Convertimos los roles a strings si es necesario
+        roles: updatedUser.roles?.map((role) => role.authority || role) || [], // Convertimos los roles a strings si es necesario
       }
       console.log('Updating user with data:', userData)
       const response = await axios.put(
-        `${API_URL}/user/${updatedUser.id}`,
+        `${API_URL}/user/${updatedUser.email}`,
         userData,
         {
           headers: {

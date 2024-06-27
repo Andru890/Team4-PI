@@ -51,7 +51,7 @@ export const createUser = async (userData) => {
 export const updateUser = async (userData) => {
   try {
     const response = await axios.put(
-      `${API_URL}/user/${userData.id}`,
+      `${API_URL}/user/${userData.email}`,
       userData,
       getAuthHeaders()
     )

@@ -14,6 +14,8 @@ import { useAuthContext } from '@/context/auth.context'
 const BookingHistory = () => {
   const { getUserInfoFromToken } = useAuthContext()
   const [reservations, setReservations] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -24,12 +26,26 @@ const BookingHistory = () => {
           setReservations(data)
         } catch (error) {
           console.error('Error fetching reservations:', error)
+          setError('Error fetching reservations')
+        } finally {
+          setLoading(false)
         }
+      } else {
+        setLoading(false)
+        setError('User information is missing')
       }
     }
 
     fetchReservations()
   }, [getUserInfoFromToken])
+
+  if (loading) {
+    return <div className='p-8'>Loading...</div>
+  }
+
+  if (error) {
+    return <div className='p-8'>{error}</div>
+  }
 
   return (
     <div className='p-8'>
@@ -49,7 +65,9 @@ const BookingHistory = () => {
             <TableRow key={reservation.id}>
               <TableCell>{reservation.id}</TableCell>
               <TableCell>
-                {reservation.products.map((product) => product.name).join(', ')}
+                {reservation.products
+                  ?.map((product) => product.name)
+                  .join(', ')}
               </TableCell>
               <TableCell>
                 {new Date(reservation.dateIn).toLocaleDateString()}
@@ -57,7 +75,6 @@ const BookingHistory = () => {
               <TableCell>
                 {new Date(reservation.dateOut).toLocaleDateString()}
               </TableCell>
-
               <TableCell>
                 <Badge
                   variant={

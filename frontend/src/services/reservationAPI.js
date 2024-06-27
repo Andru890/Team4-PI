@@ -7,7 +7,8 @@ export const getReservations = async () => {
     const res = await axios.get(`${API_URL}/reservation`)
     return res.data
   } catch (error) {
-    console.error(error)
+    console.error('Error fetching reservations:', error)
+    throw error
   }
 }
 
@@ -16,7 +17,8 @@ export const getReservationById = async (id) => {
     const res = await axios.get(`${API_URL}/reservation/detail/${id}`)
     return res.data
   } catch (error) {
-    console.error(error)
+    console.error('Error fetching reservation by ID:', error)
+    throw error
   }
 }
 
@@ -27,7 +29,8 @@ export const getReservationsByUser = async (email) => {
     })
     return res.data
   } catch (error) {
-    console.error(error)
+    console.error('Error fetching reservations by user:', error)
+    throw error
   }
 }
 
@@ -39,6 +42,7 @@ export const addReservation = async (productId, userId, reservation) => {
     )
     return res.data
   } catch (error) {
-    console.error(error)
+    console.error('Error adding reservation:', error)
+    throw error
   }
 }

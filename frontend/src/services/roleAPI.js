@@ -23,7 +23,6 @@ export const getRoleById = async (roleId) => {
 export const addRole = async (role) => {
   try {
     const res = await axios.post(`${API_URL}/role`, role)
-    console.log(res.data)
     return res.data
   } catch (error) {
     console.error(error)
@@ -33,7 +32,6 @@ export const addRole = async (role) => {
 export const deleteRole = async (roleId) => {
   try {
     const res = await axios.delete(`${API_URL}/role/${roleId}`)
-    console.log(res.data)
     return res.data
   } catch (error) {
     console.error(error)
@@ -43,7 +41,6 @@ export const deleteRole = async (roleId) => {
 export const updateRole = async (roleId, role) => {
   try {
     const res = await axios.put(`${API_URL}/role/change/${roleId}`, role)
-    console.log(res.data)
     return res.data
   } catch (error) {
     console.error(error)
