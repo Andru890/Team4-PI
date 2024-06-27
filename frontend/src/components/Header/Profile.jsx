@@ -120,6 +120,7 @@ const Profile = () => {
   }
 
   const isAdmin = roles.includes('admin')
+  console.log('User:', isAdmin)
 
   return (
     <>

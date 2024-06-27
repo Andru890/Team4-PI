@@ -135,9 +135,9 @@ export const AuthProvider = ({ children }) => {
       )
       console.log('Response from update user:', response.data)
 
-      // Mantener el token al actualizar el usuario
+      // No actualizar el sessionStorage, solo el estado del contexto
       const updatedUserData = { ...response.data, token }
-      setUser(updatedUserData)
+      setUser((prevUser) => ({ ...prevUser, ...updatedUserData }))
     } catch (error) {
       console.error('Error updating user:', error)
       throw error
