@@ -1,14 +1,76 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { StarIcon } from '@/components/Icons/'
+import { useGlobalContext } from '@/context/global.context'
+import { useAuthContext } from '@/context/auth.context'
 
-const ItemReviews = () => {
+const ItemReviews = ({ productId }) => {
+  const {
+    state,
+    handleGetQualifyByProduct,
+    handleAddQualify,
+    handleGetReservationsByUser,
+  } = useGlobalContext()
+  const { user } = useAuthContext()
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
+  const [reviews, setReviews] = useState([])
+  const [reservationId, setReservationId] = useState(null)
+  const [averageRating, setAverageRating] = useState(0)
+
+  useEffect(() => {
+    if (productId) {
+      const fetchReviews = async () => {
+        await handleGetQualifyByProduct(productId)
+      }
+      fetchReviews()
+    }
+  }, [productId, handleGetQualifyByProduct])
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      if (user?.email) {
+        try {
+          const reservations = await handleGetReservationsByUser(user.email)
+          const reservation = reservations.find((res) =>
+            res.products.some((product) => product.id === productId)
+          )
+          if (reservation) {
+            setReservationId(reservation.id)
+          } else {
+            console.log('No reservation found for the product.')
+          }
+        } catch (error) {
+          console.error('Error fetching reservations:', error)
+        }
+      }
+    }
+    fetchReservations()
+  }, [user, productId, handleGetReservationsByUser])
+
+  useEffect(() => {
+    if (state.dataQualify) {
+      setReviews(state.dataQualify)
+      calculateAverageRating(state.dataQualify)
+    }
+  }, [state.dataQualify])
+
+  const calculateAverageRating = (reviews) => {
+    if (reviews.length > 0) {
+      const totalRating = reviews.reduce(
+        (acc, review) => acc + review.rating,
+        0
+      )
+      const average = totalRating / reviews.length
+      setAverageRating(average.toFixed(1))
+    } else {
+      setAverageRating(0)
+    }
+  }
 
   const handleStarClick = (index) => {
     setRating(index + 1)
@@ -20,98 +82,84 @@ const ItemReviews = () => {
     }
   }
 
+  const handleSubmitReview = async () => {
+    console.log('Submit Review:', { review, rating, productId, reservationId })
+    if (review && rating && productId && reservationId) {
+      await handleAddQualify(
+        user.email,
+        productId,
+        reservationId,
+        rating,
+        review
+      )
+      setReview('')
+      setRating(0)
+      await handleGetQualifyByProduct(productId)
+    } else {
+      console.error('Review, rating, productId, and reservationId are required')
+    }
+  }
+
+  if (!productId) {
+    return <p>Cargando...</p>
+  }
+
   return (
     <div className='bg-white dark:bg-gray-950 rounded-lg p-6 max-w-2xl mx-auto'>
       <div className='flex items-center justify-between mb-4'>
-        <h2 className='text-2xl font-bold'>Reseñas del producto</h2>
+        <h2 className='text-2xl font-bold mr-2'>Reseñas del producto</h2>
         <div className='flex items-center gap-1'>
-          <StarIcon className='w-5 h-5 fill-blue-400' />
-          <StarIcon className='w-5 h-5 fill-blue-400' />
-          <StarIcon className='w-5 h-5 fill-blue-400' />
-          <StarIcon className='w-5 h-5 fill-muted stroke-muted-foreground' />
-          <StarIcon className='w-5 h-5 fill-muted stroke-muted-foreground' />
-          <span className='text-gray-500 dark:text-gray-400 ml-2'>4.2</span>
+          {[...Array(5)].map((_, index) => (
+            <StarIcon
+              key={index}
+              className={`w-5 h-5 ${
+                index < Math.round(averageRating)
+                  ? 'fill-blue-400'
+                  : 'fill-muted stroke-muted-foreground'
+              }`}
+            />
+          ))}
+          <span className='text-gray-500 dark:text-gray-400 ml-2'>
+            {averageRating}
+          </span>
         </div>
       </div>
       <div className='grid gap-4'>
-        <div className='flex items-start gap-4'>
-          <Avatar className='w-10 h-10 border'>
-            <AvatarImage src='/placeholder-user.jpg' />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <div className='grid gap-2'>
-            <div className='flex items-center gap-2'>
-              <div className='flex items-center gap-0.5'>
-                <StarIcon className='w-4 h-4 fill-blue-400' />
-                <StarIcon className='w-4 h-4 fill-blue-400' />
-                <StarIcon className='w-4 h-4 fill-blue-400' />
-                <StarIcon className='w-4 h-4 fill-muted stroke-muted-foreground' />
-                <StarIcon className='w-4 h-4 fill-muted stroke-muted-foreground' />
+        {reviews && reviews.length > 0 ? (
+          reviews.map((review) => (
+            <div key={review.id} className='flex items-start gap-4'>
+              <Avatar className='w-10 h-10 border'>
+                <AvatarImage src={review.user.imageUrl} />
+                <AvatarFallback>{review.user.name[0]}</AvatarFallback>
+              </Avatar>
+              <div className='grid gap-2'>
+                <div className='flex items-center gap-2'>
+                  <div className='flex items-center gap-0.5'>
+                    {[...Array(5)].map((_, index) => (
+                      <StarIcon
+                        key={index}
+                        className={`w-4 h-4 ${index < review.rating ? 'fill-blue-400' : 'fill-muted stroke-muted-foreground'}`}
+                      />
+                    ))}
+                  </div>
+                  <span className='text-sm text-gray-500 dark:text-gray-400'>
+                    Hace{' '}
+                    {Math.round(
+                      (Date.now() - new Date(review.date).getTime()) /
+                        (1000 * 60 * 60 * 24)
+                    )}{' '}
+                    días
+                  </span>
+                </div>
+                <div className='text-sm leading-loose text-gray-500 dark:text-gray-400'>
+                  <p>{review.coment}</p>
+                </div>
               </div>
-              <span className='text-sm text-gray-500 dark:text-gray-400'>
-                Hace 2 días
-              </span>
             </div>
-            <div className='text-sm leading-loose text-gray-500 dark:text-gray-400'>
-              <p>
-                El equipo de cámaras y luces que alquilé fue excelente. Superó
-                mis expectativas en calidad y rendimiento.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className='flex items-start gap-4'>
-          <Avatar className='w-10 h-10 border'>
-            <AvatarImage src='/placeholder-user.jpg' />
-            <AvatarFallback>JD</AvatarFallback>
-          </Avatar>
-          <div className='grid gap-2'>
-            <div className='flex items-center gap-2'>
-              <div className='flex items-center gap-0.5'>
-                <StarIcon className='w-4 h-4 fill-blue-400' />
-                <StarIcon className='w-4 h-4 fill-blue-400' />
-                <StarIcon className='w-4 h-4 fill-blue-400' />
-                <StarIcon className='w-4 h-4 fill-blue-400' />
-                <StarIcon className='w-4 h-4 fill-muted stroke-muted-foreground' />
-              </div>
-              <span className='text-sm text-gray-500 dark:text-gray-400'>
-                Hace 1 semana
-              </span>
-            </div>
-            <div className='text-sm leading-loose text-gray-500 dark:text-gray-400'>
-              <p>
-                El sistema de sonido que alquilé fue impresionante. Tenía una
-                calidad de audio excepcional y fue fácil de configurar.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className='flex items-start gap-4'>
-          <Avatar className='w-10 h-10 border'>
-            <AvatarImage src='/placeholder-user.jpg' />
-            <AvatarFallback>EM</AvatarFallback>
-          </Avatar>
-          <div className='grid gap-2'>
-            <div className='flex items-center gap-2'>
-              <div className='flex items-center gap-0.5'>
-                <StarIcon className='w-4 h-4 fill-blue-400' />
-                <StarIcon className='w-4 h-4 fill-blue-400' />
-                <StarIcon className='w-4 h-4 fill-muted stroke-muted-foreground' />
-                <StarIcon className='w-4 h-4 fill-muted stroke-muted-foreground' />
-                <StarIcon className='w-4 h-4 fill-muted stroke-muted-foreground' />
-              </div>
-              <span className='text-sm text-gray-500 dark:text-gray-400'>
-                Hace 3 días
-              </span>
-            </div>
-            <div className='text-sm leading-loose text-gray-500 dark:text-gray-400'>
-              <p>
-                Los accesorios de iluminación que alquilé eran buenos, pero
-                esperaba un poco más de calidad. Aún así, cumplieron su función.
-              </p>
-            </div>
-          </div>
-        </div>
+          ))
+        ) : (
+          <p>No hay reseñas aún.</p>
+        )}
         <Separator />
         <div className='grid gap-2'>
           <Label htmlFor='review'>Deja un comentario</Label>
@@ -139,7 +187,9 @@ const ItemReviews = () => {
                 />
               ))}
             </div>
-            <Button size='sm'>Enviar comentario</Button>
+            <Button size='sm' onClick={handleSubmitReview}>
+              Enviar comentario
+            </Button>
           </div>
         </div>
       </div>

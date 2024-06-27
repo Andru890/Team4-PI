@@ -122,7 +122,7 @@ const ItemDetail = ({ product }) => {
           </Link>
         </div>
         <div className='flex mt-20'>
-          <ItemReviews />
+          <ItemReviews productId={product.id} />
         </div>
         <ItemPolicies />
       </div>

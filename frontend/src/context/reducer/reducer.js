@@ -207,6 +207,11 @@ export const reducer = (state, action) => {
         ...state,
         reservations: action.payload,
       }
+    case 'GET_RESERVATIONS_BY_USER':
+      return {
+        ...state,
+        reservations: action.payload,
+      }
     case 'GET_RESERVATION_DETAIL':
       return {
         ...state,
@@ -223,6 +228,23 @@ export const reducer = (state, action) => {
         reservations: state.reservations.filter(
           (reservation) => reservation.id !== action.payload
         ),
+      }
+    case 'GET_QUALIFY_BY_PRODUCT':
+      return {
+        ...state,
+        dataQualify: action.payload,
+      }
+
+    case 'GET_QUALIFY_BY_USER':
+      return {
+        ...state,
+        dataUserQualify: action.payload,
+      }
+
+    case 'ADD_QUALIFY':
+      return {
+        ...state,
+        dataQualify: [...state.dataQualify, action.payload],
       }
 
     default:

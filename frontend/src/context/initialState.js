@@ -25,6 +25,8 @@ export const initialState = {
   roleSelected: {},
   reservations: [],
   reservationSelected: null,
+  qualify: [],
+  qualifySelected: {},
   favs: selecFavs(),
   theme: selecTheme(),
 }
