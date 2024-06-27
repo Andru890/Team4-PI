@@ -80,8 +80,13 @@ const BookingHistory = () => {
                   variant={
                     reservation.status === 'Devuelto' ? 'success' : 'warning'
                   }
+                  className={` ${
+                    reservation.reserved
+                      ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+                      : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                  }`}
                 >
-                  {reservation.status}
+                  {reservation.status === 'Devuelto' ? 'Devuelto' : 'Reservado'}
                 </Badge>
               </TableCell>
             </TableRow>

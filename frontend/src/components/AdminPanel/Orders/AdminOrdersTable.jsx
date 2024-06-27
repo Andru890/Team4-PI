@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Badge } from '@/components/ui/badge'
 import {
   Table,
   TableHeader,
@@ -239,17 +240,18 @@ const AdminOrdersTable = () => {
                   {new Date(order.dateOut).toLocaleDateString()}
                 </TableCell>
                 <TableCell>
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      order.status === 'reserved'
+                  <Badge
+                    variant={
+                      order.status === 'Devuelto' ? 'success' : 'warning'
+                    }
+                    className={` ${
+                      order.reserved
                         ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-                        : order.status === 'completed'
-                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                          : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                        : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                     }`}
                   >
-                    {order.status}
-                  </span>
+                    {order.reserved ? 'Devuelto' : 'Reservado'}
+                  </Badge>
                 </TableCell>
               </TableRow>
             ))}

@@ -13,7 +13,7 @@ const ItemReviews = ({ productId }) => {
     state,
     handleGetQualifyByProduct,
     handleAddQualify,
-    handleGetReservationsByUser,
+    getReservationsByUser,
   } = useGlobalContext()
   const { user } = useAuthContext()
   const [rating, setRating] = useState(0)
@@ -21,6 +21,7 @@ const ItemReviews = ({ productId }) => {
   const [reviews, setReviews] = useState([])
   const [reservationId, setReservationId] = useState(null)
   const [averageRating, setAverageRating] = useState(0)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     if (productId) {
@@ -35,7 +36,8 @@ const ItemReviews = ({ productId }) => {
     const fetchReservations = async () => {
       if (user?.email) {
         try {
-          const reservations = await handleGetReservationsByUser(user.email)
+          const reservations = await getReservationsByUser(user.email)
+          console.log('Reservations:', reservations)
           const reservation = reservations.find((res) =>
             res.products.some((product) => product.id === productId)
           )
@@ -50,7 +52,7 @@ const ItemReviews = ({ productId }) => {
       }
     }
     fetchReservations()
-  }, [user, productId, handleGetReservationsByUser])
+  }, [user, productId, getReservationsByUser])
 
   useEffect(() => {
     if (state.dataQualify) {
@@ -83,7 +85,14 @@ const ItemReviews = ({ productId }) => {
   }
 
   const handleSubmitReview = async () => {
+    if (!rating || !review) {
+      setError('Por favor, selecciona una puntuación y escribe un comentario.')
+      return
+    }
+
+    setError('')
     console.log('Submit Review:', { review, rating, productId, reservationId })
+    console.log('Reservation:', reservationId)
     if (review && rating && productId && reservationId) {
       await handleAddQualify(
         user.email,
@@ -98,10 +107,6 @@ const ItemReviews = ({ productId }) => {
     } else {
       console.error('Review, rating, productId, and reservationId are required')
     }
-  }
-
-  if (!productId) {
-    return <p>Cargando...</p>
   }
 
   return (
@@ -177,6 +182,7 @@ const ItemReviews = ({ productId }) => {
               {review.length}/300
             </span>
           </div>
+          {error && <p className='text-sm text-red-500'>{error}</p>}
           <div className='flex items-center gap-2'>
             <div className='flex items-center gap-0.5'>
               {[...Array(5)].map((_, index) => (
