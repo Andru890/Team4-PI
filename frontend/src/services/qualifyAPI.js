@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'sonner'
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -41,6 +42,16 @@ export const postQualify = async (
     return res.data
   } catch (error) {
     console.error(error)
+    if (
+      error.response &&
+      error.response.data.error === `El usuario no puede calificar la reserva`
+    ) {
+      toast.error(
+        `No puedes calificar este producto, no tienes reservas asociadas a ${userEmail}`
+      )
+    } else {
+      toast.error('Ocurrió un error al intentar calificar')
+    }
   }
 }
 
