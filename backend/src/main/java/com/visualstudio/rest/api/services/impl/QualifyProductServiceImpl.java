@@ -59,8 +59,7 @@ public class QualifyProductServiceImpl implements IQualifyProductService {
         if (product == null){ // Falta hacer una validación para los productos de la reserva
             throw new IllegalArgumentException("El producto no existe");
         }
-
-        if (reservation.getUser().getId() == user.getId()){
+        if (reservation.getUser().getId() == user.getId() && reservation.getProducts().contains(productId)){
             QualifyProduct newQualify = new QualifyProduct();
             newQualify.setUser(user);
             newQualify.setProduct(product);
