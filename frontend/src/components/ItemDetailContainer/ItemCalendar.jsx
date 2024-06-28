@@ -57,7 +57,7 @@ export default function ItemCalendar({ className, productId }) {
         Por favor elige una fecha de inicio y una fecha de fin para tu
         selección.
       </p>
-      <div className={cn('grid gap-2 mt-4', className)}>
+      <div className={cn('grid gap-2 mt-4 ', className)}>
         <Button
           id='date'
           variant={'outline'}
@@ -66,7 +66,7 @@ export default function ItemCalendar({ className, productId }) {
             !date && 'text-muted-foreground'
           )}
         >
-          <CalendarIcon className='mr-2 h-4 w-4' />
+          <CalendarIcon className='mr-2 h-4 w-4 ' />
           {date?.from ? (
             date.to ? (
               <>
@@ -82,6 +82,7 @@ export default function ItemCalendar({ className, productId }) {
         </Button>
 
         <Calendar
+          className='w-full mt-4 p-4 items-center justify-center flex flex-col'
           locale={es}
           initialFocus
           mode='range'
