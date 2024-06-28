@@ -42,6 +42,7 @@ const AdminOrdersTable = () => {
           ...order,
           productName:
             order.products.length > 0 ? order.products[0].name : 'N/A',
+          productId: order.products.length > 0 ? order.products[0].id : 'N/A',
         }))
         .filter((order) => {
           const searchValue = search.toLowerCase()
@@ -113,6 +114,9 @@ const AdminOrdersTable = () => {
               <DropdownMenuRadioItem value='id'>Orden #</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value='productName'>
                 Nombre del Producto
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value='productId'>
+                ID del Producto
               </DropdownMenuRadioItem>
               <DropdownMenuRadioItem value='dateIn'>
                 Fecha de Entrada
@@ -195,9 +199,31 @@ const AdminOrdersTable = () => {
               </TableHead>
               <TableHead
                 className='cursor-pointer'
+                onClick={() => handleSort('productId')}
+              >
+                ID del Producto
+                {sort.key === 'productId' && (
+                  <span className='ml-1'>
+                    {sort.order === 'asc' ? '\u2191' : '\u2193'}
+                  </span>
+                )}
+              </TableHead>
+              <TableHead
+                className='cursor-pointer'
+                onClick={() => handleSort('productName')}
+              >
+                Correo Electrónico
+                {sort.key === 'productName' && (
+                  <span className='ml-1'>
+                    {sort.order === 'asc' ? '\u2191' : '\u2193'}
+                  </span>
+                )}
+              </TableHead>
+              <TableHead
+                className='cursor-pointer'
                 onClick={() => handleSort('dateIn')}
               >
-                Fecha de Entrada
+                Fecha de Entrega
                 {sort.key === 'dateIn' && (
                   <span className='ml-1'>
                     {sort.order === 'asc' ? '\u2191' : '\u2193'}
@@ -208,7 +234,7 @@ const AdminOrdersTable = () => {
                 className='cursor-pointer'
                 onClick={() => handleSort('dateOut')}
               >
-                Fecha de Salida
+                Fecha de Devolución
                 {sort.key === 'dateOut' && (
                   <span className='ml-1'>
                     {sort.order === 'asc' ? '\u2191' : '\u2193'}
@@ -233,6 +259,8 @@ const AdminOrdersTable = () => {
               <TableRow key={order.id}>
                 <TableCell className='font-medium'>{order.id}</TableCell>
                 <TableCell>{order.productName}</TableCell>
+                <TableCell>{order.productId}</TableCell>
+                <TableCell>{order.email}</TableCell>
                 <TableCell>
                   {new Date(order.dateIn).toLocaleDateString()}
                 </TableCell>
@@ -293,7 +321,7 @@ function FilterIcon(props) {
       xmlns='http://www.w3.org/2000/svg'
       width='24'
       height='24'
-      viewBox='0 0 24'
+      viewBox='0 0 24 24'
       fill='none'
       stroke='currentColor'
       strokeWidth='2'

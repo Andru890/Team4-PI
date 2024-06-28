@@ -21,7 +21,7 @@ const ItemReviews = ({ productId }) => {
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
   const [reviews, setReviews] = useState([])
-  const [reservationId, setReservationId] = useState(1)
+  const [reservationId, setReservationId] = useState()
   const [averageRating, setAverageRating] = useState(0)
   const [error, setError] = useState('')
 

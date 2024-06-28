@@ -35,6 +35,8 @@ const ItemDetail = ({ product }) => {
     window.history.back()
   }
 
+  console.log(product)
+
   return (
     <>
       <header className='w-full bg-gray-100 dark:bg-gray-800 py-4 px-4 md:px-6'>
