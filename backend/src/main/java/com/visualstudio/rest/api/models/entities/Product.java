@@ -55,7 +55,7 @@ public class Product {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "products"})
     private Category category;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products",cascade = CascadeType.ALL )
     @JsonIgnoreProperties({"hibernateLazyInitializer", "products"})
     private List<Reservation> reservations;
 
