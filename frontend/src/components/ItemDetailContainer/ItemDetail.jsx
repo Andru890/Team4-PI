@@ -84,7 +84,7 @@ const ItemDetail = ({ product }) => {
             <ItemShare product={product} />
             <ItemCalendar productId={product.id} />
             <button
-              className='mt-8 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 ease-in-out mx-auto block w-full md:w-auto '
+              className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 ease-in-out mx-auto block w-full md:w-auto '
               onClick={handleReservation}
             >
               Reservar
