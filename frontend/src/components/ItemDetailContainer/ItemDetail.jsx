@@ -92,20 +92,19 @@ const ItemDetail = ({ product }) => {
           </div>
           <div className='grid align-top grid-cols-1 gap-9'>
             <div>
-              {' '}
               <img
                 alt='Product Image'
                 className='w-full h-full object-cover rounded-lg'
-                height={400}
                 src={product.images[0] ? product.images[0] : '/placeholder.svg'}
                 style={{
                   aspectRatio: '600/400',
                   objectFit: 'contain',
                 }}
-                width={600}
               />
             </div>
-            <div></div>
+            <div>
+              <ItemReviews productId={product.id} />
+            </div>
           </div>
         </div>
       </div>
@@ -120,9 +119,6 @@ const ItemDetail = ({ product }) => {
             Ver más
             <ChevronRightIcon className='w-4 h-4' />
           </Link>
-        </div>
-        <div className='flex mt-20'>
-          <ItemReviews productId={product.id} />
         </div>
         <ItemPolicies />
       </div>
