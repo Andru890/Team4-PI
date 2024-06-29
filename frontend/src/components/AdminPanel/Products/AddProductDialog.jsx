@@ -75,6 +75,14 @@ const AddProductDialog = () => {
     })
   }
 
+  const handleRemoveImage = (index, e) => {
+    e.stopPropagation()
+    const newImageFiles = imageFiles.filter((_, i) => i !== index)
+    const newImageUrls = imageUrls.filter((_, i) => i !== index)
+    setImageFiles(newImageFiles)
+    setImageUrls(newImageUrls)
+  }
+
   const onSubmit = async (data) => {
     try {
       const selectedCategory = categories.find(
@@ -311,15 +319,21 @@ const AddProductDialog = () => {
                 {imageUrls.length > 0 && (
                   <div className='absolute inset-0 grid grid-cols-4 gap-2 p-2'>
                     {imageUrls.map((url, index) => (
-                      <div
-                        key={index}
-                        className='border rounded-lg overflow-hidden'
-                      >
-                        <img
-                          src={url}
-                          alt={`Imagen previa ${index + 1}`}
-                          className='w-full h-full object-cover'
-                        />
+                      <div key={index} className='relative'>
+                        <button
+                          type='button'
+                          onClick={(e) => handleRemoveImage(index, e)}
+                          className='absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center'
+                        >
+                          x
+                        </button>
+                        <div className='border rounded-lg overflow-hidden'>
+                          <img
+                            src={url}
+                            alt={`Imagen previa ${index + 1}`}
+                            className='w-full h-full object-cover'
+                          />
+                        </div>
                       </div>
                     ))}
                   </div>
