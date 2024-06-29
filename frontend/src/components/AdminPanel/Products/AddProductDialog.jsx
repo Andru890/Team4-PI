@@ -162,7 +162,7 @@ const AddProductDialog = () => {
                       <SelectLabel>Características</SelectLabel>
                       {features.map((feature) => (
                         <SelectItem key={feature.id} value={String(feature.id)}>
-                          {feature.name}
+                          {feature.characteristic}
                         </SelectItem>
                       ))}
                     </SelectGroup>
@@ -184,7 +184,7 @@ const AddProductDialog = () => {
                       key={id}
                       className='flex items-center justify-between'
                     >
-                      {feature.name}
+                      {feature.characteristic}
                       <Button
                         variant='ghost'
                         onClick={() => handleFeatureChange(id)}
