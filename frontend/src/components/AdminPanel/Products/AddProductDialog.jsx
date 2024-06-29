@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useGlobalContext } from '@/context/global.context'
 import { toast } from 'sonner'
@@ -38,14 +38,13 @@ const AddProductDialog = () => {
     watch,
     control,
   } = useForm()
-  const [characteristic, setCharacteristic] = useState('')
-  const [characteristics, setCharacteristics] = useState([])
   const [imageFiles, setImageFiles] = useState([])
   const [imageUrls, setImageUrls] = useState([])
   const [isOpen, setIsOpen] = useState(false)
   const { state, handleAddProduct } = useGlobalContext()
-  const { dataCategory: categories } = state
+  const { dataCategory: categories, dataFeature: features } = state
   const { uploadImage, isUploading } = useCloudinary()
+  const [selectedFeatures, setSelectedFeatures] = useState([])
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files)
@@ -54,16 +53,14 @@ const AddProductDialog = () => {
     setImageUrls(urls)
   }
 
-  const handleAddCharacteristic = () => {
-    if (characteristic.trim()) {
-      setCharacteristics([...characteristics, characteristic.trim()])
-      setCharacteristic('')
-    }
-  }
-
-  const handleRemoveCharacteristic = (index) => {
-    const newCharacteristics = characteristics.filter((_, i) => i !== index)
-    setCharacteristics(newCharacteristics)
+  const handleFeatureChange = (featureId) => {
+    setSelectedFeatures((prevSelectedFeatures) => {
+      if (prevSelectedFeatures.includes(featureId)) {
+        return prevSelectedFeatures.filter((id) => id !== featureId)
+      } else {
+        return [...prevSelectedFeatures, featureId]
+      }
+    })
   }
 
   const onSubmit = async (data) => {
@@ -78,8 +75,8 @@ const AddProductDialog = () => {
       handleAddProduct({
         ...data,
         price: parseFloat(data.price),
-        characteristics: characteristics.map((char) => ({
-          characteristic: char,
+        characteristics: selectedFeatures.map((id) => ({
+          id: parseInt(id, 10),
         })),
         images: uploadedImageUrls,
         category: selectedCategory,
@@ -88,9 +85,9 @@ const AddProductDialog = () => {
 
       toast.success('Producto agregado con éxito')
       reset()
-      setCharacteristics([])
       setImageFiles([])
       setImageUrls([])
+      setSelectedFeatures([])
       setIsOpen(false)
     } catch (error) {
       console.error('Error al agregar el producto:', error)
@@ -154,32 +151,49 @@ const AddProductDialog = () => {
               <p>Total {descriptionValue.length}/1000 caracteres</p>
             </div>
             <div className='grid gap-2'>
-              <Label htmlFor='characteristic'>Características</Label>
-              <div className='flex'>
-                <Input
-                  id='characteristic'
-                  placeholder='Características del producto'
-                  value={characteristic}
-                  onChange={(e) => setCharacteristic(e.target.value)}
-                  className='mr-2'
-                />
-                <Button type='button' onClick={handleAddCharacteristic}>
-                  Añadir
-                </Button>
+              <Label htmlFor='characteristics'>Características</Label>
+              <div className='grid gap-2'>
+                <Select onValueChange={handleFeatureChange}>
+                  <SelectTrigger className='w-full'>
+                    <SelectValue placeholder='Selecciona características' />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Características</SelectLabel>
+                      {features.map((feature) => (
+                        <SelectItem key={feature.id} value={String(feature.id)}>
+                          {feature.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                {errors.characteristics && (
+                  <span className='text-red-500 text-sm'>
+                    {errors.characteristics.message}
+                  </span>
+                )}
               </div>
-              <div className='flex flex-wrap gap-2 mt-2'>
-                {characteristics.map((char, index) => (
-                  <Badge key={index} className='flex items-center space-x-2'>
-                    <span>{char}</span>
-                    <button
-                      type='button'
-                      onClick={() => handleRemoveCharacteristic(index)}
-                      className='ml-2 text-red-500'
+              <div className='grid grid-cols-2 gap-2'>
+                {selectedFeatures.map((id) => {
+                  const feature = features.find(
+                    (feature) => feature.id === parseInt(id, 10)
+                  )
+                  return (
+                    <Badge
+                      key={id}
+                      className='flex items-center justify-between'
                     >
-                      x
-                    </button>
-                  </Badge>
-                ))}
+                      {feature.name}
+                      <Button
+                        variant='ghost'
+                        onClick={() => handleFeatureChange(id)}
+                      >
+                        x
+                      </Button>
+                    </Badge>
+                  )
+                })}
               </div>
             </div>
             <div className='grid gap-2 md:grid-cols-2 md:gap-4'>

@@ -23,6 +23,14 @@ import {
   TrashIcon,
   PencilIcon,
 } from '@/components/Icons'
+import {
+  DialogTrigger,
+  DialogTitle,
+  DialogHeader,
+  DialogDescription,
+  DialogContent,
+  Dialog,
+} from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -190,11 +198,33 @@ const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
               <TableRow key={feature.id}>
                 <TableCell>{feature.id}</TableCell>
                 <TableCell>
-                  <img
-                    src={feature.imageUrl}
-                    alt={feature.imageUrl}
-                    className='w-8 h-8'
-                  />
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <div className='relative rounded-lg overflow-hidden cursor-pointer'>
+                        <img
+                          alt={feature.name}
+                          className='h-8 w-8 rounded-full'
+                          height={600}
+                          src={feature.imageUrl}
+                          style={{ objectFit: 'cover' }}
+                          width={800}
+                        />
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className='max-w-4xl'>
+                      <DialogHeader>
+                        <DialogTitle>{feature.name}</DialogTitle>
+                      </DialogHeader>
+                      <DialogDescription>
+                        <img
+                          src={feature.imageUrl}
+                          alt={feature.name}
+                          className='w-full h-full object-cover'
+                          style={{ aspectRatio: '16/9' }}
+                        />
+                      </DialogDescription>
+                    </DialogContent>
+                  </Dialog>
                 </TableCell>
                 <TableCell>{feature.characteristic}</TableCell>
                 <TableCell>

@@ -207,10 +207,4 @@ INSERT INTO categories (id, name, image_url, description) VALUES
 -- 		3
 -- 	);
 
--- Agrega el rol admin
 
-INSERT INTO roles (id, name) VALUES (1, 'admin'), (2, 'customer');
-
--- Agrega el usuario admin
-
-INSERT INTO users (id, city, image_url, name, lastname, email, password, role_id) VALUES (1,'USA', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png', 'admin', 'admin', 'admin@visualstudioservice.com', '123123', 1);

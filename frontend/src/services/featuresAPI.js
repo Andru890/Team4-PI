@@ -37,10 +37,10 @@ export const getFeatureById = async (featureId) => {
 export const createFeature = async (featureData) => {
   try {
     const response = await axios.post(
-      `${API_URL}/product-detail/product/${featureData.id}`,
+      `${API_URL}/product-detail`,
       {
         characteristic: featureData.characteristic,
-        image: featureData.image,
+        imageUrl: featureData.imageUrl,
       },
       {
         headers: {

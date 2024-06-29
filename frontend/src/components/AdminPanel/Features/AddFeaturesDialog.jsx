@@ -13,8 +13,8 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { PlusIcon } from '@/components/Icons'
-import useCloudinary from '@/hooks/useCloudinary'
 import { toast } from 'sonner'
+import useCloudinary from '@/hooks/useCloudinary'
 
 const AddFeaturesDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -28,8 +28,8 @@ const AddFeaturesDialog = () => {
     try {
       const imageUrl = await uploadImage(imageFile)
       handleCreateFeature({
-        name: data.name,
-        image: imageUrl,
+        characteristic: data.name,
+        imageUrl: imageUrl,
       })
       toast.success('Característica agregada con éxito')
       reset()
@@ -65,8 +65,8 @@ const AddFeaturesDialog = () => {
         <DialogHeader>
           <DialogTitle>Agregar nueva característica</DialogTitle>
           <DialogDescription>
-            Ingresa el nombre y la descripción de la nueva característica que
-            deseas agregar.
+            Ingresa el nombre y la imagen de la nueva característica que deseas
+            agregar.
           </DialogDescription>
         </DialogHeader>
         <form className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
