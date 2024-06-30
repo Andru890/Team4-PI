@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
 
 @Component
 public class AdminInicialData implements ApplicationRunner {
@@ -18,6 +21,11 @@ public class AdminInicialData implements ApplicationRunner {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private  JwtUtilities jwtUtilities;
     @Transactional
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -27,14 +35,16 @@ public class AdminInicialData implements ApplicationRunner {
             Role adminRole = new Role("admin");
             roleRepository.save(adminRole);
             User adminUser = new User();
+            String pass = passwordEncoder.encode("admin");
             adminUser.setName("admin");
             adminUser.setLastname("admin");
             adminUser.setEmail("admin@admin.com");
-            adminUser.setPassword("admin");
+            adminUser.setPassword(pass);
             adminUser.setPhone("123");
             adminUser.setCity("admin");
             adminUser.setImageUrl("null");
             adminUser.setRole(adminRole);
+            jwtUtilities.generateToken(adminUser.getEmail(), Collections.singletonList(adminUser.getName()));
             userRepository.save(adminUser);
         }
     }
