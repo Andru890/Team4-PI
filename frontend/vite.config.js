@@ -5,14 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig({
   plugins: [react(), VitePWA({ registerType: 'autoUpdate' })],
   server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, '')
-      }
-    },
+    port: 3000
   },
   test: {
     globals: true,
@@ -27,5 +20,4 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
-
 });

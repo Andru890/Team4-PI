@@ -56,8 +56,6 @@ const ProductTable = ({
   const { state, handleUpdateProduct } = useGlobalContext()
   const { data: products } = state
 
-  const { categorySelected } = state
-
   const [editingProduct, setEditingProduct] = useState(null)
   const [selectedCategories, setSelectedCategories] = useState(
     products.reduce((acc, product) => {
