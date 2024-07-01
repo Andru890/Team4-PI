@@ -5,23 +5,22 @@
 > VisualStudio Services es una web que brinda alquiler seguro de equipo audiovisual, generando un ambiente cooperativo y seguro como alternativa a la compra.
 > El proyecto disminuye el esfuerzo económico y el riesgo de comprar equipos equivocados, ofreciendo la prueba de estos, hasta encontrar el más adecuado para tu proyecto. Todo esto apoyado con las opiniones de otros usuarios, tanto profesionales como aficionados.
 
-## Demo
-
+## DEMO
+> **Inicio**
 [![Click Me](https://i.postimg.cc/dtTVnpVV/pantalla-de-inicio.jpg)](https://postimg.cc/CzS0xv83)
-[![demo2.jpg](https://i.postimg.cc/yNkk0dtk/rese-a-del-producto.jpg)](https://postimg.cc/cKGxSssS)
+> **Detalle de Producto**
+[![demo2.jpg](https://i.postimg.cc/J00Dhbvn/DETALLEdelp.jpg)](https://postimg.cc/wRKTfs68)
+> **Panel de administrador/Caracteristicas del Producto**
 [![demo3.jpg](https://i.postimg.cc/W1K2L7Y1/iconos-caracteristicas.jpg)](https://postimg.cc/yDmq00zM)
 
-## Features
-
-## ¿Cómo correr el proyecto?
 
 ## Creado con
 
-1. Para BDD:
+**1. Para BDD:**
 
 - SQL
 
-2. Para FRONT:
+**2. Para FRONT:**
 
 - Node 20.13.0
 - React 18.3.1
@@ -44,13 +43,12 @@
 
 - [Leo Ruiz](https://www.linkedin.com/in//) - Scrum Master / Testing
 - [Wilson del Canto](https://www.linkedin.com/in//) - Front End Developer
-- [Sofia Brugo](https://www.linkedin.com/in/sofiabrugo/) - UX/UI Designer
-- [Christian Valeria](https://www.linkedin.com/in/christian-valeria-morano/) - UX/UI Designer
-- [Katherine Henriquez](https://www.linkedin.com/in//) - UX/UI Designer
+- [Christian Valeria](https://www.linkedin.com/in/christian-valeria-morano/) - Front End Developer
 - [Camilo Patiño](https://www.linkedin.com/in/camilo-pati%C3%B1o-82b73918b/) - Back End Developer
 - [Eliana Sanchez](https://www.linkedin.com/in//) - Back End Developer
 - [Paula Palacios](https://www.linkedin.com/in//) - Back End Developer
+- [Sofia Brugo](https://www.linkedin.com/in/sofiabrugo/) - UX/UI Designer
+- [Katherine Henriquez](https://www.linkedin.com/in//) - UX/UI Designer
 - [Andres Pistone](https://www.linkedin.com/in/andr%C3%A9s-pistone-688618219/) - IT Infrastructure Manager
 
-Estructura
-Recursos Útiles
+
