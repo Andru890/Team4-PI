@@ -4,7 +4,7 @@ spring:
   application:
     name: visual-studio-api
   datasource:
-    url: jdbc:mysql://visual-studio-db.cjmgw2yq8m6q.us-east-2.rds.amazonaws.com:3306/visual_studio_db
+    url: jdbc:mysql://localhost:3306/visual_studio_db
 #   url: jdbc:mysql://localhost:3307/visual_studio_db
     username: admin
     password: coco1234
