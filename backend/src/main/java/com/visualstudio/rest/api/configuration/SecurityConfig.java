@@ -44,7 +44,8 @@ public class SecurityConfig {
             "v1/**",
             "registration/**",
             "confirmation-email/**",
-            "product-detail/**"}
+            "product-detail/**",
+            "qualify/**"}
             ;
 
 
