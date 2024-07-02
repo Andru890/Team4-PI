@@ -14,7 +14,7 @@ public class WebCorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                 .allowedOrigins("http://localhost:3000/", "http://visualstudioservice.duckdns.org:3000", "https://visualstudioservice.pro")
+                 .allowedOrigins("http://localhost:3000/", "http://visualstudioservice.duckdns.org:3000", "https://visualstudioservice.pro", "https://157.245.240.47")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true);
