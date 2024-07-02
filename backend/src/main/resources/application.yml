@@ -4,8 +4,8 @@ spring:
   application:
     name: visual-studio-api
   datasource:
-    url: jdbc:mysql://mysql8:3306/visual_studio_db
-#    url: jdbc:mysql://localhost:3307/visual_studio_db
+#    url: jdbc:mysql://localhost:3306/visual_studio_db
+    url: jdbc:mysql://localhost:3307/visual_studio_db
     username: root
     password: sa
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,11 +16,13 @@ spring:
       ddl-auto: update
     show-sql: true
 
-jwt.secret: "4sRGsHtzZbQjNVTJkG9z5f3Q6vTnZ2s7cKxG6ZfRf2RqKrXQYvJpCxJ9X54WcTJ"
-jtw.expiration: 86400000
+jwt:
+  secret: ${spring.enviroment.resolverPlaceholder("${TOKEN_SECRET}")}
+  expiration: ${spring.enviroment.resolverPlaceholder("${TOKEN_EXPIRATION}")}
 
-email.user: pa.al.pa.ag12@gmail.com
-email.password: Sonoandati12
+email:
+  user: ${spring.environment.resolvePlaceholder("${EMAIL_ADDRESS}")}
+  password: ${spring.environment.resolvePlaceholder("${PASS_EMAIL}")}
 
 
 
