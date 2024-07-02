@@ -1,5 +1,7 @@
+// ReservationPage.js
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { format } from 'date-fns'
 import { useGlobalContext } from '@/context/global.context'
 import { useAuthContext } from '@/context/auth.context'
 import Header from '@/components/Header/Header'
@@ -21,18 +23,18 @@ import {
 } from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
 import { getUserByEmail } from '@/services/userAPI'
+import { toast } from 'sonner'
 
 const ReservationPage = () => {
   const { itemId } = useParams()
   const navigate = useNavigate()
-  const { state, handleGetProductById } = useGlobalContext()
-  const { productSelected } = state
+  const { state, handleGetProductById, handleAddReservation } =
+    useGlobalContext()
+  const { productSelected, reservationDates } = state
   const { logout, handleUpdateUser, getUserInfoFromToken, isAuthenticated } =
     useAuthContext()
 
   const [user, setUser] = useState(null)
-  const [startDate, setStartDate] = useState(null)
-  const [endDate, setEndDate] = useState(null)
   const [isReserved, setIsReserved] = useState(false)
 
   useEffect(() => {
@@ -63,9 +65,27 @@ const ReservationPage = () => {
     getUserInfoFromToken,
   ])
 
-  const handleReservation = () => {
-    if (startDate && endDate) {
-      setIsReserved(true)
+  const handleReservation = async () => {
+    if (reservationDates.from && reservationDates.to && user) {
+      const reservationData = {
+        dateIn: reservationDates.from,
+        dateOut: reservationDates.to,
+        userId: user.id,
+        productId: productSelected.id,
+      }
+
+      const result = await handleAddReservation(
+        productSelected.id,
+        user.id,
+        reservationData
+      )
+
+      if (result) {
+        setIsReserved(true)
+        toast.success('Reserva realizada con éxito')
+      } else {
+        toast.error('Error al realizar la reserva')
+      }
     }
   }
 
@@ -196,7 +216,14 @@ const ReservationPage = () => {
                               <span className='font-semibold uppercase text-[0.65rem]'>
                                 Fecha de alquiler
                               </span>
-                              <span className='font-normal'>4/2/2024</span>
+                              <span className='font-normal'>
+                                {reservationDates.from
+                                  ? format(
+                                      new Date(reservationDates.from),
+                                      'dd/MM/yyyy'
+                                    )
+                                  : 'Selecciona fecha'}
+                              </span>
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className='p-0 max-w-[276px]'>
@@ -212,7 +239,14 @@ const ReservationPage = () => {
                               <span className='font-semibold uppercase text-[0.65rem]'>
                                 Fecha devolución
                               </span>
-                              <span className='font-normal'>10/2/2024</span>
+                              <span className='font-normal'>
+                                {reservationDates.to
+                                  ? format(
+                                      new Date(reservationDates.to),
+                                      'dd/MM/yyyy'
+                                    )
+                                  : 'Selecciona fecha'}
+                              </span>
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className='p-0 max-w-[276px]'>

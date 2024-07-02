@@ -160,6 +160,8 @@ const ProductTable = ({
     const updatedProduct = {
       ...editingProduct,
       images: newImages,
+      // Asegúrate de mantener las características existentes del producto
+      characteristics: editingProduct.characteristics,
     }
 
     await handleUpdateProduct(updatedProduct)

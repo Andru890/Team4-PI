@@ -247,6 +247,12 @@ export const reducer = (state, action) => {
         dataQualify: [...state.dataQualify, action.payload],
       }
 
+    case 'SET_RESERVATION_DATES':
+      return {
+        ...state,
+        reservationDates: action.payload,
+      }
+
     default:
       return state
   }

@@ -1,3 +1,4 @@
+// ItemCalendar.js
 import { useState, useEffect } from 'react'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { addDays, format, isBefore, endOfDay } from 'date-fns'
@@ -13,7 +14,8 @@ export default function ItemCalendar({ className, productId }) {
     to: addDays(new Date(), 0),
   })
 
-  const { state, handleGetReservations } = useGlobalContext()
+  const { state, handleGetReservations, setReservationDates } =
+    useGlobalContext()
   const [disabledDates, setDisabledDates] = useState([])
 
   useEffect(() => {
@@ -49,6 +51,10 @@ export default function ItemCalendar({ className, productId }) {
 
     return result
   }
+
+  useEffect(() => {
+    setReservationDates(date)
+  }, [date, setReservationDates])
 
   return (
     <div className={cn('container mx-auto p-4 mt-20', className)}>

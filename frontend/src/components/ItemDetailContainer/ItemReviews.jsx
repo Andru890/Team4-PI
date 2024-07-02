@@ -57,9 +57,6 @@ const ItemReviews = ({ productId }) => {
           if (reservation) {
             setReservationId(reservation.id)
             setHasReservation(true)
-            console.log('Matching Reservation ID:', reservation.id)
-
-            // Check if the user has already reviewed this reservation
             const userReview = reviews.find(
               (review) =>
                 review.reservationId === reservation.id &&
@@ -68,7 +65,6 @@ const ItemReviews = ({ productId }) => {
             setHasReviewed(!!userReview)
           } else {
             setHasReservation(false)
-            console.error('No matching reservation found for the product.')
           }
         } catch (error) {
           console.error('Error fetching reservations:', error)

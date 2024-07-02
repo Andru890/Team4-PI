@@ -7,7 +7,7 @@ import ItemReviews from '@/components/ItemDetailContainer/ItemReviews'
 import { useAuthContext } from '@/context/auth.context'
 import { toast } from 'sonner'
 import ItemDetailGallery from '@/components/ItemDetailContainer/ItemDetailGallery'
-import ItemShare from './ItemShare'
+import ItemShare from '@/components/ItemDetailContainer/ItemShare'
 
 const ItemDetail = ({ product }) => {
   const { user } = useAuthContext()

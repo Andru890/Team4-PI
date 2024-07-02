@@ -475,6 +475,10 @@ export const ContextProvider = ({ children }) => {
     []
   )
 
+  const setReservationDates = (dates) => {
+    dispatch({ type: 'SET_RESERVATION_DATES', payload: dates })
+  }
+
   useEffect(() => {
     handleGetCategory()
   }, [handleGetCategory])
@@ -552,6 +556,7 @@ export const ContextProvider = ({ children }) => {
     handleGetQualifyByProduct,
     handleGetQualifyByUser,
     handleAddQualify,
+    setReservationDates,
   }
 
   return (

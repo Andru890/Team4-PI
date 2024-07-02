@@ -29,4 +29,8 @@ export const initialState = {
   qualifySelected: {},
   favs: selecFavs(),
   theme: selecTheme(),
+  reservationDates: {
+    from: null,
+    to: null,
+  },
 }
