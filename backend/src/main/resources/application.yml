@@ -4,10 +4,10 @@ spring:
   application:
     name: visual-studio-api
   datasource:
-    url: jdbc:mysql://mysql8:3306/visual_studio_db
-#    url: jdbc:mysql://localhost:3307/visual_studio_db
-    username: root
-    password: sa
+    url: jdbc:mysql://localhost:3306/visual_studio_db
+#   url: jdbc:mysql://localhost:3307/visual_studio_db
+    username: admin
+    password: coco1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
