@@ -24,7 +24,7 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @RequiredArgsConstructor
 public class SpringSecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter ;
+    /*private final JwtAuthenticationFilter jwtAuthenticationFilter ;
     private final CustomerUserDetailsService customerUserDetailsService ;
 
     @Bean
@@ -38,7 +38,7 @@ public class SpringSecurityConfig {
             httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return  httpSecurity.build();
-    }
+    }*/
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception

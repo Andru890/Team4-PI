@@ -1,4 +1,3 @@
-
 package com.visualstudio.rest.api.configuration;
 
 
@@ -9,11 +8,15 @@ import com.visualstudio.rest.api.Security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import static com.visualstudio.rest.api.models.entities.RoleName.ADMIN;
@@ -27,7 +30,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private static final String[] WHITE_LIST_URL = { //debo modificar los endpoints para que no sean publicos
+    private static final String[] WHITE_LIST_URL = {
 
             "/swagger-ui/**",
             "/swagger-resources/**",
@@ -37,17 +40,23 @@ public class SecurityConfig {
             "/webjars/**",
             "role/**",
             "user/**",
+            "user/logout",
+            "user/{email}/role",
             "reservation/**",
             "category/**",
-            "productDetail/**",
+            "product-detail/**",
             "product/**",
             "v1/**",
             "registration/**",
+            "/mail/**",
+            "registration/**",
             "confirmation-email/**",
             "product-detail/**",
-            "qualify/**"}
-            ;
-
+            "qualify",
+            "qualify/{qualifyProductId}",
+            "qualify/{qualifyProductId}",
+            "qualify/product/{productId}",
+            "qualify/user/{userId}"};
 
     private final CustomAuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -61,15 +70,21 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
+                                .requestMatchers(GET,"/qualify/**").authenticated()
+                                .requestMatchers(POST,"/qualify/**").authenticated()
+                                .requestMatchers(DELETE,"/qualify/**").authenticated()
+                                .requestMatchers(PUT,"/qualify/**").authenticated()
                                 .requestMatchers("/user/register/").permitAll()
-                                .requestMatchers("/user/validate").permitAll(
-
-                                )
-                                .requestMatchers("/user/authenticate/").permitAll()
-                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
-                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers("/mail/List").permitAll()
+                                .requestMatchers("user/confirm").permitAll()
+                                .requestMatchers("/user/login").permitAll()
+                                .requestMatchers("/registration/registry").permitAll()
+                                .requestMatchers("/user/delete").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers("/configuration/security").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(GET, "/rest/api/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(POST, "/rest/api/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(PUT, "/rest/api/**").hasAnyAuthority(ADMIN.name())
+                                .requestMatchers(DELETE, "/rest/api/**").hasAnyAuthority(ADMIN.name())
                                 .anyRequest()
                                 .authenticated()
                 )
@@ -85,8 +100,5 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
-
 
 }
