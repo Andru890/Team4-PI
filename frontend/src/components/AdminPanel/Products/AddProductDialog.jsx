@@ -317,17 +317,28 @@ const AddProductDialog = () => {
                   className='hidden'
                 />
                 {imageUrls.length > 0 && (
-                  <div className='absolute inset-0 grid grid-cols-4 gap-2 p-2'>
+                  <div
+                    className='absolute inset-0 grid grid-cols-4 gap-2 p-2 overflow-auto'
+                    style={{ maxHeight: '100%' }}
+                  >
                     {imageUrls.map((url, index) => (
-                      <div key={index} className='relative'>
+                      <div
+                        key={index}
+                        className='relative'
+                        style={{
+                          width: '100%',
+                          paddingBottom: '100%',
+                          overflow: 'hidden',
+                        }}
+                      >
                         <button
                           type='button'
                           onClick={(e) => handleRemoveImage(index, e)}
-                          className='absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center'
+                          className='absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center z-10'
                         >
                           x
                         </button>
-                        <div className='border rounded-lg overflow-hidden'>
+                        <div className='border rounded-lg overflow-hidden absolute inset-0'>
                           <img
                             src={url}
                             alt={`Imagen previa ${index + 1}`}
