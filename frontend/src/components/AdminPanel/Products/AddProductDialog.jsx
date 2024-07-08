@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useGlobalContext } from '@/context/global.context'
 import { toast } from 'sonner'
@@ -7,8 +7,7 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { CardContent } from '@/components/ui/card'
-import { PlusIcon } from '@/components/Icons'
-import { Badge } from '@/components/ui/badge'
+import { PencilIcon } from '@/components/Icons'
 import {
   Dialog,
   DialogTrigger,
@@ -27,24 +26,44 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Badge } from '@/components/ui/badge'
 
-const AddProductDialog = () => {
+const EditProductDialog = ({ productId }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [imageFiles, setImageFiles] = useState([])
+  const [imageUrls, setImageUrls] = useState([])
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    reset,
     setValue,
-    watch,
+    reset,
     control,
+    watch,
+    formState: { errors },
   } = useForm()
-  const [imageFiles, setImageFiles] = useState([])
-  const [imageUrls, setImageUrls] = useState([])
-  const [isOpen, setIsOpen] = useState(false)
-  const { state, handleAddProduct } = useGlobalContext()
-  const { dataCategory: categories, dataFeature: features } = state
+  const { state, handleUpdateProduct } = useGlobalContext()
+  const {
+    data: products,
+    dataCategory: categories,
+    dataFeature: features,
+  } = state
   const { uploadImage, isUploading } = useCloudinary()
   const [selectedFeatures, setSelectedFeatures] = useState([])
+
+  useEffect(() => {
+    const productToEdit = products.find((p) => p.id === productId)
+    if (productToEdit) {
+      setValue('name', productToEdit.name || '')
+      setValue('description', productToEdit.description || '')
+      setValue('price', productToEdit.price || 0)
+      setValue('stock', productToEdit.stock || 0)
+      setValue('category', productToEdit.category?.name || '')
+      setSelectedFeatures(
+        productToEdit.characteristics?.map((char) => char.id.toString()) || []
+      )
+      setImageUrls(productToEdit.images || [])
+    }
+  }, [productId, products, setValue])
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files)
@@ -92,26 +111,24 @@ const AddProductDialog = () => {
         imageFiles.map((file) => uploadImage(file))
       )
 
-      handleAddProduct({
+      const updatedProduct = {
+        id: productId,
         ...data,
         price: parseFloat(data.price),
+        stock: parseInt(data.stock, 10),
+        images: uploadedImageUrls.length ? uploadedImageUrls : imageUrls,
+        category: selectedCategory,
         characteristics: selectedFeatures.map((id) => ({
           id: parseInt(id, 10),
         })),
-        images: uploadedImageUrls,
-        category: selectedCategory,
-        stock: parseInt(data.stock, 10),
-      })
+      }
 
-      toast.success('Producto agregado con éxito')
-      reset()
-      setImageFiles([])
-      setImageUrls([])
-      setSelectedFeatures([])
+      await handleUpdateProduct(productId, updatedProduct)
+      toast.success('Producto actualizado con éxito')
       setIsOpen(false)
     } catch (error) {
-      console.error('Error al agregar el producto:', error)
-      toast.error('Error al agregar el producto')
+      console.error('Error al actualizar el producto:', error)
+      toast.error('Error al actualizar el producto')
     }
   }
 
@@ -120,16 +137,16 @@ const AddProductDialog = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline'>
-          <PlusIcon className='w-4 h-4 mr-2' />
-          Agregar
+        <Button variant='ghost'>
+          <PencilIcon className='h-5 w-5' />
+          <span className='sr-only'>Editar</span>
         </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[600px]'>
         <DialogHeader>
-          <DialogTitle>Agregar nuevo producto</DialogTitle>
+          <DialogTitle>Editar producto</DialogTitle>
           <DialogDescription>
-            Completa el formulario para agregar un nuevo producto a la tienda.
+            Modifica los detalles del producto.
           </DialogDescription>
         </DialogHeader>
         <CardContent className='overflow-y-auto max-h-[80vh]'>
@@ -352,7 +369,7 @@ const AddProductDialog = () => {
               </div>
             </div>
             <Button className='w-full' type='submit' disabled={isUploading}>
-              {isUploading ? 'Subiendo imágenes...' : 'Crear Producto'}
+              {isUploading ? 'Subiendo imágenes...' : 'Guardar cambios'}
             </Button>
           </form>
         </CardContent>
@@ -382,4 +399,4 @@ function UploadIcon(props) {
   )
 }
 
-export default AddProductDialog
+export default EditProductDialog

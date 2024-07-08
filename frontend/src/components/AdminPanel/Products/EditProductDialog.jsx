@@ -26,37 +26,80 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Badge } from '@/components/ui/badge'
 
 const EditProductDialog = ({ productId }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [product, setProduct] = useState(null)
-  const { register, handleSubmit, setValue, reset, control, watch } = useForm()
+  const [imageFiles, setImageFiles] = useState([])
+  const [imageUrls, setImageUrls] = useState([])
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm()
   const { state, handleUpdateProduct } = useGlobalContext()
-  const { data: products, dataCategory: categories } = state
+  const {
+    data: products,
+    dataCategory: categories,
+    dataFeature: features,
+  } = state
   const { uploadImage, isUploading } = useCloudinary()
+  const [selectedFeatures, setSelectedFeatures] = useState([])
 
   useEffect(() => {
     const productToEdit = products.find((p) => p.id === productId)
     if (productToEdit) {
-      setProduct(productToEdit)
       setValue('name', productToEdit.name || '')
       setValue('description', productToEdit.description || '')
       setValue('price', productToEdit.price || 0)
       setValue('stock', productToEdit.stock || 0)
       setValue('category', productToEdit.category?.name || '')
-      setValue(
-        'characteristics',
-        productToEdit.characteristics?.map((char) => char.characteristic) || []
+      setSelectedFeatures(
+        productToEdit.characteristics?.map((char) => char.id.toString()) || []
       )
-      setValue('images', productToEdit.images || [])
+      setImageUrls(productToEdit.images || [])
     }
   }, [productId, products, setValue])
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files)
+    setImageFiles([...imageFiles, ...files])
     const urls = files.map((file) => URL.createObjectURL(file))
-    setProduct((prev) => ({ ...prev, images: [...prev.images, ...urls] }))
-    setValue('images', [...product.images, ...files])
+    setImageUrls([...imageUrls, ...urls])
+  }
+
+  const handleDragOver = (e) => {
+    e.preventDefault()
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    const files = Array.from(e.dataTransfer.files)
+    setImageFiles([...imageFiles, ...files])
+    const urls = files.map((file) => URL.createObjectURL(file))
+    setImageUrls([...imageUrls, ...urls])
+  }
+
+  const handleFeatureChange = (featureId) => {
+    setSelectedFeatures((prevSelectedFeatures) => {
+      if (prevSelectedFeatures.includes(featureId)) {
+        return prevSelectedFeatures.filter((id) => id !== featureId)
+      } else {
+        return [...prevSelectedFeatures, featureId]
+      }
+    })
+  }
+
+  const handleRemoveImage = (index, e) => {
+    e.stopPropagation()
+    const newImageFiles = imageFiles.filter((_, i) => i !== index)
+    const newImageUrls = imageUrls.filter((_, i) => i !== index)
+    setImageFiles(newImageFiles)
+    setImageUrls(newImageUrls)
   }
 
   const onSubmit = async (data) => {
@@ -65,18 +108,18 @@ const EditProductDialog = ({ productId }) => {
         (cat) => cat.name === data.category
       )
       const uploadedImageUrls = await Promise.all(
-        (data.images || []).map((file) => uploadImage(file))
+        imageFiles.map((file) => uploadImage(file))
       )
 
       const updatedProduct = {
-        ...product,
+        id: productId, // Ensure the productId is included here
         ...data,
         price: parseFloat(data.price),
         stock: parseInt(data.stock, 10),
-        images: uploadedImageUrls.length ? uploadedImageUrls : product.images,
+        images: uploadedImageUrls.length ? uploadedImageUrls : imageUrls,
         category: selectedCategory,
-        characteristics: data.characteristics.map((char) => ({
-          characteristic: char,
+        characteristics: selectedFeatures.map((id) => ({
+          id: parseInt(id, 10),
         })),
       }
 
@@ -106,7 +149,7 @@ const EditProductDialog = ({ productId }) => {
             Modifica los detalles del producto.
           </DialogDescription>
         </DialogHeader>
-        <CardContent>
+        <CardContent className='overflow-y-auto max-h-[80vh]'>
           <form className='grid gap-4' onSubmit={handleSubmit(onSubmit)}>
             <div className='grid gap-2'>
               <Label htmlFor='name'>Nombre</Label>
@@ -114,7 +157,13 @@ const EditProductDialog = ({ productId }) => {
                 id='name'
                 placeholder='Nombre del producto'
                 {...register('name', { required: 'El nombre es obligatorio' })}
+                className={errors.name ? 'border-red-500' : ''}
               />
+              {errors.name && (
+                <span className='text-red-500 text-sm'>
+                  {errors.name.message}
+                </span>
+              )}
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='description'>Descripción</Label>
@@ -129,22 +178,60 @@ const EditProductDialog = ({ productId }) => {
                       'La descripción no puede superar los 1000 caracteres',
                   },
                 })}
+                className={errors.description ? 'border-red-500' : ''}
               />
+              {errors.description && (
+                <span className='text-red-500 text-sm'>
+                  {errors.description.message}
+                </span>
+              )}
               <p>Total {descriptionValue.length}/1000 caracteres</p>
             </div>
             <div className='grid gap-2'>
               <Label htmlFor='characteristics'>Características</Label>
-              <Controller
-                name='characteristics'
-                control={control}
-                render={({ field }) => (
-                  <Textarea
-                    id='characteristics'
-                    placeholder='Características del producto'
-                    {...field}
-                  />
+              <div className='grid gap-2'>
+                <Select onValueChange={handleFeatureChange}>
+                  <SelectTrigger className='w-full'>
+                    <SelectValue placeholder='Selecciona características' />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Características</SelectLabel>
+                      {features.map((feature) => (
+                        <SelectItem key={feature.id} value={String(feature.id)}>
+                          {feature.characteristic}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                {errors.characteristics && (
+                  <span className='text-red-500 text-sm'>
+                    {errors.characteristics.message}
+                  </span>
                 )}
-              />
+              </div>
+              <div className='grid grid-cols-2 gap-2'>
+                {selectedFeatures.map((id) => {
+                  const feature = features.find(
+                    (feature) => feature.id === parseInt(id, 10)
+                  )
+                  return (
+                    <Badge
+                      key={id}
+                      className='flex items-center justify-between'
+                    >
+                      {feature.characteristic}
+                      <Button
+                        variant='ghost'
+                        onClick={() => handleFeatureChange(id)}
+                      >
+                        x
+                      </Button>
+                    </Badge>
+                  )
+                })}
+              </div>
             </div>
             <div className='grid gap-2 md:grid-cols-2 md:gap-4'>
               <div className='grid gap-2'>
@@ -156,16 +243,30 @@ const EditProductDialog = ({ productId }) => {
                   {...register('price', {
                     required: 'El precio es obligatorio',
                   })}
+                  className={errors.price ? 'border-red-500' : ''}
                 />
+                {errors.price && (
+                  <span className='text-red-500 text-sm'>
+                    {errors.price.message}
+                  </span>
+                )}
               </div>
+
               <div className='grid gap-2'>
                 <Label htmlFor='category'>Categoría</Label>
                 <Controller
                   name='category'
                   control={control}
+                  defaultValue=''
+                  rules={{ required: 'La categoría es obligatoria' }}
                   render={({ field }) => (
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <SelectTrigger>
+                    <Select
+                      onValueChange={(value) => field.onChange(value)}
+                      value={field.value}
+                    >
+                      <SelectTrigger
+                        className={`w-full ${errors.category ? 'border-red-500' : ''}`}
+                      >
                         <SelectValue placeholder='Selecciona una categoría' />
                       </SelectTrigger>
                       <SelectContent>
@@ -181,6 +282,11 @@ const EditProductDialog = ({ productId }) => {
                     </Select>
                   )}
                 />
+                {errors.category && (
+                  <span className='text-red-500 text-sm'>
+                    {errors.category.message}
+                  </span>
+                )}
               </div>
             </div>
             <div className='grid gap-2'>
@@ -192,29 +298,75 @@ const EditProductDialog = ({ productId }) => {
                 {...register('stock', {
                   required: 'La cantidad es obligatoria',
                 })}
+                className={errors.stock ? 'border-red-500' : ''}
               />
+              {errors.stock && (
+                <span className='text-red-500 text-sm'>
+                  {errors.stock.message}
+                </span>
+              )}
             </div>
             <div className='grid gap-2'>
-              <Label htmlFor='images'>Imágenes</Label>
-              <Input
-                id='images'
-                type='file'
-                accept='image/*'
-                multiple
-                onChange={handleImageChange}
-              />
-              {product?.images && (
-                <div className='grid grid-cols-4 gap-2'>
-                  {product.images.map((url, index) => (
-                    <img
-                      key={index}
-                      src={url}
-                      alt={`Imagen previa ${index + 1}`}
-                      className='w-20 h-20 object-cover'
-                    />
-                  ))}
-                </div>
-              )}
+              <Label htmlFor='image'>Imágenes</Label>
+              <div
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onClick={() => document.getElementById('image').click()}
+                className='border-2 border-dashed border-primary rounded-lg p-8 flex flex-col items-center justify-center h-64 cursor-pointer relative'
+              >
+                {imageUrls.length === 0 && (
+                  <>
+                    <UploadIcon className='w-12 h-12 text-primary' />
+                    <p className='text-primary font-semibold'>
+                      Arrastra y suelta imágenes aquí
+                    </p>
+                    <p className='text-muted-foreground'>
+                      o haz clic para seleccionar archivos
+                    </p>
+                  </>
+                )}
+                <input
+                  id='image'
+                  type='file'
+                  accept='image/*'
+                  multiple
+                  onChange={handleImageChange}
+                  className='hidden'
+                />
+                {imageUrls.length > 0 && (
+                  <div
+                    className='absolute inset-0 grid grid-cols-4 gap-2 p-2 overflow-auto'
+                    style={{ maxHeight: '100%' }}
+                  >
+                    {imageUrls.map((url, index) => (
+                      <div
+                        key={index}
+                        className='relative'
+                        style={{
+                          width: '100%',
+                          paddingBottom: '100%',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <button
+                          type='button'
+                          onClick={(e) => handleRemoveImage(index, e)}
+                          className='absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center z-10'
+                        >
+                          x
+                        </button>
+                        <div className='border rounded-lg overflow-hidden absolute inset-0'>
+                          <img
+                            src={url}
+                            alt={`Imagen previa ${index + 1}`}
+                            className='w-full h-full object-cover'
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
             <Button className='w-full' type='submit' disabled={isUploading}>
               {isUploading ? 'Subiendo imágenes...' : 'Guardar cambios'}
@@ -223,6 +375,27 @@ const EditProductDialog = ({ productId }) => {
         </CardContent>
       </DialogContent>
     </Dialog>
+  )
+}
+
+function UploadIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' />
+      <polyline points='17 8 12 3 7 8' />
+      <line x1='12' y1='3' x2='12' y2='15' />
+    </svg>
   )
 }
 
