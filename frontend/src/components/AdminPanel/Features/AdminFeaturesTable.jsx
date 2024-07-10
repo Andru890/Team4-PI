@@ -35,12 +35,15 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import AdminFeatureDialog from '@/components/AdminPanel/Features/AddFeaturesDialog'
+import EditFeaturesDialog from '@/components/AdminPanel/Features/EditFeaturesDialog'
 import useConfirmDialog from '@/hooks/useConfirmDialog'
 
 const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState({ key: 'id', order: 'asc' })
   const [filters, setFilters] = useState({ customer: [] })
+  const [editFeatureId, setEditFeatureId] = useState(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const { openDialog, ConfirmDialog } = useConfirmDialog()
 
   const filteredFeatures = useMemo(() => {
@@ -96,6 +99,11 @@ const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
   const handleConfirmDelete = (id) => {
     handleDeleteFeature(id)
     toast.success('Característica eliminada con éxito')
+  }
+
+  const handleEdit = (id) => {
+    setEditFeatureId(id)
+    setIsEditDialogOpen(true)
   }
 
   return (
@@ -229,10 +237,18 @@ const AdminFeaturesTable = ({ features, handleDeleteFeature }) => {
                 <TableCell>{feature.characteristic}</TableCell>
                 <TableCell>
                   <div className='flex items-center gap-2'>
-                    <Button variant='ghost'>
+                    <Button
+                      variant='ghost'
+                      onClick={() => handleEdit(feature.id)}
+                    >
                       <PencilIcon className='h-5 w-5' />
                       <span className='sr-only'>Editar</span>
                     </Button>
+                    <EditFeaturesDialog
+                      featureId={feature.id}
+                      isOpen={editFeatureId === feature.id && isEditDialogOpen}
+                      setIsOpen={setIsEditDialogOpen}
+                    />
                     <Button
                       variant='destructive'
                       onClick={() => handleDelete(feature.id)}

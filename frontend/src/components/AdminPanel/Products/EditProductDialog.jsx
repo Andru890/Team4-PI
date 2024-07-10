@@ -36,7 +36,6 @@ const EditProductDialog = ({ productId }) => {
     register,
     handleSubmit,
     setValue,
-    reset,
     control,
     watch,
     formState: { errors },
@@ -112,7 +111,7 @@ const EditProductDialog = ({ productId }) => {
       )
 
       const updatedProduct = {
-        id: productId, // Ensure the productId is included here
+        id: productId,
         ...data,
         price: parseFloat(data.price),
         stock: parseInt(data.stock, 10),
