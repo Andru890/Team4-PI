@@ -48,6 +48,17 @@ const AddFeaturesDialog = () => {
     setImageURL(URL.createObjectURL(file))
   }
 
+  const handleDragOver = (e) => {
+    e.preventDefault()
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    const file = e.dataTransfer.files[0]
+    setImageFile(file)
+    setImageURL(URL.createObjectURL(file))
+  }
+
   const handleDeleteImage = () => {
     setImageFile(null)
     setImageURL(null)
@@ -81,26 +92,61 @@ const AddFeaturesDialog = () => {
           </div>
           <div className='space-y-1'>
             <Label htmlFor='image'>Imagen</Label>
-            <Input
-              id='image'
-              type='file'
-              accept='image/*'
-              onChange={handleImageChange}
-              placeholder='Selecciona una imagen para la característica'
-              aria-label='Imagen de la característica'
-            />
-            {imageURL && (
-              <div>
-                <img
-                  src={imageURL}
-                  alt='Vista previa de la imagen'
-                  className='w-32 h-32 object-cover mt-2'
-                />
-                <button type='button' onClick={handleDeleteImage}>
-                  Eliminar imagen
-                </button>
-              </div>
-            )}
+            <div
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+              onClick={() => document.getElementById('image').click()}
+              className='border-2 border-dashed border-primary rounded-lg p-8 flex flex-col items-center justify-center h-64 cursor-pointer relative'
+            >
+              {imageURL === null && (
+                <>
+                  <UploadIcon className='w-12 h-12 text-primary' />
+                  <p className='text-primary font-semibold'>
+                    Arrastra y suelta una imagen aquí
+                  </p>
+                  <p className='text-muted-foreground'>
+                    o haz clic para seleccionar un archivo
+                  </p>
+                </>
+              )}
+              <input
+                id='image'
+                type='file'
+                accept='image/*'
+                onChange={handleImageChange}
+                className='hidden'
+              />
+              {imageURL && (
+                <div
+                  className='absolute inset-0 grid grid-cols-1 gap-2 p-2 overflow-auto'
+                  style={{ maxHeight: '100%' }}
+                >
+                  <div
+                    className='relative'
+                    style={{
+                      width: '100%',
+                      paddingBottom: '100%',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <button
+                      type='button'
+                      onClick={handleDeleteImage}
+                      className='absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center z-10'
+                    >
+                      x
+                    </button>
+                    <div className='border rounded-lg overflow-hidden absolute inset-0'>
+                      <img
+                        src={imageURL}
+                        alt='Imagen previa'
+                        className='w-full h-full object-cover'
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
           <div className='flex justify-end gap-2'>
             <Button type='submit' disabled={isUploading}>
@@ -110,6 +156,27 @@ const AddFeaturesDialog = () => {
         </form>
       </DialogContent>
     </Dialog>
+  )
+}
+
+function UploadIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' />
+      <polyline points='17 8 12 3 7 8' />
+      <line x1='12' y1='3' x2='12' y2='15' />
+    </svg>
   )
 }
 
