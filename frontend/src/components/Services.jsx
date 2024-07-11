@@ -4,8 +4,8 @@ const Services = () => {
   return (
     <>
       <div className='flex justify-center items-center'>
-        <div className='bg-white dark:bg-gray-950 py-12 md:py-20 lg:py-24'>
-          <div className='container px-4 md:px-6'>
+        <div className='bg-white dark:bg-gray-950 py-12 md:py-20 lg:py-24 w-full'>
+          <div className='max-w-screen-xl mx-auto px-4 md:px-6'>
             <div className='grid gap-8 md:gap-12 lg:gap-16'>
               <div className='text-center'>
                 <h1 className='text-3xl font-bold tracking-tight sm:text-4xl md:text-4xl'>
@@ -16,7 +16,7 @@ const Services = () => {
                   eventos y proyectos.
                 </p>
               </div>
-              <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12'>
+              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12'>
                 <div className='bg-gray-100 dark:bg-gray-800 rounded-lg p-6 md:p-8 flex flex-col items-start gap-4'>
                   <div className='bg-gray-200 dark:bg-gray-700 rounded-full p-3'>
                     <CameraIcon className='w-6 h-6 text-gray-600 dark:text-gray-400' />
