@@ -34,7 +34,7 @@ const ItemListContainer = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   return (
-    <section className='w-full py-12 md:py-24 lg:py-32'>
+    <section className='w-full py-12 md:py-24 lg:py-32 flex flex-col items-center'>
       <div className='max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:px-6'>
         <div className='grid gap-4'>
           <h2 className='text-3xl font-bold tracking-tighter sm:text-3xl md:text-3xl'>
